@@ -1,0 +1,85 @@
+// --------------------------------------------------------------------
+// Copyright (c) 2023 by JLSemi Inc.
+// --------------------------------------------------------------------
+//
+//                     JLSemi
+//                     Shanghai, China
+//                     Name :
+//                     Email:
+//
+// --------------------------------------------------------------------
+// --------------------------------------------------------------------
+//  Revision History:1.0
+//  Date          By            Revision    Change Description
+//---------------------------------------------------------------------
+//  2024-03-08                  1.0         sram_ctrl
+// --------------------------------------------------------------------
+// --------------------------------------------------------------------
+
+module sram_ctrl
+(
+    // Input-Output declarations
+    input         mem_sd      ,
+
+    input         clk_a       ,
+    input         rstn_a      ,
+    input         write_en_a  ,
+    input         chip_en_a   ,
+    input [8:0]   din0_a      ,
+
+    input         clk_b       ,
+    input         rstn_b      ,
+    input         write_en_b  ,
+    input         chip_en_b   ,
+    input [8:0]   din0_b      ,
+
+    output  [8:0] dout0_a     ,
+    output  [8:0] dout0_b
+
+);
+
+    wire          slp;
+
+    reg   [14:0]  aa[95:0];
+
+
+    genvar i;
+    generate
+        for (i=0;i<96;i=i+1) begin:waddr_gen
+            always @(posedge clk_a or negedge rstn_a)
+            begin
+                if(~rstn_a) begin
+                    aa[i] <= 15'b0;
+                end
+                else if (chip_en_a & write_en_a) begin
+                    aa[i] <= aa[i] + 1'b1;
+                end
+            end
+        end
+    endgenerate
+
+    genvar j;
+    generate
+        for (j=0;j<96;j=j+1) begin:sram_inst
+            
+            u_dpsram32768x9_wrapper
+            (
+            .SLP    (slp[j]     ),
+            .SD     (mem_sd     ),
+            .AA     (aa[j]      ),
+            .DA     (dina[j]    ),
+            .WEBA   (write_en_a ),
+            .CEBA   (chip_en_a  ),
+            .CLKA   (clka       ),
+            .AB     (ab_0[j]    ),
+            .DB     (din0_b     ),
+            .WEBB   (write_en_b ),
+            .CEBB   (chip_en_b  ),
+            .CLKB   (clkb       ),
+            .QA     (qa_0[j]    ),
+            .QB     (qb_0[j]    )
+            );
+        end
+    endgenerate
+
+endmodule
