@@ -1,3 +1,11 @@
--v /digital/Memory/spsram/TSMC28HPCPHVT32768x9M16S_SPSRAM/VERILOG/TSMC28HPCPHVT32768x9M16S_SPSRAM_ffg0p99vm40c.v
-../../hw/rtl/spsram32768x9_wrapper.v
-../../hw/rtl/sram_ctrl.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_async_reset_low_sync.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_sync_pos_with_rst_low.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_clkdiv_odd.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_clkdiv_even.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_clkgate.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_clk_gate_cell.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_clkmux_sel1.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_clkxor.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_clkbuf.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_and_cell.v
+~/prj/adc_capture/hw/rtl/clk_rst_gen/jlsemi_util_mux_cell.v
