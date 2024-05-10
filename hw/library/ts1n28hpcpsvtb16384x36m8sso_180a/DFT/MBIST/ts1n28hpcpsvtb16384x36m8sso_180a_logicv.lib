@@ -1,0 +1,103 @@
+//*#*********************************************************************************************************************/
+//*# Software       : TSMC MEMORY COMPILER tsn28hpcpd127spsram_2012.02.00.d.180a						*/
+//*# Technology     : TSMC 28nm CMOS LOGIC High Performance Compact Mobile Computing Plus 1P10M HKMG CU_ELK 0.9V				*/
+//*#  Memory Type    : TSMC 28nm High Performance Compact Mobile Computing Plus Single Port SRAM with d127 bit cell SVT periphery */
+//*# Library Name   : ts1n28hpcpsvtb16384x36m8sso (user specify : TS1N28HPCPSVTB16384X36M8SSO)				*/
+//*# Library Version: 180a												*/
+//*# Generated Time : 2024/05/10, 15:16:52										*/
+//*#*********************************************************************************************************************/
+//*#															*/
+//*# STATEMENT OF USE													*/
+//*#															*/
+//*# This information contains confidential and proprietary information of TSMC.					*/
+//*# No part of this information may be reproduced, transmitted, transcribed,						*/
+//*# stored in a retrieval system, or translated into any human or computer						*/
+//*# language, in any form or by any means, electronic, mechanical, magnetic,						*/
+//*# optical, chemical, manual, or otherwise, without the prior written permission					*/
+//*# of TSMC. This information was prepared for informational purpose and is for					*/
+//*# use by TSMC's customers only. TSMC reserves the right to make changes in the					*/
+//*# information at any time and without notice.									*/
+//*#															*/
+//*#*********************************************************************************************************************/
+
+//* Template Version : S_09_41702
+MemoryTemplate (TS1N28HPCPSVTB16384X36M8SSO) {
+
+      CellName        : TS1N28HPCPSVTB16384X36M8SSO;
+      Algorithm       : SMarchCHKBvcd;
+      logicalPorts    : 1rw;
+      NumberOfWords   : 16384;
+      MinHold         : 0.5;
+      MilliWattsPerMegaHertz : 0.021;
+      TransparentMode : None; 		//User options for DFT:
+      					// AsyncMux: 	for low speed scan
+					// SyncMux: 	for at-speed scan
+					// AsyncWriteThru: if there is AWT in this memory
+      
+
+      Port (CLK)  {
+          Function: Clock;
+      }
+      Port (CEB)  {
+                    Function: Select;
+	            Polarity: ActiveLow;	
+
+      }
+
+      Port (WEB) {
+            Function: WriteEnable; 
+	    Polarity: ActiveLow;
+
+      }
+
+
+      Port (D[35:0]) { 
+          Function: Data; 
+          Direction:   Input;
+      }
+      Port (Q[35:0]) { 
+          Function: Data; 
+          Direction:   Output; 
+      }
+      port (A[13:0]) {
+          function:    address;
+      }
+
+
+
+
+
+
+      Port (SLP) {
+	    Direction: Input	;
+          function:    None;
+          SafeValue:	0;
+      }
+
+
+      Port (SD) {
+	    Direction: Input	;
+          function:    None;
+          SafeValue:	0;
+      }
+
+
+// 2048 rows by 8 columns.
+      AddressCounter {
+          Function ( Address ) {
+	      LogicalAddressMap {
+                  ColumnAddress[2:0]:Address[2:0];  // number of columns
+	          RowAddress[10:0]:Address[13:3];  // number of rows
+	      }
+	  }
+	  Function ( ColumnAddress ) {
+              CountRange[0:7];
+	  }
+	  Function  ( RowAddress ) {
+              CountRange[0:2047];
+	  }
+      }
+
+      OperationSet : syncWR;
+      bitGrouping : 1;
+}

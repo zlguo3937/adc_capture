@@ -1,0 +1,170 @@
+####*********************************************************************************************************************/
+#### Software       : TSMC MEMORY COMPILER tsn28hpcpd127spsram_2012.02.00.d.180a						*/
+#### Technology     : TSMC 28nm CMOS LOGIC High Performance Compact Mobile Computing Plus 1P10M HKMG CU_ELK 0.9V				*/
+####  Memory Type    : TSMC 28nm High Performance Compact Mobile Computing Plus Single Port SRAM with d127 bit cell HVT periphery */
+#### Library Name   : ts1n28hpcphvtb16384x36m8sso (user specify : TS1N28HPCPHVTB16384X36M8SSO)				*/
+#### Library Version: 180a												*/
+#### Generated Time : 2024/05/10, 15:14:06										*/
+####*********************************************************************************************************************/
+####															*/
+#### STATEMENT OF USE													*/
+####															*/
+#### This information contains confidential and proprietary information of TSMC.					*/
+#### No part of this information may be reproduced, transmitted, transcribed,						*/
+#### stored in a retrieval system, or translated into any human or computer						*/
+#### language, in any form or by any means, electronic, mechanical, magnetic,						*/
+#### optical, chemical, manual, or otherwise, without the prior written permission					*/
+#### of TSMC. This information was prepared for informational purpose and is for					*/
+#### use by TSMC's customers only. TSMC reserves the right to make changes in the					*/
+#### information at any time and without notice.									*/
+####															*/
+####*********************************************************************************************************************/
+
+1. Area
+
+  Pre-shrink (dimensions in GDS database)
+  -----------------------------------------------------------------------
+  |       Width(um)      |       Height(um)        |    Area (um^2)     |
+  -----------------------------------------------------------------------
+  |       653.5350        |       186.3700           |      121799.3179     |
+  -----------------------------------------------------------------------
+
+
+
+2. Timing Specification
+    
+   2.1 Timing Protocol (Refer to the waveforms in the databook)
+   
+   2.2 SRAM timing:(Slow, 0.8100, -40.0000 deg.)
+
+   I. Normal Mode
+
+           Parameter                 Symbol    Param. Value (ns)
+           ---------                 ------    ------------
+           Cycle time                tcyc          1.3236
+           Access time               tcd           1.2449
+           Output data hold time     thold         0.9089
+           Clock high                tckh          0.2228
+           Clock low                 tckl          0.2776
+           Address setup             tas           0.1653
+           Address hold              tah           0.1330
+           Chip enable setup         tcs           0.2101
+           Chip enable hold          tch           0.1268
+           Write enable setup        tws           0.1140
+           Write enable hold         twh           0.1308
+           Data setup                tds           0.1041
+           Data hold                 tdh           0.1481
+           SLP to CEB                tslpwk        1.7726 
+           CEB to SLP                tslp          1.3236
+           SLP to Q                  tslpq         4.7270
+           SLP to CLK                tslpwk2clk    1.7726
+           Input pin unknown to SLP  txslp         0.2835
+           SLP to input pin unknown  tslpx         2.9231
+           Q valid after SLP enable  tslpqh        0.0000
+           Q valid after SLP disable tqh           0.0000
+           SD to CEB                 tsdwk         14.7248
+           CEB to SD                 tsd           1.3236
+           SD to Q                   tsdq          4.7270
+           SD to CLK                 tsdwk2clk     14.7248 
+           Input pin unknown to SD   txsd          0.2835
+           SD to input pin unknown   tsdx          2.8205
+           Q valid after SD enable   tsdqh         0.0000
+           Q valid after SD disable  tqh           0.0000
+           ---------                 ------    ------------
+
+
+
+
+3. Pin capacitance
+
+      Pin                     Value (pF)
+      ---------               ------------------
+      CLK                     0.0471
+      SLP                     0.0009
+      SD                      0.0026
+      A[13:0]                  0.0007
+      D[35:0]                 0.0008
+      CEB                     0.0008
+      WEB                     0.0010
+
+4. Power
+
+    The tables below provide static and dynamic power information for the
+  different operational modes of the memory.  The total average macro power will
+  be the sum of the static component (namely, leakage) and the dynamic components.
+  Although the data provided in this document mainly pertains to a specific
+  process, voltage, and temperature (PVT) condition based on user selection, the
+  leakage at the worst case PVT has also been provided for reference.
+
+
+  4.1 Static Power
+
+    Functional Mode                                         Value 
+    --------------------------                              ------------------------------------------------------------------
+                                                            Total               Periphery                Cell Array
+    Leakage Current                                             12.7462 (uA)         1.4665 (uA)        11.2797 (uA)
+    Sleep Mode Current*                                         12.5306 (uA)         1.2509 (uA)        11.2797 (uA)
+    Shut Down Mode Current**                                     2.7135 (uA)         2.7135 (uA)         0.0000 (uA)
+
+
+    * Sleep Mode = memory is disabled by CEB pin and SLP is logic high state
+    ** Shut Down Mode = memory is disabled by CEB pin and SD is logic high state
+
+
+
+  4.2 Dynamic Power - Average  
+
+    Functional Mode (Total)                             Value
+    --------------------------                          ----------------
+    Read                                                   13.8904 (uA/MHz)
+    Write                                                  16.7181 (uA/MHz)
+    Standby*                                                0.3659 (uA/MHz)  
+
+
+
+    * Standby Mode = memory is disabled by CEB pin, CLK, address, data, and bit
+    write pins maintain 50% activity.
+
+    4.2.1  The above values assume 50% activity, which is typically defined as 1/2
+            the bus pins changing along with the relevant control pins, with NO load
+            on the output pins (Q).
+    4.2.2  For more event specific power or pin/bus contribution information, see
+            the Dynamic Power breakout table below.
+    4.2.3  No load on outputs (Q).
+
+
+
+  4.3 Dynamic Power - Breakout per pin
+
+    Pins (Total)                                    Value
+    ------------------------                        ----------------
+    CLK - Read Mode                                    13.4737 (uA/MHz)
+    CLK - Write Mode                                   16.4192 (uA/MHz)
+    CLK - Deselect                                      0.0670 (uA/MHz)
+    CEB                                                 0.0406 (uA/MHz)
+    WEB                                                 0.0176 (uA/MHz)
+    SLP                                                 6.5519 (uA/MHz)    
+    CEB - Sleep Mode                                    0.0000 (uA/MHz)
+    WEB - Sleep Mode                                    0.0000 (uA/MHz)
+    SD                                                 52.1928 (uA/MHz)    
+    CEB - Shut Down Mode                                0.0000 (uA/MHz)
+    WEB - Shut Down Mode                                0.0000 (uA/MHz)
+
+
+
+
+    Buses (Total)                                   Value (per pin)
+    ------------------------                        ----------------
+    Q[35:0]                                         0.0066 (uA/MHz)
+    A[13:0]                                           0.0097 (uA/MHz)
+    D[35:0]                                         0.0096 (uA/MHz)
+    D[35:0]  - Sleep Mode                           0.0000 (uA/MHz)
+    A[13:0] - Sleep Mode                              0.0000 (uA/MHz)
+    Q[35:0]  - Sleep Mode                           0.0000 (uA/MHz)
+    D[35:0]  - Shut Down Mode                       0.0000 (uA/MHz)
+    A[13:0] - Shut Down Mode                           0.0000 (uA/MHz)
+    Q[35:0]  - Shut Down Mode                          0.0000 (uA/MHz)
+
+
+    1. n = number of IO bits.       
+    2. m = number of addresses.

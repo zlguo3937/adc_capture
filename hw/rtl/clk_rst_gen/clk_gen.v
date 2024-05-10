@@ -17,6 +17,11 @@
 // --------------------------------------------------------------------
 module clk_gen
 (
+    //Dft
+    input   wire            dft_rstnsync_scan_rstn_ctrl,
+    input   wire            dft_rstnsync_scan_rstn,
+    input   wire            dft_rtl_icg_en,
+
     // Clock input from analog, Reset input from digital rst_gen
     input   wire            ANA_CLK200M,
     input   wire            ANA_CLK500M,
@@ -51,11 +56,9 @@ module clk_gen
     .clk_o                      (pktctrl_wclk_pre           )
     );
 
-    jlsemi_util_clkgate
-    #(
+    jlsemi_util_clkgate #(
         .RST_SYNC_STAGE (3),
-        .SYNC_STEP      (3)
-    )
+        .SYNC_STEP      (3))
     u_clkgate_to_pktctrl_wclk
     (
     .clk_i                      (pktctrl_wclk_pre           ),
@@ -68,10 +71,8 @@ module clk_gen
     );
 
     // Pktctrl data fast-read clock
-    jlsemi_util_clkdiv_even_with_cfg
-    #(
-        .RST_SYNC_STAGE (3)
-    )
+    jlsemi_util_clkdiv_even_with_cfg #(
+        .RST_SYNC_STAGE (3))
     u_even_clkdiv_to_fastread_rclk
     (
     .dft_stuck_at_mode          (dft_stuck_at_mode          ),
@@ -96,9 +97,9 @@ module clk_gen
     .clk_o                      (pktctrl_rclk_pre           )
     );
 
-    jlsemi_util_clkgate
-    #(.RST_SYNC_STAGE(3),
-      .SYNC_STEP(3))
+    jlsemi_util_clkgate #(
+        .RST_SYNC_STAGE (3),
+        .SYNC_STEP      (3))
     u_clkgate_to_pktctrl_rclk
     (
     .clk_i                      (pktctrl_rclk_pre           ),
@@ -118,9 +119,9 @@ module clk_gen
     .clk_o                      (pktctrl_rclk_pre           )
     );
 
-    jlsemi_util_clkgate
-    #(.RST_SYNC_STAGE(3),
-      .SYNC_STEP(3))
+    jlsemi_util_clkgate #(
+        .RST_SYNC_STAGE (3),
+        .SYNC_STEP      (3))
     u_clkgate_to_pktctrl_mdio_rclk
     (
     .clk_i                      (pktctrl_rclk_pre           ),
@@ -136,10 +137,8 @@ module clk_gen
     assign mdio_clk = pktctrl_rclk_pre;
 
     // Output clock to IOPad
-    jlsemi_util_clkdiv_even_with_phase
-    #(
-        .RST_SYNC_STAGE (3)
-    )
+    jlsemi_util_clkdiv_even_with_phase #(
+        .RST_SYNC_STAGE (3))
     u_even_clkdiv_to_CLKRD_with_phase
     (
     .dft_stuck_at_mode          (dft_stuck_at_mode          ),

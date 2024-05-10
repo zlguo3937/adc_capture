@@ -42,10 +42,10 @@ module crg
     input   wire            RSTN,
 
     // Register config: software reset
-    input   wire            pktctrl_wclk_sw_rstn,
-    input   wire            pktctrl_rclk_sw_rstn,
-    input   wire            pktctrl_mdio_rclk_sw_rstn,
-    input   wire            mdio_rclk_sw_rstn,
+    input   wire            rf_pktctrl_sw_wrstn,
+    input   wire            rf_pktctrl_sw_rrstn,
+    input   wire            rf_pktctrl_mdio_sw_rrstn,
+    input   wire            rf_mdio_sw_rstn,
 
     // Reset output
     output  wire            pktctrl_wrstn,
@@ -72,6 +72,27 @@ module crg
     .pktctrl_mdio_rclk          (pktctrl_mdio_rclk          ),
     .mdio_clk                   (mdio_clk                   ),
     .CLK_RD                     (CLK_RD                     )
+    );
+
+    rst_gen
+    u_rst_gen
+    (
+    .RSTN                       (RSTN                       ),
+    .dft_rstnsync_scan_rstn_ctrl(dft_rstnsync_scan_rstn_ctrl),
+    .dft_rstnsync_scan_rstn     (dft_rstnsync_scan_rstn     ),
+    .pktctrl_wclk               (pktctrl_wclk               ),
+    .pktctrl_rclk               (pktctrl_rclk               ),
+    .pktctrl_mdio_rclk          (pktctrl_mdio_rclk          ),
+    .mdio_clk                   (mdio_clk                   ),
+    .rf_pktctrl_sw_wrstn        (rf_pktctrl_sw_wrstn        ),
+    .rf_pktctrl_sw_rrstn        (rf_pktctrl_sw_rrstn        ),
+    .rf_pktctrl_mdio_sw_rrstn   (rf_pktctrl_mdio_sw_rrstn   ),
+    .rf_mdio_sw_rstn            (rf_mdio_sw_rstn            ),
+    .rstn                       (rstn                       ),
+    .pktctrl_wrstn              (pktctrl_wrstn              ),
+    .pktctrl_rrstn              (pktctrl_rrstn              ),
+    .pktctrl_mdio_rrstn         (pktctrl_mdio_rrstn         ),
+    .mdio_rstn                  (mdio_rstn                  )
     );
 
 endmodule
