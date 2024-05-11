@@ -17,49 +17,31 @@
 module memory_ctrl
 (
     input   wire                clk,
-    input   wire                rstn,
-    input   wire                write_en,
+
+    input   wire    [95:0]      chip_en;
+    input   wire    [95:0]      wr_en;
+
+    input   wire    [15*96-1:0] addr;
+
     input   wire    [9*96-1:0]  data_in
+    output  wire    [9*96-1:0]  data_out
+
 );
 
-    wire    [95:0]      cen;
-    wire    [95:0]      wen;
-
-    wire    [95:0]      rd_cen;
-    wire    [95:0]      rd_wen;
-
-    wire    [15*96-1:0] addr;
-    wire    [15*96-1:0] raddr;
-
-    wire    [9*96-1:0]  data_out;
-
-    wire                wr_wen = {96{1'b1}};
-    wire                wr_cen = {96{1'b1}};
-    
-    reg     [14:0]      waddr;
-
-    always @(posedge clk or negedge rstn) begin
-        if(!rstn)
-            waddr <= 15'b0;
-        else if(&waddr)
-            waddr <= 15'b0;
-        else if(write_en)
-            waddr <= waddr + 1'b1;
-    end
-
-    assign wen = write_en ? wr_wen : rd_wen;
-    assign cen = write_en ? wr_cen : rd_cen;
-    assign addr = write_en ? {96{waddr}} : raddr;
-
-    memory_wrapper
-    u_memory_wrapper
-    (
-    .clk            (clk            ),
-    .cen            (cen            ),
-    .wen            (wen            ),
-    .addr           (addr           ),
-    .data_in        (data_in        ),
-    .data_out       (data_out       )
-    );
+    genvar i;
+    generate
+        for (i=0;i<96;i=i+1) begin: MEMORY_UNIT
+            memory_inst
+            u_memory_inst
+            (
+            .CLK    (clk                ),
+            .CEB    (~chip_en[i]        ),
+            .WEB    (~wr_en[i]          ),
+            .A      (addr[15*i+:15]     ),
+            .D      (data_in[9*i+:9]    ),
+            .Q      (data_out[9*i+:9]   )
+            );
+        end
+    endgenerate
 
 endmodule

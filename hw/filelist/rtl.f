@@ -32,7 +32,7 @@
 ~/prj/adc_capture/hw/rtl/pktctrl/package_gen.v
 ~/prj/adc_capture/hw/rtl/pktctrl/adc_data_sel.v
 ~/prj/adc_capture/hw/rtl/pktctrl/memory_ctrl.v
-~/prj/adc_capture/hw/rtl/pktctrl/memory_wrapper.v
+~/prj/adc_capture/hw/rtl/pktctrl/memory_inst.v
 
 // ctrl system
 ~/prj/adc_capture/hw/rtl/ctrl_sys/ctrl_sys.v
