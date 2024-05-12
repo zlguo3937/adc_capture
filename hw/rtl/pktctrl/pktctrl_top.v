@@ -25,12 +25,7 @@ module pktctrl_top
     u_package_ctrl
     (
 
-    );
-
-    mdio_adc_data_ctrl
-    u_mdio_adc_data_ctrl
-    (
-
+    .data_in    (data_in    )
     );
 
     package_gen

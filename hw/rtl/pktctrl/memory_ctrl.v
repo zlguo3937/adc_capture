@@ -18,12 +18,12 @@ module memory_ctrl
 (
     input   wire                clk,
 
-    input   wire    [95:0]      chip_en;
-    input   wire    [95:0]      wr_en;
+    input   wire    [95:0]      chip_en,
+    input   wire    [95:0]      wr_en,
 
-    input   wire    [15*96-1:0] addr;
+    input   wire    [15*96-1:0] addr,
 
-    input   wire    [9*96-1:0]  data_in
+    input   wire    [9*96-1:0]  data_in,
     output  wire    [9*96-1:0]  data_out
 
 );

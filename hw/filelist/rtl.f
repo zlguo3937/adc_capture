@@ -1,4 +1,4 @@
-/library/TSMC/cln28hpcp/IO/tphn28hpcpgv18_170a/Front_End/verilog/tphn28hpcpgv18_110a/tphn28hpcpgv18.v
+~/prj/adc_capture/hw/library/tphn28hpcpgv18.v
 ~/prj/adc_capture/hw/library/ts1n28hpcphvtb32768x9m16sso_180a/VERILOG/ts1n28hpcphvtb32768x9m16sso_180a_ffg0p99vm40c.v
 
 // clk and rst
@@ -28,7 +28,7 @@
 // pktctrl
 ~/prj/adc_capture/hw/rtl/pktctrl/pktctrl_top.v
 ~/prj/adc_capture/hw/rtl/pktctrl/package_ctrl.v
-~/prj/adc_capture/hw/rtl/pktctrl/mdio_adc_data_ctrl.v
+~/prj/adc_capture/hw/rtl/pktctrl/gen_mdio_read_logic.v
 ~/prj/adc_capture/hw/rtl/pktctrl/package_gen.v
 ~/prj/adc_capture/hw/rtl/pktctrl/adc_data_sel.v
 ~/prj/adc_capture/hw/rtl/pktctrl/memory_ctrl.v
