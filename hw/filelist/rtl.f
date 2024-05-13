@@ -28,7 +28,9 @@
 // pktctrl
 ~/prj/adc_capture/hw/rtl/pktctrl/pktctrl_top.v
 ~/prj/adc_capture/hw/rtl/pktctrl/package_ctrl.v
+~/prj/adc_capture/hw/rtl/pktctrl/gen_write_logic.v
 ~/prj/adc_capture/hw/rtl/pktctrl/gen_mdio_read_logic.v
+~/prj/adc_capture/hw/rtl/pktctrl/gen_fast_read_logic.v
 ~/prj/adc_capture/hw/rtl/pktctrl/package_gen.v
 ~/prj/adc_capture/hw/rtl/pktctrl/adc_data_sel.v
 ~/prj/adc_capture/hw/rtl/pktctrl/memory_ctrl.v

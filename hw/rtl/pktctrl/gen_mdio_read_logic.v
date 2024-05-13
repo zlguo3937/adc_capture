@@ -17,8 +17,8 @@
 module gen_mdio_read_logic
 (
     // Mdio read
-    input   wire                clk_200m,
-    input   wire                rstn_200m,
+    input   wire                clk,
+    input   wire                rstn,
     input   wire                rf_mdio_read_en,    // pulse
     input   wire    [6:0]       rf_mdio_which_memory_sel,
     input   wire    [14:0]      rf_mdio_memory_addr,
@@ -26,7 +26,8 @@ module gen_mdio_read_logic
     input   wire    [96*9-1:0]  data_out,
     output  reg     [95:0]      mdio_rd_chip_en,
     output  reg     [96*15-1:0] mdio_rd_raddr,
-    output  reg     [8:0]       rf_mdio_pkt_data
+    output  reg     [8:0]       rf_mdio_pkt_data,
+    output  reg                 mdio_rd_done
 );
 
     reg [8:0] mdio_pkt_data;
@@ -88,15 +89,15 @@ module gen_mdio_read_logic
         endcase
     end
 
-    always @(posedge clk_200m or negedge rstn_200m) begin
-        if (!rstn_200m)
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
             rf_mdio_read_en_r <= 1'b0;
         else
             rf_mdio_read_en_r <= rf_mdio_read_en;
     end
 
-    always @(posedge clk_200m or negedge rstn_200m) begin
-        if (!rstn_200m)
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
             rf_mdio_pkt_data <= 9'h0;
         else if (mdio_rd_en) begin
             if (rf_mdio_read_en_r)
@@ -104,6 +105,15 @@ module gen_mdio_read_logic
         end
         else
             rf_mdio_pkt_data <= 9'h0;
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            mdio_rd_done <= 1'b0;
+        else if (mdio_rd_en) begin
+            if (rf_mdio_read_en_r && (rf_mdio_which_memory_sel == 7'd95) && (&rf_mdio_memory_addr))
+                mdio_rd_done <= 1'b1;
+        end
     end
 
 endmodule
