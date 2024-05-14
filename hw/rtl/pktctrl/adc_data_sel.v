@@ -1,93 +1,106 @@
 module adc_data_sel
 (
-    adc_data_in_95, adc_data_in_94, adc_data_in_93, adc_data_in_92, adc_data_in_91, adc_data_in_90, adc_data_in_89, adc_data_in_88,
-    adc_data_in_87, adc_data_in_86, adc_data_in_85, adc_data_in_84, adc_data_in_83, adc_data_in_82, adc_data_in_81, adc_data_in_80,
-    adc_data_in_79, adc_data_in_78, adc_data_in_77, adc_data_in_76, adc_data_in_75, adc_data_in_74, adc_data_in_73, adc_data_in_72,
-    adc_data_in_71, adc_data_in_70, adc_data_in_69, adc_data_in_68, adc_data_in_67, adc_data_in_66, adc_data_in_65, adc_data_in_64,
-    adc_data_in_63, adc_data_in_62, adc_data_in_61, adc_data_in_60, adc_data_in_59, adc_data_in_58, adc_data_in_57, adc_data_in_56,
-    adc_data_in_55, adc_data_in_54, adc_data_in_53, adc_data_in_52, adc_data_in_51, adc_data_in_50, adc_data_in_49, adc_data_in_48,
-    adc_data_in_47, adc_data_in_46, adc_data_in_45, adc_data_in_44, adc_data_in_43, adc_data_in_42, adc_data_in_41, adc_data_in_40,
-    adc_data_in_39, adc_data_in_38, adc_data_in_37, adc_data_in_36, adc_data_in_35, adc_data_in_34, adc_data_in_33, adc_data_in_32,
-    adc_data_in_31, adc_data_in_30, adc_data_in_29, adc_data_in_28, adc_data_in_27, adc_data_in_26, adc_data_in_25, adc_data_in_24,
-    adc_data_in_23, adc_data_in_22, adc_data_in_21, adc_data_in_20, adc_data_in_19, adc_data_in_18, adc_data_in_17, adc_data_in_16,
-    adc_data_in_15, adc_data_in_14, adc_data_in_13, adc_data_in_12, adc_data_in_11, adc_data_in_10, adc_data_in_9,  adc_data_in_8,
-    adc_data_in_7,  adc_data_in_6,  adc_data_in_5,  adc_data_in_4,  adc_data_in_3,  adc_data_in_2,  adc_data_in_1,  adc_data_in_0,
+    input   wire            rf_self_mode,
 
-    pkt_gen_data_in_95, pkt_gen_data_in_94, pkt_gen_data_in_93, pkt_gen_data_in_92, pkt_gen_data_in_91, pkt_gen_data_in_90, pkt_gen_data_in_89, pkt_gen_data_in_88,
-    pkt_gen_data_in_87, pkt_gen_data_in_86, pkt_gen_data_in_85, pkt_gen_data_in_84, pkt_gen_data_in_83, pkt_gen_data_in_82, pkt_gen_data_in_81, pkt_gen_data_in_80,
-    pkt_gen_data_in_79, pkt_gen_data_in_78, pkt_gen_data_in_77, pkt_gen_data_in_76, pkt_gen_data_in_75, pkt_gen_data_in_74, pkt_gen_data_in_73, pkt_gen_data_in_72,
-    pkt_gen_data_in_71, pkt_gen_data_in_70, pkt_gen_data_in_69, pkt_gen_data_in_68, pkt_gen_data_in_67, pkt_gen_data_in_66, pkt_gen_data_in_65, pkt_gen_data_in_64,
-    pkt_gen_data_in_63, pkt_gen_data_in_62, pkt_gen_data_in_61, pkt_gen_data_in_60, pkt_gen_data_in_59, pkt_gen_data_in_58, pkt_gen_data_in_57, pkt_gen_data_in_56,
-    pkt_gen_data_in_55, pkt_gen_data_in_54, pkt_gen_data_in_53, pkt_gen_data_in_52, pkt_gen_data_in_51, pkt_gen_data_in_50, pkt_gen_data_in_49, pkt_gen_data_in_48,
-    pkt_gen_data_in_47, pkt_gen_data_in_46, pkt_gen_data_in_45, pkt_gen_data_in_44, pkt_gen_data_in_43, pkt_gen_data_in_42, pkt_gen_data_in_41, pkt_gen_data_in_40,
-    pkt_gen_data_in_39, pkt_gen_data_in_38, pkt_gen_data_in_37, pkt_gen_data_in_36, pkt_gen_data_in_35, pkt_gen_data_in_34, pkt_gen_data_in_33, pkt_gen_data_in_32,
-    pkt_gen_data_in_31, pkt_gen_data_in_30, pkt_gen_data_in_29, pkt_gen_data_in_28, pkt_gen_data_in_27, pkt_gen_data_in_26, pkt_gen_data_in_25, pkt_gen_data_in_24,
-    pkt_gen_data_in_23, pkt_gen_data_in_22, pkt_gen_data_in_21, pkt_gen_data_in_20, pkt_gen_data_in_19, pkt_gen_data_in_18, pkt_gen_data_in_17, pkt_gen_data_in_16,
-    pkt_gen_data_in_15, pkt_gen_data_in_14, pkt_gen_data_in_13, pkt_gen_data_in_12, pkt_gen_data_in_11, pkt_gen_data_in_10, pkt_gen_data_in_9,  pkt_gen_data_in_8,
-    pkt_gen_data_in_7,  pkt_gen_data_in_6,  pkt_gen_data_in_5,  pkt_gen_data_in_4,  pkt_gen_data_in_3,  pkt_gen_data_in_2,  pkt_gen_data_in_1,  pkt_gen_data_in_0,
+    input   wire    [35:0]  ANA_ADC_DATA_0,
+    input   wire    [35:0]  ANA_ADC_DATA_1,
+    input   wire    [35:0]  ANA_ADC_DATA_2,
+    input   wire    [35:0]  ANA_ADC_DATA_3,
+    input   wire    [35:0]  ANA_ADC_DATA_4,
+    input   wire    [35:0]  ANA_ADC_DATA_5,
+    input   wire    [35:0]  ANA_ADC_DATA_6,
+    input   wire    [35:0]  ANA_ADC_DATA_7,
+    input   wire    [35:0]  ANA_ADC_DATA_8,
+    input   wire    [35:0]  ANA_ADC_DATA_9,
+    input   wire    [35:0]  ANA_ADC_DATA_10,
+    input   wire    [35:0]  ANA_ADC_DATA_11,
+    input   wire    [35:0]  ANA_ADC_DATA_12,
+    input   wire    [35:0]  ANA_ADC_DATA_13,
+    input   wire    [35:0]  ANA_ADC_DATA_14,
+    input   wire    [35:0]  ANA_ADC_DATA_15,
+    input   wire    [35:0]  ANA_ADC_DATA_16,
+    input   wire    [35:0]  ANA_ADC_DATA_17,
+    input   wire    [35:0]  ANA_ADC_DATA_18,
+    input   wire    [35:0]  ANA_ADC_DATA_19,
+    input   wire    [35:0]  ANA_ADC_DATA_20,
+    input   wire    [35:0]  ANA_ADC_DATA_21,
+    input   wire    [35:0]  ANA_ADC_DATA_22,
+    input   wire    [35:0]  ANA_ADC_DATA_23,
 
-    rf_self_mode, data_in
+    input   wire    [35:0]  pkt_gen_data_0,
+    input   wire    [35:0]  pkt_gen_data_1,
+    input   wire    [35:0]  pkt_gen_data_2,
+    input   wire    [35:0]  pkt_gen_data_3,
+    input   wire    [35:0]  pkt_gen_data_4,
+    input   wire    [35:0]  pkt_gen_data_5,
+    input   wire    [35:0]  pkt_gen_data_6,
+    input   wire    [35:0]  pkt_gen_data_7,
+    input   wire    [35:0]  pkt_gen_data_8,
+    input   wire    [35:0]  pkt_gen_data_9,
+    input   wire    [35:0]  pkt_gen_data_10,
+    input   wire    [35:0]  pkt_gen_data_11,
+    input   wire    [35:0]  pkt_gen_data_12,
+    input   wire    [35:0]  pkt_gen_data_13,
+    input   wire    [35:0]  pkt_gen_data_14,
+    input   wire    [35:0]  pkt_gen_data_15,
+    input   wire    [35:0]  pkt_gen_data_16,
+    input   wire    [35:0]  pkt_gen_data_17,
+    input   wire    [35:0]  pkt_gen_data_18,
+    input   wire    [35:0]  pkt_gen_data_19,
+    input   wire    [35:0]  pkt_gen_data_20,
+    input   wire    [35:0]  pkt_gen_data_21,
+    input   wire    [35:0]  pkt_gen_data_22,
+    input   wire    [35:0]  pkt_gen_data_23,
+
+    output  wire    [35:0]  adc_data_0,
+    output  wire    [35:0]  adc_data_1,
+    output  wire    [35:0]  adc_data_2,
+    output  wire    [35:0]  adc_data_3,
+    output  wire    [35:0]  adc_data_4,
+    output  wire    [35:0]  adc_data_5,
+    output  wire    [35:0]  adc_data_6,
+    output  wire    [35:0]  adc_data_7,
+    output  wire    [35:0]  adc_data_8,
+    output  wire    [35:0]  adc_data_9,
+    output  wire    [35:0]  adc_data_10,
+    output  wire    [35:0]  adc_data_11,
+    output  wire    [35:0]  adc_data_12,
+    output  wire    [35:0]  adc_data_13,
+    output  wire    [35:0]  adc_data_14,
+    output  wire    [35:0]  adc_data_15,
+    output  wire    [35:0]  adc_data_16,
+    output  wire    [35:0]  adc_data_17,
+    output  wire    [35:0]  adc_data_18,
+    output  wire    [35:0]  adc_data_19,
+    output  wire    [35:0]  adc_data_20,
+    output  wire    [35:0]  adc_data_21,
+    output  wire    [35:0]  adc_data_22,
+    output  wire    [35:0]  adc_data_23
 );
 
-    input       rf_self_mode;
-
-    input [8:0] adc_data_in_95, adc_data_in_94, adc_data_in_93, adc_data_in_92, adc_data_in_91, adc_data_in_90, adc_data_in_89, adc_data_in_88,
-                adc_data_in_87, adc_data_in_86, adc_data_in_85, adc_data_in_84, adc_data_in_83, adc_data_in_82, adc_data_in_81, adc_data_in_80,
-                adc_data_in_79, adc_data_in_78, adc_data_in_77, adc_data_in_76, adc_data_in_75, adc_data_in_74, adc_data_in_73, adc_data_in_72,
-                adc_data_in_71, adc_data_in_70, adc_data_in_69, adc_data_in_68, adc_data_in_67, adc_data_in_66, adc_data_in_65, adc_data_in_64,
-                adc_data_in_63, adc_data_in_62, adc_data_in_61, adc_data_in_60, adc_data_in_59, adc_data_in_58, adc_data_in_57, adc_data_in_56,
-                adc_data_in_55, adc_data_in_54, adc_data_in_53, adc_data_in_52, adc_data_in_51, adc_data_in_50, adc_data_in_49, adc_data_in_48,
-                adc_data_in_47, adc_data_in_46, adc_data_in_45, adc_data_in_44, adc_data_in_43, adc_data_in_42, adc_data_in_41, adc_data_in_40,
-                adc_data_in_39, adc_data_in_38, adc_data_in_37, adc_data_in_36, adc_data_in_35, adc_data_in_34, adc_data_in_33, adc_data_in_32,
-                adc_data_in_31, adc_data_in_30, adc_data_in_29, adc_data_in_28, adc_data_in_27, adc_data_in_26, adc_data_in_25, adc_data_in_24,
-                adc_data_in_23, adc_data_in_22, adc_data_in_21, adc_data_in_20, adc_data_in_19, adc_data_in_18, adc_data_in_17, adc_data_in_16,
-                adc_data_in_15, adc_data_in_14, adc_data_in_13, adc_data_in_12, adc_data_in_11, adc_data_in_10, adc_data_in_9,  adc_data_in_8,
-                adc_data_in_7,  adc_data_in_6,  adc_data_in_5,  adc_data_in_4,  adc_data_in_3,  adc_data_in_2,  adc_data_in_1,  adc_data_in_0;
-
-    input [8:0] pkt_gen_data_in_95, pkt_gen_data_in_94, pkt_gen_data_in_93, pkt_gen_data_in_92, pkt_gen_data_in_91, pkt_gen_data_in_90, pkt_gen_data_in_89, pkt_gen_data_in_88,
-                pkt_gen_data_in_87, pkt_gen_data_in_86, pkt_gen_data_in_85, pkt_gen_data_in_84, pkt_gen_data_in_83, pkt_gen_data_in_82, pkt_gen_data_in_81, pkt_gen_data_in_80,
-                pkt_gen_data_in_79, pkt_gen_data_in_78, pkt_gen_data_in_77, pkt_gen_data_in_76, pkt_gen_data_in_75, pkt_gen_data_in_74, pkt_gen_data_in_73, pkt_gen_data_in_72,
-                pkt_gen_data_in_71, pkt_gen_data_in_70, pkt_gen_data_in_69, pkt_gen_data_in_68, pkt_gen_data_in_67, pkt_gen_data_in_66, pkt_gen_data_in_65, pkt_gen_data_in_64,
-                pkt_gen_data_in_63, pkt_gen_data_in_62, pkt_gen_data_in_61, pkt_gen_data_in_60, pkt_gen_data_in_59, pkt_gen_data_in_58, pkt_gen_data_in_57, pkt_gen_data_in_56,
-                pkt_gen_data_in_55, pkt_gen_data_in_54, pkt_gen_data_in_53, pkt_gen_data_in_52, pkt_gen_data_in_51, pkt_gen_data_in_50, pkt_gen_data_in_49, pkt_gen_data_in_48,
-                pkt_gen_data_in_47, pkt_gen_data_in_46, pkt_gen_data_in_45, pkt_gen_data_in_44, pkt_gen_data_in_43, pkt_gen_data_in_42, pkt_gen_data_in_41, pkt_gen_data_in_40,
-                pkt_gen_data_in_39, pkt_gen_data_in_38, pkt_gen_data_in_37, pkt_gen_data_in_36, pkt_gen_data_in_35, pkt_gen_data_in_34, pkt_gen_data_in_33, pkt_gen_data_in_32,
-                pkt_gen_data_in_31, pkt_gen_data_in_30, pkt_gen_data_in_29, pkt_gen_data_in_28, pkt_gen_data_in_27, pkt_gen_data_in_26, pkt_gen_data_in_25, pkt_gen_data_in_24,
-                pkt_gen_data_in_23, pkt_gen_data_in_22, pkt_gen_data_in_21, pkt_gen_data_in_20, pkt_gen_data_in_19, pkt_gen_data_in_18, pkt_gen_data_in_17, pkt_gen_data_in_16,
-                pkt_gen_data_in_15, pkt_gen_data_in_14, pkt_gen_data_in_13, pkt_gen_data_in_12, pkt_gen_data_in_11, pkt_gen_data_in_10, pkt_gen_data_in_9,  pkt_gen_data_in_8,
-                pkt_gen_data_in_7,  pkt_gen_data_in_6,  pkt_gen_data_in_5,  pkt_gen_data_in_4,  pkt_gen_data_in_3,  pkt_gen_data_in_2,  pkt_gen_data_in_1,  pkt_gen_data_in_0;
-
-    output  [9*96-1:0] data_in;
-
-    wire    [9*96-1:0] adc_data_in;
-    wire    [9*96-1:0] pkt_gen_data_in;
-
-    assign adc_data_in = {  adc_data_in_95, adc_data_in_94, adc_data_in_93, adc_data_in_92, adc_data_in_91, adc_data_in_90, adc_data_in_89, adc_data_in_88,
-                            adc_data_in_87, adc_data_in_86, adc_data_in_85, adc_data_in_84, adc_data_in_83, adc_data_in_82, adc_data_in_81, adc_data_in_80,
-                            adc_data_in_79, adc_data_in_78, adc_data_in_77, adc_data_in_76, adc_data_in_75, adc_data_in_74, adc_data_in_73, adc_data_in_72,
-                            adc_data_in_71, adc_data_in_70, adc_data_in_69, adc_data_in_68, adc_data_in_67, adc_data_in_66, adc_data_in_65, adc_data_in_64,
-                            adc_data_in_63, adc_data_in_62, adc_data_in_61, adc_data_in_60, adc_data_in_59, adc_data_in_58, adc_data_in_57, adc_data_in_56,
-                            adc_data_in_55, adc_data_in_54, adc_data_in_53, adc_data_in_52, adc_data_in_51, adc_data_in_50, adc_data_in_49, adc_data_in_48,
-                            adc_data_in_47, adc_data_in_46, adc_data_in_45, adc_data_in_44, adc_data_in_43, adc_data_in_42, adc_data_in_41, adc_data_in_40,
-                            adc_data_in_39, adc_data_in_38, adc_data_in_37, adc_data_in_36, adc_data_in_35, adc_data_in_34, adc_data_in_33, adc_data_in_32,
-                            adc_data_in_31, adc_data_in_30, adc_data_in_29, adc_data_in_28, adc_data_in_27, adc_data_in_26, adc_data_in_25, adc_data_in_24,
-                            adc_data_in_23, adc_data_in_22, adc_data_in_21, adc_data_in_20, adc_data_in_19, adc_data_in_18, adc_data_in_17, adc_data_in_16,
-                            adc_data_in_15, adc_data_in_14, adc_data_in_13, adc_data_in_12, adc_data_in_11, adc_data_in_10, adc_data_in_9,  adc_data_in_8,
-                            adc_data_in_7,  adc_data_in_6,  adc_data_in_5,  adc_data_in_4,  adc_data_in_3,  adc_data_in_2,  adc_data_in_1,  adc_data_in_0   };
-
-    assign pkt_gen_data_in = {  pkt_gen_data_in_95, pkt_gen_data_in_94, pkt_gen_data_in_93, pkt_gen_data_in_92, pkt_gen_data_in_91, pkt_gen_data_in_90, pkt_gen_data_in_89, pkt_gen_data_in_88,
-                                pkt_gen_data_in_87, pkt_gen_data_in_86, pkt_gen_data_in_85, pkt_gen_data_in_84, pkt_gen_data_in_83, pkt_gen_data_in_82, pkt_gen_data_in_81, pkt_gen_data_in_80,
-                                pkt_gen_data_in_79, pkt_gen_data_in_78, pkt_gen_data_in_77, pkt_gen_data_in_76, pkt_gen_data_in_75, pkt_gen_data_in_74, pkt_gen_data_in_73, pkt_gen_data_in_72,
-                                pkt_gen_data_in_71, pkt_gen_data_in_70, pkt_gen_data_in_69, pkt_gen_data_in_68, pkt_gen_data_in_67, pkt_gen_data_in_66, pkt_gen_data_in_65, pkt_gen_data_in_64,
-                                pkt_gen_data_in_63, pkt_gen_data_in_62, pkt_gen_data_in_61, pkt_gen_data_in_60, pkt_gen_data_in_59, pkt_gen_data_in_58, pkt_gen_data_in_57, pkt_gen_data_in_56,
-                                pkt_gen_data_in_55, pkt_gen_data_in_54, pkt_gen_data_in_53, pkt_gen_data_in_52, pkt_gen_data_in_51, pkt_gen_data_in_50, pkt_gen_data_in_49, pkt_gen_data_in_48,
-                                pkt_gen_data_in_47, pkt_gen_data_in_46, pkt_gen_data_in_45, pkt_gen_data_in_44, pkt_gen_data_in_43, pkt_gen_data_in_42, pkt_gen_data_in_41, pkt_gen_data_in_40,
-                                pkt_gen_data_in_39, pkt_gen_data_in_38, pkt_gen_data_in_37, pkt_gen_data_in_36, pkt_gen_data_in_35, pkt_gen_data_in_34, pkt_gen_data_in_33, pkt_gen_data_in_32,
-                                pkt_gen_data_in_31, pkt_gen_data_in_30, pkt_gen_data_in_29, pkt_gen_data_in_28, pkt_gen_data_in_27, pkt_gen_data_in_26, pkt_gen_data_in_25, pkt_gen_data_in_24,
-                                pkt_gen_data_in_23, pkt_gen_data_in_22, pkt_gen_data_in_21, pkt_gen_data_in_20, pkt_gen_data_in_19, pkt_gen_data_in_18, pkt_gen_data_in_17, pkt_gen_data_in_16,
-                                pkt_gen_data_in_15, pkt_gen_data_in_14, pkt_gen_data_in_13, pkt_gen_data_in_12, pkt_gen_data_in_11, pkt_gen_data_in_10, pkt_gen_data_in_9,  pkt_gen_data_in_8,
-                                pkt_gen_data_in_7,  pkt_gen_data_in_6,  pkt_gen_data_in_5,  pkt_gen_data_in_4,  pkt_gen_data_in_3,  pkt_gen_data_in_2,  pkt_gen_data_in_1,  pkt_gen_data_in_0   };
-
-    assign data_in = rf_self_mode ? pkt_gen_data_in : adc_data_in;
+    assign adc_data_0 = rf_self_mode ? pkt_gen_data_0 : ANA_ADC_DATA_0;
+    assign adc_data_1 = rf_self_mode ? pkt_gen_data_1 : ANA_ADC_DATA_1;
+    assign adc_data_2 = rf_self_mode ? pkt_gen_data_2 : ANA_ADC_DATA_2;
+    assign adc_data_3 = rf_self_mode ? pkt_gen_data_3 : ANA_ADC_DATA_3;
+    assign adc_data_4 = rf_self_mode ? pkt_gen_data_4 : ANA_ADC_DATA_4;
+    assign adc_data_5 = rf_self_mode ? pkt_gen_data_5 : ANA_ADC_DATA_5;
+    assign adc_data_6 = rf_self_mode ? pkt_gen_data_6 : ANA_ADC_DATA_6;
+    assign adc_data_7 = rf_self_mode ? pkt_gen_data_7 : ANA_ADC_DATA_7;
+    assign adc_data_8 = rf_self_mode ? pkt_gen_data_8 : ANA_ADC_DATA_8;
+    assign adc_data_9 = rf_self_mode ? pkt_gen_data_9 : ANA_ADC_DATA_9;
+    assign adc_data_10 = rf_self_mode ? pkt_gen_data_10 : ANA_ADC_DATA_10;
+    assign adc_data_11 = rf_self_mode ? pkt_gen_data_11 : ANA_ADC_DATA_11;
+    assign adc_data_12 = rf_self_mode ? pkt_gen_data_12 : ANA_ADC_DATA_12;
+    assign adc_data_13 = rf_self_mode ? pkt_gen_data_13 : ANA_ADC_DATA_13;
+    assign adc_data_14 = rf_self_mode ? pkt_gen_data_14 : ANA_ADC_DATA_14;
+    assign adc_data_15 = rf_self_mode ? pkt_gen_data_15 : ANA_ADC_DATA_15;
+    assign adc_data_16 = rf_self_mode ? pkt_gen_data_16 : ANA_ADC_DATA_16;
+    assign adc_data_17 = rf_self_mode ? pkt_gen_data_17 : ANA_ADC_DATA_17;
+    assign adc_data_18 = rf_self_mode ? pkt_gen_data_18 : ANA_ADC_DATA_18;
+    assign adc_data_19 = rf_self_mode ? pkt_gen_data_19 : ANA_ADC_DATA_19;
+    assign adc_data_20 = rf_self_mode ? pkt_gen_data_20 : ANA_ADC_DATA_20;
+    assign adc_data_21 = rf_self_mode ? pkt_gen_data_21 : ANA_ADC_DATA_21;
+    assign adc_data_22 = rf_self_mode ? pkt_gen_data_22 : ANA_ADC_DATA_22;
+    assign adc_data_23 = rf_self_mode ? pkt_gen_data_23 : ANA_ADC_DATA_23;
 
 endmodule

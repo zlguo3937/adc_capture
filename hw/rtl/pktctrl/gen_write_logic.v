@@ -24,31 +24,10 @@ module gen_write_logic
     output  reg                 wr_done
 );
 
-    wire    write_en_sync;
-    wire    capture_start_sync;
-
-    jlsemi_util_sync_pos_with_rst_low
-    u_sync_write_en
-    (
-    .clk        (clk                ),
-    .rst_n      (rstn               ),
-    .din        (write_en           ),
-    .dout       (write_en_sync      )
-    );
-
-    jlsemi_util_sync_pos_with_rst_low
-    u_sync_rf_capture_start
-    (
-    .clk        (clk                ),
-    .rst_n      (rstn               ),
-    .din        (rf_capture_start   ),
-    .dout       (capture_start_sync )
-    );
-
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
             wr_done <= 1'b0;
-        else if (capture_start_sync)
+        else if (rf_capture_start)
             wr_done <= 1'b0;
         else if (&waddr)
             wr_done <= 1'b1;
@@ -59,7 +38,7 @@ module gen_write_logic
             waddr <= 15'b0;
         else if (&waddr)
             waddr <= 15'b0;
-        else if(write_en_sync)
+        else if(write_en)
             waddr <= waddr + 1'b1;
     end
 

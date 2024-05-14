@@ -17,7 +17,7 @@
 module memory_inst
 #(
     parameter   ADDR_WIDTH = 15,
-    parameter   DATA_WIDTH = 9
+    parameter   DATA_WIDTH = 36
 )(
     input   wire                        CLK,
     input   wire                        CEB,
@@ -27,8 +27,8 @@ module memory_inst
     output  wire    [DATA_WIDTH-1:0]    Q
 );
 
-    TS1N28HPCPHVTB32768X9M16SSO
-    u_memory_32768x9m16s
+    TS1N28HPCPSVTB16384X36M8SSO
+    u_memory_32768x36
     (
     .SLP    (1'b0       ),
     .SD     (1'b0       ),

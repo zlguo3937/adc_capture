@@ -1,5 +1,5 @@
 ~/prj/adc_capture/hw/library/tphn28hpcpgv18.v
-~/prj/adc_capture/hw/library/ts1n28hpcphvtb32768x9m16sso_180a/VERILOG/ts1n28hpcphvtb32768x9m16sso_180a_ffg0p99vm40c.v
+~/prj/adc_capture/hw/library/ts1n28hpcpsvtb16384x36m8sso_180a/VERILOG/ts1n28hpcpsvtb16384x36m8sso_180a_ffg1p05v0c.v
 
 // clk and rst
 ~/prj/adc_capture/hw/rtl/common_ip/jlsemi_util_async_reset_low_sync.v
@@ -29,8 +29,8 @@
 ~/prj/adc_capture/hw/rtl/pktctrl/pktctrl_top.v
 ~/prj/adc_capture/hw/rtl/pktctrl/package_ctrl.v
 ~/prj/adc_capture/hw/rtl/pktctrl/gen_write_logic.v
-~/prj/adc_capture/hw/rtl/pktctrl/gen_mdio_read_logic.v
-~/prj/adc_capture/hw/rtl/pktctrl/gen_fast_read_logic.v
+~/prj/adc_capture/hw/rtl/pktctrl/gen_read_logic_mdio.v
+~/prj/adc_capture/hw/rtl/pktctrl/gen_read_logic_fast.v
 ~/prj/adc_capture/hw/rtl/pktctrl/package_gen.v
 ~/prj/adc_capture/hw/rtl/pktctrl/adc_data_sel.v
 ~/prj/adc_capture/hw/rtl/pktctrl/memory_ctrl.v
