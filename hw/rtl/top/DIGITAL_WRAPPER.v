@@ -88,10 +88,6 @@ module DIGITAL_WRAPPER
     wire            pktctrl_mdio_rrstn;
     wire            mdio_rstn;
 
-    // iopad
-    wire            rf_RSTN_OEN;
-    wire            rf_RSTN_REN;
-
     // crg
     crg
     u_crg
@@ -100,27 +96,20 @@ module DIGITAL_WRAPPER
     .ANA_CLK500M                (ANA_CLK500M                ),
     .rf_pktctrl_rclk_div        (rf_pktctrl_rclk_div        ),
     .rf_pktctrl_rclk_phase      (rf_pktctrl_rclk_phase      ),
-    .rf_pktctrl_wclk_en         (rf_pktctrl_wclk_en         ),
-    .rf_pktctrl_rclk_en         (rf_pktctrl_rclk_en         ),
-    .rf_pktctrl_mdio_rclk_en    (rf_pktctrl_mdio_rclk_en    ),
-    .pktctrl_wclk               (pktctrl_wclk               ),
-    .pktctrl_rclk               (pktctrl_rclk               ),
+    .rf_pktctrl_rclk_en         (rf_pktctrl_clk_en          ),
+    .pktctrl_wclk               (pktctrl_clk                ),
     .pktctrl_mdio_rclk          (pktctrl_mdio_rclk          ),
     .mdio_clk                   (mdio_clk                   ),
     .CLK_RD                     (CLK_RD                     ),
-    .RSTN                       (RSTN                       ),
-    .rf_pktctrl_sw_wrstn        (rf_pktctrl_sw_wrstn        ),
-    .rf_pktctrl_sw_rrstn        (rf_pktctrl_sw_rrstn        ),
-    .rf_pktctrl_mdio_sw_rrstn   (rf_pktctrl_mdio_sw_rrstn   ),
-    .rf_mdio_sw_rstn            (rf_mdio_sw_rstn            ),
-    .pktctrl_wrstn              (pktctrl_wrstn              ),
-    .pktctrl_rrstn              (pktctrl_rrstn              ),
-    .pktctrl_mdio_rrstn         (pktctrl_mdio_rrstn         ),
-    .mdio_rstn                  (mdio_rstn                  )
+    .RSTN                       (RSTN                       )
     );
     
     wire    [17:0]  ADC_DATA;
     wire            ADC_DATA_VALID;
+    wire            MDIO;
+    wire            MDC;
+    wire            mdio_out;
+    wire            mdio_oen;
 
     // iopad
     iopad_top
@@ -129,7 +118,7 @@ module DIGITAL_WRAPPER
     .ADC_DATA                   (ADC_DATA                   ),
     .ADC_DATA_VALID             (ADC_DATA_VALID             ),
     .CLK_RD                     (CLK_RD                     ),
-    .MDIO_I                     (MDIO_I                     ),
+    .MDIO_I                     (mdio_out                   ),
     .mdio_oen                   (mdio_oen                   ),
     .RSTN                       (RSTN                       ),
     .MDC                        (MDC                        ),
@@ -193,7 +182,12 @@ module DIGITAL_WRAPPER
     ctrl_sys
     u_ctrl_sys
     (
-
+    .clk                        (clk                        ),
+    .rstn                       (rstn                       ),
+    .mdio_in                    (MDIO                       ),
+    .mdc                        (MDC                        ),
+    .mdio_out                   (mdio_out                   ),
+    .mdio_oen                   (mdio_oen                   )
     );
 
 endmodule

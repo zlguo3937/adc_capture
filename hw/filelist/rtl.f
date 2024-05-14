@@ -38,6 +38,13 @@
 
 // ctrl system
 ~/prj/adc_capture/hw/rtl/ctrl_sys/ctrl_sys.v
-~/prj/adc_capture/hw/rtl/ctrl_sys/mdio_top.v
-~/prj/adc_capture/hw/rtl/ctrl_sys/analog_regfile.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/top_regfile.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_top.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_slave_45_backend.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/watchdog_mdio.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_frontend_async.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_frontend_sync.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_slave_22_backend.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/cdc_1clk_signal.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/cdc_200m_100m.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_backend.v
