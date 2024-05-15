@@ -241,8 +241,10 @@ module DIGITAL_WRAPPER
     ctrl_sys
     u_ctrl_sys
     (
-    .clk                        (clk_200m                   ),
-    .rstn                       (rstn_200m                  ),
+    .clk_200m                   (clk_200m                   ),
+    .rstn_200m                  (rstn_200m                  ),
+    .pktctrl_clk                (pktctrl_clk                ),
+    .pktctrl_rstn               (pktctrl_rstn               ),
     .mdio_in                    (MDIO                       ),
     .mdc                        (MDC                        ),
     .mdio_out                   (mdio_out                   ),

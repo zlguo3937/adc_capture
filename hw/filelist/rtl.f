@@ -2,6 +2,9 @@
 ~/prj/adc_capture/hw/library/ts1n28hpcpsvtb16384x36m8sso_180a/VERILOG/ts1n28hpcpsvtb16384x36m8sso_180a_ffg1p05v0c.v
 
 // clk and rst
+~/prj/adc_capture/hw/rtl/common_ip/pulse_handshake.v
+~/prj/adc_capture/hw/rtl/common_ip/multi_handshake.v
+~/prj/adc_capture/hw/rtl/common_ip/synchronizer.v
 ~/prj/adc_capture/hw/rtl/common_ip/jlsemi_util_async_reset_low_sync.v
 ~/prj/adc_capture/hw/rtl/common_ip/jlsemi_util_sync_pos_with_rst_low.v
 ~/prj/adc_capture/hw/rtl/common_ip/jlsemi_util_clkdiv_even_with_cfg.v
@@ -40,6 +43,7 @@
 // ctrl system
 ~/prj/adc_capture/hw/rtl/ctrl_sys/ctrl_sys.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/top_regfile.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/cdc_500_200.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_top.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_slave_45_backend.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/watchdog_mdio.v
