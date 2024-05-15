@@ -32,7 +32,7 @@
 ~/prj/adc_capture/hw/rtl/pktctrl/gen_read_logic_mdio.v
 ~/prj/adc_capture/hw/rtl/pktctrl/gen_read_logic_fast.v
 ~/prj/adc_capture/hw/rtl/pktctrl/package_gen.v
-~/prj/adc_capture/hw/rtl/pktctrl/adc_data_sel.v
+~/prj/adc_capture/hw/rtl/pktctrl/package_data_sel.v
 ~/prj/adc_capture/hw/rtl/pktctrl/memory_ctrl.v
 ~/prj/adc_capture/hw/rtl/pktctrl/memory_inst.v
 

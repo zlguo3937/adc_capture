@@ -16,6 +16,30 @@
 // --------------------------------------------------------------------
 module pktctrl_top
 (
+
+    input   wire            clk_200m,
+    input   wire            pktctrl_clk,
+
+    input   wire            rstn_200m,
+    input   wire            pktctrl_rstn,
+
+    input   wire            rf_self_test_mode,
+
+    input   wire            rf_capture_mode,
+    input   wire            rf_capture_start,
+    input   wire            rf_capture_again,
+
+    input   wire            rf_96path_en,
+    input   wire    [1:0]   rf_pkt_data_length,
+    input   wire    [15:0]  rf_pkt_idle_length,
+
+    input   wire            DATA_RD_EN,
+
+    input   wire            rf_mdio_read_pulse,
+    input   wire    [6:0]   rf_mdio_data_sel,
+    input   wire    [14:0]  rf_mdio_memory_addr,
+    output  wire    [8:0]   rf_mdio_pkt_data,
+
     input   wire    [35:0]  ANA_ADC_DATA_0,
     input   wire    [35:0]  ANA_ADC_DATA_1,
     input   wire    [35:0]  ANA_ADC_DATA_2,
@@ -98,6 +122,15 @@ module pktctrl_top
     package_ctrl
     u_package_ctrl
     (
+    .pktctrl_clk                (pktctrl_clk                ),
+    .pktctrl_rstn               (pktctrl_rstn               ),
+    .rf_capture_mode            (rf_capture_mode            ),
+    .rf_capture_start           (rf_capture_start           ),
+    .rf_capture_again           (rf_capture_again           ),
+    .rf_96path_en               (rf_96path_en               ),
+    .rf_pkt_data_length         (rf_pkt_data_length         ),
+    .rf_pkt_idle_length         (rf_pkt_idle_length         ),
+    .DATA_RD_EN                 (DATA_RD_EN                 ),
     .adc_data_0                 (adc_data_0                 ),
     .adc_data_1                 (adc_data_1                 ),
     .adc_data_2                 (adc_data_2                 ),
@@ -122,7 +155,10 @@ module pktctrl_top
     .adc_data_21                (adc_data_21                ),
     .adc_data_22                (adc_data_22                ),
     .adc_data_23                (adc_data_23                ),
-
+    .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
+    .rf_mdio_data_sel           (rf_mdio_data_sel           ),
+    .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
+    .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
     .ADC_DATA                   (ADC_DATA                   ),
     .ADC_DATA_VALID             (ADC_DATA_VALID             )
     );
@@ -156,9 +192,10 @@ module pktctrl_top
     .pkt_gen_data_23            (pkt_gen_data_23            )
     );
 
-    adc_data_sel
-    u_adc_data_sel
+    package_data_sel
+    u_package_data_sel
     (
+    .rf_self_test_mode          (rf_self_test_mode          ),
     .ANA_ADC_DATA_0             (ANA_ADC_DATA_0             ),
     .ANA_ADC_DATA_1             (ANA_ADC_DATA_1             ),
     .ANA_ADC_DATA_2             (ANA_ADC_DATA_2             ),

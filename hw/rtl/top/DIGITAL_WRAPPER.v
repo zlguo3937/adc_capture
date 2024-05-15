@@ -16,8 +16,8 @@
 // --------------------------------------------------------------------
 module DIGITAL_WRAPPER
 (
-    input   wire    ANA_CLK200M,
-    input   wire    ANA_CLK500M,
+    input   wire            ANA_CLK200M,
+    input   wire            ANA_CLK500M,
 
     input   wire    [35:0]  ANA_ADC_DATA_0,
     input   wire    [35:0]  ANA_ADC_DATA_1,
@@ -44,49 +44,67 @@ module DIGITAL_WRAPPER
     input   wire    [35:0]  ANA_ADC_DATA_22,
     input   wire    [35:0]  ANA_ADC_DATA_23,
 
-    inout   wire    PAD1_ADC_DATA_1,
-    inout   wire    PAD2_ADC_DATA_2,
-    inout   wire    PAD3_ADC_DATA_3,
-    inout   wire    PAD4_ADC_DATA_4,
-    inout   wire    PAD5_ADC_DATA_5,
-    inout   wire    PAD6_ADC_DATA_6,
-    inout   wire    PAD7_ADC_DATA_7,
-    inout   wire    PAD8_ADC_DATA_8,
-    inout   wire    PAD9_ADC_DATA_9,
-    inout   wire    PAD10_ADC_DATA_10,
-    inout   wire    PAD11_ADC_DATA_11,
-    inout   wire    PAD12_ADC_DATA_12,
-    inout   wire    PAD13_ADC_DATA_13,
-    inout   wire    PAD14_ADC_DATA_14,
-    inout   wire    PAD15_ADC_DATA_15,
-    inout   wire    PAD16_ADC_DATA_16,
-    inout   wire    PAD17_ADC_DATA_17,
-    inout   wire    PAD18_ADC_DATA_18,
-    inout   wire    PAD19_ADC_DATA_VALID,
-    inout   wire    PAD20_RSTN,
-    inout   wire    PAD21_CLK_RD,
-    inout   wire    PAD22_MDC,
-    inout   wire    PAD23_MDIO
+    inout   wire            PAD1_ADC_DATA_1,
+    inout   wire            PAD2_ADC_DATA_2,
+    inout   wire            PAD3_ADC_DATA_3,
+    inout   wire            PAD4_ADC_DATA_4,
+    inout   wire            PAD5_ADC_DATA_5,
+    inout   wire            PAD6_ADC_DATA_6,
+    inout   wire            PAD7_ADC_DATA_7,
+    inout   wire            PAD8_ADC_DATA_8,
+    inout   wire            PAD9_ADC_DATA_9,
+    inout   wire            PAD10_ADC_DATA_10,
+    inout   wire            PAD11_ADC_DATA_11,
+    inout   wire            PAD12_ADC_DATA_12,
+    inout   wire            PAD13_ADC_DATA_13,
+    inout   wire            PAD14_ADC_DATA_14,
+    inout   wire            PAD15_ADC_DATA_15,
+    inout   wire            PAD16_ADC_DATA_16,
+    inout   wire            PAD17_ADC_DATA_17,
+    inout   wire            PAD18_ADC_DATA_18,
+    inout   wire            PAD19_ADC_DATA_VALID,
+    inout   wire            PAD20_RSTN,
+    inout   wire            PAD21_CLK_RD,
+    inout   wire            PAD22_MDC,
+    inout   wire            PAD23_MDIO
 );
     
     // crg
-    wire    [8:0]   rf_pktctrl_rclk_div;
-    wire    [8:0]   rf_pktctrl_rclk_phase;
-    wire            rf_pktctrl_wclk_en;
-    wire            rf_pktctrl_rclk_en;
-    wire            rf_pktctrl_mdio_rclk_en;
-    wire            pktctrl_wclk;
-    wire            pktctrl_rclk;
-    wire            pktctrl_mdio_rclk;
-    wire            mdio_clk;
-    wire            rf_pktctrl_sw_wrstn;
-    wire            rf_pktctrl_sw_rrstn;
-    wire            rf_pktctrl_mdio_sw_rrstn;
-    wire            rf_mdio_sw_rstn;
-    wire            pktctrl_wrstn;
-    wire            pktctrl_rrstn;
-    wire            pktctrl_mdio_rrstn;
-    wire            mdio_rstn;
+    wire    [8:0]   rf_pktctrl_clk_div;
+    wire    [8:0]   rf_pktctrl_clk_phase;
+    wire            rf_pktctrl_clk_en;
+    wire            rf_pktctrl_sw_rstn;
+    wire            pktctrl_clk;
+    wire            pktctrl_rstn;
+
+    wire            clk_200m;
+    wire            rstn_200m;
+
+    wire            CLK_RD;
+    wire            DATA_RD_EN; 
+    wire            RSTN; 
+
+    wire    [17:0]  ADC_DATA;
+    wire            ADC_DATA_VALID;
+    wire            MDIO;
+    wire            MDC;
+    wire            mdio_out;
+    wire            mdio_oen;
+
+    wire            rf_self_test_mode;
+
+    wire            rf_capture_mode;
+    wire            rf_capture_start;
+    wire            rf_capture_again;
+
+    wire            rf_96path_en;
+    wire    [1:0]   rf_pkt_data_length;
+    wire    [15:0]  rf_pkt_idle_length;
+
+    wire            rf_mdio_read_pulse;
+    wire    [6:0]   rf_mdio_data_sel;
+    wire    [14:0]  rf_mdio_memory_addr;
+    wire    [8:0]   rf_mdio_pkt_data;
 
     // crg
     crg
@@ -94,22 +112,18 @@ module DIGITAL_WRAPPER
     (
     .ANA_CLK200M                (ANA_CLK200M                ),
     .ANA_CLK500M                (ANA_CLK500M                ),
-    .rf_pktctrl_rclk_div        (rf_pktctrl_rclk_div        ),
-    .rf_pktctrl_rclk_phase      (rf_pktctrl_rclk_phase      ),
-    .rf_pktctrl_rclk_en         (rf_pktctrl_clk_en          ),
-    .pktctrl_wclk               (pktctrl_clk                ),
-    .pktctrl_mdio_rclk          (pktctrl_mdio_rclk          ),
-    .mdio_clk                   (mdio_clk                   ),
+    .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),
+    .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
+    .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
+    .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
+    .pktctrl_clk                (pktctrl_clk                ),
+    .pktctrl_rstn               (pktctrl_rstn               ),
+    .clk_200m                   (clk_200m                   ),
+    .rstn_200m                  (rstn_200m                  ),
     .CLK_RD                     (CLK_RD                     ),
+    .DATA_RD_EN                 (DATA_RD_EN                 ),
     .RSTN                       (RSTN                       )
     );
-    
-    wire    [17:0]  ADC_DATA;
-    wire            ADC_DATA_VALID;
-    wire            MDIO;
-    wire            MDC;
-    wire            mdio_out;
-    wire            mdio_oen;
 
     // iopad
     iopad_top
@@ -151,8 +165,22 @@ module DIGITAL_WRAPPER
     pktctrl_top
     u_pktctrl_top
     (
-    .ADC_DATA                   (ADC_DATA                   ),
-    .ADC_DATA_VALID             (ADC_DATA_VALID             ),
+    .clk_200m                   (clk_200m                   ),
+    .pktctrl_clk                (pktctrl_clk                ),
+    .rstn_200m                  (rstn_200m                  ),
+    .pktctrl_rstn               (pktctrl_rstn               ),
+    .rf_self_test_mode          (rf_self_test_mode          ),
+    .rf_capture_mode            (rf_capture_mode            ),
+    .rf_capture_start           (rf_capture_start           ),
+    .rf_capture_again           (rf_capture_again           ),
+    .rf_96path_en               (rf_96path_en               ),
+    .rf_pkt_data_length         (rf_pkt_data_length         ),
+    .rf_pkt_idle_length         (rf_pkt_idle_length         ),
+    .DATA_RD_EN                 (DATA_RD_EN                 ),
+    .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
+    .rf_mdio_data_sel           (rf_mdio_data_sel           ),
+    .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
+    .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
     .ANA_ADC_DATA_0             (ANA_ADC_DATA_0             ),
     .ANA_ADC_DATA_1             (ANA_ADC_DATA_1             ),
     .ANA_ADC_DATA_2             (ANA_ADC_DATA_2             ),
@@ -176,18 +204,33 @@ module DIGITAL_WRAPPER
     .ANA_ADC_DATA_20            (ANA_ADC_DATA_20            ),
     .ANA_ADC_DATA_21            (ANA_ADC_DATA_21            ),
     .ANA_ADC_DATA_22            (ANA_ADC_DATA_22            ),
-    .ANA_ADC_DATA_23            (ANA_ADC_DATA_23            )
+    .ANA_ADC_DATA_23            (ANA_ADC_DATA_23            ),
+    .ADC_DATA                   (ADC_DATA                   ),
+    .ADC_DATA_VALID             (ADC_DATA_VALID             )
     );
 
     ctrl_sys
     u_ctrl_sys
     (
-    .clk                        (clk                        ),
-    .rstn                       (rstn                       ),
+    .clk                        (clk_200m                   ),
+    .rstn                       (rstn_200m                  ),
     .mdio_in                    (MDIO                       ),
     .mdc                        (MDC                        ),
     .mdio_out                   (mdio_out                   ),
-    .mdio_oen                   (mdio_oen                   )
+    .mdio_oen                   (mdio_oen                   ),
+    
+    // Digital config register
+    .rf_self_test_mode          (rf_self_test_mode          ),
+    .rf_capture_mode            (rf_capture_mode            ),
+    .rf_capture_start           (rf_capture_start           ),
+    .rf_capture_again           (rf_capture_again           ),
+    .rf_96path_en               (rf_96path_en               ),
+    .rf_pkt_data_length         (rf_pkt_data_length         ),
+    .rf_pkt_idle_length         (rf_pkt_idle_length         ),
+    .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
+    .rf_mdio_data_sel           (rf_mdio_data_sel           ),
+    .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
+    .rf_mdio_pkt_data           (rf_mdio_pkt_data           )
     );
 
 endmodule

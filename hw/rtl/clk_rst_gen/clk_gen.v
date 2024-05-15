@@ -28,20 +28,17 @@ module clk_gen
     input   wire            rstn, // from digital rst_gen
 
     // Register config: clock divider and clock phase
-    input   wire    [8:0]   rf_pktctrl_rclk_div, // 4,8,10,20,40,50,100,200,400 --> 50M,25M,20M,10M,5M,4M,2M,1M,500K
-    input   wire    [8:0]   rf_pktctrl_rclk_phase,
+    input   wire    [8:0]   rf_pktctrl_clk_div, // 4,8,10,20,40,50,100,200,400 --> 50M,25M,20M,10M,5M,4M,2M,1M,500K
+    input   wire    [8:0]   rf_pktctrl_clk_phase,
 
     // Register config: clock gate enable
-    input   wire            rf_pktctrl_wclk_en,
-    input   wire            rf_pktctrl_rclk_en,
-    input   wire            rf_pktctrl_mdio_rclk_en,
+    input   wire            rf_pktctrl_clk_en,
 
     // Clock output
-    output  wire            pktctrl_wclk,
-    output  wire            pktctrl_rclk,
-    output  wire            pktctrl_mdio_rclk,
-    output  wire            mdio_clk,
-    output  wire            CLK_RD //clock output to iopad for FPGA fifo write clk
+    output  wire            pktctrl_clk,
+    output  wire            clk_200m,
+    output  wire            CLK_RD, //clock output to iopad for FPGA fifo write clk
+    output  wire            DATA_RD_EN // CLK_RD pulse at pktctrl_clk
 );
 
     wire    pktctrl_wclk_pre;
@@ -134,7 +131,7 @@ module clk_gen
     );
 
     // mdio and regfile clock
-    assign mdio_clk = pktctrl_rclk_pre;
+    assign clk_200m = pktctrl_rclk_pre;
 
     // Output clock to IOPad
     jlsemi_util_clkdiv_even_with_phase #(

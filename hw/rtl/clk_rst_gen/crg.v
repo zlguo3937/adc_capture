@@ -16,42 +16,35 @@
 // --------------------------------------------------------------------
 module crg
 (
+    //Dft
+    input   wire            dft_rstnsync_scan_rstn_ctrl,
+    input   wire            dft_rstnsync_scan_rstn,
+    input   wire            dft_rtl_icg_en,
+
     // Clock Gen
     // Clock input from analog
     input   wire            ANA_CLK200M,
     input   wire            ANA_CLK500M,
 
-    // Register config: clock divider and clock phase
-    input   wire    [8:0]   rf_pktctrl_rclk_div,
-    input   wire    [8:0]   rf_pktctrl_rclk_phase,
-
-    // Register config: clock gate enable
-    input   wire            rf_pktctrl_wclk_en,
-    input   wire            rf_pktctrl_rclk_en,
-    input   wire            rf_pktctrl_mdio_rclk_en,
+    input   wire    [8:0]   rf_pktctrl_clk_div,
+    input   wire    [8:0]   rf_pktctrl_clk_phase,
+    input   wire            rf_pktctrl_clk_en,
+    input   wire            rf_pktctrl_sw_rstn,
 
     // Clock output
-    output  wire            pktctrl_wclk,
-    output  wire            pktctrl_rclk,
-    output  wire            pktctrl_mdio_rclk,
-    output  wire            mdio_clk,
+    output  wire            pktctrl_clk,
+    output  wire            clk_200m,
     output  wire            CLK_RD,
+
+    output  wire            DATA_RD_EN,
 
     // Reset Gen
     // Clock input from clk_gen, Reset input from digital iopad
     input   wire            RSTN,
 
-    // Register config: software reset
-    input   wire            rf_pktctrl_sw_wrstn,
-    input   wire            rf_pktctrl_sw_rrstn,
-    input   wire            rf_pktctrl_mdio_sw_rrstn,
-    input   wire            rf_mdio_sw_rstn,
-
     // Reset output
-    output  wire            pktctrl_wrstn,
-    output  wire            pktctrl_rrstn,
-    output  wire            pktctrl_mdio_rrstn,
-    output  wire            mdio_rstn
+    output  wire            pktctrl_rstn,
+    output  wire            rstn_200m
 );
 
     wire rstn;
@@ -59,19 +52,19 @@ module crg
     clk_gen
     u_clk_gen
     (
+    .dft_rstnsync_scan_rstn_ctrl(dft_rstnsync_scan_rstn_ctrl),
+    .dft_rstnsync_scan_rstn     (dft_rstnsync_scan_rstn     ),
+    .dft_rtl_icg_en             (dft_rtl_icg_en             ),
     .ANA_CLK200M                (ANA_CLK200M                ),
     .ANA_CLK500M                (ANA_CLK500M                ),
     .rstn                       (rstn                       ),
-    .rf_pktctrl_rclk_div        (rf_pktctrl_rclk_div        ),
-    .rf_pktctrl_rclk_phase      (rf_pktctrl_rclk_phase      ),
-    .rf_pktctrl_wclk_en         (rf_pktctrl_wclk_en         ),
-    .rf_pktctrl_rclk_en         (rf_pktctrl_rclk_en         ),
-    .rf_pktctrl_mdio_rclk_en    (rf_pktctrl_mdio_rclk_en    ),
-    .pktctrl_wclk               (pktctrl_wclk               ),
-    .pktctrl_rclk               (pktctrl_rclk               ),
-    .pktctrl_mdio_rclk          (pktctrl_mdio_rclk          ),
-    .mdio_clk                   (mdio_clk                   ),
-    .CLK_RD                     (CLK_RD                     )
+    .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),
+    .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
+    .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
+    .pktctrl_clk                (pktctrl_clk                ),
+    .clk_200m                   (clk_200m                   ),
+    .CLK_RD                     (CLK_RD                     ),
+    .DATA_RD_EN                 (DATA_RD_EN                 )
     );
 
     rst_gen
@@ -80,19 +73,12 @@ module crg
     .RSTN                       (RSTN                       ),
     .dft_rstnsync_scan_rstn_ctrl(dft_rstnsync_scan_rstn_ctrl),
     .dft_rstnsync_scan_rstn     (dft_rstnsync_scan_rstn     ),
-    .pktctrl_wclk               (pktctrl_wclk               ),
-    .pktctrl_rclk               (pktctrl_rclk               ),
-    .pktctrl_mdio_rclk          (pktctrl_mdio_rclk          ),
-    .mdio_clk                   (mdio_clk                   ),
-    .rf_pktctrl_sw_wrstn        (rf_pktctrl_sw_wrstn        ),
-    .rf_pktctrl_sw_rrstn        (rf_pktctrl_sw_rrstn        ),
-    .rf_pktctrl_mdio_sw_rrstn   (rf_pktctrl_mdio_sw_rrstn   ),
-    .rf_mdio_sw_rstn            (rf_mdio_sw_rstn            ),
+    .pktctrl_clk                (pktctrl_clk                ),
+    .clk_200m                   (clk_200m                   ),
+    .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
     .rstn                       (rstn                       ),
-    .pktctrl_wrstn              (pktctrl_wrstn              ),
-    .pktctrl_rrstn              (pktctrl_rrstn              ),
-    .pktctrl_mdio_rrstn         (pktctrl_mdio_rrstn         ),
-    .mdio_rstn                  (mdio_rstn                  )
+    .pktctrl_rstn               (pktctrl_rstn               ),
+    .rstn_200m                  (rstn_200m                  )
     );
 
 endmodule
