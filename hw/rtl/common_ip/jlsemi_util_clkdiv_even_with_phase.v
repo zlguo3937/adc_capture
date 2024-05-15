@@ -15,7 +15,8 @@ module jlsemi_util_clkdiv_even_with_phase
     input   wire        rstn_in,
     input   wire [8:0]  DIV_N,
     input   wire [8:0]  DIV_PHASE_CNT,
-    output  wire        clk_out
+    output  wire        clk_out,
+    output  reg         DATA_RD_EN
 );
 
     reg     [7:0]   cnt;
@@ -77,6 +78,16 @@ module jlsemi_util_clkdiv_even_with_phase
             clk_out_pre <= ~clk_out_pre;
         else
             clk_out_pre <= clk_out_pre;
+    end
+
+    always @(posedge clk_in_pre or negedge rstn_out)
+    begin
+        if(~rstn_out)
+            DATA_RD_EN <= 1'b0;
+        else if (cnt == ((DIV_N/2)-1))
+            DATA_RD_EN <= 1'b1;
+        else
+            DATA_RD_EN <= 1'b0;
     end
 
     jlsemi_util_clkbuf

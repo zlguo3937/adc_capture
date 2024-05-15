@@ -65,6 +65,19 @@ module pktctrl_top
     input   wire    [35:0]  ANA_ADC_DATA_22,
     input   wire    [35:0]  ANA_ADC_DATA_23,
 
+    input   wire    [35:0]  ANA_ADC48_DATA_0,
+    input   wire    [35:0]  ANA_ADC48_DATA_1,
+    input   wire    [35:0]  ANA_ADC48_DATA_2,
+    input   wire    [35:0]  ANA_ADC48_DATA_3,
+    input   wire    [35:0]  ANA_ADC48_DATA_4,
+    input   wire    [35:0]  ANA_ADC48_DATA_5,
+    input   wire    [35:0]  ANA_ADC48_DATA_6,
+    input   wire    [35:0]  ANA_ADC48_DATA_7,
+    input   wire    [35:0]  ANA_ADC48_DATA_8,
+    input   wire    [35:0]  ANA_ADC48_DATA_9,
+    input   wire    [35:0]  ANA_ADC48_DATA_10,
+    input   wire    [35:0]  ANA_ADC48_DATA_11,
+
     output  wire    [17:0]  ADC_DATA,
     output  wire            ADC_DATA_VALID
 );
@@ -196,6 +209,7 @@ module pktctrl_top
     u_package_data_sel
     (
     .rf_self_test_mode          (rf_self_test_mode          ),
+    .rf_96path_en               (rf_96path_en               ),
     .ANA_ADC_DATA_0             (ANA_ADC_DATA_0             ),
     .ANA_ADC_DATA_1             (ANA_ADC_DATA_1             ),
     .ANA_ADC_DATA_2             (ANA_ADC_DATA_2             ),
@@ -220,6 +234,18 @@ module pktctrl_top
     .ANA_ADC_DATA_21            (ANA_ADC_DATA_21            ),
     .ANA_ADC_DATA_22            (ANA_ADC_DATA_22            ),
     .ANA_ADC_DATA_23            (ANA_ADC_DATA_23            ),
+    .ANA_ADC48_DATA_0           (ANA_ADC48_DATA_0           ),
+    .ANA_ADC48_DATA_1           (ANA_ADC48_DATA_1           ),
+    .ANA_ADC48_DATA_2           (ANA_ADC48_DATA_2           ),
+    .ANA_ADC48_DATA_3           (ANA_ADC48_DATA_3           ),
+    .ANA_ADC48_DATA_4           (ANA_ADC48_DATA_4           ),
+    .ANA_ADC48_DATA_5           (ANA_ADC48_DATA_5           ),
+    .ANA_ADC48_DATA_6           (ANA_ADC48_DATA_6           ),
+    .ANA_ADC48_DATA_7           (ANA_ADC48_DATA_7           ),
+    .ANA_ADC48_DATA_8           (ANA_ADC48_DATA_8           ),
+    .ANA_ADC48_DATA_9           (ANA_ADC48_DATA_9           ),
+    .ANA_ADC48_DATA_10          (ANA_ADC48_DATA_10          ),
+    .ANA_ADC48_DATA_11          (ANA_ADC48_DATA_11          ),
     .pkt_gen_data_0             (pkt_gen_data_0             ),
     .pkt_gen_data_1             (pkt_gen_data_1             ),
     .pkt_gen_data_2             (pkt_gen_data_2             ),

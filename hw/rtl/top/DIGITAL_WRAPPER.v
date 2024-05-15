@@ -44,6 +44,19 @@ module DIGITAL_WRAPPER
     input   wire    [35:0]  ANA_ADC_DATA_22,
     input   wire    [35:0]  ANA_ADC_DATA_23,
 
+    input   wire    [35:0]  ANA_ADC48_DATA_0,
+    input   wire    [35:0]  ANA_ADC48_DATA_1,
+    input   wire    [35:0]  ANA_ADC48_DATA_2,
+    input   wire    [35:0]  ANA_ADC48_DATA_3,
+    input   wire    [35:0]  ANA_ADC48_DATA_4,
+    input   wire    [35:0]  ANA_ADC48_DATA_5,
+    input   wire    [35:0]  ANA_ADC48_DATA_6,
+    input   wire    [35:0]  ANA_ADC48_DATA_7,
+    input   wire    [35:0]  ANA_ADC48_DATA_8,
+    input   wire    [35:0]  ANA_ADC48_DATA_9,
+    input   wire    [35:0]  ANA_ADC48_DATA_10,
+    input   wire    [35:0]  ANA_ADC48_DATA_11,
+
     inout   wire            PAD1_ADC_DATA_1,
     inout   wire            PAD2_ADC_DATA_2,
     inout   wire            PAD3_ADC_DATA_3,
@@ -74,6 +87,8 @@ module DIGITAL_WRAPPER
     wire    [8:0]   rf_pktctrl_clk_phase;
     wire            rf_pktctrl_clk_en;
     wire            rf_pktctrl_sw_rstn;
+    wire            rf_regfile_sw_rstn;
+    wire            regfile_rstn;
     wire            pktctrl_clk;
     wire            pktctrl_rstn;
 
@@ -116,10 +131,12 @@ module DIGITAL_WRAPPER
     .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
+    .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         ),
     .pktctrl_clk                (pktctrl_clk                ),
     .pktctrl_rstn               (pktctrl_rstn               ),
     .clk_200m                   (clk_200m                   ),
     .rstn_200m                  (rstn_200m                  ),
+    .regfile_rstn               (regfile_rstn               ),
     .CLK_RD                     (CLK_RD                     ),
     .DATA_RD_EN                 (DATA_RD_EN                 ),
     .RSTN                       (RSTN                       )
@@ -205,6 +222,18 @@ module DIGITAL_WRAPPER
     .ANA_ADC_DATA_21            (ANA_ADC_DATA_21            ),
     .ANA_ADC_DATA_22            (ANA_ADC_DATA_22            ),
     .ANA_ADC_DATA_23            (ANA_ADC_DATA_23            ),
+    .ANA_ADC48_DATA_0           (ANA_ADC48_DATA_0           ),
+    .ANA_ADC48_DATA_1           (ANA_ADC48_DATA_1           ),
+    .ANA_ADC48_DATA_2           (ANA_ADC48_DATA_2           ),
+    .ANA_ADC48_DATA_3           (ANA_ADC48_DATA_3           ),
+    .ANA_ADC48_DATA_4           (ANA_ADC48_DATA_4           ),
+    .ANA_ADC48_DATA_5           (ANA_ADC48_DATA_5           ),
+    .ANA_ADC48_DATA_6           (ANA_ADC48_DATA_6           ),
+    .ANA_ADC48_DATA_7           (ANA_ADC48_DATA_7           ),
+    .ANA_ADC48_DATA_8           (ANA_ADC48_DATA_8           ),
+    .ANA_ADC48_DATA_9           (ANA_ADC48_DATA_9           ),
+    .ANA_ADC48_DATA_10          (ANA_ADC48_DATA_10          ),
+    .ANA_ADC48_DATA_11          (ANA_ADC48_DATA_11          ),
     .ADC_DATA                   (ADC_DATA                   ),
     .ADC_DATA_VALID             (ADC_DATA_VALID             )
     );
@@ -230,7 +259,14 @@ module DIGITAL_WRAPPER
     .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
-    .rf_mdio_pkt_data           (rf_mdio_pkt_data           )
+    .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
+
+    .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),
+    .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
+    .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
+    .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
+    .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         )
+
     );
 
 endmodule

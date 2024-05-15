@@ -30,6 +30,7 @@ module ctrl_sys
 
     output  wire            rf_pktctrl_clk_en,
     output  wire            rf_pktctrl_sw_rstn,
+    output  wire            rf_regfile_sw_rstn,
 
     output  wire            rf_self_test_mode,
 
@@ -122,6 +123,7 @@ module ctrl_sys
     .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
+    .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         ),
     .rf_self_test_mode          (rf_self_test_mode          ),
     .rf_capture_mode            (rf_capture_mode            ),
     .rf_capture_start           (rf_capture_start           ),

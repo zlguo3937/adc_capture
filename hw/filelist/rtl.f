@@ -18,6 +18,7 @@
 // top
 ~/prj/adc_capture/hw/rtl/top/DIGITAL_WRAPPER.v
 ~/prj/adc_capture/hw/rtl/top/ASIC.v
+~/prj/adc_capture/hw/rtl/top/analog_signal_mux.v
 ~/prj/adc_capture/hw/rtl/top/iopad_top.v
 ~/prj/adc_capture/hw/rtl/top/iopad_pdd_inst.v
 ~/prj/adc_capture/hw/rtl/top/iopad_pdu_inst.v

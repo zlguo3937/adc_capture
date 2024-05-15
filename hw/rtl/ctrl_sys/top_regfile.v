@@ -41,6 +41,7 @@ module top_regfile
 
     output  wire            rf_pktctrl_clk_en,
     output  wire            rf_pktctrl_sw_rstn,
+    output  wire            rf_regfile_sw_rstn,
 
     output  wire            rf_self_test_mode,
 
@@ -76,6 +77,7 @@ module top_regfile
 
     assign rf_pktctrl_clk_en = 0;
     assign rf_pktctrl_sw_rstn = 0;
+    assign rf_regfile_sw_rstn = 0;
 
     assign rf_self_test_mode = 0;
 

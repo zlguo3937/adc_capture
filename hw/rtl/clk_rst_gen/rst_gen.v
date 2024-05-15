@@ -24,24 +24,18 @@ module rst_gen
     input   wire            dft_rstnsync_scan_rstn,
 
     // Clock input from clk_gen
-    input   wire            pktctrl_wclk,
-    input   wire            pktctrl_rclk,
-    input   wire            pktctrl_mdio_rclk,
-    input   wire            mdio_clk,
-    
+    input   wire            clk_200m,
+    input   wire            pktctrl_clk,
 
     // Register sw_reset
-    input   wire            rf_pktctrl_sw_wrstn,
-    input   wire            rf_pktctrl_sw_rrstn,
-    input   wire            rf_pktctrl_mdio_sw_rrstn,
-    input   wire            rf_mdio_sw_rstn,
+    input   wire            rf_pktctrl_sw_rstn,
+    input   wire            rf_regfile_sw_rstn,
 
     // Reset output
     output  wire            rstn, //TODO
-    output  wire            pktctrl_wrstn,
-    output  wire            pktctrl_rrstn,
-    output  wire            pktctrl_mdio_rrstn,
-    output  wire            mdio_rstn
+    output  wire            pktctrl_rstn,
+    output  wire            rstn_200m,
+    output  wire            regfile_rstn
 );
 
     wire    pktctrl_wrstn_in;
@@ -51,58 +45,45 @@ module rst_gen
 
     // Reset Debounce
     //TODO
+    assign  rstn = RSTN;
 
-    assign  pktctrl_wrstn_in        = rstn & rf_pktctrl_sw_wrstn;
-    assign  pktctrl_rrstn_in        = rstn & rf_pktctrl_sw_rrstn;
-    assign  pktctrl_mdio_rrstn_in   = rstn & rf_pktctrl_mdio_sw_rrstn;
-    assign  mdio_rstn_in            = rstn & rf_mdio_sw_rstn;
+    assign  pktctrl_rstn_in = rstn & rf_pktctrl_sw_rstn;
+    assign  regfile_rstn_in = rstn & rf_regfile_sw_rstn;
 
-    // Reset sync for pktctrl_wrstn
+    // Reset sync for pktctrl_rstn
     jlsemi_util_async_reset_low_sync #(
         .RST_SYNC_STAGE (3))
-    u_dont_touch_rst_sync_to_pktctrl_wrstn
+    u_dont_touch_rst_sync_to_pktctrl_rstn
     (
-    .rst_n_i                      (pktctrl_wrstn_in             ),
-    .clk_i                        (pktctrl_wclk                 ),
+    .rst_n_i                      (pktctrl_rstn_in              ),
+    .clk_i                        (pktctrl_clk                  ),
     .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
     .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
-    .rst_n_o                      (pktctrl_wrstn                )
-    );
-
-    // Reset sync for pktctrl_rrstn
-    jlsemi_util_async_reset_low_sync #(
-        .RST_SYNC_STAGE (3))
-    u_dont_touch_rst_sync_to_pktctrl_rrstn
-    (
-    .rst_n_i                      (pktctrl_rrstn_in             ),
-    .clk_i                        (pktctrl_wclk                 ),
-    .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
-    .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
-    .rst_n_o                      (pktctrl_rrstn                )
-    );
-
-    // Reset sync for pktctrl_mdio_rrstn
-    jlsemi_util_async_reset_low_sync #(
-        .RST_SYNC_STAGE (3))
-    u_dont_touch_rst_sync_to_pktctrl_mdio_rrstn
-    (
-    .rst_n_i                      (pktctrl_mdio_rrstn_in        ),
-    .clk_i                        (pktctrl_wclk                 ),
-    .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
-    .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
-    .rst_n_o                      (pktctrl_mdio_rrstn           )
+    .rst_n_o                      (pktctrl_rstn                 )
     );
 
     // Reset sync for mdio_rstn
     jlsemi_util_async_reset_low_sync #(
         .RST_SYNC_STAGE (3))
-    u_dont_touch_rst_sync_to_mdio_rstn
+    u_dont_touch_rst_sync_to_rstn_200m
     (
-    .rst_n_i                      (mdio_rstn_in                 ),
-    .clk_i                        (pktctrl_wclk                 ),
+    .rst_n_i                      (rstn                         ),
+    .clk_i                        (clk_200m                     ),
     .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
     .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
-    .rst_n_o                      (mdio_rstn                    )
+    .rst_n_o                      (rstn_200m                    )
+    );
+
+    // Reset sync for regfile_rstn
+    jlsemi_util_async_reset_low_sync #(
+        .RST_SYNC_STAGE (3))
+    u_dont_touch_rst_sync_to_regfile_rstn
+    (
+    .rst_n_i                      (regfile_rstn_in              ),
+    .clk_i                        (clk_200m                     ),
+    .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
+    .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
+    .rst_n_o                      (regfile_rstn                 )
     );
 
 endmodule
