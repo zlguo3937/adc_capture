@@ -1,0 +1,64 @@
+- address: '0x0'
+  reg_name: MDIO_CFG_0
+  desc: MDIO_CFG
+  register:
+    - range: '[14:10]'
+      msb: 14
+      lsb: 10
+      width: 5
+      reset: '0x1f'
+      type: RWR
+      name: legal_phy_addr
+    - range: '[9:5]'
+      msb: 9
+      lsb: 5
+      width: 5
+      reset: '0x1f'
+      type: RWR
+      name: legal_phy_addr_mask
+    - range: '[4:0]'
+      msb: 4
+      lsb: 0
+      width: 5
+      reset: '0x1f'
+      type: RWR
+      name: broadcast_addr
+- addr: '0x1'
+  reg_name: MDIO_CFG_1
+  desc: MDIO_CFG
+  register:
+    - range: '[4]'
+      msb: 4
+      lsb: 4
+      width: 1
+      reset: '0x1'
+      type: RWR
+      name: broadcast_mode
+    - range: '[3]'
+      msb: 3
+      lsb: 3
+      width: 1
+      reset: '0x0'
+      type: RWR
+      name: non_zero_detect
+    - range: '[2]'
+      msb: 2
+      lsb: 2
+      width: 1
+      reset: '0x1'
+      type: RWR
+      name: opendrain_mode
+    - range: '[1]'
+      msb: 1
+      lsb: 1
+      width: 1
+      reset: '0x0'
+      type: RWR
+      name: watchdog_enable
+    - range: '[0]'
+      msb: 0
+      lsb: 0
+      width: 1
+      reset: '0x0'
+      type: RWR
+      name: sync_select
