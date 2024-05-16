@@ -103,11 +103,11 @@ module gen_read_logic_mdio
 
     output  reg             mdio_rd_done,
 
+    output  reg             mdio_read_pulse_r,
     output  reg     [8:0]   rf_mdio_pkt_data
 );
 
     reg [8:0]       mdio_pkt_data;
-    reg             rf_mdio_read_pulse_r;
 
     reg [23:0]      mdio_rd_chip_en;
     reg [24*15-1:0] mdio_rd_raddr;
@@ -224,16 +224,16 @@ module gen_read_logic_mdio
 
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
-            rf_mdio_read_pulse_r <= 1'b0;
+            mdio_read_pulse_r <= 1'b0;
         else
-            rf_mdio_read_pulse_r <= rf_mdio_read_pulse;
+            mdio_read_pulse_r <= rf_mdio_read_pulse;
     end
 
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
             rf_mdio_pkt_data <= 9'h0;
         else if (mdio_read_en) begin
-            if (rf_mdio_read_pulse_r)
+            if (mdio_read_pulse_r)
                 rf_mdio_pkt_data <= mdio_pkt_data;
         end
         else

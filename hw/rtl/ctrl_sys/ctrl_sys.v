@@ -35,19 +35,21 @@ module ctrl_sys
     output  wire            rf_pktctrl_sw_rstn,
     output  wire            rf_regfile_sw_rstn,
 
-    output  wire            rf_self_test_mode,
+    output  wire            rf_self_test_mode_sync,
 
-    output  wire            rf_capture_mode,
-    output  wire            rf_capture_start,
-    output  wire            rf_capture_again,
+    output  wire            rf_capture_mode_sync,
+    output  wire            rf_capture_start_sync,
+    output  wire            rf_capture_again_sync,
 
-    output  wire            rf_96path_en,
-    output  wire    [1:0]   rf_pkt_data_length,
-    output  wire    [15:0]  rf_pkt_idle_length,
+    output  wire            rf_96path_en_sync,
+    output  wire    [1:0]   rf_pkt_data_length_sync,
+    output  wire    [15:0]  rf_pkt_idle_length_sync,
 
-    output  wire            rf_mdio_read_pulse,
-    output  wire    [6:0]   rf_mdio_data_sel,
-    output  wire    [14:0]  rf_mdio_memory_addr,
+    output  wire            rf_mdio_read_pulse_sync,
+    output  wire    [6:0]   rf_mdio_data_sel_sync,
+    output  wire    [14:0]  rf_mdio_memory_addr_sync,
+
+    input   wire            mdio_read_pulse_r,
     input   wire    [8:0]   rf_mdio_pkt_data
 
 );
@@ -71,18 +73,22 @@ module ctrl_sys
     wire    [15:0]  req_prdata;
     wire            req_pslverr;
 
-    wire            rf_self_test_mode_sync;
-    wire            rf_capture_mode_sync;
-    wire            rf_capture_start_sync;
-    wire            rf_capture_again_sync;
-    wire            rf_96path_en_sync;
-    wire    [1:0]   rf_pkt_data_length_sync;
-    wire    [15:0]  rf_pkt_idle_length_sync;
-    wire            rf_mdio_read_pulse_sync;
-    wire    [6:0]   rf_mdio_data_sel_sync;
-    wire    [14:0]  rf_mdio_memory_addr_sync;
+    wire            rf_self_test_mode;
+
+    wire            rf_capture_mode;
+    wire            rf_capture_start;
+    wire            rf_capture_again;
+
+    wire            rf_96path_en;
+    wire    [1:0]   rf_pkt_data_length;
+    wire    [15:0]  rf_pkt_idle_length;
+
+    wire            rf_mdio_read_pulse;
+    wire    [6:0]   rf_mdio_data_sel;
+    wire    [14:0]  rf_mdio_memory_addr;
 
     wire    [8:0]   rf_mdio_pkt_data_sync;
+    wire            rf_mdio_pkt_data_we;
 
     mdio_top
     u_mdio
@@ -150,7 +156,8 @@ module ctrl_sys
     .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
-    .rf_mdio_pkt_data           (rf_mdio_pkt_data_sync      )
+    .rf_mdio_pkt_data           (rf_mdio_pkt_data_sync      ),
+    .rf_mdio_pkt_data_we        (rf_mdio_pkt_data_we        )
     );
 
     cdc_500_100
@@ -172,6 +179,7 @@ module ctrl_sys
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
 
+    .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
 
     .rf_self_test_mode_sync     (rf_self_test_mode_sync     ),
@@ -185,7 +193,8 @@ module ctrl_sys
     .rf_mdio_data_sel_sync      (rf_mdio_data_sel_sync      ),
     .rf_mdio_memory_addr_sync   (rf_mdio_memory_addr_sync   ),
 
-    .rf_mdio_pkt_data_sync      (rf_mdio_pkt_data_sync      )
+    .rf_mdio_pkt_data_sync      (rf_mdio_pkt_data_sync      ),
+    .rf_mdio_pkt_data_we        (rf_mdio_pkt_data_we        )
     );
 
 endmodule

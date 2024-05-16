@@ -56,7 +56,9 @@ module top_regfile
     output  wire            rf_mdio_read_pulse,
     output  wire    [6:0]   rf_mdio_data_sel,
     output  wire    [14:0]  rf_mdio_memory_addr,
-    input   wire    [8:0]   rf_mdio_pkt_data
+
+    input   wire    [8:0]   rf_mdio_pkt_data,
+    input   wire            rf_mdio_pkt_data_we
 );
 
     assign legal_phy_addr = 0;

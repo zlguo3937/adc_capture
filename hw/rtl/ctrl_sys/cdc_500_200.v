@@ -34,6 +34,7 @@ module cdc_500_100
     input   wire    [6:0]   rf_mdio_data_sel,
     input   wire    [14:0]  rf_mdio_memory_addr,
 
+    input   wire            mdio_read_pulse_r,
     input   wire    [8:0]   rf_mdio_pkt_data,
 
     output  wire            rf_self_test_mode_sync,
@@ -47,7 +48,8 @@ module cdc_500_100
     output  wire    [6:0]   rf_mdio_data_sel_sync,
     output  wire    [14:0]  rf_mdio_memory_addr_sync,
 
-    output  wire    [8:0]   rf_mdio_pkt_data_sync
+    output  wire    [8:0]   rf_mdio_pkt_data_sync,
+    output  wire            rf_mdio_pkt_data_we
 
 );
 
@@ -72,23 +74,23 @@ module cdc_500_100
     pulse_handshake
     u_sync_rf_capture_start
     (
-    .clk_in                     (clk_200m                   ),
-    .rstn_in                    (rstn_200m                  ),
-    .vld_in                     (rf_capture_start           ),
-    .clk_out                    (pktctrl_clk                ),
-    .rstn_out                   (pktctrl_rstn               ),
-    .vld_out                    (rf_capture_start_sync      )
+    .src_clk                    (clk_200m                   ),
+    .src_rstn                   (rstn_200m                  ),
+    .src_pulse                  (rf_capture_start           ),
+    .dst_clk                    (pktctrl_clk                ),
+    .dst_rstn                   (pktctrl_rstn               ),
+    .dst_pulse                  (rf_capture_start_sync      )
     );
 
     pulse_handshake
     u_sync_rf_capture_again
     (
-    .clk_in                     (clk_200m                   ),
-    .rstn_in                    (rstn_200m                  ),
-    .vld_in                     (rf_capture_again           ),
-    .clk_out                    (pktctrl_clk                ),
-    .rstn_out                   (pktctrl_rstn               ),
-    .vld_out                    (rf_capture_again_sync      )
+    .src_clk                    (clk_200m                   ),
+    .src_rstn                   (rstn_200m                  ),
+    .src_pulse                  (rf_capture_again           ),
+    .dst_clk                    (pktctrl_clk                ),
+    .dst_rstn                   (pktctrl_rstn               ),
+    .dst_pulse                  (rf_capture_again_sync      )
     );
 
     jlsemi_util_sync_pos_with_rst_low
@@ -103,18 +105,19 @@ module cdc_500_100
     pulse_handshake
     u_sync_rf_mdio_read_pulse
     (
-    .clk_in                     (clk_200m                   ),
-    .rstn_in                    (rstn_200m                  ),
-    .vld_in                     (rf_mdio_read_pulse         ),
-    .clk_out                    (pktctrl_clk                ),
-    .rstn_out                   (pktctrl_rstn               ),
-    .vld_out                    (rf_mdio_read_pulse_sync    )
+    .src_clk                    (clk_200m                   ),
+    .src_rstn                   (rstn_200m                  ),
+    .src_pulse                  (rf_mdio_read_pulse         ),
+    .dst_clk                    (pktctrl_clk                ),
+    .dst_rstn                   (pktctrl_rstn               ),
+    .dst_pulse                  (rf_mdio_read_pulse_sync    )
     );
 
     synchronizer#(
         .DATA_WIDTH (1+1 ),
-        .INIT_VALUE (0   )
-    )u_sync_rf_pkt_data_length(
+        .INIT_VALUE (0   ))
+    u_sync_rf_pkt_data_length
+    (
     .clk                        (pktctrl_clk                ),
     .rstn                       (pktctrl_rstn               ),
     .din                        (rf_pkt_data_length         ),
@@ -123,8 +126,9 @@ module cdc_500_100
 
     synchronizer#(
         .DATA_WIDTH (15+1),
-        .INIT_VALUE (0   )
-    )u_sync_rf_pkt_idle_length(
+        .INIT_VALUE (0   ))
+    u_sync_rf_pkt_idle_length
+    (
     .clk                        (pktctrl_clk                ),
     .rstn                       (pktctrl_rstn               ),
     .din                        (rf_pkt_idle_length         ),
@@ -133,8 +137,9 @@ module cdc_500_100
 
     synchronizer#(
         .DATA_WIDTH (6+1 ),
-        .INIT_VALUE (0   )
-    )u_sync_rf_mdio_data_sel(
+        .INIT_VALUE (0   ))
+    u_sync_rf_mdio_data_sel
+    (
     .clk                        (pktctrl_clk                ),
     .rstn                       (pktctrl_rstn               ),
     .din                        (rf_mdio_data_sel           ),
@@ -143,8 +148,9 @@ module cdc_500_100
 
     synchronizer#(
         .DATA_WIDTH (14+1),
-        .INIT_VALUE (0   )
-    )u_sync_rf_mdio_memory_addr(
+        .INIT_VALUE (0   ))
+    u_sync_rf_mdio_memory_addr
+    (
     .clk                        (pktctrl_clk                ),
     .rstn                       (pktctrl_rstn               ),
     .din                        (rf_mdio_memory_addr        ),
@@ -152,16 +158,16 @@ module cdc_500_100
     );
 
     multi_handshake#(
-        .DATA_WIDTH (8+1)
+        .DATA_WIDTH (9)
     )u_sync_rf_mdio_pkt_data
     (
-    .clk_in                     (pktctrl_clk                ),
-    .rstn_in                    (pktctrl_rstn               ),
-    .vld_in                     (rf_mdio_read_pulse_r       ),
+    .src_clk                    (pktctrl_clk                ),
+    .src_rstn                   (pktctrl_rstn               ),
+    .vld_in                     (mdio_read_pulse_r          ),
     .din                        (rf_mdio_pkt_data           ),
 
-    .clk_out                    (clk_200m                   ),
-    .rstn_out                   (rstn_200m                  ),
+    .dst_clk                    (clk_200m                   ),
+    .dst_rstn                   (rstn_200m                  ),
     .vld_out                    (rf_mdio_pkt_data_we        ),
     .dout                       (rf_mdio_pkt_data_sync      )
     );

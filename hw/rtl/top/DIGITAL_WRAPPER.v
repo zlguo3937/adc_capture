@@ -119,6 +119,7 @@ module DIGITAL_WRAPPER
     wire            rf_mdio_read_pulse;
     wire    [6:0]   rf_mdio_data_sel;
     wire    [14:0]  rf_mdio_memory_addr;
+    wire            mdio_read_pulse_r;
     wire    [8:0]   rf_mdio_pkt_data;
 
     // crg
@@ -197,6 +198,7 @@ module DIGITAL_WRAPPER
     .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
+    .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
     .ANA_ADC_DATA_0             (ANA_ADC_DATA_0             ),
     .ANA_ADC_DATA_1             (ANA_ADC_DATA_1             ),
@@ -251,16 +253,17 @@ module DIGITAL_WRAPPER
     .mdio_oen                   (mdio_oen                   ),
     
     // Digital config register
-    .rf_self_test_mode          (rf_self_test_mode          ),
-    .rf_capture_mode            (rf_capture_mode            ),
-    .rf_capture_start           (rf_capture_start           ),
-    .rf_capture_again           (rf_capture_again           ),
-    .rf_96path_en               (rf_96path_en               ),
-    .rf_pkt_data_length         (rf_pkt_data_length         ),
-    .rf_pkt_idle_length         (rf_pkt_idle_length         ),
-    .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
-    .rf_mdio_data_sel           (rf_mdio_data_sel           ),
-    .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
+    .rf_self_test_mode_sync     (rf_self_test_mode          ),
+    .rf_capture_mode_sync       (rf_capture_mode            ),
+    .rf_capture_start_sync      (rf_capture_start           ),
+    .rf_capture_again_sync      (rf_capture_again           ),
+    .rf_96path_en_sync          (rf_96path_en               ),
+    .rf_pkt_data_length_sync    (rf_pkt_data_length         ),
+    .rf_pkt_idle_length_sync    (rf_pkt_idle_length         ),
+    .rf_mdio_read_pulse_sync    (rf_mdio_read_pulse         ),
+    .rf_mdio_data_sel_sync      (rf_mdio_data_sel           ),
+    .rf_mdio_memory_addr_sync   (rf_mdio_memory_addr        ),
+    .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
 
     .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),

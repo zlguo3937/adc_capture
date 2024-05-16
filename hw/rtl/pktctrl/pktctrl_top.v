@@ -38,6 +38,7 @@ module pktctrl_top
     input   wire            rf_mdio_read_pulse,
     input   wire    [6:0]   rf_mdio_data_sel,
     input   wire    [14:0]  rf_mdio_memory_addr,
+    output  wire            mdio_read_pulse_r,
     output  wire    [8:0]   rf_mdio_pkt_data,
 
     input   wire    [35:0]  ANA_ADC_DATA_0,
@@ -171,6 +172,7 @@ module pktctrl_top
     .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
+    .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
     .ADC_DATA                   (ADC_DATA                   ),
     .ADC_DATA_VALID             (ADC_DATA_VALID             )
