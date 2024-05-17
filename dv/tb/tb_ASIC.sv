@@ -36,17 +36,27 @@ module tb_ASIC;
 
     initial
     begin
-        rstn = 1;
-        #50;
         rstn = 0;
-        #50;
+        #20;
         rstn = 1;
+    end
+
+    reg start;
+    initial begin
+        start = 0;
+        #41;
+        start = 1;
+        #6;
+        start = 0;
     end
 
     initial begin
         force ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_clk_en.cell_data = 1'b1;
         force ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_sw_rstn.cell_data = 1'b1;
         force ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_regfile_sw_rstn.cell_data = 1'b1;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_self_test_mode.cell_data = 1'b1;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_start.dev_rdata = start;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_clk_div.cell_data = 8;
     end
 
     ASIC
