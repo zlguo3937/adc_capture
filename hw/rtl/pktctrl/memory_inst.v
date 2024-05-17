@@ -35,6 +35,7 @@ module memory_inst
     .CLK    (CLK        ),
     .CEB    (CEB        ),
     .WEB    (WEB        ),
+    .BWEB   (36'b0      ),
     .A      (A          ),
     .D      (D          ),
     .Q      (Q          )

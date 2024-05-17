@@ -16,10 +16,7 @@
 // --------------------------------------------------------------------
 module package_ctrl
 (
-    input   wire            clk_200m,
     input   wire            pktctrl_clk,
-
-    input   wire            rstn_200m,
     input   wire            pktctrl_rstn,
 
     input   wire            rf_capture_mode,
