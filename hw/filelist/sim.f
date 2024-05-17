@@ -54,3 +54,5 @@
 ~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/cdc_1clk_signal.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/cdc_200m_100m.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_backend.v
+
+~/prj/adc_capture/dv/tb/tb_ASIC.sv

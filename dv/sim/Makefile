@@ -1,16 +1,16 @@
 test:
 	@echo "Start to compile"
-	vcs -full64 -f ~/prj/adc_capture/hw/filelist/sim.f -debug_access+all -top ASIC +lint=TFIPC-L -l com.log
+	vcs -full64 +v2k +timescale=1ns/1ns -f ~/prj/adc_capture/hw/filelist/sim.f -debug_access+all +lint=TFIPC-L -top tb_ASIC -l com.log
 	@echo "End to compile"
 	@echo "Start to simulate"
-	./simv +fsdb+region -l jlsemi_util_clkdiv_odd_tb.log
+	./simv +fsdb+region -l tb_ASIC.log
 	@echo "End of run simulation"
 
 waveform:
-	verdi -f ~/prj/adc_capture/hw/filelist/sim.f -ssf -sswr &
+	verdi -f ~/prj/adc_capture/hw/filelist/sim.f -ssf -sv tb_ASIC.fsdb -sswr -top tb_ASIC &
 
 filelist:
 	verdi -f ~/prj/adc_capture/hw/filelist/rtl.f -ssf -sv -top ASIC &
 
 clean:
-	rm -rf *.log *.rc *.conf verdiLog ucli.key simv.daidir simv csrc jlsemi_util_clkdiv_odd_tb.fsdb
+	rm -rf *.log *.conf verdiLog ucli.key simv.daidir simv csrc *.fsdb *.fsdb.*
