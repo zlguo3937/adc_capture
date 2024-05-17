@@ -108,6 +108,19 @@ module pktctrl_top
     wire    [35:0]  pkt_gen_data_22;
     wire    [35:0]  pkt_gen_data_23;
 
+    wire    [35:0]  pkt_gen_48data_0;
+    wire    [35:0]  pkt_gen_48data_1;
+    wire    [35:0]  pkt_gen_48data_2;
+    wire    [35:0]  pkt_gen_48data_3;
+    wire    [35:0]  pkt_gen_48data_4;
+    wire    [35:0]  pkt_gen_48data_5;
+    wire    [35:0]  pkt_gen_48data_6;
+    wire    [35:0]  pkt_gen_48data_7;
+    wire    [35:0]  pkt_gen_48data_8;
+    wire    [35:0]  pkt_gen_48data_9;
+    wire    [35:0]  pkt_gen_48data_10;
+    wire    [35:0]  pkt_gen_48data_11;
+
     wire    [35:0]  adc_data_0;
     wire    [35:0]  adc_data_1;
     wire    [35:0]  adc_data_2;
@@ -204,7 +217,19 @@ module pktctrl_top
     .pkt_gen_data_20            (pkt_gen_data_20            ),
     .pkt_gen_data_21            (pkt_gen_data_21            ),
     .pkt_gen_data_22            (pkt_gen_data_22            ),
-    .pkt_gen_data_23            (pkt_gen_data_23            )
+    .pkt_gen_data_23            (pkt_gen_data_23            ),
+    .pkt_gen_48data_0           (pkt_gen_48data_0           ),
+    .pkt_gen_48data_1           (pkt_gen_48data_1           ),
+    .pkt_gen_48data_2           (pkt_gen_48data_2           ),
+    .pkt_gen_48data_3           (pkt_gen_48data_3           ),
+    .pkt_gen_48data_4           (pkt_gen_48data_4           ),
+    .pkt_gen_48data_5           (pkt_gen_48data_5           ),
+    .pkt_gen_48data_6           (pkt_gen_48data_6           ),
+    .pkt_gen_48data_7           (pkt_gen_48data_7           ),
+    .pkt_gen_48data_8           (pkt_gen_48data_8           ),
+    .pkt_gen_48data_9           (pkt_gen_48data_9           ),
+    .pkt_gen_48data_10          (pkt_gen_48data_10          ),
+    .pkt_gen_48data_11          (pkt_gen_48data_11          )
     );
 
     package_data_sel
@@ -272,6 +297,18 @@ module pktctrl_top
     .pkt_gen_data_21            (pkt_gen_data_21            ),
     .pkt_gen_data_22            (pkt_gen_data_22            ),
     .pkt_gen_data_23            (pkt_gen_data_23            ),
+    .pkt_gen_48data_0           (pkt_gen_48data_0           ),
+    .pkt_gen_48data_1           (pkt_gen_48data_1           ),
+    .pkt_gen_48data_2           (pkt_gen_48data_2           ),
+    .pkt_gen_48data_3           (pkt_gen_48data_3           ),
+    .pkt_gen_48data_4           (pkt_gen_48data_4           ),
+    .pkt_gen_48data_5           (pkt_gen_48data_5           ),
+    .pkt_gen_48data_6           (pkt_gen_48data_6           ),
+    .pkt_gen_48data_7           (pkt_gen_48data_7           ),
+    .pkt_gen_48data_8           (pkt_gen_48data_8           ),
+    .pkt_gen_48data_9           (pkt_gen_48data_9           ),
+    .pkt_gen_48data_10          (pkt_gen_48data_10          ),
+    .pkt_gen_48data_11          (pkt_gen_48data_11          ),
     .adc_data_0                 (adc_data_0                 ),
     .adc_data_1                 (adc_data_1                 ),
     .adc_data_2                 (adc_data_2                 ),

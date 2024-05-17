@@ -255,31 +255,63 @@ module gen_read_logic_fast
         else
         case(curr_sta)
             READ_216BYTE: begin
-                if (RD_CNT == 9'd47)
-                    RD_CNT <= 9'd0;
-                else if (RD)
-                    RD_CNT <= RD_CNT + 1;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd47)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
+                else begin
+                    if (RD_CNT == 9'd23)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
             end
 
             READ_432BYTE: begin
-                if (RD_CNT == 9'd95)
-                    RD_CNT <= 9'd0;
-                else if (RD)
-                    RD_CNT <= RD_CNT + 1;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd95)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
+                else begin
+                    if (RD_CNT == 9'd47)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
             end
 
             READ_864BYTE: begin
-                if (RD_CNT == 9'd191)
-                    RD_CNT <= 9'd0;
-                else if (RD)
-                    RD_CNT <= RD_CNT + 1;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd191)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
+                else begin
+                    if (RD_CNT == 9'd95)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
             end
 
             READ_1728BYTE: begin
-                if (RD_CNT == 9'd383)
-                    RD_CNT <= 9'd0;
-                else if (RD)
-                    RD_CNT <= RD_CNT + 1;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd383)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
+                else begin
+                    if (RD_CNT == 9'd191)
+                        RD_CNT <= 9'd0;
+                    else if (RD)
+                        RD_CNT <= RD_CNT + 1;
+                end
             end
 
             default: RD_CNT <= 36'h0;
@@ -386,62 +418,115 @@ module gen_read_logic_fast
      Gen fast_chip_en
      ----------------------------------------------------------------- */
     always @(*) begin
-        case(curr_sta)
-            READ_216BYTE: begin
-                fast_chip_en_0  = fast_chip_en216_0 ; fast_chip_en_1  = fast_chip_en216_1 ; fast_chip_en_2  = fast_chip_en216_2 ;
-                fast_chip_en_3  = fast_chip_en216_3 ; fast_chip_en_4  = fast_chip_en216_4 ; fast_chip_en_5  = fast_chip_en216_5 ;
-                fast_chip_en_6  = fast_chip_en216_6 ; fast_chip_en_7  = fast_chip_en216_7 ; fast_chip_en_8  = fast_chip_en216_8 ;
-                fast_chip_en_9  = fast_chip_en216_9 ; fast_chip_en_10 = fast_chip_en216_10; fast_chip_en_11 = fast_chip_en216_11;
-                fast_chip_en_12 = fast_chip_en216_12; fast_chip_en_13 = fast_chip_en216_13; fast_chip_en_14 = fast_chip_en216_14;
-                fast_chip_en_15 = fast_chip_en216_15; fast_chip_en_16 = fast_chip_en216_16; fast_chip_en_17 = fast_chip_en216_17;
-                fast_chip_en_18 = fast_chip_en216_18; fast_chip_en_19 = fast_chip_en216_19; fast_chip_en_20 = fast_chip_en216_20;
-                fast_chip_en_21 = fast_chip_en216_21; fast_chip_en_22 = fast_chip_en216_22; fast_chip_en_23 = fast_chip_en216_23;
-            end
+        if (rf_96path_en) begin
+            case(curr_sta)
+                READ_216BYTE: begin
+                    fast_chip_en_0  = fast_chip_en216_0 ; fast_chip_en_1  = fast_chip_en216_1 ; fast_chip_en_2  = fast_chip_en216_2 ;
+                    fast_chip_en_3  = fast_chip_en216_3 ; fast_chip_en_4  = fast_chip_en216_4 ; fast_chip_en_5  = fast_chip_en216_5 ;
+                    fast_chip_en_6  = fast_chip_en216_6 ; fast_chip_en_7  = fast_chip_en216_7 ; fast_chip_en_8  = fast_chip_en216_8 ;
+                    fast_chip_en_9  = fast_chip_en216_9 ; fast_chip_en_10 = fast_chip_en216_10; fast_chip_en_11 = fast_chip_en216_11;
+                    fast_chip_en_12 = fast_chip_en216_12; fast_chip_en_13 = fast_chip_en216_13; fast_chip_en_14 = fast_chip_en216_14;
+                    fast_chip_en_15 = fast_chip_en216_15; fast_chip_en_16 = fast_chip_en216_16; fast_chip_en_17 = fast_chip_en216_17;
+                    fast_chip_en_18 = fast_chip_en216_18; fast_chip_en_19 = fast_chip_en216_19; fast_chip_en_20 = fast_chip_en216_20;
+                    fast_chip_en_21 = fast_chip_en216_21; fast_chip_en_22 = fast_chip_en216_22; fast_chip_en_23 = fast_chip_en216_23;
+                end
 
-            READ_432BYTE: begin
-                fast_chip_en_0  = fast_chip_en432_0 ; fast_chip_en_1  = fast_chip_en432_1 ; fast_chip_en_2  = fast_chip_en432_2 ;
-                fast_chip_en_3  = fast_chip_en432_3 ; fast_chip_en_4  = fast_chip_en432_4 ; fast_chip_en_5  = fast_chip_en432_5 ;
-                fast_chip_en_6  = fast_chip_en432_6 ; fast_chip_en_7  = fast_chip_en432_7 ; fast_chip_en_8  = fast_chip_en432_8 ;
-                fast_chip_en_9  = fast_chip_en432_9 ; fast_chip_en_10 = fast_chip_en432_10; fast_chip_en_11 = fast_chip_en432_11;
-                fast_chip_en_12 = fast_chip_en432_12; fast_chip_en_13 = fast_chip_en432_13; fast_chip_en_14 = fast_chip_en432_14;
-                fast_chip_en_15 = fast_chip_en432_15; fast_chip_en_16 = fast_chip_en432_16; fast_chip_en_17 = fast_chip_en432_17;
-                fast_chip_en_18 = fast_chip_en432_18; fast_chip_en_19 = fast_chip_en432_19; fast_chip_en_20 = fast_chip_en432_20;
-                fast_chip_en_21 = fast_chip_en432_21; fast_chip_en_22 = fast_chip_en432_22; fast_chip_en_23 = fast_chip_en432_23;
-            end
+                READ_432BYTE: begin
+                    fast_chip_en_0  = fast_chip_en432_0 ; fast_chip_en_1  = fast_chip_en432_1 ; fast_chip_en_2  = fast_chip_en432_2 ;
+                    fast_chip_en_3  = fast_chip_en432_3 ; fast_chip_en_4  = fast_chip_en432_4 ; fast_chip_en_5  = fast_chip_en432_5 ;
+                    fast_chip_en_6  = fast_chip_en432_6 ; fast_chip_en_7  = fast_chip_en432_7 ; fast_chip_en_8  = fast_chip_en432_8 ;
+                    fast_chip_en_9  = fast_chip_en432_9 ; fast_chip_en_10 = fast_chip_en432_10; fast_chip_en_11 = fast_chip_en432_11;
+                    fast_chip_en_12 = fast_chip_en432_12; fast_chip_en_13 = fast_chip_en432_13; fast_chip_en_14 = fast_chip_en432_14;
+                    fast_chip_en_15 = fast_chip_en432_15; fast_chip_en_16 = fast_chip_en432_16; fast_chip_en_17 = fast_chip_en432_17;
+                    fast_chip_en_18 = fast_chip_en432_18; fast_chip_en_19 = fast_chip_en432_19; fast_chip_en_20 = fast_chip_en432_20;
+                    fast_chip_en_21 = fast_chip_en432_21; fast_chip_en_22 = fast_chip_en432_22; fast_chip_en_23 = fast_chip_en432_23;
+                end
 
-            READ_864BYTE: begin
-                fast_chip_en_0  = fast_chip_en864_0 ; fast_chip_en_1  = fast_chip_en864_1 ; fast_chip_en_2  = fast_chip_en864_2 ;
-                fast_chip_en_3  = fast_chip_en864_3 ; fast_chip_en_4  = fast_chip_en864_4 ; fast_chip_en_5  = fast_chip_en864_5 ;
-                fast_chip_en_6  = fast_chip_en864_6 ; fast_chip_en_7  = fast_chip_en864_7 ; fast_chip_en_8  = fast_chip_en864_8 ;
-                fast_chip_en_9  = fast_chip_en864_9 ; fast_chip_en_10 = fast_chip_en864_10; fast_chip_en_11 = fast_chip_en864_11;
-                fast_chip_en_12 = fast_chip_en864_12; fast_chip_en_13 = fast_chip_en864_13; fast_chip_en_14 = fast_chip_en864_14;
-                fast_chip_en_15 = fast_chip_en864_15; fast_chip_en_16 = fast_chip_en864_16; fast_chip_en_17 = fast_chip_en864_17;
-                fast_chip_en_18 = fast_chip_en864_18; fast_chip_en_19 = fast_chip_en864_19; fast_chip_en_20 = fast_chip_en864_20;
-                fast_chip_en_21 = fast_chip_en864_21; fast_chip_en_22 = fast_chip_en864_22; fast_chip_en_23 = fast_chip_en864_23;
-            end
+                READ_864BYTE: begin
+                    fast_chip_en_0  = fast_chip_en864_0 ; fast_chip_en_1  = fast_chip_en864_1 ; fast_chip_en_2  = fast_chip_en864_2 ;
+                    fast_chip_en_3  = fast_chip_en864_3 ; fast_chip_en_4  = fast_chip_en864_4 ; fast_chip_en_5  = fast_chip_en864_5 ;
+                    fast_chip_en_6  = fast_chip_en864_6 ; fast_chip_en_7  = fast_chip_en864_7 ; fast_chip_en_8  = fast_chip_en864_8 ;
+                    fast_chip_en_9  = fast_chip_en864_9 ; fast_chip_en_10 = fast_chip_en864_10; fast_chip_en_11 = fast_chip_en864_11;
+                    fast_chip_en_12 = fast_chip_en864_12; fast_chip_en_13 = fast_chip_en864_13; fast_chip_en_14 = fast_chip_en864_14;
+                    fast_chip_en_15 = fast_chip_en864_15; fast_chip_en_16 = fast_chip_en864_16; fast_chip_en_17 = fast_chip_en864_17;
+                    fast_chip_en_18 = fast_chip_en864_18; fast_chip_en_19 = fast_chip_en864_19; fast_chip_en_20 = fast_chip_en864_20;
+                    fast_chip_en_21 = fast_chip_en864_21; fast_chip_en_22 = fast_chip_en864_22; fast_chip_en_23 = fast_chip_en864_23;
+                end
 
-            READ_1728BYTE: begin
-                fast_chip_en_0  = fast_chip_en1728_0 ; fast_chip_en_1  = fast_chip_en1728_1 ; fast_chip_en_2  = fast_chip_en1728_2 ;
-                fast_chip_en_3  = fast_chip_en1728_3 ; fast_chip_en_4  = fast_chip_en1728_4 ; fast_chip_en_5  = fast_chip_en1728_5 ;
-                fast_chip_en_6  = fast_chip_en1728_6 ; fast_chip_en_7  = fast_chip_en1728_7 ; fast_chip_en_8  = fast_chip_en1728_8 ;
-                fast_chip_en_9  = fast_chip_en1728_9 ; fast_chip_en_10 = fast_chip_en1728_10; fast_chip_en_11 = fast_chip_en1728_11;
-                fast_chip_en_12 = fast_chip_en1728_12; fast_chip_en_13 = fast_chip_en1728_13; fast_chip_en_14 = fast_chip_en1728_14;
-                fast_chip_en_15 = fast_chip_en1728_15; fast_chip_en_16 = fast_chip_en1728_16; fast_chip_en_17 = fast_chip_en1728_17;
-                fast_chip_en_18 = fast_chip_en1728_18; fast_chip_en_19 = fast_chip_en1728_19; fast_chip_en_20 = fast_chip_en1728_20;
-                fast_chip_en_21 = fast_chip_en1728_21; fast_chip_en_22 = fast_chip_en1728_22; fast_chip_en_23 = fast_chip_en1728_23;
-            end
+                READ_1728BYTE: begin
+                    fast_chip_en_0  = fast_chip_en1728_0 ; fast_chip_en_1  = fast_chip_en1728_1 ; fast_chip_en_2  = fast_chip_en1728_2 ;
+                    fast_chip_en_3  = fast_chip_en1728_3 ; fast_chip_en_4  = fast_chip_en1728_4 ; fast_chip_en_5  = fast_chip_en1728_5 ;
+                    fast_chip_en_6  = fast_chip_en1728_6 ; fast_chip_en_7  = fast_chip_en1728_7 ; fast_chip_en_8  = fast_chip_en1728_8 ;
+                    fast_chip_en_9  = fast_chip_en1728_9 ; fast_chip_en_10 = fast_chip_en1728_10; fast_chip_en_11 = fast_chip_en1728_11;
+                    fast_chip_en_12 = fast_chip_en1728_12; fast_chip_en_13 = fast_chip_en1728_13; fast_chip_en_14 = fast_chip_en1728_14;
+                    fast_chip_en_15 = fast_chip_en1728_15; fast_chip_en_16 = fast_chip_en1728_16; fast_chip_en_17 = fast_chip_en1728_17;
+                    fast_chip_en_18 = fast_chip_en1728_18; fast_chip_en_19 = fast_chip_en1728_19; fast_chip_en_20 = fast_chip_en1728_20;
+                    fast_chip_en_21 = fast_chip_en1728_21; fast_chip_en_22 = fast_chip_en1728_22; fast_chip_en_23 = fast_chip_en1728_23;
+                end
 
-            default: begin
-                fast_chip_en_0  = 1'b0; fast_chip_en_1  = 1'b0; fast_chip_en_2  = 1'b0;
-                fast_chip_en_3  = 1'b0; fast_chip_en_4  = 1'b0; fast_chip_en_5  = 1'b0;
-                fast_chip_en_6  = 1'b0; fast_chip_en_7  = 1'b0; fast_chip_en_8  = 1'b0;
-                fast_chip_en_9  = 1'b0; fast_chip_en_10 = 1'b0; fast_chip_en_11 = 1'b0;
-                fast_chip_en_12 = 1'b0; fast_chip_en_13 = 1'b0; fast_chip_en_14 = 1'b0;
-                fast_chip_en_15 = 1'b0; fast_chip_en_16 = 1'b0; fast_chip_en_17 = 1'b0;
-                fast_chip_en_18 = 1'b0; fast_chip_en_19 = 1'b0; fast_chip_en_20 = 1'b0;
-                fast_chip_en_21 = 1'b0; fast_chip_en_22 = 1'b0; fast_chip_en_23 = 1'b0;
-            end
-        endcase
+                default: begin
+                    fast_chip_en_0  = 1'b0; fast_chip_en_1  = 1'b0; fast_chip_en_2  = 1'b0;
+                    fast_chip_en_3  = 1'b0; fast_chip_en_4  = 1'b0; fast_chip_en_5  = 1'b0;
+                    fast_chip_en_6  = 1'b0; fast_chip_en_7  = 1'b0; fast_chip_en_8  = 1'b0;
+                    fast_chip_en_9  = 1'b0; fast_chip_en_10 = 1'b0; fast_chip_en_11 = 1'b0;
+                    fast_chip_en_12 = 1'b0; fast_chip_en_13 = 1'b0; fast_chip_en_14 = 1'b0;
+                    fast_chip_en_15 = 1'b0; fast_chip_en_16 = 1'b0; fast_chip_en_17 = 1'b0;
+                    fast_chip_en_18 = 1'b0; fast_chip_en_19 = 1'b0; fast_chip_en_20 = 1'b0;
+                    fast_chip_en_21 = 1'b0; fast_chip_en_22 = 1'b0; fast_chip_en_23 = 1'b0;
+                end
+            endcase
+        end
+        else begin
+            fast_chip_en_0  = 1'b0; fast_chip_en_1  = 1'b0; fast_chip_en_2  = 1'b0;
+            fast_chip_en_3  = 1'b0; fast_chip_en_4  = 1'b0; fast_chip_en_5  = 1'b0;
+            fast_chip_en_6  = 1'b0; fast_chip_en_7  = 1'b0; fast_chip_en_8  = 1'b0;
+            fast_chip_en_9  = 1'b0; fast_chip_en_10 = 1'b0; fast_chip_en_11 = 1'b0;
+            fast_chip_en_12 = 1'b0; fast_chip_en_13 = 1'b0; fast_chip_en_14 = 1'b0;
+            fast_chip_en_15 = 1'b0; fast_chip_en_16 = 1'b0; fast_chip_en_17 = 1'b0;
+            fast_chip_en_18 = 1'b0; fast_chip_en_19 = 1'b0; fast_chip_en_20 = 1'b0;
+            fast_chip_en_21 = 1'b0; fast_chip_en_22 = 1'b0; fast_chip_en_23 = 1'b0;
+
+            case(curr_sta)
+                READ_216BYTE: begin
+                    fast_chip_en_0  = fast_chip_en216_0 ; fast_chip_en_1  = fast_chip_en216_1 ; fast_chip_en_2  = fast_chip_en216_2 ;
+                    fast_chip_en_3  = fast_chip_en216_3 ; fast_chip_en_4  = fast_chip_en216_4 ; fast_chip_en_5  = fast_chip_en216_5 ;
+                    fast_chip_en_6  = fast_chip_en216_6 ; fast_chip_en_7  = fast_chip_en216_7 ; fast_chip_en_8  = fast_chip_en216_8 ;
+                    fast_chip_en_9  = fast_chip_en216_9 ; fast_chip_en_10 = fast_chip_en216_10; fast_chip_en_11 = fast_chip_en216_11;
+                end
+
+                READ_432BYTE: begin
+                    fast_chip_en_0  = fast_chip_en432_0 ; fast_chip_en_1  = fast_chip_en432_1 ; fast_chip_en_2  = fast_chip_en432_2 ;
+                    fast_chip_en_3  = fast_chip_en432_3 ; fast_chip_en_4  = fast_chip_en432_4 ; fast_chip_en_5  = fast_chip_en432_5 ;
+                    fast_chip_en_6  = fast_chip_en432_6 ; fast_chip_en_7  = fast_chip_en432_7 ; fast_chip_en_8  = fast_chip_en432_8 ;
+                    fast_chip_en_9  = fast_chip_en432_9 ; fast_chip_en_10 = fast_chip_en432_10; fast_chip_en_11 = fast_chip_en432_11;
+                end
+
+                READ_864BYTE: begin
+                    fast_chip_en_0  = fast_chip_en864_0 ; fast_chip_en_1  = fast_chip_en864_1 ; fast_chip_en_2  = fast_chip_en864_2 ;
+                    fast_chip_en_3  = fast_chip_en864_3 ; fast_chip_en_4  = fast_chip_en864_4 ; fast_chip_en_5  = fast_chip_en864_5 ;
+                    fast_chip_en_6  = fast_chip_en864_6 ; fast_chip_en_7  = fast_chip_en864_7 ; fast_chip_en_8  = fast_chip_en864_8 ;
+                    fast_chip_en_9  = fast_chip_en864_9 ; fast_chip_en_10 = fast_chip_en864_10; fast_chip_en_11 = fast_chip_en864_11;
+                end
+
+                READ_1728BYTE: begin
+                    fast_chip_en_0  = fast_chip_en1728_0 ; fast_chip_en_1  = fast_chip_en1728_1 ; fast_chip_en_2  = fast_chip_en1728_2 ;
+                    fast_chip_en_3  = fast_chip_en1728_3 ; fast_chip_en_4  = fast_chip_en1728_4 ; fast_chip_en_5  = fast_chip_en1728_5 ;
+                    fast_chip_en_6  = fast_chip_en1728_6 ; fast_chip_en_7  = fast_chip_en1728_7 ; fast_chip_en_8  = fast_chip_en1728_8 ;
+                    fast_chip_en_9  = fast_chip_en1728_9 ; fast_chip_en_10 = fast_chip_en1728_10; fast_chip_en_11 = fast_chip_en1728_11;
+                end
+
+                default: begin
+                    fast_chip_en_0  = 1'b0; fast_chip_en_1  = 1'b0; fast_chip_en_2  = 1'b0;
+                    fast_chip_en_3  = 1'b0; fast_chip_en_4  = 1'b0; fast_chip_en_5  = 1'b0;
+                    fast_chip_en_6  = 1'b0; fast_chip_en_7  = 1'b0; fast_chip_en_8  = 1'b0;
+                    fast_chip_en_9  = 1'b0; fast_chip_en_10 = 1'b0; fast_chip_en_11 = 1'b0;
+                    fast_chip_en_12 = 1'b0; fast_chip_en_13 = 1'b0; fast_chip_en_14 = 1'b0;
+                    fast_chip_en_15 = 1'b0; fast_chip_en_16 = 1'b0; fast_chip_en_17 = 1'b0;
+                    fast_chip_en_18 = 1'b0; fast_chip_en_19 = 1'b0; fast_chip_en_20 = 1'b0;
+                    fast_chip_en_21 = 1'b0; fast_chip_en_22 = 1'b0; fast_chip_en_23 = 1'b0;
+                end
+            endcase
+        end
     end
 
     always @(posedge clk or negedge rstn) begin
@@ -673,49 +758,101 @@ module gen_read_logic_fast
             end
 
             READ_216BYTE: begin
-                if (RD_CNT == 9'd47) begin
-                    if (pkt_en)
-                        addr = addr +1;
-                    else if (&addr) begin
-                        addr = 0;
-                        fast_rd_done = 1'b1;
-                        next_sta = READ_IDLE;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd47) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
+                    end
+                end
+                else begin
+                    if (RD_CNT == 9'd23) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
                     end
                 end
             end
 
             READ_432BYTE: begin
-                if (RD_CNT == 9'd95) begin
-                    if (pkt_en)
-                        addr = addr +1;
-                    else if (&addr) begin
-                        addr = 0;
-                        fast_rd_done = 1'b1;
-                        next_sta = READ_IDLE;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd95) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
+                    end
+                end
+                else begin
+                    if (RD_CNT == 9'd47) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
                     end
                 end
             end
 
             READ_864BYTE: begin
-                if (RD_CNT == 9'd191) begin
-                    if (pkt_en)
-                        addr = addr +1;
-                    else if (&addr) begin
-                        addr = 0;
-                        fast_rd_done = 1'b1;
-                        next_sta = READ_IDLE;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd191) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
+                    end
+                end
+                else begin
+                    if (RD_CNT == 9'd95) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
                     end
                 end
             end
 
             READ_1728BYTE: begin
-                if (RD_CNT == 9'd383) begin
-                    if (pkt_en)
-                        addr = addr +1;
-                    else if (&addr) begin
-                        addr = 0;
-                        fast_rd_done = 1'b1;
-                        next_sta = READ_IDLE;
+                if (rf_96path_en) begin
+                    if (RD_CNT == 9'd383) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
+                    end
+                end
+                else begin
+                    if (RD_CNT == 9'd191) begin
+                        if (pkt_en)
+                            addr = addr + 1;
+                        else if (&addr) begin
+                            addr = 0;
+                            fast_rd_done = 1'b1;
+                            next_sta = READ_IDLE;
+                        end
                     end
                 end
             end

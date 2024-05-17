@@ -1,11 +1,11 @@
-#,MDIO_CFG_0,MDIO_CFG_0,,,,,,,,
+#,MDIO_CFG_0,MDIO_CFG,,,,,,,,
 ,# addr=0x0,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
 ,[14:10],0x1f,RWR,legal_phy_addr,,,,,,
 ,[9:5],0x1f,RWR,legal_phy_addr_mask,,,,,,
 ,[4:0],0x1f,RWR,broadcast_addr,,,,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
-#,MDIO_CFG_1,MDIO_CFG_1,,,,,,,,
+#,MDIO_CFG_1,MDIO_CFG,,,,,,,,
 ,# addr=0x1,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
 ,[4],0x1,RWR,broadcast_mode,,,,,,
 ,[3],0x0,RWR,non_zero_detect,,,,,,
@@ -14,31 +14,57 @@
 ,[0],0x0,RWR,sync_select,,,,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
-#,PKT_CTRL,PKT_CTRL,,,,,,,,
+#,PKT_CTRL_0,PKT_CTRL,,,,,,,,
 ,# addr=0x2,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[7:6],0x0,RWR,rf_pkt_data_length,,,,,,"package type:00-216Byte,01-432Byte,10-864Byte,11-1728Byte"
-,[5:4],0x0,RWR,rf_pkt_idle_length,,,,,,
+,[6],0x0,RWR,rf_self_test_mode,,,,,,
+,[5:4],0x0,RWR,rf_pkt_data_length,,,,,,"package type:00-216Byte,01-432Byte,10-864Byte,11-1728Byte"
 ,[3],0x0,RWR,rf_capture_mode,,,,,,"capture mode:1-mdio read,0-fast read"
 ,[2],0x0,SC,rf_capture_start,,,,,,
 ,[1],0x0,SC,rf_capture_again,,,,,,
 ,[0],0x1,RWR,rf_96path_en,,,,,,"96 data path or 48 data path:1-96,0-48"
 ,,,,,,,,,,
 ,,,,,,,,,,
-#,MDIO_RD_CTRL_0,MDIO_RD_CTRL_0,,,,,,,,
+#,PKT_CTRL_1,PKT_CTRL,,,,,,,,
 ,# addr=0x3,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
+,[15:0],0x0,RWR,rf_pkt_idle_length,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+#,MDIO_RD_CTRL_0,MDIO_RD_CTRL,,,,,,,,
+,# addr=0x4,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
 ,[14:0],0x0,RWR,rf_mdio_memory_addr,,,,,,Memory depth: 32768
 ,,,,,,,,,,
 ,,,,,,,,,,
-#,MDIO_RD_CTRL_1,MDIO_RD_CTRL_1,,,,,,,,
-,# addr=0x4,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
+#,MDIO_RD_CTRL_1,MDIO_RD_CTRL,,,,,,,,
+,# addr=0x5,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
 ,[6:0],0x0,RWR,rf_mdio_data_sel,,,,,,Memory number: 0-23
 ,,,,,,,,,,
 ,,,,,,,,,,
-#,MDIO_RD_CTRL_2,MDIO_RD_CTRL_2,,,,,,,,
-,# addr=0x5,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[8:0],0x0,ROR,rf_mdio_pkt_data,,,,,,adc data from memory
-,,,,,,,,,,
-,,,,,,,,,,
-#,MDIO_RD_CTRL_3,MDIO_RD_CTRL_3,,,,,,,,
+#,MDIO_RD_CTRL_2,MDIO_RD_CTRL,,,,,,,,
 ,# addr=0x6,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
+,[8:0],0x0,RODEV,rf_mdio_pkt_data,,,,,,adc data from memory
+,,,,,,,,,,
+,,,,,,,,,,
+#,MDIO_RD_CTRL_3,MDIO_RD_CTRL,,,,,,,,
+,# addr=0x7,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
 ,[0],0x0,SC,rf_mdio_read_pulse,,,,,,Mdio read pulse
+,,,,,,,,,,
+,,,,,,,,,,
+#,CRG_CFG_0,CRG_CFG,,,,,,,,
+,# addr=0x8,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
+,[8:0],0x0,RWR,rf_pktctrl_clk_div,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+#,CRG_CFG_1,CRG_CFG,,,,,,,,
+,# addr=0x9,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
+,[8:0],0x0,RWR,rf_pktctrl_clk_phase,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+#,CRG_CFG_2,CRG_CFG,,,,,,,,
+,# addr=0xa,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
+,[0],0x1,RWR,rf_pktctrl_clk_en,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+#,CRG_CFG_3,CRG_CFG,,,,,,,,
+,# addr=0xb,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
+,[1],0x1,RWR,rf_pktctrl_sw_rstn,,,,,,
+,[0],0x1,RWR,rf_regfile_sw_rstn,,,,,,

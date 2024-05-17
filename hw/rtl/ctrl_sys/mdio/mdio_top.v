@@ -99,8 +99,8 @@ module mdio_top
 
     assign req_psel     = out_valid;
     assign req_penable  = out_valid;
-    assign reg_pwrite   = out_we;
-    assign reg_paddr    = out_addr;
+    assign req_pwrite   = out_we;
+    assign req_paddr    = out_addr;
     assign req_pwdata   = out_wdata;
 
     assign in_ready     = req_pready;

@@ -42,6 +42,7 @@
 
 // ctrl system
 ~/prj/adc_capture/hw/rtl/ctrl_sys/ctrl_sys.v
+~/prj/adc_capture/hw/rtl/ctrl_sys/register_cells.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/top_regfile.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/cdc_500_200.v
 ~/prj/adc_capture/hw/rtl/ctrl_sys/mdio/mdio_top.v

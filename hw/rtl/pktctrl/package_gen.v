@@ -39,7 +39,21 @@ module package_gen
     output  wire    [35:0]  pkt_gen_data_20,
     output  wire    [35:0]  pkt_gen_data_21,
     output  wire    [35:0]  pkt_gen_data_22,
-    output  wire    [35:0]  pkt_gen_data_23
+    output  wire    [35:0]  pkt_gen_data_23,
+
+    output  wire    [35:0]  pkt_gen_48data_0,
+    output  wire    [35:0]  pkt_gen_48data_1,
+    output  wire    [35:0]  pkt_gen_48data_2,
+    output  wire    [35:0]  pkt_gen_48data_3,
+    output  wire    [35:0]  pkt_gen_48data_4,
+    output  wire    [35:0]  pkt_gen_48data_5,
+    output  wire    [35:0]  pkt_gen_48data_6,
+    output  wire    [35:0]  pkt_gen_48data_7,
+    output  wire    [35:0]  pkt_gen_48data_8,
+    output  wire    [35:0]  pkt_gen_48data_9,
+    output  wire    [35:0]  pkt_gen_48data_10,
+    output  wire    [35:0]  pkt_gen_48data_11
+
 );
 
 endmodule

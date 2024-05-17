@@ -116,13 +116,14 @@ module ctrl_sys
     .req_penable                (req_penable                ),
     .req_pwdata                 (req_pwdata                 ),
     .req_pready                 (req_pready                 ),
-    .req_prdata                 (req_prdata                 ),
-    .req_pslverr                (req_pslverr                )
+    .req_prdata                 (req_prdata                 )
     );
 
     top_regfile
     u_top_regfile
     (
+    .clk                        (clk_200m                   ),
+    .rstn                       (rstn_200m                  ),
     .req_paddr                  (req_paddr                  ),
     .req_pwrite                 (req_pwrite                 ),
     .req_psel                   (req_psel                   ),
@@ -130,7 +131,6 @@ module ctrl_sys
     .req_pwdata                 (req_pwdata                 ),
     .req_pready                 (req_pready                 ),
     .req_prdata                 (req_prdata                 ),
-    .req_pslverr                (req_pslverr                ),
 
     .legal_phy_addr             (legal_phy_addr             ),
     .legal_phy_addr_mask        (legal_phy_addr_mask        ),
@@ -160,8 +160,8 @@ module ctrl_sys
     .rf_mdio_pkt_data_we        (rf_mdio_pkt_data_we        )
     );
 
-    cdc_500_100
-    u_cdc_500_100
+    cdc_500_200
+    u_cdc_500_200
     (
     .clk_200m                   (clk_200m                   ),
     .pktctrl_clk                (pktctrl_clk                ),
