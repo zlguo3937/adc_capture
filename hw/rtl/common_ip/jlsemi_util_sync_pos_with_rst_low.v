@@ -74,7 +74,7 @@ module jlsemi_util_sync_pos_with_rst_low
 
         genvar i;
         generate
-            for (i=0; i<SYNC_STEP;i=i+1) begin: SYNC_STEP_UNIT
+            for (i=1; i<SYNC_STEP;i=i+1) begin: SYNC_STEP_UNIT
                 always @(posedge clk or negedge rst_n) begin
                     if(!rst_n) begin
                         din_ff[i] <= 1'b0;

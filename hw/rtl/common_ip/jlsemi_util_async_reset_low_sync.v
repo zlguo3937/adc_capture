@@ -10,7 +10,7 @@ module jlsemi_util_async_reset_low_sync
 );
 
     wire  rst_n_pre;
-    reg   rst_n_sync;
+    wire  rst_n_sync;
 
     jlsemi_util_mux_cell
     u_dont_touch_rstsync_syncrst_mux

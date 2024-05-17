@@ -850,6 +850,4 @@ module package_ctrl
     .dout_23                    (dout_23                    )
 );
 
-
-
 endmodule

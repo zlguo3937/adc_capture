@@ -21,8 +21,8 @@ module mdio_slave_22_45_frontend_sync
 
     input   wire            mdc,
     input   wire            mdio_in,
-    output  reg             mdio_out,
-    output  reg             mdio_oe,
+    output  wire            mdio_out,
+    output  wire            mdio_oe,
 
     input   wire    [4 :0]  legal_phy_addr,     // pin input
     input   wire    [4 :0]  legal_phy_addr_mask,

@@ -729,7 +729,7 @@ module gen_read_logic_fast
      ----------------------------------------------------------------- */
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
-            curr_sta <= IDLE;
+            curr_sta <= READ_IDLE;
         else if (DATA_RD_EN)
             curr_sta <= next_sta;
     end

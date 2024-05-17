@@ -126,6 +126,14 @@ module DIGITAL_WRAPPER
     crg
     u_crg
     (
+    .dft_rstnsync_scan_rstn_ctrl(1'b0                       ),
+    .dft_rstnsync_scan_rstn     (1'b0                       ),
+    .dft_rtl_icg_en             (1'b0                       ),
+    .dft_stuck_at_mode          (1'b0                       ),
+    .dft_tpi_clk                (1'b0                       ),
+    .dft_clkdiv_rstn_ctrl       (1'b0                       ),
+    .dft_clkdiv_scan_rstn       (1'b0                       ),
+    .dft_scan_en                (1'b0                       ),
     .ANA_CLK200M                (ANA_CLK200M                ),
     .ANA_CLK500M                (ANA_CLK500M                ),
     .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),

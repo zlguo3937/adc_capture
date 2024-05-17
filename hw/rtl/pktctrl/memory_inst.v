@@ -27,14 +27,14 @@ module memory_inst
     output  wire    [DATA_WIDTH-1:0]    Q
 );
 
-    TS1N28HPCPSVTB16384X36M8SSO
+    TS1N28HPCPSVTB32768X36M16SWSO
     u_memory_32768x36
     (
     .SLP    (1'b0       ),
     .SD     (1'b0       ),
     .CLK    (CLK        ),
-    .CEB    (CEN        ),
-    .WEB    (WEN        ),
+    .CEB    (CEB        ),
+    .WEB    (WEB        ),
     .A      (A          ),
     .D      (D          ),
     .Q      (Q          )

@@ -95,7 +95,8 @@ module ctrl_sys
     (
     .clk_200m                   (clk_200m                   ),
     .rstn_200m                  (rstn_200m                  ),
-                                                            
+    .clk_100m                   (clk_200m                   ),
+    .rstn_100m                  (rstn_200m                  ),
     .mdio_in                    (mdio_in                    ),
     .mdc                        (mdc                        ),
     .mdio_out                   (mdio_out                   ),

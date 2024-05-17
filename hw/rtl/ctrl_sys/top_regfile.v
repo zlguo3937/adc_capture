@@ -555,19 +555,6 @@ module top_regfile
     .dev_rdata      (rf_capture_mode_dev_rdata)
     );
 
-    Cell_RWR#(
-        .DATA_WIDTH (1      ),
-        .INIT       (1'h0   ))
-    u_rf_capture_mode    
-    (
-    .clk            (rf_capture_mode_clk      ),
-    .rstn           (rf_capture_mode_rstn     ),
-    .bus_we         (rf_capture_mode_bus_we   ),
-    .bus_wdata      (rf_capture_mode_bus_wdata),
-    .bus_rdata      (rf_capture_mode_bus_rdata),
-    .dev_rdata      (rf_capture_mode_dev_rdata)
-    );
-
     Cell_SC
     u_rf_capture_start
     (

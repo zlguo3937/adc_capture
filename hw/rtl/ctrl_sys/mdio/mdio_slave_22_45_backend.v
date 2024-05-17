@@ -45,20 +45,20 @@ module mdio_slave_22_45_backend
     wire            in_data_en;
     
     reg             cl45;
-    reg             cl45_reg_if_valid;
-    reg     [15:0]  cl45_reg_if_wdata;
-    reg     [20:0]  cl45_reg_if_addr;
-    reg             cl45_reg_if_we;
-    reg     [15:0]  cl45_resp_rdata;
-    reg             cl45_resp_ready;
+    wire            cl45_reg_if_valid;
+    wire    [15:0]  cl45_reg_if_wdata;
+    wire    [20:0]  cl45_reg_if_addr;
+    wire            cl45_reg_if_we;
+    wire    [15:0]  cl45_resp_rdata;
+    wire            cl45_resp_ready;
 
     reg             cl22;
-    reg             cl22_reg_if_valid;
-    reg     [15:0]  cl22_reg_if_wdata;
-    reg     [20:0]  cl22_reg_if_addr;
-    reg             cl22_reg_if_we;
-    reg     [15:0]  cl22_resp_rdata;
-    reg             cl22_resp_ready;
+    wire            cl22_reg_if_valid;
+    wire    [15:0]  cl22_reg_if_wdata;
+    wire    [20:0]  cl22_reg_if_addr;
+    wire            cl22_reg_if_we;
+    wire    [15:0]  cl22_resp_rdata;
+    wire            cl22_resp_ready;
 
     always @(posedge clk_25m or negedge rst_n)
     begin

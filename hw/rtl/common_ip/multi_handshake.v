@@ -39,7 +39,7 @@ module multi_handshake
     reg                         dst_rsp;
 
     reg     [DATA_WIDTH-1:0]    reg_src_din;
-    reg     [DATA_WIDTH-1:0]    reg_din_dst_sync;
+    wire    [DATA_WIDTH-1:0]    reg_din_dst_sync;
 
     wire                        rsp_src_sync;
     wire                        req_dst_sync;

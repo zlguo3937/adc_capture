@@ -3,16 +3,16 @@ module ANALOG_WRAPPER
     output  wire            CLK200M,
     output  wire            CLK500M,
 
-    output  wire    [8:0]   ADC_DATA_0 ,
-    output  wire    [8:0]   ADC_DATA_1 ,
-    output  wire    [8:0]   ADC_DATA_2 ,
-    output  wire    [8:0]   ADC_DATA_3 ,
-    output  wire    [8:0]   ADC_DATA_4 ,
-    output  wire    [8:0]   ADC_DATA_5 ,
-    output  wire    [8:0]   ADC_DATA_6 ,
-    output  wire    [8:0]   ADC_DATA_7 ,
-    output  wire    [8:0]   ADC_DATA_8 ,
-    output  wire    [8:0]   ADC_DATA_9 ,
+    output  wire    [8:0]   ADC_DATA_0,
+    output  wire    [8:0]   ADC_DATA_1,
+    output  wire    [8:0]   ADC_DATA_2,
+    output  wire    [8:0]   ADC_DATA_3,
+    output  wire    [8:0]   ADC_DATA_4,
+    output  wire    [8:0]   ADC_DATA_5,
+    output  wire    [8:0]   ADC_DATA_6,
+    output  wire    [8:0]   ADC_DATA_7,
+    output  wire    [8:0]   ADC_DATA_8,
+    output  wire    [8:0]   ADC_DATA_9,
     output  wire    [8:0]   ADC_DATA_10,
     output  wire    [8:0]   ADC_DATA_11,
     output  wire    [8:0]   ADC_DATA_12,
@@ -148,5 +148,28 @@ module ANALOG_WRAPPER
     output  wire    [8:0]   ADC48_DATA_46,
     output  wire    [8:0]   ADC48_DATA_47
 );
+
+    reg clk500m;
+    reg clk200m;
+
+    // generate clock: T1 = 2ns, T2 = 5ns
+    initial begin
+        clk500m = 0;
+        forever
+        begin
+            #1 clk500m = ~clk500m;
+        end
+    end
+
+    initial begin
+        clk200m = 0;
+        forever
+        begin
+            #2.5 clk200m = ~clk200m;
+        end
+    end
+
+    assign CLK500M = clk500m;
+    assign CLK200M = clk200m;
 
 endmodule
