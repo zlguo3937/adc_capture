@@ -57,6 +57,7 @@ module tb_ASIC;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_self_test_mode.cell_data = 1'b1;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_start.dev_rdata = start;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_clk_div.cell_data = 8;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_idle_length.cell_data = 10;
     end
 
     ASIC
@@ -88,7 +89,7 @@ module tb_ASIC;
     );
 
     initial begin
-        #500;
+        #8_000_000;
         $finish;
     end
 
