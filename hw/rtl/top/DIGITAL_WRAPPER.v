@@ -83,8 +83,8 @@ module DIGITAL_WRAPPER
 );
     
     // crg
-    wire    [8:0]   rf_pktctrl_clk_div;
-    wire    [8:0]   rf_pktctrl_clk_phase;
+    wire    [8:0]   rf_pktctrl_gap;
+    wire    [8:0]   rf_pktctrl_phase;
     wire            rf_pktctrl_clk_en;
     wire            rf_pktctrl_sw_rstn;
     wire            rf_regfile_sw_rstn;
@@ -136,8 +136,6 @@ module DIGITAL_WRAPPER
     .dft_scan_en                (1'b0                       ),
     .ANA_CLK200M                (ANA_CLK200M                ),
     .ANA_CLK500M                (ANA_CLK500M                ),
-    .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),
-    .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
     .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         ),
@@ -146,8 +144,6 @@ module DIGITAL_WRAPPER
     .clk_200m                   (clk_200m                   ),
     .rstn_200m                  (rstn_200m                  ),
     .regfile_rstn               (regfile_rstn               ),
-    .CLK_RD                     (CLK_RD                     ),
-    .DATA_RD_EN                 (DATA_RD_EN                 ),
     .RSTN                       (RSTN                       )
     );
 
@@ -202,7 +198,8 @@ module DIGITAL_WRAPPER
     .rf_96path_en               (rf_96path_en               ),
     .rf_pkt_data_length         (rf_pkt_data_length         ),
     .rf_pkt_idle_length         (rf_pkt_idle_length         ),
-    .DATA_RD_EN                 (DATA_RD_EN                 ),
+    .rf_pktctrl_gap             (rf_pktctrl_gap             ),
+    .rf_pktctrl_phase           (rf_pktctrl_phase           ),
     .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
@@ -244,6 +241,7 @@ module DIGITAL_WRAPPER
     .ANA_ADC48_DATA_9           (ANA_ADC48_DATA_9           ),
     .ANA_ADC48_DATA_10          (ANA_ADC48_DATA_10          ),
     .ANA_ADC48_DATA_11          (ANA_ADC48_DATA_11          ),
+    .CLK_RD                     (CLK_RD                     ),
     .ADC_DATA                   (ADC_DATA                   ),
     .ADC_DATA_VALID             (ADC_DATA_VALID             )
     );
@@ -268,14 +266,16 @@ module DIGITAL_WRAPPER
     .rf_96path_en_sync          (rf_96path_en               ),
     .rf_pkt_data_length_sync    (rf_pkt_data_length         ),
     .rf_pkt_idle_length_sync    (rf_pkt_idle_length         ),
+    .rf_pktctrl_gap_sync        (rf_pktctrl_gap             ),
+    .rf_pktctrl_phase_sync      (rf_pktctrl_phase           ),
     .rf_mdio_read_pulse_sync    (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel_sync      (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr_sync   (rf_mdio_memory_addr        ),
     .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
 
-    .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),
-    .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
+    .rf_pktctrl_gap             (rf_pktctrl_gap             ),
+    .rf_pktctrl_phase           (rf_pktctrl_phase           ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
     .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         )

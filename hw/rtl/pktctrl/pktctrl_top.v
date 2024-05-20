@@ -32,6 +32,8 @@ module pktctrl_top
     input   wire            rf_96path_en,
     input   wire    [1:0]   rf_pkt_data_length,
     input   wire    [15:0]  rf_pkt_idle_length,
+    input   wire    [8:0]   rf_pktctrl_gap,
+    input   wire    [8:0]   rf_pktctrl_phase,
 
     input   wire            DATA_RD_EN,
 
@@ -79,6 +81,7 @@ module pktctrl_top
     input   wire    [35:0]  ANA_ADC48_DATA_10,
     input   wire    [35:0]  ANA_ADC48_DATA_11,
 
+    output  wire            CLK_RD,
     output  wire    [17:0]  ADC_DATA,
     output  wire            ADC_DATA_VALID
 );
@@ -157,6 +160,8 @@ module pktctrl_top
     .rf_96path_en               (rf_96path_en               ),
     .rf_pkt_data_length         (rf_pkt_data_length         ),
     .rf_pkt_idle_length         (rf_pkt_idle_length         ),
+    .rf_pktctrl_gap             (rf_pktctrl_gap             ),
+    .rf_pktctrl_phase           (rf_pktctrl_phase           ),
     .DATA_RD_EN                 (DATA_RD_EN                 ),
     .adc_data_0                 (adc_data_0                 ),
     .adc_data_1                 (adc_data_1                 ),
@@ -187,6 +192,7 @@ module pktctrl_top
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
     .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
+    .CLK_RD                     (CLK_RD                     ),
     .ADC_DATA                   (ADC_DATA                   ),
     .ADC_DATA_VALID             (ADC_DATA_VALID             )
     );

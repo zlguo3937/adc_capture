@@ -26,8 +26,8 @@ module package_ctrl
     input   wire            rf_96path_en,
     input   wire    [1:0]   rf_pkt_data_length,
     input   wire    [15:0]  rf_pkt_idle_length,
-
-    input   wire            DATA_RD_EN,
+    input   wire    [8:0]   rf_pktctrl_gap,
+    input   wire    [8:0]   rf_pktctrl_phase,
 
     input   wire    [35:0]  adc_data_0,
     input   wire    [35:0]  adc_data_1,
@@ -62,10 +62,14 @@ module package_ctrl
     output  wire    [8:0]   rf_mdio_pkt_data,
 
     // Fast read
+    output  reg             CLK_RD,
     output  wire    [17:0]  ADC_DATA,
     output  wire            ADC_DATA_VALID
 
 );
+
+
+
 
     // FSM
     localparam      IDLE        = 5'b0_0001,
@@ -292,6 +296,37 @@ module package_ctrl
     wire    [14:0]      mdio_addr_23;
 
     wire                mdio_rd_done;
+
+    reg                 DATA_RD_EN;
+    reg     [7:0]       cnt;
+    
+    always @(posedge pktctrl_clk or negedge pktctrl_rstn)
+    begin
+        if(~pktctrl_rstn)
+            cnt <= 0;
+        else if (cnt < ((rf_pktctrl_phase/2)-1))
+            cnt <= cnt + 1'b1;
+        else
+            cnt <= 0;
+    end
+
+    always @(posedge pktctrl_clk or negedge pktctrl_rstn)
+    begin
+        if(~pktctrl_rstn)
+            CLK_RD <= 1'b0;
+        else if (cnt == rf_pktctrl_gap)
+            CLK_RD <= ~CLK_RD;
+    end
+
+    always @(posedge pktctrl_clk or negedge pktctrl_rstn)
+    begin
+        if(~pktctrl_rstn)
+            DATA_RD_EN <= 1'b0;
+        else if (cnt == ((rf_pktctrl_phase/2)-1))
+            DATA_RD_EN <= 1'b1;
+        else
+            DATA_RD_EN <= 1'b0;
+    end
 
     /* -----------------------------------------------------------------
      FSM logic

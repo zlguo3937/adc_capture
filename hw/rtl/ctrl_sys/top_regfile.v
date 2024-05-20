@@ -38,8 +38,8 @@ module top_regfile
     output  wire            sync_select,
 
     // Digital config register
-    output  wire    [8:0]   rf_pktctrl_clk_div,
-    output  wire    [8:0]   rf_pktctrl_clk_phase,
+    output  wire    [8:0]   rf_pktctrl_gap,
+    output  wire    [8:0]   rf_pktctrl_phase,
 
     output  wire            rf_pktctrl_clk_en,
     output  wire            rf_pktctrl_sw_rstn,
@@ -71,8 +71,8 @@ module top_regfile
     wire            opendrain_mode_clk;
     wire            watchdog_enable_clk;
     wire            sync_select_clk;
-    wire            rf_pktctrl_clk_div_clk;
-    wire            rf_pktctrl_clk_phase_clk;
+    wire            rf_pktctrl_gap_clk;
+    wire            rf_pktctrl_phase_clk;
     wire            rf_pktctrl_clk_en_clk;
     wire            rf_pktctrl_sw_rstn_clk;
     wire            rf_regfile_sw_rstn_clk;
@@ -96,8 +96,8 @@ module top_regfile
     wire            opendrain_mode_rstn;
     wire            watchdog_enable_rstn;
     wire            sync_select_rstn;
-    wire            rf_pktctrl_clk_div_rstn;
-    wire            rf_pktctrl_clk_phase_rstn;
+    wire            rf_pktctrl_gap_rstn;
+    wire            rf_pktctrl_phase_rstn;
     wire            rf_pktctrl_clk_en_rstn;
     wire            rf_pktctrl_sw_rstn_rstn;
     wire            rf_regfile_sw_rstn_rstn;
@@ -144,8 +144,8 @@ module top_regfile
     wire            rf_mdio_memory_addr_bus_we;
     wire            rf_mdio_data_sel_bus_we;
     wire            rf_mdio_read_pulse_bus_we;
-    wire            rf_pktctrl_clk_div_bus_we;
-    wire            rf_pktctrl_clk_phase_bus_we;
+    wire            rf_pktctrl_gap_bus_we;
+    wire            rf_pktctrl_phase_bus_we;
     wire            rf_pktctrl_clk_en_bus_we;
     wire            rf_pktctrl_sw_rstn_bus_we;
     wire            rf_regfile_sw_rstn_bus_we;
@@ -168,8 +168,8 @@ module top_regfile
     wire     [14:0] rf_mdio_memory_addr_bus_wdata;
     wire     [6:0]  rf_mdio_data_sel_bus_wdata;
     wire            rf_mdio_read_pulse_bus_wdata;
-    wire     [8:0]  rf_pktctrl_clk_div_bus_wdata;
-    wire     [8:0]  rf_pktctrl_clk_phase_bus_wdata;
+    wire     [8:0]  rf_pktctrl_gap_bus_wdata;
+    wire     [8:0]  rf_pktctrl_phase_bus_wdata;
     wire            rf_pktctrl_clk_en_bus_wdata;
     wire            rf_pktctrl_sw_rstn_bus_wdata;
     wire            rf_regfile_sw_rstn_bus_wdata;
@@ -216,8 +216,8 @@ module top_regfile
     wire     [14:0] rf_mdio_memory_addr_bus_rdata;
     wire     [6:0]  rf_mdio_data_sel_bus_rdata;
     wire     [8:0]  rf_mdio_pkt_data_bus_rdata;
-    wire     [8:0]  rf_pktctrl_clk_div_bus_rdata;
-    wire     [8:0]  rf_pktctrl_clk_phase_bus_rdata;
+    wire     [8:0]  rf_pktctrl_gap_bus_rdata;
+    wire     [8:0]  rf_pktctrl_phase_bus_rdata;
     wire            rf_pktctrl_clk_en_bus_rdata;
     wire            rf_pktctrl_sw_rstn_bus_rdata;
     wire            rf_regfile_sw_rstn_bus_rdata;
@@ -240,8 +240,8 @@ module top_regfile
     wire            rf_mdio_read_pulse_dev_rdata  ;
     wire     [6:0]  rf_mdio_data_sel_dev_rdata    ;
     wire     [14:0] rf_mdio_memory_addr_dev_rdata ;
-    wire     [8:0]  rf_pktctrl_clk_div_dev_rdata  ;
-    wire     [8:0]  rf_pktctrl_clk_phase_dev_rdata;
+    wire     [8:0]  rf_pktctrl_gap_dev_rdata  ;
+    wire     [8:0]  rf_pktctrl_phase_dev_rdata;
     wire            rf_pktctrl_clk_en_dev_rdata   ;
     wire            rf_pktctrl_sw_rstn_dev_rdata  ;
     wire            rf_regfile_sw_rstn_dev_rdata  ;
@@ -257,8 +257,8 @@ module top_regfile
     assign opendrain_mode_clk       = clk;
     assign watchdog_enable_clk      = clk;
     assign sync_select_clk          = clk;
-    assign rf_pktctrl_clk_div_clk   = clk;
-    assign rf_pktctrl_clk_phase_clk = clk;
+    assign rf_pktctrl_gap_clk   = clk;
+    assign rf_pktctrl_phase_clk = clk;
     assign rf_pktctrl_clk_en_clk    = clk;
     assign rf_pktctrl_sw_rstn_clk   = clk;
     assign rf_regfile_sw_rstn_clk   = clk;
@@ -281,8 +281,8 @@ module top_regfile
     assign opendrain_mode_rstn       = rstn;
     assign watchdog_enable_rstn      = rstn;
     assign sync_select_rstn          = rstn;
-    assign rf_pktctrl_clk_div_rstn   = rstn;
-    assign rf_pktctrl_clk_phase_rstn = rstn;
+    assign rf_pktctrl_gap_rstn   = rstn;
+    assign rf_pktctrl_phase_rstn = rstn;
     assign rf_pktctrl_clk_en_rstn    = rstn;
     assign rf_pktctrl_sw_rstn_rstn   = rstn;
     assign rf_regfile_sw_rstn_rstn   = rstn;
@@ -328,8 +328,8 @@ module top_regfile
     assign rf_mdio_memory_addr_bus_we  = addr_0x4_sel & req_pwrite;
     assign rf_mdio_data_sel_bus_we     = addr_0x5_sel & req_pwrite;
     assign rf_mdio_read_pulse_bus_we   = addr_0x7_sel & req_pwrite;
-    assign rf_pktctrl_clk_div_bus_we   = addr_0x8_sel & req_pwrite;
-    assign rf_pktctrl_clk_phase_bus_we = addr_0x9_sel & req_pwrite;
+    assign rf_pktctrl_gap_bus_we   = addr_0x8_sel & req_pwrite;
+    assign rf_pktctrl_phase_bus_we = addr_0x9_sel & req_pwrite;
     assign rf_pktctrl_clk_en_bus_we    = addr_0xa_sel & req_pwrite;
     assign rf_pktctrl_sw_rstn_bus_we   = addr_0xb_sel & req_pwrite;
     assign rf_regfile_sw_rstn_bus_we   = addr_0xb_sel & req_pwrite;
@@ -352,8 +352,8 @@ module top_regfile
     assign rf_mdio_memory_addr_bus_wdata  = req_pwdata[14:0];
     assign rf_mdio_data_sel_bus_wdata     = req_pwdata[6:0];
     assign rf_mdio_read_pulse_bus_wdata   = req_pwdata[0];
-    assign rf_pktctrl_clk_div_bus_wdata   = req_pwdata[8:0];
-    assign rf_pktctrl_clk_phase_bus_wdata = req_pwdata[8:0];
+    assign rf_pktctrl_gap_bus_wdata   = req_pwdata[8:0];
+    assign rf_pktctrl_phase_bus_wdata = req_pwdata[8:0];
     assign rf_pktctrl_clk_en_bus_wdata    = req_pwdata[0];
     assign rf_pktctrl_sw_rstn_bus_wdata   = req_pwdata[1];
     assign rf_regfile_sw_rstn_bus_wdata   = req_pwdata[0];
@@ -366,8 +366,8 @@ module top_regfile
     assign addr_0x5_sel_bus_rdata = {9'h0, rf_mdio_data_sel_bus_rdata};
     assign addr_0x6_sel_bus_rdata = {7'h0, rf_mdio_pkt_data_bus_rdata};
     assign addr_0x7_sel_bus_rdata = {16'h0};
-    assign addr_0x8_sel_bus_rdata = {7'h0, rf_pktctrl_clk_div_bus_rdata};
-    assign addr_0x9_sel_bus_rdata = {7'h0, rf_pktctrl_clk_phase_bus_rdata};
+    assign addr_0x8_sel_bus_rdata = {7'h0, rf_pktctrl_gap_bus_rdata};
+    assign addr_0x9_sel_bus_rdata = {7'h0, rf_pktctrl_phase_bus_rdata};
     assign addr_0xa_sel_bus_rdata = {15'h0, rf_pktctrl_clk_en_bus_rdata};
     assign addr_0xb_sel_bus_rdata = {14'h0, rf_pktctrl_sw_rstn_bus_rdata, rf_regfile_sw_rstn_bus_rdata};
 
@@ -393,8 +393,8 @@ module top_regfile
     assign opendrain_mode       = opendrain_mode_dev_rdata      ;
     assign watchdog_enable      = watchdog_enable_dev_rdata     ;
     assign sync_select          = sync_select_dev_rdata         ;
-    assign rf_pktctrl_clk_div   = rf_pktctrl_clk_div_dev_rdata  ;
-    assign rf_pktctrl_clk_phase = rf_pktctrl_clk_phase_dev_rdata;
+    assign rf_pktctrl_gap   = rf_pktctrl_gap_dev_rdata  ;
+    assign rf_pktctrl_phase = rf_pktctrl_phase_dev_rdata;
     assign rf_pktctrl_clk_en    = rf_pktctrl_clk_en_dev_rdata   ;
     assign rf_pktctrl_sw_rstn   = rf_pktctrl_sw_rstn_dev_rdata  ;
     assign rf_regfile_sw_rstn   = rf_regfile_sw_rstn_dev_rdata  ;
@@ -652,27 +652,27 @@ module top_regfile
     Cell_RWR#(
         .DATA_WIDTH (9      ),
         .INIT       (9'h0   ))
-    u_rf_pktctrl_clk_div    
+    u_rf_pktctrl_gap    
     (
-    .clk            (rf_pktctrl_clk_div_clk      ),
-    .rstn           (rf_pktctrl_clk_div_rstn     ),
-    .bus_we         (rf_pktctrl_clk_div_bus_we   ),
-    .bus_wdata      (rf_pktctrl_clk_div_bus_wdata),
-    .bus_rdata      (rf_pktctrl_clk_div_bus_rdata),
-    .dev_rdata      (rf_pktctrl_clk_div_dev_rdata)
+    .clk            (rf_pktctrl_gap_clk      ),
+    .rstn           (rf_pktctrl_gap_rstn     ),
+    .bus_we         (rf_pktctrl_gap_bus_we   ),
+    .bus_wdata      (rf_pktctrl_gap_bus_wdata),
+    .bus_rdata      (rf_pktctrl_gap_bus_rdata),
+    .dev_rdata      (rf_pktctrl_gap_dev_rdata)
     );
 
     Cell_RWR#(
         .DATA_WIDTH (9      ),
         .INIT       (9'h0   ))
-    u_rf_pktctrl_clk_phase    
+    u_rf_pktctrl_phase    
     (
-    .clk            (rf_pktctrl_clk_phase_clk      ),
-    .rstn           (rf_pktctrl_clk_phase_rstn     ),
-    .bus_we         (rf_pktctrl_clk_phase_bus_we   ),
-    .bus_wdata      (rf_pktctrl_clk_phase_bus_wdata),
-    .bus_rdata      (rf_pktctrl_clk_phase_bus_rdata),
-    .dev_rdata      (rf_pktctrl_clk_phase_dev_rdata)
+    .clk            (rf_pktctrl_phase_clk      ),
+    .rstn           (rf_pktctrl_phase_rstn     ),
+    .bus_we         (rf_pktctrl_phase_bus_we   ),
+    .bus_wdata      (rf_pktctrl_phase_bus_wdata),
+    .bus_rdata      (rf_pktctrl_phase_bus_rdata),
+    .dev_rdata      (rf_pktctrl_phase_dev_rdata)
     );
 
     Cell_RWR#(

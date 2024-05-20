@@ -41,9 +41,7 @@ module clk_gen
 
     // Clock output
     output  wire            pktctrl_clk,
-    output  wire            clk_200m,
-    output  wire            CLK_RD, //clock output to iopad for FPGA fifo write clk
-    output  wire            DATA_RD_EN // CLK_RD pulse at pktctrl_clk
+    output  wire            clk_200m
 );
 
     wire    pktctrl_clk_occ;
@@ -78,28 +76,6 @@ module clk_gen
     .dft_rstnsync_scan_rstn_ctrl(dft_rstnsync_scan_rstn_ctrl),
     .dft_rtl_icg_en             (dft_rtl_icg_en             ),
     .clk_o                      (pktctrl_clk                )
-    );
-
-    // Output clock to IOPad and DATA_RD_EN to Pktctrl data fast-read en
-    jlsemi_util_clkdiv_even_with_phase #(
-        .RST_SYNC_STAGE (3))
-    u_even_clkdiv_to_CLKRD_with_phase
-    (
-    .dft_stuck_at_mode          (dft_stuck_at_mode          ),
-    .dft_tpi_clk                (dft_tpi_clk                ),
-    .dft_clkdiv_rstn_ctrl       (dft_clkdiv_rstn_ctrl       ),
-    .dft_clkdiv_scan_rstn       (dft_clkdiv_scan_rstn       ),
-    .dft_scan_en                (dft_scan_en                ),
-    `ifdef JL_SYNTHESIS
-        .scanin  (1'b0 ), // spyglass disable W240
-        .scanout (     ),
-    `endif
-    .clk_in                     (ANA_CLK500M                ),
-    .rstn_in                    (rstn                       ),
-    .DIV_N                      (rf_pktctrl_clk_div         ),
-    .DIV_PHASE_CNT              (rf_pktctrl_clk_phase       ),
-    .clk_out                    (CLK_RD                     ),
-    .DATA_RD_EN                 (DATA_RD_EN                 )
     );
 
     // mdio and regfile clock

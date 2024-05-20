@@ -28,9 +28,6 @@ module ctrl_sys
     output  wire            mdio_oen,
 
     // Digital config register
-    output  wire    [8:0]   rf_pktctrl_clk_div,
-    output  wire    [8:0]   rf_pktctrl_clk_phase,
-
     output  wire            rf_pktctrl_clk_en,
     output  wire            rf_pktctrl_sw_rstn,
     output  wire            rf_regfile_sw_rstn,
@@ -44,6 +41,9 @@ module ctrl_sys
     output  wire            rf_96path_en_sync,
     output  wire    [1:0]   rf_pkt_data_length_sync,
     output  wire    [15:0]  rf_pkt_idle_length_sync,
+
+    output  wire    [8:0]   rf_pktctrl_gap_sync,
+    output  wire    [8:0]   rf_pktctrl_phase_sync,
 
     output  wire            rf_mdio_read_pulse_sync,
     output  wire    [6:0]   rf_mdio_data_sel_sync,
@@ -82,6 +82,9 @@ module ctrl_sys
     wire            rf_96path_en;
     wire    [1:0]   rf_pkt_data_length;
     wire    [15:0]  rf_pkt_idle_length;
+
+    wire    [8:0]   rf_pktctrl_gap;
+    wire    [8:0]   rf_pktctrl_phase;
 
     wire            rf_mdio_read_pulse;
     wire    [6:0]   rf_mdio_data_sel;
@@ -142,8 +145,8 @@ module ctrl_sys
     .watchdog_enable            (watchdog_enable            ),
     .sync_select                (sync_select                ),
 
-    .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),
-    .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
+    .rf_pktctrl_gap             (rf_pktctrl_gap             ),
+    .rf_pktctrl_phase           (rf_pktctrl_phase           ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
     .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         ),
@@ -176,6 +179,8 @@ module ctrl_sys
     .rf_96path_en               (rf_96path_en               ),
     .rf_pkt_data_length         (rf_pkt_data_length         ),
     .rf_pkt_idle_length         (rf_pkt_idle_length         ),
+    .rf_pktctrl_gap             (rf_pktctrl_gap             ),
+    .rf_pktctrl_phase           (rf_pktctrl_phase           ),
     .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
@@ -190,6 +195,8 @@ module ctrl_sys
     .rf_96path_en_sync          (rf_96path_en_sync          ),
     .rf_pkt_data_length_sync    (rf_pkt_data_length_sync    ),
     .rf_pkt_idle_length_sync    (rf_pkt_idle_length_sync    ),
+    .rf_pktctrl_gap_sync        (rf_pktctrl_gap_sync        ),
+    .rf_pktctrl_phase_sync      (rf_pktctrl_phase_sync      ),
     .rf_mdio_read_pulse_sync    (rf_mdio_read_pulse_sync    ),
     .rf_mdio_data_sel_sync      (rf_mdio_data_sel_sync      ),
     .rf_mdio_memory_addr_sync   (rf_mdio_memory_addr_sync   ),

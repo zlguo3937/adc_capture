@@ -31,8 +31,6 @@ module crg
     input   wire            ANA_CLK200M,
     input   wire            ANA_CLK500M,
 
-    input   wire    [8:0]   rf_pktctrl_clk_div,
-    input   wire    [8:0]   rf_pktctrl_clk_phase,
     input   wire            rf_pktctrl_clk_en,
     input   wire            rf_pktctrl_sw_rstn,
     input   wire            rf_regfile_sw_rstn,
@@ -40,9 +38,6 @@ module crg
     // Clock output
     output  wire            pktctrl_clk,
     output  wire            clk_200m,
-    output  wire            CLK_RD,
-
-    output  wire            DATA_RD_EN,
 
     // Reset Gen
     // Clock input from clk_gen, Reset input from digital iopad
@@ -74,9 +69,7 @@ module crg
     .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .pktctrl_clk                (pktctrl_clk                ),
-    .clk_200m                   (clk_200m                   ),
-    .CLK_RD                     (CLK_RD                     ),
-    .DATA_RD_EN                 (DATA_RD_EN                 )
+    .clk_200m                   (clk_200m                   )
     );
 
     rst_gen
