@@ -304,7 +304,7 @@ module package_ctrl
     begin
         if(~pktctrl_rstn)
             cnt <= 0;
-        else if (cnt < ((rf_pktctrl_phase/2)-1))
+        else if (cnt < ((rf_pktctrl_gap/2)-1))
             cnt <= cnt + 1'b1;
         else
             cnt <= 0;
@@ -314,7 +314,7 @@ module package_ctrl
     begin
         if(~pktctrl_rstn)
             CLK_RD <= 1'b0;
-        else if (cnt == rf_pktctrl_gap)
+        else if (cnt == rf_pktctrl_phase)
             CLK_RD <= ~CLK_RD;
     end
 
@@ -322,7 +322,7 @@ module package_ctrl
     begin
         if(~pktctrl_rstn)
             DATA_RD_EN <= 1'b0;
-        else if (cnt == ((rf_pktctrl_phase/2)-1))
+        else if (cnt == ((rf_pktctrl_gap/2)-1))
             DATA_RD_EN <= 1'b1;
         else
             DATA_RD_EN <= 1'b0;

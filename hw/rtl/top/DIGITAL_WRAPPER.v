@@ -274,8 +274,6 @@ module DIGITAL_WRAPPER
     .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
 
-    .rf_pktctrl_gap             (rf_pktctrl_gap             ),
-    .rf_pktctrl_phase           (rf_pktctrl_phase           ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
     .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         )

@@ -65,8 +65,6 @@ module crg
     .ANA_CLK200M                (ANA_CLK200M                ),
     .ANA_CLK500M                (ANA_CLK500M                ),
     .rstn                       (rstn                       ),
-    .rf_pktctrl_clk_div         (rf_pktctrl_clk_div         ),
-    .rf_pktctrl_clk_phase       (rf_pktctrl_clk_phase       ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .pktctrl_clk                (pktctrl_clk                ),
     .clk_200m                   (clk_200m                   )

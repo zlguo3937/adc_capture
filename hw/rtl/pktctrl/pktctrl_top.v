@@ -35,8 +35,6 @@ module pktctrl_top
     input   wire    [8:0]   rf_pktctrl_gap,
     input   wire    [8:0]   rf_pktctrl_phase,
 
-    input   wire            DATA_RD_EN,
-
     input   wire            rf_mdio_read_pulse,
     input   wire    [6:0]   rf_mdio_data_sel,
     input   wire    [14:0]  rf_mdio_memory_addr,
@@ -162,7 +160,6 @@ module pktctrl_top
     .rf_pkt_idle_length         (rf_pkt_idle_length         ),
     .rf_pktctrl_gap             (rf_pktctrl_gap             ),
     .rf_pktctrl_phase           (rf_pktctrl_phase           ),
-    .DATA_RD_EN                 (DATA_RD_EN                 ),
     .adc_data_0                 (adc_data_0                 ),
     .adc_data_1                 (adc_data_1                 ),
     .adc_data_2                 (adc_data_2                 ),
