@@ -370,156 +370,156 @@ module package_ctrl
      ----------------------------------------------------------------- */
     always @(posedge pktctrl_clk or negedge pktctrl_rstn) begin
         if (!pktctrl_rstn) begin
-            chip_en_0  = 1'b0; chip_en_1  = 1'b0; chip_en_2  = 1'b0; chip_en_3  = 1'b0; chip_en_4  = 1'b0; chip_en_5  = 1'b0;
-            chip_en_6  = 1'b0; chip_en_7  = 1'b0; chip_en_8  = 1'b0; chip_en_9  = 1'b0; chip_en_10 = 1'b0; chip_en_11 = 1'b0;
-            chip_en_12 = 1'b0; chip_en_13 = 1'b0; chip_en_14 = 1'b0; chip_en_15 = 1'b0; chip_en_16 = 1'b0; chip_en_17 = 1'b0;
-            chip_en_18 = 1'b0; chip_en_19 = 1'b0; chip_en_20 = 1'b0; chip_en_21 = 1'b0; chip_en_22 = 1'b0; chip_en_23 = 1'b0;
+            chip_en_0  <= 1'b0; chip_en_1  <= 1'b0; chip_en_2  <= 1'b0; chip_en_3  <= 1'b0; chip_en_4  <= 1'b0; chip_en_5  <= 1'b0;
+            chip_en_6  <= 1'b0; chip_en_7  <= 1'b0; chip_en_8  <= 1'b0; chip_en_9  <= 1'b0; chip_en_10 <= 1'b0; chip_en_11 <= 1'b0;
+            chip_en_12 <= 1'b0; chip_en_13 <= 1'b0; chip_en_14 <= 1'b0; chip_en_15 <= 1'b0; chip_en_16 <= 1'b0; chip_en_17 <= 1'b0;
+            chip_en_18 <= 1'b0; chip_en_19 <= 1'b0; chip_en_20 <= 1'b0; chip_en_21 <= 1'b0; chip_en_22 <= 1'b0; chip_en_23 <= 1'b0;
         end
         else if (rf_96path_en) begin
             if (write_en) begin
-                chip_en_0  = 1'b1; chip_en_1  = 1'b1; chip_en_2  = 1'b1; chip_en_3  = 1'b1; chip_en_4  = 1'b1; chip_en_5  = 1'b1;
-                chip_en_6  = 1'b1; chip_en_7  = 1'b1; chip_en_8  = 1'b1; chip_en_9  = 1'b1; chip_en_10 = 1'b1; chip_en_11 = 1'b1;
-                chip_en_12 = 1'b1; chip_en_13 = 1'b1; chip_en_14 = 1'b1; chip_en_15 = 1'b1; chip_en_16 = 1'b1; chip_en_17 = 1'b1;
-                chip_en_18 = 1'b1; chip_en_19 = 1'b1; chip_en_20 = 1'b1; chip_en_21 = 1'b1; chip_en_22 = 1'b1; chip_en_23 = 1'b1;
+                chip_en_0  <= 1'b1; chip_en_1  <= 1'b1; chip_en_2  <= 1'b1; chip_en_3  <= 1'b1; chip_en_4  <= 1'b1; chip_en_5  <= 1'b1;
+                chip_en_6  <= 1'b1; chip_en_7  <= 1'b1; chip_en_8  <= 1'b1; chip_en_9  <= 1'b1; chip_en_10 <= 1'b1; chip_en_11 <= 1'b1;
+                chip_en_12 <= 1'b1; chip_en_13 <= 1'b1; chip_en_14 <= 1'b1; chip_en_15 <= 1'b1; chip_en_16 <= 1'b1; chip_en_17 <= 1'b1;
+                chip_en_18 <= 1'b1; chip_en_19 <= 1'b1; chip_en_20 <= 1'b1; chip_en_21 <= 1'b1; chip_en_22 <= 1'b1; chip_en_23 <= 1'b1;
             end
             else if (mdio_read_en) begin
-                chip_en_0  = mdio_chip_en_0 ; chip_en_1  = mdio_chip_en_1 ; chip_en_2  = mdio_chip_en_2 ; chip_en_3  = mdio_chip_en_3 ;
-                chip_en_4  = mdio_chip_en_4 ; chip_en_5  = mdio_chip_en_5 ; chip_en_6  = mdio_chip_en_6 ; chip_en_7  = mdio_chip_en_7 ;
-                chip_en_8  = mdio_chip_en_8 ; chip_en_9  = mdio_chip_en_9 ; chip_en_10 = mdio_chip_en_10; chip_en_11 = mdio_chip_en_11;
-                chip_en_12 = mdio_chip_en_12; chip_en_13 = mdio_chip_en_13; chip_en_14 = mdio_chip_en_14; chip_en_15 = mdio_chip_en_15;
-                chip_en_16 = mdio_chip_en_16; chip_en_17 = mdio_chip_en_17; chip_en_18 = mdio_chip_en_18; chip_en_19 = mdio_chip_en_19;
-                chip_en_20 = mdio_chip_en_20; chip_en_21 = mdio_chip_en_21; chip_en_22 = mdio_chip_en_22; chip_en_23 = mdio_chip_en_23;
+                chip_en_0  <= mdio_chip_en_0 ; chip_en_1  <= mdio_chip_en_1 ; chip_en_2  <= mdio_chip_en_2 ; chip_en_3  <= mdio_chip_en_3 ;
+                chip_en_4  <= mdio_chip_en_4 ; chip_en_5  <= mdio_chip_en_5 ; chip_en_6  <= mdio_chip_en_6 ; chip_en_7  <= mdio_chip_en_7 ;
+                chip_en_8  <= mdio_chip_en_8 ; chip_en_9  <= mdio_chip_en_9 ; chip_en_10 <= mdio_chip_en_10; chip_en_11 <= mdio_chip_en_11;
+                chip_en_12 <= mdio_chip_en_12; chip_en_13 <= mdio_chip_en_13; chip_en_14 <= mdio_chip_en_14; chip_en_15 <= mdio_chip_en_15;
+                chip_en_16 <= mdio_chip_en_16; chip_en_17 <= mdio_chip_en_17; chip_en_18 <= mdio_chip_en_18; chip_en_19 <= mdio_chip_en_19;
+                chip_en_20 <= mdio_chip_en_20; chip_en_21 <= mdio_chip_en_21; chip_en_22 <= mdio_chip_en_22; chip_en_23 <= mdio_chip_en_23;
             end
             else if (fast_read_en) begin
-                chip_en_0  = fast_chip_en_0 ; chip_en_1  = fast_chip_en_1 ; chip_en_2  = fast_chip_en_2 ; chip_en_3  = fast_chip_en_3 ;
-                chip_en_4  = fast_chip_en_4 ; chip_en_5  = fast_chip_en_5 ; chip_en_6  = fast_chip_en_6 ; chip_en_7  = fast_chip_en_7 ;
-                chip_en_8  = fast_chip_en_8 ; chip_en_9  = fast_chip_en_9 ; chip_en_10 = fast_chip_en_10; chip_en_11 = fast_chip_en_11;
-                chip_en_12 = fast_chip_en_12; chip_en_13 = fast_chip_en_13; chip_en_14 = fast_chip_en_14; chip_en_15 = fast_chip_en_15;
-                chip_en_16 = fast_chip_en_16; chip_en_17 = fast_chip_en_17; chip_en_18 = fast_chip_en_18; chip_en_19 = fast_chip_en_19;
-                chip_en_20 = fast_chip_en_20; chip_en_21 = fast_chip_en_21; chip_en_22 = fast_chip_en_22; chip_en_23 = fast_chip_en_23;
+                chip_en_0  <= fast_chip_en_0 ; chip_en_1  <= fast_chip_en_1 ; chip_en_2  <= fast_chip_en_2 ; chip_en_3  <= fast_chip_en_3 ;
+                chip_en_4  <= fast_chip_en_4 ; chip_en_5  <= fast_chip_en_5 ; chip_en_6  <= fast_chip_en_6 ; chip_en_7  <= fast_chip_en_7 ;
+                chip_en_8  <= fast_chip_en_8 ; chip_en_9  <= fast_chip_en_9 ; chip_en_10 <= fast_chip_en_10; chip_en_11 <= fast_chip_en_11;
+                chip_en_12 <= fast_chip_en_12; chip_en_13 <= fast_chip_en_13; chip_en_14 <= fast_chip_en_14; chip_en_15 <= fast_chip_en_15;
+                chip_en_16 <= fast_chip_en_16; chip_en_17 <= fast_chip_en_17; chip_en_18 <= fast_chip_en_18; chip_en_19 <= fast_chip_en_19;
+                chip_en_20 <= fast_chip_en_20; chip_en_21 <= fast_chip_en_21; chip_en_22 <= fast_chip_en_22; chip_en_23 <= fast_chip_en_23;
             end
             else begin
-                chip_en_0  = 1'b0; chip_en_1  = 1'b0; chip_en_2  = 1'b0; chip_en_3  = 1'b0; chip_en_4  = 1'b0; chip_en_5  = 1'b0;
-                chip_en_6  = 1'b0; chip_en_7  = 1'b0; chip_en_8  = 1'b0; chip_en_9  = 1'b0; chip_en_10 = 1'b0; chip_en_11 = 1'b0;
-                chip_en_12 = 1'b0; chip_en_13 = 1'b0; chip_en_14 = 1'b0; chip_en_15 = 1'b0; chip_en_16 = 1'b0; chip_en_17 = 1'b0;
-                chip_en_18 = 1'b0; chip_en_19 = 1'b0; chip_en_20 = 1'b0; chip_en_21 = 1'b0; chip_en_22 = 1'b0; chip_en_23 = 1'b0;
+                chip_en_0  <= 1'b0; chip_en_1  <= 1'b0; chip_en_2  <= 1'b0; chip_en_3  <= 1'b0; chip_en_4  <= 1'b0; chip_en_5  <= 1'b0;
+                chip_en_6  <= 1'b0; chip_en_7  <= 1'b0; chip_en_8  <= 1'b0; chip_en_9  <= 1'b0; chip_en_10 <= 1'b0; chip_en_11 <= 1'b0;
+                chip_en_12 <= 1'b0; chip_en_13 <= 1'b0; chip_en_14 <= 1'b0; chip_en_15 <= 1'b0; chip_en_16 <= 1'b0; chip_en_17 <= 1'b0;
+                chip_en_18 <= 1'b0; chip_en_19 <= 1'b0; chip_en_20 <= 1'b0; chip_en_21 <= 1'b0; chip_en_22 <= 1'b0; chip_en_23 <= 1'b0;
             end
         end
         else begin
-            chip_en_12 = 1'b0; chip_en_13 = 1'b0; chip_en_14 = 1'b0; chip_en_15 = 1'b0; chip_en_16 = 1'b0; chip_en_17 = 1'b0;
-            chip_en_18 = 1'b0; chip_en_19 = 1'b0; chip_en_20 = 1'b0; chip_en_21 = 1'b0; chip_en_22 = 1'b0; chip_en_23 = 1'b0;
+            chip_en_12 <= 1'b0; chip_en_13 <= 1'b0; chip_en_14 <= 1'b0; chip_en_15 <= 1'b0; chip_en_16 <= 1'b0; chip_en_17 <= 1'b0;
+            chip_en_18 <= 1'b0; chip_en_19 <= 1'b0; chip_en_20 <= 1'b0; chip_en_21 <= 1'b0; chip_en_22 <= 1'b0; chip_en_23 <= 1'b0;
 
             if (write_en) begin
-                chip_en_0  = 1'b1; chip_en_1  = 1'b1; chip_en_2  = 1'b1; chip_en_3  = 1'b1; chip_en_4  = 1'b1; chip_en_5  = 1'b1;
-                chip_en_6  = 1'b1; chip_en_7  = 1'b1; chip_en_8  = 1'b1; chip_en_9  = 1'b1; chip_en_10 = 1'b1; chip_en_11 = 1'b1;
+                chip_en_0  <= 1'b1; chip_en_1  <= 1'b1; chip_en_2  <= 1'b1; chip_en_3  <= 1'b1; chip_en_4  <= 1'b1; chip_en_5  <= 1'b1;
+                chip_en_6  <= 1'b1; chip_en_7  <= 1'b1; chip_en_8  <= 1'b1; chip_en_9  <= 1'b1; chip_en_10 <= 1'b1; chip_en_11 <= 1'b1;
                 
             end
             else if (mdio_read_en) begin
-                chip_en_0  = mdio_chip_en_0; chip_en_1  = mdio_chip_en_1; chip_en_2  = mdio_chip_en_2 ; chip_en_3  = mdio_chip_en_3 ;
-                chip_en_4  = mdio_chip_en_4; chip_en_5  = mdio_chip_en_5; chip_en_6  = mdio_chip_en_6 ; chip_en_7  = mdio_chip_en_7 ;
-                chip_en_8  = mdio_chip_en_8; chip_en_9  = mdio_chip_en_9; chip_en_10 = mdio_chip_en_10; chip_en_11 = mdio_chip_en_11;
+                chip_en_0  <= mdio_chip_en_0; chip_en_1  <= mdio_chip_en_1; chip_en_2  <= mdio_chip_en_2 ; chip_en_3  <= mdio_chip_en_3 ;
+                chip_en_4  <= mdio_chip_en_4; chip_en_5  <= mdio_chip_en_5; chip_en_6  <= mdio_chip_en_6 ; chip_en_7  <= mdio_chip_en_7 ;
+                chip_en_8  <= mdio_chip_en_8; chip_en_9  <= mdio_chip_en_9; chip_en_10 <= mdio_chip_en_10; chip_en_11 <= mdio_chip_en_11;
             end
             else if (fast_read_en) begin
-                chip_en_0  = fast_chip_en_0; chip_en_1  = fast_chip_en_1; chip_en_2  = fast_chip_en_2 ; chip_en_3  = fast_chip_en_3 ;
-                chip_en_4  = fast_chip_en_4; chip_en_5  = fast_chip_en_5; chip_en_6  = fast_chip_en_6 ; chip_en_7  = fast_chip_en_7 ;
-                chip_en_8  = fast_chip_en_8; chip_en_9  = fast_chip_en_9; chip_en_10 = fast_chip_en_10; chip_en_11 = fast_chip_en_11;
+                chip_en_0  <= fast_chip_en_0; chip_en_1  <= fast_chip_en_1; chip_en_2  <= fast_chip_en_2 ; chip_en_3  <= fast_chip_en_3 ;
+                chip_en_4  <= fast_chip_en_4; chip_en_5  <= fast_chip_en_5; chip_en_6  <= fast_chip_en_6 ; chip_en_7  <= fast_chip_en_7 ;
+                chip_en_8  <= fast_chip_en_8; chip_en_9  <= fast_chip_en_9; chip_en_10 <= fast_chip_en_10; chip_en_11 <= fast_chip_en_11;
             end
             else begin
-                chip_en_0  = 1'b0; chip_en_1  = 1'b0; chip_en_2  = 1'b0; chip_en_3  = 1'b0; chip_en_4  = 1'b0; chip_en_5  = 1'b0;
-                chip_en_6  = 1'b0; chip_en_7  = 1'b0; chip_en_8  = 1'b0; chip_en_9  = 1'b0; chip_en_10 = 1'b0; chip_en_11 = 1'b0;
+                chip_en_0  <= 1'b0; chip_en_1  <= 1'b0; chip_en_2  <= 1'b0; chip_en_3  <= 1'b0; chip_en_4  <= 1'b0; chip_en_5  <= 1'b0;
+                chip_en_6  <= 1'b0; chip_en_7  <= 1'b0; chip_en_8  <= 1'b0; chip_en_9  <= 1'b0; chip_en_10 <= 1'b0; chip_en_11 <= 1'b0;
             end
         end
     end
 
     always @(posedge pktctrl_clk or negedge pktctrl_rstn) begin
         if (!pktctrl_rstn) begin
-            wr_en_0  = 1'b0; wr_en_1  = 1'b0; wr_en_2  = 1'b0; wr_en_3  = 1'b0; wr_en_4  = 1'b0; wr_en_5  = 1'b0;
-            wr_en_6  = 1'b0; wr_en_7  = 1'b0; wr_en_8  = 1'b0; wr_en_9  = 1'b0; wr_en_10 = 1'b0; wr_en_11 = 1'b0;
-            wr_en_12 = 1'b0; wr_en_13 = 1'b0; wr_en_14 = 1'b0; wr_en_15 = 1'b0; wr_en_16 = 1'b0; wr_en_17 = 1'b0;
-            wr_en_18 = 1'b0; wr_en_19 = 1'b0; wr_en_20 = 1'b0; wr_en_21 = 1'b0; wr_en_22 = 1'b0; wr_en_23 = 1'b0;
+            wr_en_0  <= 1'b0; wr_en_1  <= 1'b0; wr_en_2  <= 1'b0; wr_en_3  <= 1'b0; wr_en_4  <= 1'b0; wr_en_5  <= 1'b0;
+            wr_en_6  <= 1'b0; wr_en_7  <= 1'b0; wr_en_8  <= 1'b0; wr_en_9  <= 1'b0; wr_en_10 <= 1'b0; wr_en_11 <= 1'b0;
+            wr_en_12 <= 1'b0; wr_en_13 <= 1'b0; wr_en_14 <= 1'b0; wr_en_15 <= 1'b0; wr_en_16 <= 1'b0; wr_en_17 <= 1'b0;
+            wr_en_18 <= 1'b0; wr_en_19 <= 1'b0; wr_en_20 <= 1'b0; wr_en_21 <= 1'b0; wr_en_22 <= 1'b0; wr_en_23 <= 1'b0;
         end
         else if (rf_96path_en) begin
             if (write_en) begin
-                wr_en_0  = 1'b1; wr_en_1  = 1'b1; wr_en_2  = 1'b1; wr_en_3  = 1'b1; wr_en_4  = 1'b1; wr_en_5  = 1'b1;
-                wr_en_6  = 1'b1; wr_en_7  = 1'b1; wr_en_8  = 1'b1; wr_en_9  = 1'b1; wr_en_10 = 1'b1; wr_en_11 = 1'b1;
-                wr_en_12 = 1'b1; wr_en_13 = 1'b1; wr_en_14 = 1'b1; wr_en_15 = 1'b1; wr_en_16 = 1'b1; wr_en_17 = 1'b1;
-                wr_en_18 = 1'b1; wr_en_19 = 1'b1; wr_en_20 = 1'b1; wr_en_21 = 1'b1; wr_en_22 = 1'b1; wr_en_23 = 1'b1;
+                wr_en_0  <= 1'b1; wr_en_1  <= 1'b1; wr_en_2  <= 1'b1; wr_en_3  <= 1'b1; wr_en_4  <= 1'b1; wr_en_5  <= 1'b1;
+                wr_en_6  <= 1'b1; wr_en_7  <= 1'b1; wr_en_8  <= 1'b1; wr_en_9  <= 1'b1; wr_en_10 <= 1'b1; wr_en_11 <= 1'b1;
+                wr_en_12 <= 1'b1; wr_en_13 <= 1'b1; wr_en_14 <= 1'b1; wr_en_15 <= 1'b1; wr_en_16 <= 1'b1; wr_en_17 <= 1'b1;
+                wr_en_18 <= 1'b1; wr_en_19 <= 1'b1; wr_en_20 <= 1'b1; wr_en_21 <= 1'b1; wr_en_22 <= 1'b1; wr_en_23 <= 1'b1;
             end
             else begin
-                wr_en_0  = 1'b0; wr_en_1  = 1'b0; wr_en_2  = 1'b0; wr_en_3  = 1'b0; wr_en_4  = 1'b0; wr_en_5  = 1'b0;
-                wr_en_6  = 1'b0; wr_en_7  = 1'b0; wr_en_8  = 1'b0; wr_en_9  = 1'b0; wr_en_10 = 1'b0; wr_en_11 = 1'b0;
-                wr_en_12 = 1'b0; wr_en_13 = 1'b0; wr_en_14 = 1'b0; wr_en_15 = 1'b0; wr_en_16 = 1'b0; wr_en_17 = 1'b0;
-                wr_en_18 = 1'b0; wr_en_19 = 1'b0; wr_en_20 = 1'b0; wr_en_21 = 1'b0; wr_en_22 = 1'b0; wr_en_23 = 1'b0;
+                wr_en_0  <= 1'b0; wr_en_1  <= 1'b0; wr_en_2  <= 1'b0; wr_en_3  <= 1'b0; wr_en_4  <= 1'b0; wr_en_5  <= 1'b0;
+                wr_en_6  <= 1'b0; wr_en_7  <= 1'b0; wr_en_8  <= 1'b0; wr_en_9  <= 1'b0; wr_en_10 <= 1'b0; wr_en_11 <= 1'b0;
+                wr_en_12 <= 1'b0; wr_en_13 <= 1'b0; wr_en_14 <= 1'b0; wr_en_15 <= 1'b0; wr_en_16 <= 1'b0; wr_en_17 <= 1'b0;
+                wr_en_18 <= 1'b0; wr_en_19 <= 1'b0; wr_en_20 <= 1'b0; wr_en_21 <= 1'b0; wr_en_22 <= 1'b0; wr_en_23 <= 1'b0;
             end
         end
         else begin
-            wr_en_12 = 1'b0; wr_en_13 = 1'b0; wr_en_14 = 1'b0; wr_en_15 = 1'b0; wr_en_16 = 1'b0; wr_en_17 = 1'b0;
-            wr_en_18 = 1'b0; wr_en_19 = 1'b0; wr_en_20 = 1'b0; wr_en_21 = 1'b0; wr_en_22 = 1'b0; wr_en_23 = 1'b0;
+            wr_en_12 <= 1'b0; wr_en_13 <= 1'b0; wr_en_14 <= 1'b0; wr_en_15 <= 1'b0; wr_en_16 <= 1'b0; wr_en_17 <= 1'b0;
+            wr_en_18 <= 1'b0; wr_en_19 <= 1'b0; wr_en_20 <= 1'b0; wr_en_21 <= 1'b0; wr_en_22 <= 1'b0; wr_en_23 <= 1'b0;
 
             if (write_en) begin
-                wr_en_0  = 1'b1; wr_en_1  = 1'b1; wr_en_2  = 1'b1; wr_en_3  = 1'b1; wr_en_4  = 1'b1; wr_en_5  = 1'b1;
-                wr_en_6  = 1'b1; wr_en_7  = 1'b1; wr_en_8  = 1'b1; wr_en_9  = 1'b1; wr_en_10 = 1'b1; wr_en_11 = 1'b1;
+                wr_en_0  <= 1'b1; wr_en_1  <= 1'b1; wr_en_2  <= 1'b1; wr_en_3  <= 1'b1; wr_en_4  <= 1'b1; wr_en_5  <= 1'b1;
+                wr_en_6  <= 1'b1; wr_en_7  <= 1'b1; wr_en_8  <= 1'b1; wr_en_9  <= 1'b1; wr_en_10 <= 1'b1; wr_en_11 <= 1'b1;
             end
             else begin
-                wr_en_0  = 1'b0; wr_en_1  = 1'b0; wr_en_2  = 1'b0; wr_en_3  = 1'b0; wr_en_4  = 1'b0; wr_en_5  = 1'b0;
-                wr_en_6  = 1'b0; wr_en_7  = 1'b0; wr_en_8  = 1'b0; wr_en_9  = 1'b0; wr_en_10 = 1'b0; wr_en_11 = 1'b0;
+                wr_en_0  <= 1'b0; wr_en_1  <= 1'b0; wr_en_2  <= 1'b0; wr_en_3  <= 1'b0; wr_en_4  <= 1'b0; wr_en_5  <= 1'b0;
+                wr_en_6  <= 1'b0; wr_en_7  <= 1'b0; wr_en_8  <= 1'b0; wr_en_9  <= 1'b0; wr_en_10 <= 1'b0; wr_en_11 <= 1'b0;
             end
         end
     end
 
     always @(posedge pktctrl_clk or negedge pktctrl_rstn) begin
         if (!pktctrl_rstn) begin
-            addr_0  = 15'h0; addr_1  = 15'h0; addr_2  = 15'h0; addr_3  = 15'h0; addr_4  = 15'h0; addr_5  = 15'h0;
-            addr_6  = 15'h0; addr_7  = 15'h0; addr_8  = 15'h0; addr_9  = 15'h0; addr_10 = 15'h0; addr_11 = 15'h0;
-            addr_12 = 15'h0; addr_13 = 15'h0; addr_14 = 15'h0; addr_15 = 15'h0; addr_16 = 15'h0; addr_17 = 15'h0;
-            addr_18 = 15'h0; addr_19 = 15'h0; addr_20 = 15'h0; addr_21 = 15'h0; addr_22 = 15'h0; addr_23 = 15'h0;
+            addr_0  <= 15'h0; addr_1  <= 15'h0; addr_2  <= 15'h0; addr_3  <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
+            addr_6  <= 15'h0; addr_7  <= 15'h0; addr_8  <= 15'h0; addr_9  <= 15'h0; addr_10 <= 15'h0; addr_11 <= 15'h0;
+            addr_12 <= 15'h0; addr_13 <= 15'h0; addr_14 <= 15'h0; addr_15 <= 15'h0; addr_16 <= 15'h0; addr_17 <= 15'h0;
+            addr_18 <= 15'h0; addr_19 <= 15'h0; addr_20 <= 15'h0; addr_21 <= 15'h0; addr_22 <= 15'h0; addr_23 <= 15'h0;
         end
         else if (rf_96path_en) begin
             if (write_en) begin
-                addr_0  = waddr; addr_1  = waddr; addr_2  = waddr; addr_3  = waddr; addr_4  = waddr; addr_5  = waddr;
-                addr_6  = waddr; addr_7  = waddr; addr_8  = waddr; addr_9  = waddr; addr_10 = waddr; addr_11 = waddr;
-                addr_12 = waddr; addr_13 = waddr; addr_14 = waddr; addr_15 = waddr; addr_16 = waddr; addr_17 = waddr;
-                addr_18 = waddr; addr_19 = waddr; addr_20 = waddr; addr_21 = waddr; addr_22 = waddr; addr_23 = waddr;
+                addr_0  <= waddr; addr_1  <= waddr; addr_2  <= waddr; addr_3  <= waddr; addr_4  <= waddr; addr_5  <= waddr;
+                addr_6  <= waddr; addr_7  <= waddr; addr_8  <= waddr; addr_9  <= waddr; addr_10 <= waddr; addr_11 <= waddr;
+                addr_12 <= waddr; addr_13 <= waddr; addr_14 <= waddr; addr_15 <= waddr; addr_16 <= waddr; addr_17 <= waddr;
+                addr_18 <= waddr; addr_19 <= waddr; addr_20 <= waddr; addr_21 <= waddr; addr_22 <= waddr; addr_23 <= waddr;
             end
             else if (mdio_read_en) begin
-                addr_0  = mdio_addr_0 ; addr_1  = mdio_addr_1 ; addr_2  = mdio_addr_2 ; addr_3  = mdio_addr_3 ; addr_4  = mdio_addr_4 ; addr_5  = mdio_addr_5 ;
-                addr_6  = mdio_addr_6 ; addr_7  = mdio_addr_7 ; addr_8  = mdio_addr_8 ; addr_9  = mdio_addr_9 ; addr_10 = mdio_addr_10; addr_11 = mdio_addr_11;
-                addr_12 = mdio_addr_12; addr_13 = mdio_addr_13; addr_14 = mdio_addr_14; addr_15 = mdio_addr_15; addr_16 = mdio_addr_16; addr_17 = mdio_addr_17;
-                addr_18 = mdio_addr_18; addr_19 = mdio_addr_19; addr_20 = mdio_addr_20; addr_21 = mdio_addr_21; addr_22 = mdio_addr_22; addr_23 = mdio_addr_23;
+                addr_0  <= mdio_addr_0 ; addr_1  <= mdio_addr_1 ; addr_2  <= mdio_addr_2 ; addr_3  <= mdio_addr_3 ; addr_4  <= mdio_addr_4 ; addr_5  <= mdio_addr_5 ;
+                addr_6  <= mdio_addr_6 ; addr_7  <= mdio_addr_7 ; addr_8  <= mdio_addr_8 ; addr_9  <= mdio_addr_9 ; addr_10 <= mdio_addr_10; addr_11 <= mdio_addr_11;
+                addr_12 <= mdio_addr_12; addr_13 <= mdio_addr_13; addr_14 <= mdio_addr_14; addr_15 <= mdio_addr_15; addr_16 <= mdio_addr_16; addr_17 <= mdio_addr_17;
+                addr_18 <= mdio_addr_18; addr_19 <= mdio_addr_19; addr_20 <= mdio_addr_20; addr_21 <= mdio_addr_21; addr_22 <= mdio_addr_22; addr_23 <= mdio_addr_23;
             end
             else if (fast_read_en) begin
-                addr_0  = fast_addr_0 ; addr_1  = fast_addr_1 ; addr_2  = fast_addr_2 ; addr_3  = fast_addr_3 ; addr_4  = fast_addr_4 ; addr_5  = fast_addr_5 ;
-                addr_6  = fast_addr_6 ; addr_7  = fast_addr_7 ; addr_8  = fast_addr_8 ; addr_9  = fast_addr_9 ; addr_10 = fast_addr_10; addr_11 = fast_addr_11;
-                addr_12 = fast_addr_12; addr_13 = fast_addr_13; addr_14 = fast_addr_14; addr_15 = fast_addr_15; addr_16 = fast_addr_16; addr_17 = fast_addr_17;
-                addr_18 = fast_addr_18; addr_19 = fast_addr_19; addr_20 = fast_addr_20; addr_21 = fast_addr_21; addr_22 = fast_addr_22; addr_23 = fast_addr_23;
+                addr_0  <= fast_addr_0 ; addr_1  <= fast_addr_1 ; addr_2  <= fast_addr_2 ; addr_3  <= fast_addr_3 ; addr_4  <= fast_addr_4 ; addr_5  <= fast_addr_5 ;
+                addr_6  <= fast_addr_6 ; addr_7  <= fast_addr_7 ; addr_8  <= fast_addr_8 ; addr_9  <= fast_addr_9 ; addr_10 <= fast_addr_10; addr_11 <= fast_addr_11;
+                addr_12 <= fast_addr_12; addr_13 <= fast_addr_13; addr_14 <= fast_addr_14; addr_15 <= fast_addr_15; addr_16 <= fast_addr_16; addr_17 <= fast_addr_17;
+                addr_18 <= fast_addr_18; addr_19 <= fast_addr_19; addr_20 <= fast_addr_20; addr_21 <= fast_addr_21; addr_22 <= fast_addr_22; addr_23 <= fast_addr_23;
             end
             else begin
-                addr_0  = 15'h0; addr_1  = 15'h0; addr_2  = 15'h0; addr_3  = 15'h0; addr_4  = 15'h0; addr_5  = 15'h0;
-                addr_6  = 15'h0; addr_7  = 15'h0; addr_8  = 15'h0; addr_9  = 15'h0; addr_10 = 15'h0; addr_11 = 15'h0;
-                addr_12 = 15'h0; addr_13 = 15'h0; addr_14 = 15'h0; addr_15 = 15'h0; addr_16 = 15'h0; addr_17 = 15'h0;
-                addr_18 = 15'h0; addr_19 = 15'h0; addr_20 = 15'h0; addr_21 = 15'h0; addr_22 = 15'h0; addr_23 = 15'h0;
+                addr_0  <= 15'h0; addr_1  <= 15'h0; addr_2  <= 15'h0; addr_3  <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
+                addr_6  <= 15'h0; addr_7  <= 15'h0; addr_8  <= 15'h0; addr_9  <= 15'h0; addr_10 <= 15'h0; addr_11 <= 15'h0;
+                addr_12 <= 15'h0; addr_13 <= 15'h0; addr_14 <= 15'h0; addr_15 <= 15'h0; addr_16 <= 15'h0; addr_17 <= 15'h0;
+                addr_18 <= 15'h0; addr_19 <= 15'h0; addr_20 <= 15'h0; addr_21 <= 15'h0; addr_22 <= 15'h0; addr_23 <= 15'h0;
             end
         end
         else begin
-            addr_12 = 15'h0; addr_13 = 15'h0; addr_14 = 15'h0; addr_15 = 15'h0; addr_16 = 15'h0; addr_17 = 15'h0;
-            addr_18 = 15'h0; addr_19 = 15'h0; addr_20 = 15'h0; addr_21 = 15'h0; addr_22 = 15'h0; addr_23 = 15'h0;
+            addr_12 <= 15'h0; addr_13 <= 15'h0; addr_14 <= 15'h0; addr_15 <= 15'h0; addr_16 <= 15'h0; addr_17 <= 15'h0;
+            addr_18 <= 15'h0; addr_19 <= 15'h0; addr_20 <= 15'h0; addr_21 <= 15'h0; addr_22 <= 15'h0; addr_23 <= 15'h0;
 
             if (write_en) begin
-                addr_0 = waddr; addr_1  = waddr; addr_2  = waddr; addr_3  = waddr; addr_4  = waddr; addr_5  = waddr;
-                addr_6 = waddr; addr_7  = waddr; addr_8  = waddr; addr_9  = waddr; addr_10 = waddr; addr_11 = waddr;
+                addr_0 <= waddr; addr_1  <= waddr; addr_2  <= waddr; addr_3  <= waddr; addr_4  <= waddr; addr_5  <= waddr;
+                addr_6 <= waddr; addr_7  <= waddr; addr_8  <= waddr; addr_9  <= waddr; addr_10 <= waddr; addr_11 <= waddr;
                 
             end
             else if (mdio_read_en) begin
-                addr_0 = mdio_addr_0; addr_1 = mdio_addr_1; addr_2 = mdio_addr_2; addr_3 = mdio_addr_3; addr_4  = mdio_addr_4 ; addr_5  = mdio_addr_5 ;
-                addr_6 = mdio_addr_6; addr_7 = mdio_addr_7; addr_8 = mdio_addr_8; addr_9 = mdio_addr_9; addr_10 = mdio_addr_10; addr_11 = mdio_addr_11;
+                addr_0 <= mdio_addr_0; addr_1 <= mdio_addr_1; addr_2 <= mdio_addr_2; addr_3 <= mdio_addr_3; addr_4  <= mdio_addr_4 ; addr_5  <= mdio_addr_5 ;
+                addr_6 <= mdio_addr_6; addr_7 <= mdio_addr_7; addr_8 <= mdio_addr_8; addr_9 <= mdio_addr_9; addr_10 <= mdio_addr_10; addr_11 <= mdio_addr_11;
             end
             else if (fast_read_en) begin
-                addr_0 = fast_addr_0; addr_1 = fast_addr_1; addr_2 = fast_addr_2; addr_3 = fast_addr_3; addr_4  = fast_addr_4 ; addr_5  = fast_addr_5 ;
-                addr_6 = fast_addr_6; addr_7 = fast_addr_7; addr_8 = fast_addr_8; addr_9 = fast_addr_9; addr_10 = fast_addr_10; addr_11 = fast_addr_11;
+                addr_0 <= fast_addr_0; addr_1 <= fast_addr_1; addr_2 <= fast_addr_2; addr_3 <= fast_addr_3; addr_4  <= fast_addr_4 ; addr_5  <= fast_addr_5 ;
+                addr_6 <= fast_addr_6; addr_7 <= fast_addr_7; addr_8 <= fast_addr_8; addr_9 <= fast_addr_9; addr_10 <= fast_addr_10; addr_11 <= fast_addr_11;
             end
             else begin
-                addr_0 = 15'h0; addr_1 = 15'h0; addr_2 = 15'h0; addr_3 = 15'h0; addr_4  = 15'h0; addr_5  = 15'h0;
-                addr_6 = 15'h0; addr_7 = 15'h0; addr_8 = 15'h0; addr_9 = 15'h0; addr_10 = 15'h0; addr_11 = 15'h0;
+                addr_0 <= 15'h0; addr_1 <= 15'h0; addr_2 <= 15'h0; addr_3 <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
+                addr_6 <= 15'h0; addr_7 <= 15'h0; addr_8 <= 15'h0; addr_9 <= 15'h0; addr_10 <= 15'h0; addr_11 <= 15'h0;
             end
         end
     end
