@@ -42,12 +42,20 @@ module tb_ASIC;
     end
 
     reg start;
+    reg again;
     initial begin
         start = 0;
+        again = 0;
         #41;
         start = 1;
         #6;
         start = 0;
+        #500_000;
+        //start = 1;
+        //#5;
+        //start = 0;
+        //#15_000_000;
+        $finish;
     end
 
     initial begin
@@ -56,7 +64,9 @@ module tb_ASIC;
         force ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_regfile_sw_rstn.cell_data = 1'b1;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_self_test_mode.cell_data = 1'b1;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_start.dev_rdata = start;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_again.dev_rdata = again;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_gap.cell_data = 8;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_data_length.cell_data = 0;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_idle_length.cell_data = 15;
     end
 
@@ -87,10 +97,5 @@ module tb_ASIC;
     .PAD22_MDC              (),
     .PAD23_MDIO             ()
     );
-
-    initial begin
-        #14_000_000;
-        $finish;
-    end
 
 endmodule

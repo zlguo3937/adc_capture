@@ -671,6 +671,8 @@ module package_ctrl
     (
     .clk                        (pktctrl_clk                ),
     .rstn                       (pktctrl_rstn               ),
+    .rf_capture_start           (rf_capture_start           ),
+    .rf_capture_again           (rf_capture_again           ),
     .rf_96path_en               (rf_96path_en               ),
     .rf_pkt_data_length         (rf_pkt_data_length         ),
     .rf_pkt_idle_length         (rf_pkt_idle_length         ),
