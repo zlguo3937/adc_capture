@@ -14,10 +14,10 @@ test:
 	@echo "End of run simulation"
 
 waveform:
-	verdi -f ~/prj/adc_capture/hw/filelist/sim.f -ssf ~/prj/adc_capture/dv/sim/tb_ASIC.fsdb -sswr -sv -top tb_ASIC &
+	verdi -f ~/prj/adc_capture/hw/filelist/sim.f -sv -top tb_ASIC &
 
 filelist:
-	verdi -f ~/prj/adc_capture/hw/filelist/rtl.f -ssf -sv -top ASIC &
+	verdi -f ~/prj/adc_capture/hw/filelist/rtl.f -sv -top ASIC &
 
 clean:
 	rm -rf *.log *.conf verdiLog ucli.key simv.daidir simv csrc *.fsdb *.fsdb.*
