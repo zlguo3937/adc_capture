@@ -1,6 +1,7 @@
 test:
 	@echo "Start to compile"
-	vcs -full64 +v2k -timescale=1ns/1ns \
+	vcs -full64 +v2k \
+	-timescale=1ns/1ns \
 	-f ~/prj/adc_capture/hw/filelist/sim.f \
 	-debug_access+all -debug_region=cell+lib \
 	+lint=TFIPC-L \
@@ -13,7 +14,7 @@ test:
 	@echo "End of run simulation"
 
 waveform:
-	verdi -f ~/prj/adc_capture/hw/filelist/sim.f -ssf -sv tb_ASIC.fsdb -sswr -top tb_ASIC &
+	verdi -f ~/prj/adc_capture/hw/filelist/sim.f -ssf ~/prj/adc_capture/dv/sim/tb_ASIC.fsdb -sswr -sv -top tb_ASIC &
 
 filelist:
 	verdi -f ~/prj/adc_capture/hw/filelist/rtl.f -ssf -sv -top ASIC &

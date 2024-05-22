@@ -246,6 +246,7 @@ module gen_read_logic_fast
     reg             DATA_SEL;
 
     reg             read_en;
+    reg     [8:0]   RD_CNT_r;
 
     /* -----------------------------------------------------------------
      Gen data cnt and addr cnt
@@ -273,7 +274,7 @@ module gen_read_logic_fast
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
             DATA_SEL <= 1'b1;
-        else if (read_en) begin
+        else if (pkt_en_r) begin
             if (RD & RD_EN)
                 DATA_SEL <= DATA_SEL + 1'b1;
         end
@@ -301,6 +302,8 @@ module gen_read_logic_fast
                             RD_CNT <= RD_CNT + 1;
                     end
                 end
+                else
+                    RD_CNT <= 9'd0;
             end
 
             READ_432BYTE: begin
@@ -318,6 +321,8 @@ module gen_read_logic_fast
                             RD_CNT <= RD_CNT + 1;
                     end
                 end
+                else
+                    RD_CNT <= 9'd0;
             end
 
             READ_864BYTE: begin
@@ -335,6 +340,8 @@ module gen_read_logic_fast
                             RD_CNT <= RD_CNT + 1;
                     end
                 end
+                else
+                    RD_CNT <= 9'd0;
             end
 
             READ_1728BYTE: begin
@@ -352,6 +359,8 @@ module gen_read_logic_fast
                             RD_CNT <= RD_CNT + 1;
                     end
                 end
+                else
+                    RD_CNT <= 9'd0;
             end
 
             default: RD_CNT <= 9'd0;
@@ -422,7 +431,6 @@ module gen_read_logic_fast
             
     end
 
-    reg [8:0] RD_CNT_r;
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
             RD_CNT_r <= 9'd0;
@@ -447,17 +455,32 @@ module gen_read_logic_fast
 
     always @(*) begin
         if (RD_CNT%2 == 0) begin
-            case(RD_CNT/4)
-                0:  DATA_432 = fast_din_0;  1:  DATA_432 = fast_din_1;  2:  DATA_432 = fast_din_2;
-                3:  DATA_432 = fast_din_3;  4:  DATA_432 = fast_din_4;  5:  DATA_432 = fast_din_5;
-                6:  DATA_432 = fast_din_6;  7:  DATA_432 = fast_din_7;  8:  DATA_432 = fast_din_8;
-                9:  DATA_432 = fast_din_9;  10: DATA_432 = fast_din_10; 11: DATA_432 = fast_din_11;
-                12: DATA_432 = fast_din_12; 13: DATA_432 = fast_din_13; 14: DATA_432 = fast_din_14;
-                15: DATA_432 = fast_din_15; 16: DATA_432 = fast_din_16; 17: DATA_432 = fast_din_17;
-                18: DATA_432 = fast_din_18; 19: DATA_432 = fast_din_19; 20: DATA_432 = fast_din_20;
-                21: DATA_432 = fast_din_21; 22: DATA_432 = fast_din_22; 23: DATA_432 = fast_din_23;
-                default: DATA_432 = 36'h0;
-            endcase
+            if (RD_CNT <= 47) begin
+                case(RD_CNT/2)
+                    0:  DATA_432 = fast_din_0;  1:  DATA_432 = fast_din_1;  2:  DATA_432 = fast_din_2;
+                    3:  DATA_432 = fast_din_3;  4:  DATA_432 = fast_din_4;  5:  DATA_432 = fast_din_5;
+                    6:  DATA_432 = fast_din_6;  7:  DATA_432 = fast_din_7;  8:  DATA_432 = fast_din_8;
+                    9:  DATA_432 = fast_din_9;  10: DATA_432 = fast_din_10; 11: DATA_432 = fast_din_11;
+                    12: DATA_432 = fast_din_12; 13: DATA_432 = fast_din_13; 14: DATA_432 = fast_din_14;
+                    15: DATA_432 = fast_din_15; 16: DATA_432 = fast_din_16; 17: DATA_432 = fast_din_17;
+                    18: DATA_432 = fast_din_18; 19: DATA_432 = fast_din_19; 20: DATA_432 = fast_din_20;
+                    21: DATA_432 = fast_din_21; 22: DATA_432 = fast_din_22; 23: DATA_432 = fast_din_23;
+                    default: DATA_432 = 36'h0;
+                endcase
+            end
+            else begin
+                case((RD_CNT-48)/2)
+                    0:  DATA_432 = fast_din_0;  1:  DATA_432 = fast_din_1;  2:  DATA_432 = fast_din_2;
+                    3:  DATA_432 = fast_din_3;  4:  DATA_432 = fast_din_4;  5:  DATA_432 = fast_din_5;
+                    6:  DATA_432 = fast_din_6;  7:  DATA_432 = fast_din_7;  8:  DATA_432 = fast_din_8;
+                    9:  DATA_432 = fast_din_9;  10: DATA_432 = fast_din_10; 11: DATA_432 = fast_din_11;
+                    12: DATA_432 = fast_din_12; 13: DATA_432 = fast_din_13; 14: DATA_432 = fast_din_14;
+                    15: DATA_432 = fast_din_15; 16: DATA_432 = fast_din_16; 17: DATA_432 = fast_din_17;
+                    18: DATA_432 = fast_din_18; 19: DATA_432 = fast_din_19; 20: DATA_432 = fast_din_20;
+                    21: DATA_432 = fast_din_21; 22: DATA_432 = fast_din_22; 23: DATA_432 = fast_din_23;
+                    default: DATA_432 = 36'h0;
+                endcase
+            end
         end
     end
 
@@ -690,28 +713,54 @@ module gen_read_logic_fast
                 fast_chip_en432_21 <= 1'b0; fast_chip_en432_22 <= 1'b0; fast_chip_en432_23 <= 1'b0;
             end
         if (RD_CNT%2 == 0) begin
-            case(RD_CNT/4)
+            if (RD_CNT <= 47) begin
+                case(RD_CNT/2)
 
-                0:  fast_chip_en432_0  <= 1'b1; 1:  fast_chip_en432_1  <= 1'b1; 2:  fast_chip_en432_2  <= 1'b1;
-                3:  fast_chip_en432_3  <= 1'b1; 4:  fast_chip_en432_4  <= 1'b1; 5:  fast_chip_en432_5  <= 1'b1;
-                6:  fast_chip_en432_6  <= 1'b1; 7:  fast_chip_en432_7  <= 1'b1; 8:  fast_chip_en432_8  <= 1'b1;
-                9:  fast_chip_en432_9  <= 1'b1; 10: fast_chip_en432_10 <= 1'b1; 11: fast_chip_en432_11 <= 1'b1;
-                12: fast_chip_en432_12 <= 1'b1; 13: fast_chip_en432_13 <= 1'b1; 14: fast_chip_en432_14 <= 1'b1;
-                15: fast_chip_en432_15 <= 1'b1; 16: fast_chip_en432_16 <= 1'b1; 17: fast_chip_en432_17 <= 1'b1;
-                18: fast_chip_en432_18 <= 1'b1; 19: fast_chip_en432_19 <= 1'b1; 20: fast_chip_en432_20 <= 1'b1;
-                21: fast_chip_en432_21 <= 1'b1; 22: fast_chip_en432_22 <= 1'b1; 23: fast_chip_en432_23 <= 1'b1;
+                    0:  fast_chip_en432_0  <= 1'b1; 1:  fast_chip_en432_1  <= 1'b1; 2:  fast_chip_en432_2  <= 1'b1;
+                    3:  fast_chip_en432_3  <= 1'b1; 4:  fast_chip_en432_4  <= 1'b1; 5:  fast_chip_en432_5  <= 1'b1;
+                    6:  fast_chip_en432_6  <= 1'b1; 7:  fast_chip_en432_7  <= 1'b1; 8:  fast_chip_en432_8  <= 1'b1;
+                    9:  fast_chip_en432_9  <= 1'b1; 10: fast_chip_en432_10 <= 1'b1; 11: fast_chip_en432_11 <= 1'b1;
+                    12: fast_chip_en432_12 <= 1'b1; 13: fast_chip_en432_13 <= 1'b1; 14: fast_chip_en432_14 <= 1'b1;
+                    15: fast_chip_en432_15 <= 1'b1; 16: fast_chip_en432_16 <= 1'b1; 17: fast_chip_en432_17 <= 1'b1;
+                    18: fast_chip_en432_18 <= 1'b1; 19: fast_chip_en432_19 <= 1'b1; 20: fast_chip_en432_20 <= 1'b1;
+                    21: fast_chip_en432_21 <= 1'b1; 22: fast_chip_en432_22 <= 1'b1; 23: fast_chip_en432_23 <= 1'b1;
 
-                default: begin
-                    fast_chip_en432_0  <= 1'b0; fast_chip_en432_1  <= 1'b0; fast_chip_en432_2  <= 1'b0;
-                    fast_chip_en432_3  <= 1'b0; fast_chip_en432_4  <= 1'b0; fast_chip_en432_5  <= 1'b0;
-                    fast_chip_en432_6  <= 1'b0; fast_chip_en432_7  <= 1'b0; fast_chip_en432_8  <= 1'b0;
-                    fast_chip_en432_9  <= 1'b0; fast_chip_en432_10 <= 1'b0; fast_chip_en432_11 <= 1'b0;
-                    fast_chip_en432_12 <= 1'b0; fast_chip_en432_13 <= 1'b0; fast_chip_en432_14 <= 1'b0;
-                    fast_chip_en432_15 <= 1'b0; fast_chip_en432_16 <= 1'b0; fast_chip_en432_17 <= 1'b0;
-                    fast_chip_en432_18 <= 1'b0; fast_chip_en432_19 <= 1'b0; fast_chip_en432_20 <= 1'b0;
-                    fast_chip_en432_21 <= 1'b0; fast_chip_en432_22 <= 1'b0; fast_chip_en432_23 <= 1'b0;
-                end
-            endcase
+                    default: begin
+                        fast_chip_en432_0  <= 1'b0; fast_chip_en432_1  <= 1'b0; fast_chip_en432_2  <= 1'b0;
+                        fast_chip_en432_3  <= 1'b0; fast_chip_en432_4  <= 1'b0; fast_chip_en432_5  <= 1'b0;
+                        fast_chip_en432_6  <= 1'b0; fast_chip_en432_7  <= 1'b0; fast_chip_en432_8  <= 1'b0;
+                        fast_chip_en432_9  <= 1'b0; fast_chip_en432_10 <= 1'b0; fast_chip_en432_11 <= 1'b0;
+                        fast_chip_en432_12 <= 1'b0; fast_chip_en432_13 <= 1'b0; fast_chip_en432_14 <= 1'b0;
+                        fast_chip_en432_15 <= 1'b0; fast_chip_en432_16 <= 1'b0; fast_chip_en432_17 <= 1'b0;
+                        fast_chip_en432_18 <= 1'b0; fast_chip_en432_19 <= 1'b0; fast_chip_en432_20 <= 1'b0;
+                        fast_chip_en432_21 <= 1'b0; fast_chip_en432_22 <= 1'b0; fast_chip_en432_23 <= 1'b0;
+                    end
+                endcase
+            end
+            else begin
+                case((RD_CNT-48)/2)
+
+                    0:  fast_chip_en432_0  <= 1'b1; 1:  fast_chip_en432_1  <= 1'b1; 2:  fast_chip_en432_2  <= 1'b1;
+                    3:  fast_chip_en432_3  <= 1'b1; 4:  fast_chip_en432_4  <= 1'b1; 5:  fast_chip_en432_5  <= 1'b1;
+                    6:  fast_chip_en432_6  <= 1'b1; 7:  fast_chip_en432_7  <= 1'b1; 8:  fast_chip_en432_8  <= 1'b1;
+                    9:  fast_chip_en432_9  <= 1'b1; 10: fast_chip_en432_10 <= 1'b1; 11: fast_chip_en432_11 <= 1'b1;
+                    12: fast_chip_en432_12 <= 1'b1; 13: fast_chip_en432_13 <= 1'b1; 14: fast_chip_en432_14 <= 1'b1;
+                    15: fast_chip_en432_15 <= 1'b1; 16: fast_chip_en432_16 <= 1'b1; 17: fast_chip_en432_17 <= 1'b1;
+                    18: fast_chip_en432_18 <= 1'b1; 19: fast_chip_en432_19 <= 1'b1; 20: fast_chip_en432_20 <= 1'b1;
+                    21: fast_chip_en432_21 <= 1'b1; 22: fast_chip_en432_22 <= 1'b1; 23: fast_chip_en432_23 <= 1'b1;
+
+                    default: begin
+                        fast_chip_en432_0  <= 1'b0; fast_chip_en432_1  <= 1'b0; fast_chip_en432_2  <= 1'b0;
+                        fast_chip_en432_3  <= 1'b0; fast_chip_en432_4  <= 1'b0; fast_chip_en432_5  <= 1'b0;
+                        fast_chip_en432_6  <= 1'b0; fast_chip_en432_7  <= 1'b0; fast_chip_en432_8  <= 1'b0;
+                        fast_chip_en432_9  <= 1'b0; fast_chip_en432_10 <= 1'b0; fast_chip_en432_11 <= 1'b0;
+                        fast_chip_en432_12 <= 1'b0; fast_chip_en432_13 <= 1'b0; fast_chip_en432_14 <= 1'b0;
+                        fast_chip_en432_15 <= 1'b0; fast_chip_en432_16 <= 1'b0; fast_chip_en432_17 <= 1'b0;
+                        fast_chip_en432_18 <= 1'b0; fast_chip_en432_19 <= 1'b0; fast_chip_en432_20 <= 1'b0;
+                        fast_chip_en432_21 <= 1'b0; fast_chip_en432_22 <= 1'b0; fast_chip_en432_23 <= 1'b0;
+                    end
+                endcase
+            end
         end
     end
 
@@ -1027,7 +1076,7 @@ module gen_read_logic_fast
                                 pkt_next_sta = PKT_IDLE;
                         end
                         else begin
-                            if ((RD_CNT == 9'd23) & RD)
+                            if ((RD_CNT_r == 9'd23) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                     end
@@ -1035,11 +1084,11 @@ module gen_read_logic_fast
                 else if (curr_sta == READ_432BYTE) begin
                     if (addr%4 == 3) begin
                         if (rf_96path_en) begin
-                            if ((RD_CNT == 9'd95) & RD)
+                            if ((RD_CNT_r == 9'd95) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                         else begin
-                            if ((RD_CNT == 9'd47) & RD)
+                            if ((RD_CNT_r == 9'd47) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                     end
@@ -1047,11 +1096,11 @@ module gen_read_logic_fast
                 else if (curr_sta == READ_864BYTE) begin
                     if (addr%8 == 7) begin
                         if (rf_96path_en) begin
-                            if ((RD_CNT == 9'd191) & RD)
+                            if ((RD_CNT_r == 9'd191) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                         else begin
-                            if ((RD_CNT == 9'd95) & RD)
+                            if ((RD_CNT_r == 9'd95) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                     end
@@ -1059,11 +1108,11 @@ module gen_read_logic_fast
                 else if (READ_1728BYTE) begin
                     if (addr%16 == 15) begin
                         if (rf_96path_en) begin
-                            if ((RD_CNT == 9'd383) & RD)
+                            if ((RD_CNT_r == 9'd383) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                         else begin
-                            if ((RD_CNT == 9'd191) & RD)
+                            if ((RD_CNT_r == 9'd191) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                     end

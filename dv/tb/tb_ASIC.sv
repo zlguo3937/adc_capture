@@ -43,6 +43,7 @@ module tb_ASIC;
 
     reg start;
     reg again;
+
     initial begin
         start = 0;
         again = 0;
@@ -50,13 +51,13 @@ module tb_ASIC;
         start = 1;
         #6;
         start = 0;
-        #15_000_000;
-        #12_500_000;
+        //#500_000;
+        #30_000_000;
+        #22_500_000;
         again = 1;
         #5;
         again = 0;
-        #15_000_000;
-        #12_500_000;
+        #500_000;
         $finish;
     end
 
@@ -68,8 +69,12 @@ module tb_ASIC;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_start.dev_rdata = start;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_again.dev_rdata = again;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_gap.cell_data = 8;
-        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_data_length.cell_data = 0;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_data_length.cell_data = 1; // 00-216type, 01-432type, 10-864type, 11-1728type
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_idle_length.cell_data = 15;
+    end
+
+    initial begin
+        $monitor(" Simulation Time: %.3f us           Read package number: %0d", $time/1e3, tb_ASIC.ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.addr_0 >> 7);
     end
 
     ASIC
