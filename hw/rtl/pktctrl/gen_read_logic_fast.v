@@ -310,13 +310,13 @@ module gen_read_logic_fast
             READ_432BYTE: begin
                 if (pkt_en_r) begin
                     if (rf_96path_en) begin
-                        if ((RD_CNT == 9'd95) && (RD == 1'b1) && (RD_EN == 1'b1))
+                        if ((RD_CNT == 9'd47) && (RD == 1'b1) && (RD_EN == 1'b1))
                             RD_CNT <= 9'd0;
                         else if (RD & RD_EN)
                             RD_CNT <= RD_CNT + 1;
                     end
                     else begin
-                        if ((RD_CNT == 9'd47) && (RD == 1'b1) && (RD_EN == 1'b1))
+                        if ((RD_CNT == 9'd23) && (RD == 1'b1) && (RD_EN == 1'b1))
                             RD_CNT <= 9'd0;
                         else if (RD & RD_EN)
                             RD_CNT <= RD_CNT + 1;
@@ -329,13 +329,13 @@ module gen_read_logic_fast
             READ_864BYTE: begin
                 if (pkt_en_r) begin
                     if (rf_96path_en) begin
-                        if ((RD_CNT == 9'd191) && (RD == 1'b1) && (RD_EN == 1'b1))
+                        if ((RD_CNT == 9'd47) && (RD == 1'b1) && (RD_EN == 1'b1))
                             RD_CNT <= 9'd0;
                         else if (RD & RD_EN)
                             RD_CNT <= RD_CNT + 1;
                     end
                     else begin
-                        if ((RD_CNT == 9'd95) && (RD == 1'b1) && (RD_EN == 1'b1))
+                        if ((RD_CNT == 9'd23) && (RD == 1'b1) && (RD_EN == 1'b1))
                             RD_CNT <= 9'd0;
                         else if (RD & RD_EN)
                             RD_CNT <= RD_CNT + 1;
@@ -348,13 +348,13 @@ module gen_read_logic_fast
             READ_1728BYTE: begin
                 if (pkt_en_r) begin
                     if (rf_96path_en) begin
-                        if ((RD_CNT == 9'd383) && (RD == 1'b1) && (RD_EN == 1'b1))
+                        if ((RD_CNT == 9'd47) && (RD == 1'b1) && (RD_EN == 1'b1))
                             RD_CNT <= 9'd0;
                         else if (RD & RD_EN)
                             RD_CNT <= RD_CNT + 1;
                     end
                     else begin
-                        if ((RD_CNT == 9'd191) && (RD == 1'b1) && (RD_EN == 1'b1))
+                        if ((RD_CNT == 9'd23) && (RD == 1'b1) && (RD_EN == 1'b1))
                             RD_CNT <= 9'd0;
                         else if (RD & RD_EN)
                             RD_CNT <= RD_CNT + 1;
@@ -911,7 +911,7 @@ module gen_read_logic_fast
 
                 READ_432BYTE: begin
                     if (rf_96path_en) begin
-                        if ((RD_CNT_r == 9'd95) & RD & RD_EN & DATA_SEL) begin
+                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
                             if (&addr) begin
                                 addr <= 0;
                                 fast_rd_done <= 1'b1;
@@ -922,7 +922,7 @@ module gen_read_logic_fast
                         end
                     end
                     else begin
-                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
+                        if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
                             if (&addr) begin
                                 addr <= 0;
                                 fast_rd_done <= 1'b1;
@@ -936,7 +936,7 @@ module gen_read_logic_fast
 
                 READ_864BYTE: begin
                     if (rf_96path_en) begin
-                        if ((RD_CNT_r == 9'd191) & RD & RD_EN & DATA_SEL) begin
+                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
                             if (&addr) begin
                                 addr <= 0;
                                 fast_rd_done <= 1'b1;
@@ -947,7 +947,7 @@ module gen_read_logic_fast
                         end
                     end
                     else begin
-                        if ((RD_CNT_r == 9'd95) & RD & RD_EN & DATA_SEL) begin
+                        if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
                             if (&addr) begin
                                 addr <= 0;
                                 fast_rd_done <= 1'b1;
@@ -961,7 +961,7 @@ module gen_read_logic_fast
 
                 READ_1728BYTE: begin
                     if (rf_96path_en) begin
-                        if ((RD_CNT_r == 9'd383) & RD & RD_EN & DATA_SEL) begin
+                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
                             if (&addr) begin
                                 addr <= 0;
                                 fast_rd_done <= 1'b1;
@@ -972,7 +972,7 @@ module gen_read_logic_fast
                         end
                     end
                     else begin
-                        if ((RD_CNT_r == 9'd191) & RD & RD_EN & DATA_SEL) begin
+                        if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
                             if (&addr) begin
                                 addr <= 0;
                                 fast_rd_done <= 1'b1;
@@ -1085,11 +1085,11 @@ module gen_read_logic_fast
                 else if (curr_sta == READ_432BYTE) begin
                     if (addr%4 == 3) begin
                         if (rf_96path_en) begin
-                            if ((RD_CNT_r == 9'd95) & RD)
+                            if ((RD_CNT_r == 9'd47) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                         else begin
-                            if ((RD_CNT_r == 9'd47) & RD)
+                            if ((RD_CNT_r == 9'd23) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                     end
@@ -1097,11 +1097,11 @@ module gen_read_logic_fast
                 else if (curr_sta == READ_864BYTE) begin
                     if (addr%8 == 7) begin
                         if (rf_96path_en) begin
-                            if ((RD_CNT_r == 9'd191) & RD)
+                            if ((RD_CNT_r == 9'd47) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                         else begin
-                            if ((RD_CNT_r == 9'd95) & RD)
+                            if ((RD_CNT_r == 9'd23 & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                     end
@@ -1109,11 +1109,11 @@ module gen_read_logic_fast
                 else if (READ_1728BYTE) begin
                     if (addr%16 == 15) begin
                         if (rf_96path_en) begin
-                            if ((RD_CNT_r == 9'd383) & RD)
+                            if ((RD_CNT_r == 9'd47) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                         else begin
-                            if ((RD_CNT_r == 9'd191) & RD)
+                            if ((RD_CNT_r == 9'd23) & RD)
                                 pkt_next_sta = PKT_IDLE;
                         end
                     end
