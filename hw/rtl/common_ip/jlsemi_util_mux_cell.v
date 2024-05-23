@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module jlsemi_util_mux_cell
 (
     input   a0_i,

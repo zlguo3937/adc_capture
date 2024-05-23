@@ -14,6 +14,7 @@
 //  2024-05-06    zlguo         1.0         ASIC
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
+`timescale 1ns/1ns
 module ASIC
 (
     inout   wire    PAD1_ADC_DATA_1,
@@ -42,7 +43,8 @@ module ASIC
 );
 
     wire            CLK200M;
-    wire            CLK500M;
+    wire            ADC_CLK500M;
+    wire            ADC48_CLK500M;
 
     wire    [8:0]   ADC_DATA_0;
     wire    [8:0]   ADC_DATA_1;
@@ -190,7 +192,8 @@ module ASIC
     wire    [8:0]   ADC48_DATA_47;
 
     wire            ANA_CLK200M;
-    wire            ANA_CLK500M;
+    wire            ANA_ADC_CLK500M;
+    wire            ANA_ADC48_CLK500M;
 
     wire    [35:0]  ANA_ADC_DATA_0;
     wire    [35:0]  ANA_ADC_DATA_1;
@@ -234,7 +237,11 @@ module ASIC
     u_digital_top
     (
     .ANA_CLK200M                (ANA_CLK200M                ),
-    .ANA_CLK500M                (ANA_CLK500M                ),
+    .ANA_ADC_CLK500M            (ANA_ADC_CLK500M            ),
+    .ANA_ADC48_CLK500M          (ANA_ADC48_CLK500M          ),
+                                                            
+    .adc96_rstn                 (adc96_rstn                 ),
+    .adc48_rstn                 (adc48_rstn                 ),
 
     .ANA_ADC_DATA_0             (ANA_ADC_DATA_0             ),
     .ANA_ADC_DATA_1             (ANA_ADC_DATA_1             ),
@@ -302,7 +309,8 @@ module ASIC
     u_analog_top
     (
     .CLK200M                    (CLK200M                    ),
-    .CLK500M                    (CLK500M                    ),
+    .ADC_CLK500M                (ADC_CLK500M                ),
+    .ADC48_CLK500M              (ADC48_CLK500M              ),
 
     .ADC_DATA_0                 (ADC_DATA_0                 ),
     .ADC_DATA_1                 (ADC_DATA_1                 ),
@@ -453,8 +461,11 @@ module ASIC
     analog_signal_mux
     u_analog_signal_mux
     (
+    .adc96_rstn                 (adc96_rstn                 ),
+    .adc48_rstn                 (adc48_rstn                 ),
     .CLK200M                    (CLK200M                    ),
-    .CLK500M                    (CLK500M                    ),
+    .ADC_CLK500M                (ADC_CLK500M                ),
+    .ADC48_CLK500M              (ADC48_CLK500M              ),
 
     .ADC_DATA_0                 (ADC_DATA_0                 ),
     .ADC_DATA_1                 (ADC_DATA_1                 ),
@@ -602,7 +613,8 @@ module ASIC
     .ADC48_DATA_47              (ADC48_DATA_47              ),
 
     .ANA_CLK200M                (ANA_CLK200M                ),
-    .ANA_CLK500M                (ANA_CLK500M                ),
+    .ANA_ADC_CLK500M            (ANA_ADC_CLK500M            ),
+    .ANA_ADC48_CLK500M          (ANA_ADC48_CLK500M          ),
 
     .ANA_ADC_DATA_0             (ANA_ADC_DATA_0             ),
     .ANA_ADC_DATA_1             (ANA_ADC_DATA_1             ),

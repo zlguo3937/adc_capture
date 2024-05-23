@@ -1,6 +1,7 @@
 test:
 	@echo "Start to compile"
-	vcs -full64 +v2k \
+	vcs -full64 +v2k -sverilog \
+	-cpp gcc-4.8 -LDFLAGS -Wl,--no-as-needed \
 	-timescale=1ns/1ns \
 	-f ~/prj/adc_capture/hw/filelist/sim.f \
 	-debug_access+all -debug_region=cell+lib \

@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module jlsemi_util_sync_pos_with_rst_low
 #(
     parameter SYNC_STEP = 2

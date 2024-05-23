@@ -14,10 +14,15 @@
 //  2024-05-06    zlguo         1.0         DIGITAL_WRAPPER
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
+`timescale 1ns/1ns
 module DIGITAL_WRAPPER
 (
     input   wire            ANA_CLK200M,
-    input   wire            ANA_CLK500M,
+    input   wire            ANA_ADC_CLK500M,
+    input   wire            ANA_ADC48_CLK500M,
+
+    output  wire            adc96_rstn,
+    output  wire            adc48_rstn,
 
     input   wire    [35:0]  ANA_ADC_DATA_0,
     input   wire    [35:0]  ANA_ADC_DATA_1,
@@ -134,8 +139,11 @@ module DIGITAL_WRAPPER
     .dft_clkdiv_rstn_ctrl       (1'b0                       ),
     .dft_clkdiv_scan_rstn       (1'b0                       ),
     .dft_scan_en                (1'b0                       ),
+    .dft_test_clk_en            (1'b0                       ),
     .ANA_CLK200M                (ANA_CLK200M                ),
-    .ANA_CLK500M                (ANA_CLK500M                ),
+    .ANA_ADC_CLK500M            (ANA_ADC_CLK500M            ),
+    .ANA_ADC48_CLK500M          (ANA_ADC48_CLK500M          ),
+    .rf_96path_en               (rf_96path_en               ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
     .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         ),
@@ -143,6 +151,8 @@ module DIGITAL_WRAPPER
     .pktctrl_rstn               (pktctrl_rstn               ),
     .clk_200m                   (clk_200m                   ),
     .rstn_200m                  (rstn_200m                  ),
+    .adc96_rstn                 (adc96_rstn                 ),
+    .adc48_rstn                 (adc48_rstn                 ),
     .regfile_rstn               (regfile_rstn               ),
     .RSTN                       (RSTN                       )
     );

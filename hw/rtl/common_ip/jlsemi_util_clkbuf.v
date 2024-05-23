@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module jlsemi_util_clkbuf
 (
     input         clk_i,

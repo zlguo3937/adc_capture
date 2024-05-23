@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module jlsemi_util_clkgate
 #(
     parameter RST_SYNC_STAGE = 3,

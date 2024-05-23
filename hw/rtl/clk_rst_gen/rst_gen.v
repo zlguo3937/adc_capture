@@ -15,6 +15,7 @@
 //  2024-05-06    zlguo         1.0         rst_gen
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
+`timescale 1ns/1ns
 module rst_gen
 (
     input   wire            RSTN,
@@ -27,6 +28,10 @@ module rst_gen
     input   wire            clk_200m,
     input   wire            pktctrl_clk,
 
+    // Clock input from ana
+    input   wire            ANA_ADC_CLK500M,
+    input   wire            ANA_ADC48_CLK500M,
+
     // Register sw_reset
     input   wire            rf_pktctrl_sw_rstn,
     input   wire            rf_regfile_sw_rstn,
@@ -35,6 +40,8 @@ module rst_gen
     output  wire            rstn, //TODO
     output  wire            pktctrl_rstn,
     output  wire            rstn_200m,
+    output  wire            adc96_rstn,
+    output  wire            adc48_rstn,
     output  wire            regfile_rstn
 );
 
@@ -84,6 +91,30 @@ module rst_gen
     .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
     .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
     .rst_n_o                      (regfile_rstn                 )
+    );
+
+    // Reset sync for adc96
+    jlsemi_util_async_reset_low_sync #(
+        .RST_SYNC_STAGE (3))
+    u_dont_touch_rst_sync_to_adc96
+    (
+    .rst_n_i                      (rstn                         ),
+    .clk_i                        (ANA_ADC_CLK500M              ),
+    .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
+    .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
+    .rst_n_o                      (adc96_rstn                   )
+    );
+
+    // Reset sync for adc96
+    jlsemi_util_async_reset_low_sync #(
+        .RST_SYNC_STAGE (3))
+    u_dont_touch_rst_sync_to_adc48
+    (
+    .rst_n_i                      (rstn                         ),
+    .clk_i                        (ANA_ADC48_CLK500M            ),
+    .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
+    .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
+    .rst_n_o                      (adc48_rstn                   )
     );
 
 endmodule

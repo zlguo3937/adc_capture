@@ -14,6 +14,7 @@
 //  2024-05-06    zlguo         1.0         crg
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
+`timescale 1ns/1ns
 module crg
 (
     //Dft
@@ -25,15 +26,20 @@ module crg
     input   wire            dft_clkdiv_rstn_ctrl,
     input   wire            dft_clkdiv_scan_rstn,
     input   wire            dft_scan_en,
+    input   wire            dft_test_clk_en,
 
     // Clock Gen
     // Clock input from analog
     input   wire            ANA_CLK200M,
-    input   wire            ANA_CLK500M,
+    input   wire            ANA_ADC_CLK500M,
+    input   wire            ANA_ADC48_CLK500M,
 
     input   wire            rf_pktctrl_clk_en,
     input   wire            rf_pktctrl_sw_rstn,
     input   wire            rf_regfile_sw_rstn,
+
+    // Whitch 500M clock be selected
+    input   wire            rf_96path_en,
 
     // Clock output
     output  wire            pktctrl_clk,
@@ -46,6 +52,8 @@ module crg
     // Reset output
     output  wire            pktctrl_rstn,
     output  wire            rstn_200m,
+    output  wire            adc96_rstn,
+    output  wire            adc48_rstn,
     output  wire            regfile_rstn
 );
 
@@ -62,10 +70,13 @@ module crg
     .dft_clkdiv_rstn_ctrl       (dft_clkdiv_rstn_ctrl       ),
     .dft_clkdiv_scan_rstn       (dft_clkdiv_scan_rstn       ),
     .dft_scan_en                (dft_scan_en                ),
+    .dft_test_clk_en            (dft_test_clk_en            ),
     .ANA_CLK200M                (ANA_CLK200M                ),
-    .ANA_CLK500M                (ANA_CLK500M                ),
+    .ANA_ADC_CLK500M            (ANA_ADC_CLK500M            ),
+    .ANA_ADC48_CLK500M          (ANA_ADC48_CLK500M          ),
     .rstn                       (rstn                       ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
+    .rf_96path_en               (rf_96path_en               ),
     .pktctrl_clk                (pktctrl_clk                ),
     .clk_200m                   (clk_200m                   )
     );
@@ -83,6 +94,10 @@ module crg
     .rstn                       (rstn                       ),
     .pktctrl_rstn               (pktctrl_rstn               ),
     .rstn_200m                  (rstn_200m                  ),
+    .ANA_ADC_CLK500M            (ANA_ADC_CLK500M            ),
+    .ANA_ADC48_CLK500M          (ANA_ADC48_CLK500M          ),
+    .adc96_rstn                 (adc96_rstn                 ),
+    .adc48_rstn                 (adc48_rstn                 ),
     .regfile_rstn               (regfile_rstn               )
     );
 

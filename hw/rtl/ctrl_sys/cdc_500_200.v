@@ -14,6 +14,7 @@
 //  2024-05-15    zlguo         1.0         regsync_500_100
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
+`timescale 1ns/1ns
 module cdc_500_200
 (
 
@@ -97,14 +98,15 @@ module cdc_500_200
     .dst_pulse                  (rf_capture_again_sync      )
     );
 
-    jlsemi_util_sync_pos_with_rst_low
-    u_sync_rf_96path_en
-    (
-    .clk                        (pktctrl_clk                ),
-    .rst_n                      (pktctrl_rstn               ),
-    .din                        (rf_96path_en               ),
-    .dout                       (rf_96path_en_sync          )
-    );
+    //jlsemi_util_sync_pos_with_rst_low
+    //u_sync_rf_96path_en
+    //(
+    //.clk                        (pktctrl_clk                ),
+    //.rst_n                      (pktctrl_rstn               ),
+    //.din                        (rf_96path_en               ),
+    //.dout                       (rf_96path_en_sync          )
+    //);
+    assign rf_96path_en_sync = rf_96path_en;
 
     pulse_handshake
     u_sync_rf_mdio_read_pulse

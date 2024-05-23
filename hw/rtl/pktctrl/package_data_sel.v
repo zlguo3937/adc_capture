@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module package_data_sel
 (
     input   wire            rf_self_test_mode,

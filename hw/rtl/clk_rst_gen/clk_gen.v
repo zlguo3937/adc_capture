@@ -15,6 +15,7 @@
 //  2024-05-06    zlguo         1.0         clk_gen
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
+`timescale 1ns/1ns
 module clk_gen
 (
     //Dft
@@ -26,15 +27,16 @@ module clk_gen
     input   wire            dft_clkdiv_rstn_ctrl,
     input   wire            dft_clkdiv_scan_rstn,
     input   wire            dft_scan_en,
+    input   wire            dft_test_clk_en,
 
     // Clock input from analog, Reset input from digital rst_gen
     input   wire            ANA_CLK200M,
-    input   wire            ANA_CLK500M,
+    input   wire            ANA_ADC_CLK500M,
+    input   wire            ANA_ADC48_CLK500M,
     input   wire            rstn, // from digital rst_gen
 
-    // Register config: clock divider and clock phase
-    input   wire    [8:0]   rf_pktctrl_clk_div, // 4,8,10,20,40,50,100,200,400 --> 50M,25M,20M,10M,5M,4M,2M,1M,500K
-    input   wire    [8:0]   rf_pktctrl_clk_phase,
+    // Whitch 500M clock be selected
+    input   wire            rf_96path_en,
 
     // Register config: clock gate enable
     input   wire            rf_pktctrl_clk_en,
@@ -45,11 +47,20 @@ module clk_gen
 );
 
     wire    pktctrl_clk_occ;
-    wire    pktctrl_clk_pre;
     wire    clk_200m_occ;
-    wire    clk_200m_pre;
+    wire    ANA_CLK500M;
 
-    // Pktctrl data write clock
+    // Pktctrl clock
+    jlsemi_util_clkmux_sel1
+    u_clkmux_to_CLK500M
+    (
+    .clk0_i                     (ANA_ADC48_CLK500M          ),
+    .clk1_i                     (ANA_ADC_CLK500M            ),
+    .sel_i                      (rf_96path_en               ),
+    .dft_test_clk_en            (dft_test_clk_en            ),
+    .clk_o                      (ANA_CLK500M                )
+    );
+
     jlsemi_util_clkbuf
     u_dont_touch_occ_anchor_buf_pktctrl_wclk
     (
@@ -57,19 +68,12 @@ module clk_gen
     .clk_o                      (pktctrl_clk_occ            )
     );
 
-    jlsemi_util_clkbuf
-    u_dont_touch_buf_pktctrl_clk
-    (
-    .clk_i                      (pktctrl_clk_occ            ),
-    .clk_o                      (pktctrl_clk_pre            )
-    );
-
     jlsemi_util_clkgate #(
         .RST_SYNC_STAGE (3),
         .SYNC_STEP      (3))
     u_clkgate_to_pktctrl_wclk
     (
-    .clk_i                      (pktctrl_clk_pre            ),
+    .clk_i                      (pktctrl_clk_occ            ),
     .clk_en_i                   (rf_pktctrl_clk_en          ),
     .rstn_i                     (rstn                       ),
     .dft_rstnsync_scan_rstn     (dft_rstnsync_scan_rstn     ),
@@ -86,13 +90,6 @@ module clk_gen
     .clk_o                      (clk_200m_occ               )
     );
 
-    jlsemi_util_clkbuf
-    u_dont_touch_buf_clk_200m
-    (
-    .clk_i                      (clk_200m_occ               ),
-    .clk_o                      (clk_200m_pre               )
-    );
-
-    assign clk_200m = clk_200m_pre;
+    assign clk_200m = clk_200m_occ;
 
 endmodule
