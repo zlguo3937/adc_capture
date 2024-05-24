@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 10ps/10ps
 
 module ANALOG_WRAPPER
 #(
@@ -198,7 +198,7 @@ module ANALOG_WRAPPER
         clk = 0;
         forever
         begin
-            #20.835 clk = ~clk;
+            #2.08 clk = ~clk;
         end
     end
 
