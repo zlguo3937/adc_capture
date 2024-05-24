@@ -30,8 +30,29 @@ module tb_ASIC;
         `ifdef VPD_ON
             $vcdpluson();
         `endif
-        $fsdbDumpfile("tb_ASIC.fsdb");
+        //$fsdbDumpfile("tb_ASIC.fsdb");
+        $fsdbAutoSwitchDumpfile(1000, "tb_ASIC.fsdb", 20, "fsdb_dump.log"); // auto spit waveform file
         $fsdbDumpvars("+all");
+    end
+
+    // --------------------------------------------------------------------
+    // Display Memory address value to terminal: every 1ms display once
+    // --------------------------------------------------------------------
+    time next_display_time = 0;
+    logic clk;
+
+    always #1 clk = ~clk;
+
+    always @(posedge clk) begin
+        if ($time >= next_display_time) begin
+            $display("At time %.3f us, Memory read address is %d", $time/1_000, tb_ASIC.ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.addr_0);
+            next_display_time = $time + 0.5ms;
+        end
+    end
+
+    initial begin
+        clk = 0;
+        next_display_time = 1ms;
     end
 
     initial
