@@ -36,7 +36,6 @@ module crg
 
     input   wire            rf_pktctrl_clk_en,
     input   wire            rf_pktctrl_sw_rstn,
-    input   wire            rf_regfile_sw_rstn,
 
     // Whitch 500M clock be selected
     input   wire            rf_96path_en,
@@ -53,8 +52,7 @@ module crg
     output  wire            pktctrl_rstn,
     output  wire            rstn_200m,
     output  wire            adc96_rstn,
-    output  wire            adc48_rstn,
-    output  wire            regfile_rstn
+    output  wire            adc48_rstn
 );
 
     wire rstn;
@@ -90,15 +88,13 @@ module crg
     .pktctrl_clk                (pktctrl_clk                ),
     .clk_200m                   (clk_200m                   ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
-    .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         ),
     .rstn                       (rstn                       ),
     .pktctrl_rstn               (pktctrl_rstn               ),
     .rstn_200m                  (rstn_200m                  ),
     .ANA_ADC_CLK500M            (ANA_ADC_CLK500M            ),
     .ANA_ADC48_CLK500M          (ANA_ADC48_CLK500M          ),
     .adc96_rstn                 (adc96_rstn                 ),
-    .adc48_rstn                 (adc48_rstn                 ),
-    .regfile_rstn               (regfile_rstn               )
+    .adc48_rstn                 (adc48_rstn                 )
     );
 
 endmodule

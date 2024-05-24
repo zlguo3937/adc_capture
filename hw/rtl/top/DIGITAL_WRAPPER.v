@@ -92,8 +92,6 @@ module DIGITAL_WRAPPER
     wire    [8:0]   rf_pktctrl_phase;
     wire            rf_pktctrl_clk_en;
     wire            rf_pktctrl_sw_rstn;
-    wire            rf_regfile_sw_rstn;
-    wire            regfile_rstn;
     wire            pktctrl_clk;
     wire            pktctrl_rstn;
 
@@ -146,14 +144,12 @@ module DIGITAL_WRAPPER
     .rf_96path_en               (rf_96path_en               ),
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
     .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
-    .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         ),
     .pktctrl_clk                (pktctrl_clk                ),
     .pktctrl_rstn               (pktctrl_rstn               ),
     .clk_200m                   (clk_200m                   ),
     .rstn_200m                  (rstn_200m                  ),
     .adc96_rstn                 (adc96_rstn                 ),
     .adc48_rstn                 (adc48_rstn                 ),
-    .regfile_rstn               (regfile_rstn               ),
     .RSTN                       (RSTN                       )
     );
 
@@ -285,8 +281,7 @@ module DIGITAL_WRAPPER
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
 
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
-    .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
-    .rf_regfile_sw_rstn         (rf_regfile_sw_rstn         )
+    .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         )
 
     );
 

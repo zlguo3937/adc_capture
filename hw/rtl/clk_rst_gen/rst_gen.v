@@ -34,15 +34,13 @@ module rst_gen
 
     // Register sw_reset
     input   wire            rf_pktctrl_sw_rstn,
-    input   wire            rf_regfile_sw_rstn,
 
     // Reset output
     output  wire            rstn, //TODO
     output  wire            pktctrl_rstn,
     output  wire            rstn_200m,
     output  wire            adc96_rstn,
-    output  wire            adc48_rstn,
-    output  wire            regfile_rstn
+    output  wire            adc48_rstn
 );
 
     wire    pktctrl_wrstn_in;
@@ -55,7 +53,6 @@ module rst_gen
     assign  rstn = RSTN;
 
     assign  pktctrl_rstn_in = rstn & rf_pktctrl_sw_rstn;
-    assign  regfile_rstn_in = rstn & rf_regfile_sw_rstn;
 
     // Reset sync for pktctrl_rstn
     jlsemi_util_async_reset_low_sync #(
@@ -79,18 +76,6 @@ module rst_gen
     .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
     .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
     .rst_n_o                      (rstn_200m                    )
-    );
-
-    // Reset sync for regfile_rstn
-    jlsemi_util_async_reset_low_sync #(
-        .RST_SYNC_STAGE (3))
-    u_dont_touch_rst_sync_to_regfile_rstn
-    (
-    .rst_n_i                      (regfile_rstn_in              ),
-    .clk_i                        (clk_200m                     ),
-    .dft_rstnsync_scan_rstn_ctrl  (dft_rstnsync_scan_rstn_ctrl  ),
-    .dft_rstnsync_scan_rstn       (dft_rstnsync_scan_rstn       ),
-    .rst_n_o                      (regfile_rstn                 )
     );
 
     // Reset sync for adc96

@@ -642,7 +642,6 @@ module gen_read_logic_fast
         else if (pkt_en) begin
             if (rd_cnt%2 == 0) begin
                 case(rd_cnt >> 1)
-
                     0:  fast_chip_en216_0  <= 1'b1; 1:  fast_chip_en216_1  <= 1'b1; 2:  fast_chip_en216_2  <= 1'b1;
                     3:  fast_chip_en216_3  <= 1'b1; 4:  fast_chip_en216_4  <= 1'b1; 5:  fast_chip_en216_5  <= 1'b1;
                     6:  fast_chip_en216_6  <= 1'b1; 7:  fast_chip_en216_7  <= 1'b1; 8:  fast_chip_en216_8  <= 1'b1;
@@ -691,7 +690,6 @@ module gen_read_logic_fast
         else if (pkt_en) begin
             if (rd_cnt%2 == 0) begin
                 case(rd_cnt >> 1)
-
                     0:  fast_chip_en432_0  <= 1'b1; 1:  fast_chip_en432_1  <= 1'b1; 2:  fast_chip_en432_2  <= 1'b1;
                     3:  fast_chip_en432_3  <= 1'b1; 4:  fast_chip_en432_4  <= 1'b1; 5:  fast_chip_en432_5  <= 1'b1;
                     6:  fast_chip_en432_6  <= 1'b1; 7:  fast_chip_en432_7  <= 1'b1; 8:  fast_chip_en432_8  <= 1'b1;
@@ -740,7 +738,6 @@ module gen_read_logic_fast
         else if (pkt_en) begin
             if (rd_cnt%2 == 0) begin
                 case(rd_cnt >> 1)
-
                     0:  fast_chip_en864_0  <= 1'b1; 1:  fast_chip_en864_1  <= 1'b1; 2:  fast_chip_en864_2  <= 1'b1;
                     3:  fast_chip_en864_3  <= 1'b1; 4:  fast_chip_en864_4  <= 1'b1; 5:  fast_chip_en864_5  <= 1'b1;
                     6:  fast_chip_en864_6  <= 1'b1; 7:  fast_chip_en864_7  <= 1'b1; 8:  fast_chip_en864_8  <= 1'b1;
@@ -841,118 +838,33 @@ module gen_read_logic_fast
             addr <= 0;
             fast_rd_done <= 1'b0;
         end
+        else if (curr_sta == READ_IDLE) begin
+            if (rf_capture_start | rf_capture_again)
+                fast_rd_done <= 1'b0;
+        end
         else begin
-            case(curr_sta)
-                READ_IDLE: begin
-                    if (rf_capture_start | rf_capture_again)
-                        fast_rd_done <= 1'b0;
-                end
-
-                READ_216BYTE: begin
-                    if (rf_96path_en) begin
-                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
+            if (rf_96path_en) begin
+                if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
+                    if (&addr) begin
+                        addr <= 0;
+                        fast_rd_done <= 1'b1;
                     end
                     else begin
-                        if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
+                        addr <= addr + 1;
                     end
                 end
-
-                READ_432BYTE: begin
-                    if (rf_96path_en) begin
-                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
+            end
+            else begin
+                if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
+                    if (&addr) begin
+                        addr <= 0;
+                        fast_rd_done <= 1'b1;
                     end
                     else begin
-                        if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
+                        addr <= addr + 1;
                     end
                 end
-
-                READ_864BYTE: begin
-                    if (rf_96path_en) begin
-                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
-                    end
-                    else begin
-                        if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
-                    end
-                end
-
-                READ_1728BYTE: begin
-                    if (rf_96path_en) begin
-                        if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
-                    end
-                    else begin
-                        if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
-                            if (&addr) begin
-                                addr <= 0;
-                                fast_rd_done <= 1'b1;
-                            end
-                            else begin
-                                addr <= addr + 1;
-                            end
-                        end
-                    end
-                end
-
-                default: begin
-                    addr <= 0;
-                    fast_rd_done <= 1'b1;
-                end
-            endcase
+            end
         end
     end
 
