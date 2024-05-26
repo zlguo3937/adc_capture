@@ -119,10 +119,8 @@ module DIGITAL_WRAPPER
     wire    [1:0]   rf_pkt_data_length;
     wire    [15:0]  rf_pkt_idle_length;
 
-    wire            rf_mdio_read_pulse;
     wire    [6:0]   rf_mdio_data_sel;
     wire    [14:0]  rf_mdio_memory_addr;
-    wire            mdio_read_pulse_r;
     wire    [8:0]   rf_mdio_pkt_data;
 
     // crg
@@ -206,10 +204,8 @@ module DIGITAL_WRAPPER
     .rf_pkt_idle_length         (rf_pkt_idle_length         ),
     .rf_pktctrl_gap             (rf_pktctrl_gap             ),
     .rf_pktctrl_phase           (rf_pktctrl_phase           ),
-    .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
-    .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
     .ANA_ADC_DATA_0             (ANA_ADC_DATA_0             ),
     .ANA_ADC_DATA_1             (ANA_ADC_DATA_1             ),
@@ -274,10 +270,8 @@ module DIGITAL_WRAPPER
     .rf_pkt_idle_length_sync    (rf_pkt_idle_length         ),
     .rf_pktctrl_gap_sync        (rf_pktctrl_gap             ),
     .rf_pktctrl_phase_sync      (rf_pktctrl_phase           ),
-    .rf_mdio_read_pulse_sync    (rf_mdio_read_pulse         ),
     .rf_mdio_data_sel_sync      (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr_sync   (rf_mdio_memory_addr        ),
-    .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
 
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),

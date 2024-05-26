@@ -33,11 +33,9 @@ module cdc_500_200
     input   wire    [15:0]  rf_pkt_idle_length,
     input   wire    [8:0]   rf_pktctrl_gap,
     input   wire    [8:0]   rf_pktctrl_phase,
-    input   wire            rf_mdio_read_pulse,
     input   wire    [6:0]   rf_mdio_data_sel,
     input   wire    [14:0]  rf_mdio_memory_addr,
 
-    input   wire            mdio_read_pulse_r,
     input   wire    [8:0]   rf_mdio_pkt_data,
 
     output  wire            rf_self_test_mode_sync,
@@ -49,7 +47,6 @@ module cdc_500_200
     output  wire    [15:0]  rf_pkt_idle_length_sync,
     output  wire    [8:0]   rf_pktctrl_gap_sync,
     output  wire    [8:0]   rf_pktctrl_phase_sync,
-    output  wire            rf_mdio_read_pulse_sync,
     output  wire    [6:0]   rf_mdio_data_sel_sync,
     output  wire    [14:0]  rf_mdio_memory_addr_sync,
 
@@ -107,17 +104,6 @@ module cdc_500_200
     //.dout                       (rf_96path_en_sync          )
     //);
     assign rf_96path_en_sync = rf_96path_en;
-
-    pulse_handshake
-    u_sync_rf_mdio_read_pulse
-    (
-    .src_clk                    (clk_200m                   ),
-    .src_rstn                   (rstn_200m                  ),
-    .src_pulse                  (rf_mdio_read_pulse         ),
-    .dst_clk                    (pktctrl_clk                ),
-    .dst_rstn                   (pktctrl_rstn               ),
-    .dst_pulse                  (rf_mdio_read_pulse_sync    )
-    );
 
     synchronizer#(
         .DATA_WIDTH (1+1 ),
@@ -191,7 +177,7 @@ module cdc_500_200
     (
     .src_clk                    (pktctrl_clk                ),
     .src_rstn                   (pktctrl_rstn               ),
-    .vld_in                     (mdio_read_pulse_r          ),
+    .vld_in                     (1'b1                       ),
     .din                        (rf_mdio_pkt_data           ),
 
     .dst_clk                    (clk_200m                   ),

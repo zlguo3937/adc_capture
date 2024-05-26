@@ -56,10 +56,8 @@ module package_ctrl
     input   wire    [35:0]  adc_data_23,
 
     // Mdio read
-    input   wire            rf_mdio_read_pulse,    // pulse
     input   wire    [6:0]   rf_mdio_data_sel,
     input   wire    [14:0]  rf_mdio_memory_addr,
-    output  wire            mdio_read_pulse_r,
     output  wire    [8:0]   rf_mdio_pkt_data,
 
     // Fast read
@@ -587,7 +585,6 @@ module package_ctrl
     .clk                        (pktctrl_clk                ),
     .rstn                       (pktctrl_rstn               ),
     .rf_96path_en               (rf_96path_en               ),
-    .rf_mdio_read_pulse         (rf_mdio_read_pulse         ),    // pulse
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
     .mdio_read_en               (mdio_read_en               ),
@@ -664,7 +661,6 @@ module package_ctrl
     .mdio_addr_22               (mdio_addr_22               ),
     .mdio_addr_23               (mdio_addr_23               ),
     .mdio_rd_done               (mdio_rd_done               ),
-    .mdio_read_pulse_r          (mdio_read_pulse_r          ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           )
     );
 

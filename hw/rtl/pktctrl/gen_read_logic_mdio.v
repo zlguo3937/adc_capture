@@ -21,7 +21,6 @@ module gen_read_logic_mdio
     input   wire            clk,
     input   wire            rstn,
     input   wire            rf_96path_en,
-    input   wire            rf_mdio_read_pulse,    // pulse
     input   wire    [6:0]   rf_mdio_data_sel,
     input   wire    [14:0]  rf_mdio_memory_addr,
 
@@ -104,7 +103,6 @@ module gen_read_logic_mdio
 
     output  reg             mdio_rd_done,
 
-    output  reg             mdio_read_pulse_r,
     output  reg     [8:0]   rf_mdio_pkt_data
 );
 
@@ -119,12 +117,8 @@ module gen_read_logic_mdio
             always @(posedge clk or negedge rstn) begin
                 if (!rstn)
                     mdio_rd_chip_en[i] <= 1'b0;
-                else if (mdio_read_en) begin
-                    if (rf_mdio_read_pulse)
-                        mdio_rd_chip_en[i] <= (rf_mdio_data_sel/4) == i;
-                    else
-                        mdio_rd_chip_en[i] <= 1'b0;
-                end
+                else if (mdio_read_en)
+                    mdio_rd_chip_en[i] <= (rf_mdio_data_sel/4) == i;
                 else
                     mdio_rd_chip_en[i] <= 1'b0;
             end
@@ -132,12 +126,8 @@ module gen_read_logic_mdio
             always @(posedge clk or negedge rstn) begin
                 if (!rstn)
                     mdio_rd_raddr[i*15+:15] <= 15'h0;
-                else if (mdio_read_en) begin
-                    if (rf_mdio_read_pulse)
-                        mdio_rd_raddr[i*15+:15] <= ((rf_mdio_data_sel/4) == i) ? rf_mdio_memory_addr : 15'h0;
-                    else
-                        mdio_rd_raddr[i*15+:15] <= 15'h0;
-                end
+                else if (mdio_read_en)
+                    mdio_rd_raddr[i*15+:15] <= ((rf_mdio_data_sel/4) == i) ? rf_mdio_memory_addr : 15'h0;
                 else
                     mdio_rd_raddr[i*15+:15] <= 15'h0;
             end
@@ -225,18 +215,9 @@ module gen_read_logic_mdio
 
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
-            mdio_read_pulse_r <= 1'b0;
-        else
-            mdio_read_pulse_r <= rf_mdio_read_pulse;
-    end
-
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn)
             rf_mdio_pkt_data <= 9'h0;
-        else if (mdio_read_en) begin
-            if (mdio_read_pulse_r)
-                rf_mdio_pkt_data <= mdio_pkt_data;
-        end
+        else if (mdio_read_en)
+            rf_mdio_pkt_data <= mdio_pkt_data;
         else
             rf_mdio_pkt_data <= 9'h0;
     end

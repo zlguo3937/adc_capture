@@ -55,13 +55,15 @@ module top_regfile
     output  wire    [1:0]   rf_pkt_data_length,
     output  wire    [15:0]  rf_pkt_idle_length,
 
-    output  wire            rf_mdio_read_pulse,
+
     output  wire    [6:0]   rf_mdio_data_sel,
     output  wire    [14:0]  rf_mdio_memory_addr,
 
     input   wire    [8:0]   rf_mdio_pkt_data,
     input   wire            rf_mdio_pkt_data_we
 );
+
+    wire            rf_mdio_read_pulse;
 
     wire            legal_phy_addr_clk;
     wire            legal_phy_addr_mask_clk;
