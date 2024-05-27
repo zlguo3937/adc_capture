@@ -67,9 +67,6 @@ module package_ctrl
 
 );
 
-
-
-
     // FSM
     localparam      IDLE        = 5'b0_0001,
                     WRITE       = 5'b0_0010,
@@ -214,30 +211,7 @@ module package_ctrl
     wire                fast_chip_en_22;
     wire                fast_chip_en_23;
 
-    wire    [14:0]      fast_addr_0;
-    wire    [14:0]      fast_addr_1;
-    wire    [14:0]      fast_addr_2;
-    wire    [14:0]      fast_addr_3;
-    wire    [14:0]      fast_addr_4;
-    wire    [14:0]      fast_addr_5;
-    wire    [14:0]      fast_addr_6;
-    wire    [14:0]      fast_addr_7;
-    wire    [14:0]      fast_addr_8;
-    wire    [14:0]      fast_addr_9;
-    wire    [14:0]      fast_addr_10;
-    wire    [14:0]      fast_addr_11;
-    wire    [14:0]      fast_addr_12;
-    wire    [14:0]      fast_addr_13;
-    wire    [14:0]      fast_addr_14;
-    wire    [14:0]      fast_addr_15;
-    wire    [14:0]      fast_addr_16;
-    wire    [14:0]      fast_addr_17;
-    wire    [14:0]      fast_addr_18;
-    wire    [14:0]      fast_addr_19;
-    wire    [14:0]      fast_addr_20;
-    wire    [14:0]      fast_addr_21;
-    wire    [14:0]      fast_addr_22;
-    wire    [14:0]      fast_addr_23;
+    wire    [14:0]      fast_addr;
 
     wire                fast_rd_done;
 
@@ -326,13 +300,13 @@ module package_ctrl
         if(~pktctrl_rstn)
             DATA_RD_EN <= 1'b0;
         else if (cnt == ((rf_pktctrl_gap/2)-1))
-            DATA_RD_EN <= 1'b1;
+            DATA_RD_EN <= ~DATA_RD_EN;
         else
             DATA_RD_EN <= 1'b0;
     end
 
     /* -----------------------------------------------------------------
-     FSM logic
+     Main FSM logic
      ----------------------------------------------------------------- */
     always @(posedge pktctrl_clk or negedge pktctrl_rstn) begin
         if (!pktctrl_rstn)
@@ -526,10 +500,10 @@ module package_ctrl
                 addr_18 <= mdio_addr_18; addr_19 <= mdio_addr_19; addr_20 <= mdio_addr_20; addr_21 <= mdio_addr_21; addr_22 <= mdio_addr_22; addr_23 <= mdio_addr_23;
             end
             else if (fast_read_en) begin
-                addr_0  <= fast_addr_0 ; addr_1  <= fast_addr_1 ; addr_2  <= fast_addr_2 ; addr_3  <= fast_addr_3 ; addr_4  <= fast_addr_4 ; addr_5  <= fast_addr_5 ;
-                addr_6  <= fast_addr_6 ; addr_7  <= fast_addr_7 ; addr_8  <= fast_addr_8 ; addr_9  <= fast_addr_9 ; addr_10 <= fast_addr_10; addr_11 <= fast_addr_11;
-                addr_12 <= fast_addr_12; addr_13 <= fast_addr_13; addr_14 <= fast_addr_14; addr_15 <= fast_addr_15; addr_16 <= fast_addr_16; addr_17 <= fast_addr_17;
-                addr_18 <= fast_addr_18; addr_19 <= fast_addr_19; addr_20 <= fast_addr_20; addr_21 <= fast_addr_21; addr_22 <= fast_addr_22; addr_23 <= fast_addr_23;
+                addr_0  <= fast_addr; addr_1  <= fast_addr; addr_2  <= fast_addr; addr_3  <= fast_addr; addr_4  <= fast_addr; addr_5  <= fast_addr;
+                addr_6  <= fast_addr; addr_7  <= fast_addr; addr_8  <= fast_addr; addr_9  <= fast_addr; addr_10 <= fast_addr; addr_11 <= fast_addr;
+                addr_12 <= fast_addr; addr_13 <= fast_addr; addr_14 <= fast_addr; addr_15 <= fast_addr; addr_16 <= fast_addr; addr_17 <= fast_addr;
+                addr_18 <= fast_addr; addr_19 <= fast_addr; addr_20 <= fast_addr; addr_21 <= fast_addr; addr_22 <= fast_addr; addr_23 <= fast_addr;
             end
             else begin
                 addr_0  <= 15'h0; addr_1  <= 15'h0; addr_2  <= 15'h0; addr_3  <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
@@ -552,8 +526,8 @@ module package_ctrl
                 addr_6 <= mdio_addr_6; addr_7 <= mdio_addr_7; addr_8 <= mdio_addr_8; addr_9 <= mdio_addr_9; addr_10 <= mdio_addr_10; addr_11 <= mdio_addr_11;
             end
             else if (fast_read_en) begin
-                addr_0 <= fast_addr_0; addr_1 <= fast_addr_1; addr_2 <= fast_addr_2; addr_3 <= fast_addr_3; addr_4  <= fast_addr_4 ; addr_5  <= fast_addr_5 ;
-                addr_6 <= fast_addr_6; addr_7 <= fast_addr_7; addr_8 <= fast_addr_8; addr_9 <= fast_addr_9; addr_10 <= fast_addr_10; addr_11 <= fast_addr_11;
+                addr_0 <= fast_addr; addr_1 <= fast_addr; addr_2 <= fast_addr; addr_3 <= fast_addr; addr_4  <= fast_addr; addr_5  <= fast_addr;
+                addr_6 <= fast_addr; addr_7 <= fast_addr; addr_8 <= fast_addr; addr_9 <= fast_addr; addr_10 <= fast_addr; addr_11 <= fast_addr;
             end
             else begin
                 addr_0 <= 15'h0; addr_1 <= 15'h0; addr_2 <= 15'h0; addr_3 <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
@@ -727,30 +701,7 @@ module package_ctrl
     .fast_chip_en_21            (fast_chip_en_21            ),
     .fast_chip_en_22            (fast_chip_en_22            ),
     .fast_chip_en_23            (fast_chip_en_23            ),
-    .fast_addr_0                (fast_addr_0                ),
-    .fast_addr_1                (fast_addr_1                ),
-    .fast_addr_2                (fast_addr_2                ),
-    .fast_addr_3                (fast_addr_3                ),
-    .fast_addr_4                (fast_addr_4                ),
-    .fast_addr_5                (fast_addr_5                ),
-    .fast_addr_6                (fast_addr_6                ),
-    .fast_addr_7                (fast_addr_7                ),
-    .fast_addr_8                (fast_addr_8                ),
-    .fast_addr_9                (fast_addr_9                ),
-    .fast_addr_10               (fast_addr_10               ),
-    .fast_addr_11               (fast_addr_11               ),
-    .fast_addr_12               (fast_addr_12               ),
-    .fast_addr_13               (fast_addr_13               ),
-    .fast_addr_14               (fast_addr_14               ),
-    .fast_addr_15               (fast_addr_15               ),
-    .fast_addr_16               (fast_addr_16               ),
-    .fast_addr_17               (fast_addr_17               ),
-    .fast_addr_18               (fast_addr_18               ),
-    .fast_addr_19               (fast_addr_19               ),
-    .fast_addr_20               (fast_addr_20               ),
-    .fast_addr_21               (fast_addr_21               ),
-    .fast_addr_22               (fast_addr_22               ),
-    .fast_addr_23               (fast_addr_23               ),
+    .fast_addr                  (fast_addr                  ),
     .fast_rd_done               (fast_rd_done               ),
     .ADC_DATA                   (ADC_DATA                   ),
     .ADC_DATA_VALID             (ADC_DATA_VALID             )
