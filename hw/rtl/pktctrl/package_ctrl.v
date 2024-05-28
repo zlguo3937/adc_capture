@@ -277,12 +277,8 @@ module package_ctrl
     begin
         if(~pktctrl_rstn)
             cnt <= 0;
-        else if (fast_read_en) begin
-            if (cnt < ((rf_pktctrl_gap/2)-1))
-                cnt <= cnt + 1'b1;
-            else
-                cnt <= 0;
-        end
+        else if (cnt < ((rf_pktctrl_gap/2)-1))
+            cnt <= cnt + 1'b1;
         else
             cnt <= 0;
     end

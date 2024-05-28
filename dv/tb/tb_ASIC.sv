@@ -41,9 +41,7 @@ module tb_ASIC;
     time next_display_time = 0;
     logic clk;
 
-    always #1 clk = ~clk;
-
-
+    always #5 clk = ~clk;
 
     initial begin
         clk = 0;
@@ -62,22 +60,13 @@ module tb_ASIC;
     reg         again;
 
     initial begin
-        rd_cnt = 0;
+        rd_cnt= 0;
         start = 0;
         again = 0;
         #41;
         start = 1;
         #6;
         start = 0;
-        if ((ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.u_gen_read_logic_fast.fast_rd_done == 1) && (ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.curr_sta == 1) && (rd_cnt == 0)) begin
-            rd_cnt = 1;
-            again = 1;
-            #5;
-            again = 0;
-        end
-        else if ((ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.u_gen_read_logic_fast.fast_rd_done == 1) && (ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.curr_sta == 1) && (rd_cnt == 1)) begin
-            rd_cnt = 2;
-        end
     end
 
     initial begin
@@ -88,32 +77,44 @@ module tb_ASIC;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_start.dev_rdata = start;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_again.dev_rdata = again;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_gap.cell_data = 4;
-        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_data_length.cell_data = 3; // 00-216type, 01-432type, 10-864type, 11-1728type
-        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_idle_length.cell_data = 0;
-    end
-
-    always @(posedge clk) begin
-        if ((ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.u_gen_read_logic_fast.fast_rd_done == 1) && (ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.curr_sta == 1) && (rd_cnt == 2)) begin
-            $display("╔═══════════════════════════════════════════════════════════╗");
-            $display("║                                                           ║");
-            $display("║                  Simulation Stopped!                      ║");
-            $display("║        Fast read done due to fast_read_done is 1'b1!      ║");
-            $display("║               Please check the ADC_DATA!                  ║");
-            $display("║                                                           ║");
-            $display("╚═══════════════════════════════════════════════════════════╝");
-            #100;
-            $finish;
-        end
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_data_length.cell_data = 1; // 00-216type, 01-432type, 10-864type, 11-1728type
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_idle_length.cell_data = 1;
     end
 
     always @(posedge clk) begin
         if ($time >= next_display_time) begin
-            $display("At time %.3f us, Memory read address is %d", $time/1_000, tb_ASIC.ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.addr_0);
-            next_display_time = $time + 0.5ms;
+            $display("At time %.3f ms, Memory read address is %d", $time/1_000_000, tb_ASIC.ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.addr_0);
+            next_display_time = $time + 1ms;
         end
     end
 
+    always @(posedge clk) begin
+        if ((ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.u_gen_read_logic_fast.fast_rd_done == 1) && (ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.curr_sta == 1) && (rd_cnt == 0))
+            rd_cnt  <= 1;
+        else if ((ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.u_gen_read_logic_fast.fast_rd_done == 1) && (ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.curr_sta == 1) && (rd_cnt == 1))
+            rd_cnt  <= 2;
+    end
 
+    always @(posedge clk) begin
+        if ((ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.u_gen_read_logic_fast.fast_rd_done == 1) && (ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.curr_sta == 1) && (rd_cnt == 1))
+            again <= 1;
+        else if (again == 1)
+            #10 again <= 0;
+    end
+
+    always @(posedge clk) begin
+        if ((ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.u_gen_read_logic_fast.fast_rd_done == 1) && (ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.curr_sta == 1) && (rd_cnt == 2)) begin
+            $display("=============================================================");
+            $display("|                                                           |");
+            $display("|                  Simulation Stopped!                      |");
+            $display("|        Fast read done due to fast_read_done is 1'b1!      |");
+            $display("|               Please check the ADC_DATA!                  |"); // TODO
+            $display("|                                                           |");
+            $display("=============================================================");
+            #100;
+            $finish;
+        end
+    end
 
     ASIC
     ASIC
