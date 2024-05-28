@@ -508,7 +508,7 @@ module gen_read_logic_fast
 
             PKT_VALID: begin
                 if (curr_sta == READ_ALWAYS) begin
-                    if (fast_rd_done)
+                    if ((&addr) & (RD_CNT_r == 9'd47) & RD)
                         pkt_next_sta = PKT_IDLE;
                 end
                 else if (curr_sta == READ_216BYTE) begin
