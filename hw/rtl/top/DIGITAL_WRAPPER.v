@@ -191,9 +191,7 @@ module DIGITAL_WRAPPER
     pktctrl_top
     u_pktctrl_top
     (
-    .clk_200m                   (clk_200m                   ),
     .pktctrl_clk                (pktctrl_clk                ),
-    .rstn_200m                  (rstn_200m                  ),
     .pktctrl_rstn               (pktctrl_rstn               ),
     .rf_self_test_mode          (rf_self_test_mode          ),
     .rf_capture_mode            (rf_capture_mode            ),

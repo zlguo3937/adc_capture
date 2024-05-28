@@ -18,10 +18,7 @@
 module pktctrl_top
 (
 
-    input   wire            clk_200m,
     input   wire            pktctrl_clk,
-
-    input   wire            rstn_200m,
     input   wire            pktctrl_rstn,
 
     input   wire            rf_self_test_mode,
