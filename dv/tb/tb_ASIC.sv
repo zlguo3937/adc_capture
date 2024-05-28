@@ -83,7 +83,7 @@ module tb_ASIC;
 
     always @(posedge clk) begin
         if ($time >= next_display_time) begin
-            $display("At time %.3f ms, Memory read address is %d", $time/1_000_000, tb_ASIC.ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.addr_0);
+            $display("At time %.3f ms, Memory read address is %d", $time/1_000_000, tb_ASIC.ASIC.u_digital_top.u_pktctrl_top.u_package_ctrl.mem_addr);
             next_display_time = $time + 1ms;
         end
     end

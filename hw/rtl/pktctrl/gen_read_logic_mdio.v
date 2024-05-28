@@ -76,32 +76,7 @@ module gen_read_logic_mdio
     output  wire            mdio_chip_en_22,
     output  wire            mdio_chip_en_23,
 
-    output  wire    [14:0]  mdio_addr_0,
-    output  wire    [14:0]  mdio_addr_1,
-    output  wire    [14:0]  mdio_addr_2,
-    output  wire    [14:0]  mdio_addr_3,
-    output  wire    [14:0]  mdio_addr_4,
-    output  wire    [14:0]  mdio_addr_5,
-    output  wire    [14:0]  mdio_addr_6,
-    output  wire    [14:0]  mdio_addr_7,
-    output  wire    [14:0]  mdio_addr_8,
-    output  wire    [14:0]  mdio_addr_9,
-    output  wire    [14:0]  mdio_addr_10,
-    output  wire    [14:0]  mdio_addr_11,
-    output  wire    [14:0]  mdio_addr_12,
-    output  wire    [14:0]  mdio_addr_13,
-    output  wire    [14:0]  mdio_addr_14,
-    output  wire    [14:0]  mdio_addr_15,
-    output  wire    [14:0]  mdio_addr_16,
-    output  wire    [14:0]  mdio_addr_17,
-    output  wire    [14:0]  mdio_addr_18,
-    output  wire    [14:0]  mdio_addr_19,
-    output  wire    [14:0]  mdio_addr_20,
-    output  wire    [14:0]  mdio_addr_21,
-    output  wire    [14:0]  mdio_addr_22,
-    output  wire    [14:0]  mdio_addr_23,
-
-    output  reg             mdio_rd_done,
+    output  wire    [14:0]  mdio_addr,
 
     output  reg     [8:0]   rf_mdio_pkt_data
 );
@@ -113,7 +88,7 @@ module gen_read_logic_mdio
 
     genvar i;
     generate
-        for (i=0;i<24;i=i+1) begin: GEN_ADDR_AND_CHIP_EN
+        for (i=0;i<24;i=i+1) begin: GEN_CHIP_EN
             always @(posedge clk or negedge rstn) begin
                 if (!rstn)
                     mdio_rd_chip_en[i] <= 1'b0;
@@ -121,15 +96,6 @@ module gen_read_logic_mdio
                     mdio_rd_chip_en[i] <= (rf_mdio_data_sel/4) == i;
                 else
                     mdio_rd_chip_en[i] <= 1'b0;
-            end
-
-            always @(posedge clk or negedge rstn) begin
-                if (!rstn)
-                    mdio_rd_raddr[i*15+:15] <= 15'h0;
-                else if (mdio_read_en)
-                    mdio_rd_raddr[i*15+:15] <= ((rf_mdio_data_sel/4) == i) ? rf_mdio_memory_addr : 15'h0;
-                else
-                    mdio_rd_raddr[i*15+:15] <= 15'h0;
             end
         end
     endgenerate
@@ -159,30 +125,16 @@ module gen_read_logic_mdio
     assign mdio_chip_en_22 = mdio_rd_chip_en[22];
     assign mdio_chip_en_23 = mdio_rd_chip_en[23];
 
-    assign mdio_addr_0  = mdio_rd_raddr[0*15+:15];
-    assign mdio_addr_1  = mdio_rd_raddr[1*15+:15];
-    assign mdio_addr_2  = mdio_rd_raddr[2*15+:15];
-    assign mdio_addr_3  = mdio_rd_raddr[3*15+:15];
-    assign mdio_addr_4  = mdio_rd_raddr[4*15+:15];
-    assign mdio_addr_5  = mdio_rd_raddr[5*15+:15];
-    assign mdio_addr_6  = mdio_rd_raddr[6*15+:15];
-    assign mdio_addr_7  = mdio_rd_raddr[7*15+:15];
-    assign mdio_addr_8  = mdio_rd_raddr[8*15+:15];
-    assign mdio_addr_9  = mdio_rd_raddr[9*15+:15];
-    assign mdio_addr_10 = mdio_rd_raddr[10*15+:15];
-    assign mdio_addr_11 = mdio_rd_raddr[11*15+:15];
-    assign mdio_addr_12 = mdio_rd_raddr[12*15+:15];
-    assign mdio_addr_13 = mdio_rd_raddr[13*15+:15];
-    assign mdio_addr_14 = mdio_rd_raddr[14*15+:15];
-    assign mdio_addr_15 = mdio_rd_raddr[15*15+:15];
-    assign mdio_addr_16 = mdio_rd_raddr[16*15+:15];
-    assign mdio_addr_17 = mdio_rd_raddr[17*15+:15];
-    assign mdio_addr_18 = mdio_rd_raddr[18*15+:15];
-    assign mdio_addr_19 = mdio_rd_raddr[19*15+:15];
-    assign mdio_addr_20 = mdio_rd_raddr[20*15+:15];
-    assign mdio_addr_21 = mdio_rd_raddr[21*15+:15];
-    assign mdio_addr_22 = mdio_rd_raddr[22*15+:15];
-    assign mdio_addr_23 = mdio_rd_raddr[23*15+:15];
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            mdio_rd_raddr <= 15'h0;
+        else if (mdio_read_en)
+            mdio_rd_raddr <= rf_mdio_memory_addr;
+        else
+            mdio_rd_raddr <= 15'h0;
+    end
+
+    assign mdio_addr = mdio_rd_raddr;
 
     always @(*) begin
         case(rf_mdio_data_sel)
@@ -220,19 +172,6 @@ module gen_read_logic_mdio
             rf_mdio_pkt_data <= mdio_pkt_data;
         else
             rf_mdio_pkt_data <= 9'h0;
-    end
-
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn)
-            mdio_rd_done <= 1'b0;
-        else if (mdio_read_en) begin
-            if (rf_96path_en) begin
-                if ((rf_mdio_data_sel == 7'd95) && (&rf_mdio_memory_addr))
-                    mdio_rd_done <= 1'b1;
-            end
-            else if ((rf_mdio_data_sel == 7'd47) && (&rf_mdio_memory_addr))
-                    mdio_rd_done <= 1'b1;
-        end
     end
 
 endmodule

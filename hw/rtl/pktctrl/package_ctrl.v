@@ -128,30 +128,7 @@ module package_ctrl
     reg             wr_en_22;
     reg             wr_en_23;
 
-    reg    [14:0]   addr_0;
-    reg    [14:0]   addr_1;
-    reg    [14:0]   addr_2;
-    reg    [14:0]   addr_3;
-    reg    [14:0]   addr_4;
-    reg    [14:0]   addr_5;
-    reg    [14:0]   addr_6;
-    reg    [14:0]   addr_7;
-    reg    [14:0]   addr_8;
-    reg    [14:0]   addr_9;
-    reg    [14:0]   addr_10;
-    reg    [14:0]   addr_11;
-    reg    [14:0]   addr_12;
-    reg    [14:0]   addr_13;
-    reg    [14:0]   addr_14;
-    reg    [14:0]   addr_15;
-    reg    [14:0]   addr_16;
-    reg    [14:0]   addr_17;
-    reg    [14:0]   addr_18;
-    reg    [14:0]   addr_19;
-    reg    [14:0]   addr_20;
-    reg    [14:0]   addr_21;
-    reg    [14:0]   addr_22;
-    reg    [14:0]   addr_23;
+    reg    [14:0]   mem_addr;
 
     wire    [35:0]  dout_0;
     wire    [35:0]  dout_1;
@@ -243,32 +220,7 @@ module package_ctrl
     wire                mdio_chip_en_22;
     wire                mdio_chip_en_23;
 
-    wire    [14:0]      mdio_addr_0;
-    wire    [14:0]      mdio_addr_1;
-    wire    [14:0]      mdio_addr_2;
-    wire    [14:0]      mdio_addr_3;
-    wire    [14:0]      mdio_addr_4;
-    wire    [14:0]      mdio_addr_5;
-    wire    [14:0]      mdio_addr_6;
-    wire    [14:0]      mdio_addr_7;
-    wire    [14:0]      mdio_addr_8;
-    wire    [14:0]      mdio_addr_9;
-    wire    [14:0]      mdio_addr_10;
-    wire    [14:0]      mdio_addr_11;
-    wire    [14:0]      mdio_addr_12;
-    wire    [14:0]      mdio_addr_13;
-    wire    [14:0]      mdio_addr_14;
-    wire    [14:0]      mdio_addr_15;
-    wire    [14:0]      mdio_addr_16;
-    wire    [14:0]      mdio_addr_17;
-    wire    [14:0]      mdio_addr_18;
-    wire    [14:0]      mdio_addr_19;
-    wire    [14:0]      mdio_addr_20;
-    wire    [14:0]      mdio_addr_21;
-    wire    [14:0]      mdio_addr_22;
-    wire    [14:0]      mdio_addr_23;
-
-    wire                mdio_rd_done;
+    wire    [14:0]      mdio_addr;
 
     reg                 DATA_RD_EN;
     reg     [7:0]       cnt;
@@ -349,10 +301,6 @@ module package_ctrl
                 end 
                 else if (!rf_capture_mode) begin
                     next_sta = FAST_READ;
-                    mdio_read_en = 1'b0;
-                end
-                else if (mdio_rd_done) begin
-                    next_sta = IDLE;
                     mdio_read_en = 1'b0;
                 end
             end
@@ -476,60 +424,16 @@ module package_ctrl
     end
 
     always @(posedge pktctrl_clk or negedge pktctrl_rstn) begin
-        if (!pktctrl_rstn) begin
-            addr_0  <= 15'h0; addr_1  <= 15'h0; addr_2  <= 15'h0; addr_3  <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
-            addr_6  <= 15'h0; addr_7  <= 15'h0; addr_8  <= 15'h0; addr_9  <= 15'h0; addr_10 <= 15'h0; addr_11 <= 15'h0;
-            addr_12 <= 15'h0; addr_13 <= 15'h0; addr_14 <= 15'h0; addr_15 <= 15'h0; addr_16 <= 15'h0; addr_17 <= 15'h0;
-            addr_18 <= 15'h0; addr_19 <= 15'h0; addr_20 <= 15'h0; addr_21 <= 15'h0; addr_22 <= 15'h0; addr_23 <= 15'h0;
-        end
-        else if (rf_96path_en) begin
-            if (write_en) begin
-                addr_0  <= waddr; addr_1  <= waddr; addr_2  <= waddr; addr_3  <= waddr; addr_4  <= waddr; addr_5  <= waddr;
-                addr_6  <= waddr; addr_7  <= waddr; addr_8  <= waddr; addr_9  <= waddr; addr_10 <= waddr; addr_11 <= waddr;
-                addr_12 <= waddr; addr_13 <= waddr; addr_14 <= waddr; addr_15 <= waddr; addr_16 <= waddr; addr_17 <= waddr;
-                addr_18 <= waddr; addr_19 <= waddr; addr_20 <= waddr; addr_21 <= waddr; addr_22 <= waddr; addr_23 <= waddr;
-            end
-            else if (mdio_read_en) begin
-                addr_0  <= mdio_addr_0 ; addr_1  <= mdio_addr_1 ; addr_2  <= mdio_addr_2 ; addr_3  <= mdio_addr_3 ; addr_4  <= mdio_addr_4 ; addr_5  <= mdio_addr_5 ;
-                addr_6  <= mdio_addr_6 ; addr_7  <= mdio_addr_7 ; addr_8  <= mdio_addr_8 ; addr_9  <= mdio_addr_9 ; addr_10 <= mdio_addr_10; addr_11 <= mdio_addr_11;
-                addr_12 <= mdio_addr_12; addr_13 <= mdio_addr_13; addr_14 <= mdio_addr_14; addr_15 <= mdio_addr_15; addr_16 <= mdio_addr_16; addr_17 <= mdio_addr_17;
-                addr_18 <= mdio_addr_18; addr_19 <= mdio_addr_19; addr_20 <= mdio_addr_20; addr_21 <= mdio_addr_21; addr_22 <= mdio_addr_22; addr_23 <= mdio_addr_23;
-            end
-            else if (fast_read_en) begin
-                addr_0  <= fast_addr; addr_1  <= fast_addr; addr_2  <= fast_addr; addr_3  <= fast_addr; addr_4  <= fast_addr; addr_5  <= fast_addr;
-                addr_6  <= fast_addr; addr_7  <= fast_addr; addr_8  <= fast_addr; addr_9  <= fast_addr; addr_10 <= fast_addr; addr_11 <= fast_addr;
-                addr_12 <= fast_addr; addr_13 <= fast_addr; addr_14 <= fast_addr; addr_15 <= fast_addr; addr_16 <= fast_addr; addr_17 <= fast_addr;
-                addr_18 <= fast_addr; addr_19 <= fast_addr; addr_20 <= fast_addr; addr_21 <= fast_addr; addr_22 <= fast_addr; addr_23 <= fast_addr;
-            end
-            else begin
-                addr_0  <= 15'h0; addr_1  <= 15'h0; addr_2  <= 15'h0; addr_3  <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
-                addr_6  <= 15'h0; addr_7  <= 15'h0; addr_8  <= 15'h0; addr_9  <= 15'h0; addr_10 <= 15'h0; addr_11 <= 15'h0;
-                addr_12 <= 15'h0; addr_13 <= 15'h0; addr_14 <= 15'h0; addr_15 <= 15'h0; addr_16 <= 15'h0; addr_17 <= 15'h0;
-                addr_18 <= 15'h0; addr_19 <= 15'h0; addr_20 <= 15'h0; addr_21 <= 15'h0; addr_22 <= 15'h0; addr_23 <= 15'h0;
-            end
-        end
-        else begin
-            addr_12 <= 15'h0; addr_13 <= 15'h0; addr_14 <= 15'h0; addr_15 <= 15'h0; addr_16 <= 15'h0; addr_17 <= 15'h0;
-            addr_18 <= 15'h0; addr_19 <= 15'h0; addr_20 <= 15'h0; addr_21 <= 15'h0; addr_22 <= 15'h0; addr_23 <= 15'h0;
-
-            if (write_en) begin
-                addr_0 <= waddr; addr_1  <= waddr; addr_2  <= waddr; addr_3  <= waddr; addr_4  <= waddr; addr_5  <= waddr;
-                addr_6 <= waddr; addr_7  <= waddr; addr_8  <= waddr; addr_9  <= waddr; addr_10 <= waddr; addr_11 <= waddr;
-                
-            end
-            else if (mdio_read_en) begin
-                addr_0 <= mdio_addr_0; addr_1 <= mdio_addr_1; addr_2 <= mdio_addr_2; addr_3 <= mdio_addr_3; addr_4  <= mdio_addr_4 ; addr_5  <= mdio_addr_5 ;
-                addr_6 <= mdio_addr_6; addr_7 <= mdio_addr_7; addr_8 <= mdio_addr_8; addr_9 <= mdio_addr_9; addr_10 <= mdio_addr_10; addr_11 <= mdio_addr_11;
-            end
-            else if (fast_read_en) begin
-                addr_0 <= fast_addr; addr_1 <= fast_addr; addr_2 <= fast_addr; addr_3 <= fast_addr; addr_4  <= fast_addr; addr_5  <= fast_addr;
-                addr_6 <= fast_addr; addr_7 <= fast_addr; addr_8 <= fast_addr; addr_9 <= fast_addr; addr_10 <= fast_addr; addr_11 <= fast_addr;
-            end
-            else begin
-                addr_0 <= 15'h0; addr_1 <= 15'h0; addr_2 <= 15'h0; addr_3 <= 15'h0; addr_4  <= 15'h0; addr_5  <= 15'h0;
-                addr_6 <= 15'h0; addr_7 <= 15'h0; addr_8 <= 15'h0; addr_9 <= 15'h0; addr_10 <= 15'h0; addr_11 <= 15'h0;
-            end
-        end
+        if (!pktctrl_rstn)
+            mem_addr <= 15'h0;
+        else if (write_en)
+            mem_addr <= waddr;
+        else if (mdio_read_en)
+            mem_addr <= mdio_addr;
+        else if (fast_read_en)
+            mem_addr <= fast_addr;
+        else
+            mem_addr <= 15'h0;
     end
 
     /* -----------------------------------------------------------------
@@ -606,31 +510,7 @@ module package_ctrl
     .mdio_chip_en_21            (mdio_chip_en_21            ),
     .mdio_chip_en_22            (mdio_chip_en_22            ),
     .mdio_chip_en_23            (mdio_chip_en_23            ),
-    .mdio_addr_0                (mdio_addr_0                ),
-    .mdio_addr_1                (mdio_addr_1                ),
-    .mdio_addr_2                (mdio_addr_2                ),
-    .mdio_addr_3                (mdio_addr_3                ),
-    .mdio_addr_4                (mdio_addr_4                ),
-    .mdio_addr_5                (mdio_addr_5                ),
-    .mdio_addr_6                (mdio_addr_6                ),
-    .mdio_addr_7                (mdio_addr_7                ),
-    .mdio_addr_8                (mdio_addr_8                ),
-    .mdio_addr_9                (mdio_addr_9                ),
-    .mdio_addr_10               (mdio_addr_10               ),
-    .mdio_addr_11               (mdio_addr_11               ),
-    .mdio_addr_12               (mdio_addr_12               ),
-    .mdio_addr_13               (mdio_addr_13               ),
-    .mdio_addr_14               (mdio_addr_14               ),
-    .mdio_addr_15               (mdio_addr_15               ),
-    .mdio_addr_16               (mdio_addr_16               ),
-    .mdio_addr_17               (mdio_addr_17               ),
-    .mdio_addr_18               (mdio_addr_18               ),
-    .mdio_addr_19               (mdio_addr_19               ),
-    .mdio_addr_20               (mdio_addr_20               ),
-    .mdio_addr_21               (mdio_addr_21               ),
-    .mdio_addr_22               (mdio_addr_22               ),
-    .mdio_addr_23               (mdio_addr_23               ),
-    .mdio_rd_done               (mdio_rd_done               ),
+    .mdio_addr                  (mdio_addr                  ),
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           )
     );
 
@@ -758,30 +638,30 @@ module package_ctrl
     .wr_en_21                   (wr_en_21                   ),
     .wr_en_22                   (wr_en_22                   ),
     .wr_en_23                   (wr_en_23                   ),
-    .addr_0                     (addr_0                     ),
-    .addr_1                     (addr_1                     ),
-    .addr_2                     (addr_2                     ),
-    .addr_3                     (addr_3                     ),
-    .addr_4                     (addr_4                     ),
-    .addr_5                     (addr_5                     ),
-    .addr_6                     (addr_6                     ),
-    .addr_7                     (addr_7                     ),
-    .addr_8                     (addr_8                     ),
-    .addr_9                     (addr_9                     ),
-    .addr_10                    (addr_10                    ),
-    .addr_11                    (addr_11                    ),
-    .addr_12                    (addr_12                    ),
-    .addr_13                    (addr_13                    ),
-    .addr_14                    (addr_14                    ),
-    .addr_15                    (addr_15                    ),
-    .addr_16                    (addr_16                    ),
-    .addr_17                    (addr_17                    ),
-    .addr_18                    (addr_18                    ),
-    .addr_19                    (addr_19                    ),
-    .addr_20                    (addr_20                    ),
-    .addr_21                    (addr_21                    ),
-    .addr_22                    (addr_22                    ),
-    .addr_23                    (addr_23                    ),
+    .addr_0                     (mem_addr                   ),
+    .addr_1                     (mem_addr                   ),
+    .addr_2                     (mem_addr                   ),
+    .addr_3                     (mem_addr                   ),
+    .addr_4                     (mem_addr                   ),
+    .addr_5                     (mem_addr                   ),
+    .addr_6                     (mem_addr                   ),
+    .addr_7                     (mem_addr                   ),
+    .addr_8                     (mem_addr                   ),
+    .addr_9                     (mem_addr                   ),
+    .addr_10                    (mem_addr                   ),
+    .addr_11                    (mem_addr                   ),
+    .addr_12                    (mem_addr                   ),
+    .addr_13                    (mem_addr                   ),
+    .addr_14                    (mem_addr                   ),
+    .addr_15                    (mem_addr                   ),
+    .addr_16                    (mem_addr                   ),
+    .addr_17                    (mem_addr                   ),
+    .addr_18                    (mem_addr                   ),
+    .addr_19                    (mem_addr                   ),
+    .addr_20                    (mem_addr                   ),
+    .addr_21                    (mem_addr                   ),
+    .addr_22                    (mem_addr                   ),
+    .addr_23                    (mem_addr                   ),
     .din_0                      (adc_data_0                 ),
     .din_1                      (adc_data_1                 ),
     .din_2                      (adc_data_2                 ),
