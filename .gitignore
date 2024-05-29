@@ -1,3 +1,4 @@
+builds/
 dv/sim/*
 !dv/sim/Makefile
 !dv/sim/filelist.f
