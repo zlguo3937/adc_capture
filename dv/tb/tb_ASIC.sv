@@ -23,6 +23,13 @@ module tb_ASIC;
     reg     rstn;
     wire    RSTN;
 
+    time next_display_time = 0;
+    logic clk;
+
+    reg [1:0]   rd_cnt;
+    reg         start;
+    reg         again;
+
     assign RSTN = rstn;
 
     initial
@@ -38,8 +45,6 @@ module tb_ASIC;
     // --------------------------------------------------------------------
     // Display Memory address value to terminal: every 1ms display once
     // --------------------------------------------------------------------
-    time next_display_time = 0;
-    logic clk;
 
     always #5 clk = ~clk;
 
@@ -54,10 +59,6 @@ module tb_ASIC;
         #20;
         rstn = 1;
     end
-
-    reg [1:0]   rd_cnt;
-    reg         start;
-    reg         again;
 
     initial begin
         rd_cnt= 0;
@@ -76,7 +77,7 @@ module tb_ASIC;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_self_test_mode.cell_data = 1'b1;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_start.dev_rdata = start;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_again.dev_rdata = again;
-        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_gap.cell_data = 4;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_gap.cell_data = 8;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_data_length.cell_data = 1; // 00-216type, 01-432type, 10-864type, 11-1728type
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pkt_idle_length.cell_data = 1;
     end

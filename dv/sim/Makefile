@@ -4,7 +4,7 @@ test:
 	-cpp gcc-4.8 -LDFLAGS -Wl,--no-as-needed \
 	-timescale=1ns/1ns \
 	-diag timescale \
-	-f ~/prj/adc_capture/hw/filelist/sim.f \
+	-f /local/zlguo/prj/adc_capture/hw/filelist/sim.f \
 	-debug_access+all -debug_region=cell+lib \
 	+lint=TFIPC-L \
 	-top tb_ASIC \
@@ -20,7 +20,7 @@ adc_test:
 	vcs -full64 +v2k -sverilog \
 	-timescale=1ns/1ns \
 	-diag timescale \
-	-f ~/prj/adc_capture/hw/filelist/sim.f \
+	-f /local/zlguo/prj/adc_capture/hw/filelist/sim.f \
 	-debug_access+all -debug_region=cell+lib \
 	+lint=TFIPC-L \
 	-top tb_ASIC \
@@ -32,10 +32,10 @@ adc_test:
 	@echo "End of run simulation"
 
 waveform:
-	verdi -f ~/prj/adc_capture/hw/filelist/sim.f -sv -top tb_ASIC &
+	verdi -f /local/zlguo/prj/adc_capture/hw/filelist/sim.f -sv -top tb_ASIC &
 
 filelist:
-	verdi -f ~/prj/adc_capture/hw/filelist/rtl.f -sv -top ASIC &
+	verdi -f /local/zlguo/prj/adc_capture/hw/filelist/rtl.f -sv -top ASIC &
 
 clean:
 	rm -rf *.log *.conf verdiLog ucli.key simv.daidir simv csrc *.fsdb *.fsdb.* *.conf *.txt *.rc *.vf
