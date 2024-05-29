@@ -433,7 +433,6 @@ module gen_read_logic_fast
 
     always @(*) begin
         next_sta = curr_sta;
-        read_en = 1'b0;
         case(curr_sta)
             READ_IDLE: begin
                 if (fast_read_en) begin
@@ -451,37 +450,43 @@ module gen_read_logic_fast
             end
 
             READ_ALWAYS: begin
-                read_en = 1'b1;
                 if (fast_rd_done)
                     next_sta = READ_IDLE;
             end
 
             READ_216BYTE: begin
-                read_en = 1'b1;
                 if (fast_rd_done)
                     next_sta = READ_IDLE;
             end
 
             READ_432BYTE: begin
-                read_en = 1'b1;
                 if (fast_rd_done)
                     next_sta = READ_IDLE;
             end
 
             READ_864BYTE: begin
-                read_en = 1'b1;
                 if (fast_rd_done)
                     next_sta = READ_IDLE;
             end
 
             READ_1728BYTE: begin
-                read_en = 1'b1;
                 if (fast_rd_done)
                     next_sta = READ_IDLE;
             end
 
             default:next_sta = READ_IDLE;
         endcase
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            read_en <= 1'b0;
+        else if (next_sta == READ_IDLE) begin
+            if (RD)
+                read_en <= 1'b0;
+        end
+        else
+            read_en <= 1'b1;
     end
 
     /* -----------------------------------------------------------------
