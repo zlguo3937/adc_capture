@@ -191,6 +191,8 @@ module pktctrl_top
     package_gen
     u_package_gen
     (
+    .clk                        (pktctrl_clk                ),
+    .rstn                       (pktctrl_rstn               ),
     .pkt_gen_data_0             (pkt_gen_data_0             ),
     .pkt_gen_data_1             (pkt_gen_data_1             ),
     .pkt_gen_data_2             (pkt_gen_data_2             ),
