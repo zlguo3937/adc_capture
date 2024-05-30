@@ -123,9 +123,6 @@ module gen_read_logic_fast
     reg             read_en;
     reg     [8:0]   RD_CNT_r;
 
-    reg     [8:0]   rd_cnt;
-    reg     [8:0]   rd_cnt_r;
-
     /* -----------------------------------------------------------------
      Gen data cnt and addr cnt
      ----------------------------------------------------------------- */
@@ -140,13 +137,9 @@ module gen_read_logic_fast
 
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
-            RD_EN <= 1'b1;
-        else if (read_en) begin
-            if (DATA_RD_EN)
-                RD_EN <= RD_EN + 1'b1;
-        end
-        else
-            RD_EN <= 1'b1;
+            RD_EN <= 1'b0;
+        else if (DATA_RD_EN)
+            RD_EN <= RD_EN + 1'b1;
     end
 
     always @(posedge clk or negedge rstn) begin
@@ -163,24 +156,22 @@ module gen_read_logic_fast
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
             RD_CNT <= 9'd0;
-        else if (curr_sta != READ_IDLE) begin
-            if (pkt_en) begin
-                if (rf_96path_en) begin
-                    if ((RD_CNT == 9'd47) && (RD == 1'b1) && (RD_EN == 1'b1))
-                        RD_CNT <= 9'd0;
-                    else if (RD & RD_EN)
-                        RD_CNT <= RD_CNT + 1;
-                end
-                else begin
-                    if ((RD_CNT == 9'd23) && (RD == 1'b1) && (RD_EN == 1'b1))
-                        RD_CNT <= 9'd0;
-                    else if (RD & RD_EN)
-                        RD_CNT <= RD_CNT + 1;
-                end
+        else if (pkt_en) begin
+            if (rf_96path_en) begin
+                if ((RD_CNT == 9'd47) && (RD == 1'b1) && (RD_EN == 1'b1))
+                    RD_CNT <= 9'd0;
+                else if (RD & RD_EN)
+                    RD_CNT <= RD_CNT + 1;
             end
-            else
-                RD_CNT <= 9'd0;
+            else begin
+                if ((RD_CNT == 9'd23) && (RD == 1'b1) && (RD_EN == 1'b1))
+                    RD_CNT <= 9'd0;
+                else if (RD & RD_EN)
+                    RD_CNT <= RD_CNT + 1;
+            end
         end
+        else
+            RD_CNT <= 9'd0;
     end
 
     always @(posedge clk or negedge rstn) begin
@@ -188,34 +179,6 @@ module gen_read_logic_fast
             RD_CNT_r <= 9'd0;
         else if (RD & RD_EN)
             RD_CNT_r <= RD_CNT;
-    end
-
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn)
-            rd_cnt <= 0;
-        else if (RD_CNT <= 47)
-            rd_cnt <= RD_CNT;
-        else if (47 < RD_CNT <= 95)
-            rd_cnt <= RD_CNT - 48;
-        else if (95 < RD_CNT <= 143)
-            rd_cnt <= RD_CNT - 96;
-        else if (143 < RD_CNT <= 191)
-            rd_cnt <= RD_CNT - 144;
-        else if (191 < RD_CNT <= 239)
-            rd_cnt <= RD_CNT - 192;
-        else if (239 < RD_CNT <= 287)
-            rd_cnt <= RD_CNT - 240;
-        else if (287 < RD_CNT <= 335)
-            rd_cnt <= RD_CNT - 288;
-        else if (335 < RD_CNT <= 383)
-            rd_cnt <= RD_CNT - 336;
-    end
-
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn)
-            rd_cnt_r <= 0;
-        else if (RD & RD_EN)
-            rd_cnt_r <= rd_cnt;
     end
 
     always @(posedge clk or negedge rstn) begin
@@ -263,8 +226,8 @@ module gen_read_logic_fast
         if (!rstn)
             PKT_DATA <= 36'h0;
         else if (curr_sta != READ_IDLE) begin
-            if (rd_cnt_r%2 == 0) begin
-                case(rd_cnt_r >> 1)
+            if (RD_CNT_r%2 == 0) begin
+                case(RD_CNT_r >> 1)
                     0:  PKT_DATA <= fast_din_0;  1:  PKT_DATA <= fast_din_1;  2:  PKT_DATA <= fast_din_2;
                     3:  PKT_DATA <= fast_din_3;  4:  PKT_DATA <= fast_din_4;  5:  PKT_DATA <= fast_din_5;
                     6:  PKT_DATA <= fast_din_6;  7:  PKT_DATA <= fast_din_7;  8:  PKT_DATA <= fast_din_8;
@@ -306,9 +269,9 @@ module gen_read_logic_fast
                 fast_chip_en_18 <= 1'b0; fast_chip_en_19 <= 1'b0; fast_chip_en_20 <= 1'b0;
                 fast_chip_en_21 <= 1'b0; fast_chip_en_22 <= 1'b0; fast_chip_en_23 <= 1'b0;
 
-                if (rd_cnt%2 == 0) begin
+                if (RD_CNT%2 == 0) begin
                     if (RD & RD_EN) begin
-                        case(rd_cnt >> 1)
+                        case(RD_CNT >> 1)
                             0:  fast_chip_en_0  <= 1'b1; 1:  fast_chip_en_1  <= 1'b1; 2:  fast_chip_en_2  <= 1'b1;
                             3:  fast_chip_en_3  <= 1'b1; 4:  fast_chip_en_4  <= 1'b1; 5:  fast_chip_en_5  <= 1'b1;
                             6:  fast_chip_en_6  <= 1'b1; 7:  fast_chip_en_7  <= 1'b1; 8:  fast_chip_en_8  <= 1'b1;
@@ -354,9 +317,9 @@ module gen_read_logic_fast
             fast_chip_en_21 <= 1'b0; fast_chip_en_22 <= 1'b0; fast_chip_en_23 <= 1'b0;
 
             if (pkt_en) begin
-                if (rd_cnt%2 == 0) begin
+                if (RD_CNT%2 == 0) begin
                     if (RD & RD_EN) begin
-                        case(rd_cnt >> 1)
+                        case(RD_CNT >> 1)
                             0:  fast_chip_en_0  <= 1'b1; 1:  fast_chip_en_1  <= 1'b1; 2:  fast_chip_en_2  <= 1'b1;
                             3:  fast_chip_en_3  <= 1'b1; 4:  fast_chip_en_4  <= 1'b1; 5:  fast_chip_en_5  <= 1'b1;
                             6:  fast_chip_en_6  <= 1'b1; 7:  fast_chip_en_7  <= 1'b1; 8:  fast_chip_en_8  <= 1'b1;
@@ -387,36 +350,43 @@ module gen_read_logic_fast
     assign  fast_addr = addr;
 
     always @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            addr         <= 0;
-            fast_rd_done <= 1'b0;
+        if (!rstn)
+            addr <= 0;
+        else if (rf_96path_en) begin
+            if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
+                if (&addr)
+                    addr <= 0;
+                else
+                    addr <= addr + 1;
+            end
         end
+        else begin
+            if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
+                if (&addr)
+                    addr <= 0;
+                else
+                    addr <= addr + 1;
+            end
+        end
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            fast_rd_done <= 1'b0;
         else if (curr_sta == READ_IDLE) begin
             if (rf_capture_start | rf_capture_again)
                 fast_rd_done <= 1'b0;
         end
-        else begin
-            if (rf_96path_en) begin
-                if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
-                    if (&addr) begin
-                        addr         <= 0;
-                        fast_rd_done <= 1'b1;
-                    end
-                    else begin
-                        addr <= addr + 1;
-                    end
-                end
+        else if (rf_96path_en) begin
+            if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
+                if (&addr)
+                    fast_rd_done <= 1'b1;
             end
-            else begin
-                if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
-                    if (&addr) begin
-                        addr         <= 0;
-                        fast_rd_done <= 1'b1;
-                    end
-                    else begin
-                        addr <= addr + 1;
-                    end
-                end
+        end
+        else begin
+            if ((RD_CNT_r == 9'd23) & RD & RD_EN & DATA_SEL) begin
+                if (&addr)
+                    fast_rd_done <= 1'b1;
             end
         end
     end
@@ -435,7 +405,7 @@ module gen_read_logic_fast
         next_sta = curr_sta;
         case(curr_sta)
             READ_IDLE: begin
-                if (fast_read_en) begin
+                if (fast_read_en & RD & RD_EN) begin
                     if (rf_pkt_idle_length == 0)
                         next_sta = READ_ALWAYS;
                     else if (rf_pkt_data_length == 2'b00)
@@ -482,11 +452,13 @@ module gen_read_logic_fast
         if (!rstn)
             read_en <= 1'b0;
         else if (next_sta == READ_IDLE) begin
-            if (RD)
+            if (RD & RD_EN)
                 read_en <= 1'b0;
         end
-        else
-            read_en <= 1'b1;
+        else begin
+            if (RD & RD_EN)
+                read_en <= 1'b1;
+        end
     end
 
     /* -----------------------------------------------------------------
@@ -506,7 +478,7 @@ module gen_read_logic_fast
         case(pkt_curr_sta)
             PKT_IDLE: begin
                 if (read_en) begin
-                    if ((idle_cnt == rf_pkt_idle_length) & RD)
+                    if ((idle_cnt == rf_pkt_idle_length) & RD & !fast_rd_done & (!(&addr)))
                         pkt_next_sta = PKT_VALID;
                 end
             end
@@ -572,7 +544,7 @@ module gen_read_logic_fast
 
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
-            idle_cnt <= 0;
+            pkt_en <= 0;
         else if (pkt_next_sta == PKT_IDLE)
             pkt_en <= 1'b0;
         else
