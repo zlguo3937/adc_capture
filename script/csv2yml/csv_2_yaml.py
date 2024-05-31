@@ -70,13 +70,13 @@ class RegisterParser:
                     msb, lsb = self.parse_bit_range(row[1])
                     width = msb - lsb + 1
                     registers.append({
+                        'name': self.parse_reg_name(row[4].strip(), all_regs),
+                        'type': self.parse_reg_type(row[3].strip()),
                         'range': width,
                         'msb': msb,
                         'lsb': lsb,
                         'width': width,
                         'reset': hex(self.parse_reg_init(row[2], msb, lsb)),
-                        'type': self.parse_reg_type(row[3].strip()),
-                        'name': self.parse_reg_name(row[4].strip(), all_regs)
                     })
                     all_regs.append(row[4].strip())
 
@@ -96,7 +96,7 @@ class CSVToYAMLConverter:
     def convert(self):
         blocks = self.parser.read_csv_to_yaml(self.csv_path)
         with open(self.yaml_path, 'w') as yaml_file:
-            yaml.dump(blocks, yaml_file, default_flow_style=False)
+            yaml.dump(blocks, yaml_file, default_flow_style=False, sort_keys=False)
 
 
 def main():

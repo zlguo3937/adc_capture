@@ -9,7 +9,7 @@ script_dir := $(base_dir)/script
 # ********************************************************************************************
 # prepare - generate all files for project
 # ********************************************************************************************
-prepare: filelist yaml verilog
+prepare: filelist yaml
 
 # ********************************************************************************************
 # Generate filelist for synthesis and simulation
@@ -30,14 +30,14 @@ rtl_sim:
 			realpath "$$line" >> $(base_dir)/builds/filelist/rtl_sim.f; \
 		fi \
 	done
-	@echo "Conversion rtl_syn.f rtl_sim.f completed."
+	@echo "Conversion rtl_sim.f completed."
 
 # ********************************************************************************************
 # Generate regfile yaml
 # ********************************************************************************************
 yaml:
 	@mkdir -p $(base_dir)/builds/yaml
-	@python3 script_dir/csv2yml/csv_2_yaml.py csv_dir/top_regfile.csv $(base_dir)/builds/yaml/top_regfile.yml
+	@python3 $(script_dir)/csv2yml/csv_2_yaml.py $(csv_dir)/top_regfile.csv $(base_dir)/builds/yaml/top_regfile.yml
 	@echo "Conversion top_regfile.yml completed."
 
 # ********************************************************************************************
