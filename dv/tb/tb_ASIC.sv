@@ -75,6 +75,7 @@ module tb_ASIC;
         force ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_sw_rstn.cell_data = 1'b1;
         force ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_regfile_sw_rstn.cell_data = 1'b1;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_self_test_mode.cell_data = 1'b1;
+        force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_96path_en.cell_data = 1'b0;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_start.dev_rdata = start;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_capture_again.dev_rdata = again;
         force tb_ASIC.ASIC.u_digital_top.u_ctrl_sys.u_top_regfile.u_rf_pktctrl_gap.cell_data = 4;

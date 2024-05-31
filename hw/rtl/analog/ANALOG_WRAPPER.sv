@@ -213,7 +213,7 @@ module ANALOG_WRAPPER
         clk_500M <= 0;
         clk_200M <= 0;
 
-        adcti48_en <= 1'b0; // 1--open adcti48
+        adcti48_en <= 1'b1; // 1--open adcti48
         adcti96_en <= 1'b1; // 1--open adcti96
     end
 
