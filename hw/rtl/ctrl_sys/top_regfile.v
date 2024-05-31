@@ -274,6 +274,7 @@ module top_regfile
     assign rf_mdio_read_pulse_clk   = clk;
     assign rf_mdio_data_sel_clk     = clk;
     assign rf_mdio_memory_addr_clk  = clk;
+    assign rf_mdio_pkt_data_clk  = clk;
 
     assign legal_phy_addr_rstn       = rstn;
     assign legal_phy_addr_mask_rstn  = rstn;
@@ -298,6 +299,7 @@ module top_regfile
     assign rf_mdio_read_pulse_rstn   = rstn;
     assign rf_mdio_data_sel_rstn     = rstn;
     assign rf_mdio_memory_addr_rstn  = rstn;
+    assign rf_mdio_pkt_data_rstn  = rstn;
 
     assign addr_0x0_sel = (req_paddr == 21'h0) & req_psel & req_penable;
     assign addr_0x1_sel = (req_paddr == 21'h1) & req_psel & req_penable;

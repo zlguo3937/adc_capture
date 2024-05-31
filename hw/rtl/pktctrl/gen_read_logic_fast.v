@@ -352,6 +352,8 @@ module gen_read_logic_fast
     always @(posedge clk or negedge rstn) begin
         if (!rstn)
             addr <= 0;
+        else if (!fast_read_en)
+            addr <= 0;
         else if (rf_96path_en) begin
             if ((RD_CNT_r == 9'd47) & RD & RD_EN & DATA_SEL) begin
                 if (&addr)
@@ -420,27 +422,27 @@ module gen_read_logic_fast
             end
 
             READ_ALWAYS: begin
-                if (fast_rd_done)
+                if (fast_rd_done | !fast_read_en)
                     next_sta = READ_IDLE;
             end
 
             READ_216BYTE: begin
-                if (fast_rd_done)
+                if (fast_rd_done | !fast_read_en)
                     next_sta = READ_IDLE;
             end
 
             READ_432BYTE: begin
-                if (fast_rd_done)
+                if (fast_rd_done | !fast_read_en)
                     next_sta = READ_IDLE;
             end
 
             READ_864BYTE: begin
-                if (fast_rd_done)
+                if (fast_rd_done | !fast_read_en)
                     next_sta = READ_IDLE;
             end
 
             READ_1728BYTE: begin
-                if (fast_rd_done)
+                if (fast_rd_done | !fast_read_en)
                     next_sta = READ_IDLE;
             end
 
@@ -484,9 +486,17 @@ module gen_read_logic_fast
             end
 
             PKT_VALID: begin
-                if (curr_sta == READ_ALWAYS) begin
-                    if ((&addr) & (RD_CNT_r == 9'd47) & RD)
-                        pkt_next_sta = PKT_IDLE;
+                if (!read_en)
+                    pkt_next_sta = PKT_IDLE;
+                else if (curr_sta == READ_ALWAYS) begin
+                    if (rf_96path_en) begin
+                        if ((&addr) & (RD_CNT_r == 9'd47) & RD)
+                            pkt_next_sta = PKT_IDLE;
+                    end
+                    else begin
+                        if ((&addr) & (RD_CNT_r == 9'd23) & RD)
+                            pkt_next_sta = PKT_IDLE;
+                    end
                 end
                 else if (curr_sta == READ_216BYTE) begin
                     if (addr%2 == 1) begin

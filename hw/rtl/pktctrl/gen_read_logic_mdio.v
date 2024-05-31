@@ -84,7 +84,7 @@ module gen_read_logic_mdio
     reg [8:0]       mdio_pkt_data;
 
     reg [23:0]      mdio_rd_chip_en;
-    reg [24*15-1:0] mdio_rd_raddr;
+    reg [14:0]      mdio_rd_raddr;
 
     genvar i;
     generate
@@ -93,7 +93,7 @@ module gen_read_logic_mdio
                 if (!rstn)
                     mdio_rd_chip_en[i] <= 1'b0;
                 else if (mdio_read_en)
-                    mdio_rd_chip_en[i] <= (rf_mdio_data_sel/4) == i;
+                    mdio_rd_chip_en[i] <= (rf_mdio_data_sel >> 2) == i;
                 else
                     mdio_rd_chip_en[i] <= 1'b0;
             end
@@ -136,33 +136,38 @@ module gen_read_logic_mdio
 
     assign mdio_addr = mdio_rd_raddr;
 
-    always @(*) begin
-        case(rf_mdio_data_sel)
-            0:  mdio_pkt_data = mdio_din_0[8:0];  1:  mdio_pkt_data = mdio_din_0[17:9];  2:  mdio_pkt_data = mdio_din_0[26:18];  3:  mdio_pkt_data = mdio_din_0[35:27]; 
-            4:  mdio_pkt_data = mdio_din_1[8:0];  5:  mdio_pkt_data = mdio_din_1[17:9];  6:  mdio_pkt_data = mdio_din_1[26:18];  7:  mdio_pkt_data = mdio_din_1[35:27]; 
-            8:  mdio_pkt_data = mdio_din_2[8:0];  9:  mdio_pkt_data = mdio_din_2[17:9];  10: mdio_pkt_data = mdio_din_2[26:18];  11: mdio_pkt_data = mdio_din_2[35:27]; 
-            12: mdio_pkt_data = mdio_din_3[8:0];  13: mdio_pkt_data = mdio_din_3[17:9];  14: mdio_pkt_data = mdio_din_3[26:18];  15: mdio_pkt_data = mdio_din_3[35:27]; 
-            16: mdio_pkt_data = mdio_din_4[8:0];  17: mdio_pkt_data = mdio_din_4[17:9];  18: mdio_pkt_data = mdio_din_4[26:18];  19: mdio_pkt_data = mdio_din_4[35:27]; 
-            20: mdio_pkt_data = mdio_din_5[8:0];  21: mdio_pkt_data = mdio_din_5[17:9];  22: mdio_pkt_data = mdio_din_5[26:18];  23: mdio_pkt_data = mdio_din_5[35:27]; 
-            24: mdio_pkt_data = mdio_din_6[8:0];  25: mdio_pkt_data = mdio_din_6[17:9];  26: mdio_pkt_data = mdio_din_6[26:18];  27: mdio_pkt_data = mdio_din_6[35:27]; 
-            28: mdio_pkt_data = mdio_din_7[8:0];  29: mdio_pkt_data = mdio_din_7[17:9];  30: mdio_pkt_data = mdio_din_7[26:18];  31: mdio_pkt_data = mdio_din_7[35:27]; 
-            32: mdio_pkt_data = mdio_din_8[8:0];  33: mdio_pkt_data = mdio_din_8[17:9];  34: mdio_pkt_data = mdio_din_8[26:18];  35: mdio_pkt_data = mdio_din_8[35:27]; 
-            36: mdio_pkt_data = mdio_din_9[8:0];  37: mdio_pkt_data = mdio_din_9[17:9];  38: mdio_pkt_data = mdio_din_9[26:18];  39: mdio_pkt_data = mdio_din_9[35:27]; 
-            40: mdio_pkt_data = mdio_din_10[8:0]; 41: mdio_pkt_data = mdio_din_10[17:9]; 42: mdio_pkt_data = mdio_din_10[26:18]; 43: mdio_pkt_data = mdio_din_10[35:27];
-            44: mdio_pkt_data = mdio_din_11[8:0]; 45: mdio_pkt_data = mdio_din_11[17:9]; 46: mdio_pkt_data = mdio_din_11[26:18]; 47: mdio_pkt_data = mdio_din_11[35:27];
-            48: mdio_pkt_data = mdio_din_12[8:0]; 49: mdio_pkt_data = mdio_din_12[17:9]; 50: mdio_pkt_data = mdio_din_12[26:18]; 51: mdio_pkt_data = mdio_din_12[35:27];
-            52: mdio_pkt_data = mdio_din_13[8:0]; 53: mdio_pkt_data = mdio_din_13[17:9]; 54: mdio_pkt_data = mdio_din_13[26:18]; 55: mdio_pkt_data = mdio_din_13[35:27];
-            56: mdio_pkt_data = mdio_din_14[8:0]; 57: mdio_pkt_data = mdio_din_14[17:9]; 58: mdio_pkt_data = mdio_din_14[26:18]; 59: mdio_pkt_data = mdio_din_14[35:27];
-            60: mdio_pkt_data = mdio_din_15[8:0]; 61: mdio_pkt_data = mdio_din_15[17:9]; 62: mdio_pkt_data = mdio_din_15[26:18]; 63: mdio_pkt_data = mdio_din_15[35:27];
-            64: mdio_pkt_data = mdio_din_16[8:0]; 65: mdio_pkt_data = mdio_din_16[17:9]; 66: mdio_pkt_data = mdio_din_16[26:18]; 67: mdio_pkt_data = mdio_din_16[35:27];
-            68: mdio_pkt_data = mdio_din_17[8:0]; 69: mdio_pkt_data = mdio_din_17[17:9]; 70: mdio_pkt_data = mdio_din_17[26:18]; 71: mdio_pkt_data = mdio_din_17[35:27];
-            72: mdio_pkt_data = mdio_din_18[8:0]; 73: mdio_pkt_data = mdio_din_18[17:9]; 74: mdio_pkt_data = mdio_din_18[26:18]; 75: mdio_pkt_data = mdio_din_18[35:27];
-            76: mdio_pkt_data = mdio_din_19[8:0]; 77: mdio_pkt_data = mdio_din_19[17:9]; 78: mdio_pkt_data = mdio_din_19[26:18]; 79: mdio_pkt_data = mdio_din_19[35:27];
-            80: mdio_pkt_data = mdio_din_20[8:0]; 81: mdio_pkt_data = mdio_din_20[17:9]; 82: mdio_pkt_data = mdio_din_20[26:18]; 83: mdio_pkt_data = mdio_din_20[35:27];
-            84: mdio_pkt_data = mdio_din_21[8:0]; 85: mdio_pkt_data = mdio_din_21[17:9]; 86: mdio_pkt_data = mdio_din_21[26:18]; 87: mdio_pkt_data = mdio_din_21[35:27];
-            88: mdio_pkt_data = mdio_din_22[8:0]; 89: mdio_pkt_data = mdio_din_22[17:9]; 90: mdio_pkt_data = mdio_din_22[26:18]; 91: mdio_pkt_data = mdio_din_22[35:27];
-            92: mdio_pkt_data = mdio_din_23[8:0]; 93: mdio_pkt_data = mdio_din_23[17:9]; 94: mdio_pkt_data = mdio_din_23[26:18]; 95: mdio_pkt_data = mdio_din_23[35:27];
-        endcase
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn)
+            mdio_pkt_data <= 9'h0;
+        else begin
+            case(rf_mdio_data_sel)
+                0:  mdio_pkt_data <= mdio_din_0[8:0];  1:  mdio_pkt_data <= mdio_din_0[17:9];  2:  mdio_pkt_data <= mdio_din_0[26:18];  3:  mdio_pkt_data <= mdio_din_0[35:27]; 
+                4:  mdio_pkt_data <= mdio_din_1[8:0];  5:  mdio_pkt_data <= mdio_din_1[17:9];  6:  mdio_pkt_data <= mdio_din_1[26:18];  7:  mdio_pkt_data <= mdio_din_1[35:27]; 
+                8:  mdio_pkt_data <= mdio_din_2[8:0];  9:  mdio_pkt_data <= mdio_din_2[17:9];  10: mdio_pkt_data <= mdio_din_2[26:18];  11: mdio_pkt_data <= mdio_din_2[35:27]; 
+                12: mdio_pkt_data <= mdio_din_3[8:0];  13: mdio_pkt_data <= mdio_din_3[17:9];  14: mdio_pkt_data <= mdio_din_3[26:18];  15: mdio_pkt_data <= mdio_din_3[35:27]; 
+                16: mdio_pkt_data <= mdio_din_4[8:0];  17: mdio_pkt_data <= mdio_din_4[17:9];  18: mdio_pkt_data <= mdio_din_4[26:18];  19: mdio_pkt_data <= mdio_din_4[35:27]; 
+                20: mdio_pkt_data <= mdio_din_5[8:0];  21: mdio_pkt_data <= mdio_din_5[17:9];  22: mdio_pkt_data <= mdio_din_5[26:18];  23: mdio_pkt_data <= mdio_din_5[35:27]; 
+                24: mdio_pkt_data <= mdio_din_6[8:0];  25: mdio_pkt_data <= mdio_din_6[17:9];  26: mdio_pkt_data <= mdio_din_6[26:18];  27: mdio_pkt_data <= mdio_din_6[35:27]; 
+                28: mdio_pkt_data <= mdio_din_7[8:0];  29: mdio_pkt_data <= mdio_din_7[17:9];  30: mdio_pkt_data <= mdio_din_7[26:18];  31: mdio_pkt_data <= mdio_din_7[35:27]; 
+                32: mdio_pkt_data <= mdio_din_8[8:0];  33: mdio_pkt_data <= mdio_din_8[17:9];  34: mdio_pkt_data <= mdio_din_8[26:18];  35: mdio_pkt_data <= mdio_din_8[35:27]; 
+                36: mdio_pkt_data <= mdio_din_9[8:0];  37: mdio_pkt_data <= mdio_din_9[17:9];  38: mdio_pkt_data <= mdio_din_9[26:18];  39: mdio_pkt_data <= mdio_din_9[35:27]; 
+                40: mdio_pkt_data <= mdio_din_10[8:0]; 41: mdio_pkt_data <= mdio_din_10[17:9]; 42: mdio_pkt_data <= mdio_din_10[26:18]; 43: mdio_pkt_data <= mdio_din_10[35:27];
+                44: mdio_pkt_data <= mdio_din_11[8:0]; 45: mdio_pkt_data <= mdio_din_11[17:9]; 46: mdio_pkt_data <= mdio_din_11[26:18]; 47: mdio_pkt_data <= mdio_din_11[35:27];
+                48: mdio_pkt_data <= mdio_din_12[8:0]; 49: mdio_pkt_data <= mdio_din_12[17:9]; 50: mdio_pkt_data <= mdio_din_12[26:18]; 51: mdio_pkt_data <= mdio_din_12[35:27];
+                52: mdio_pkt_data <= mdio_din_13[8:0]; 53: mdio_pkt_data <= mdio_din_13[17:9]; 54: mdio_pkt_data <= mdio_din_13[26:18]; 55: mdio_pkt_data <= mdio_din_13[35:27];
+                56: mdio_pkt_data <= mdio_din_14[8:0]; 57: mdio_pkt_data <= mdio_din_14[17:9]; 58: mdio_pkt_data <= mdio_din_14[26:18]; 59: mdio_pkt_data <= mdio_din_14[35:27];
+                60: mdio_pkt_data <= mdio_din_15[8:0]; 61: mdio_pkt_data <= mdio_din_15[17:9]; 62: mdio_pkt_data <= mdio_din_15[26:18]; 63: mdio_pkt_data <= mdio_din_15[35:27];
+                64: mdio_pkt_data <= mdio_din_16[8:0]; 65: mdio_pkt_data <= mdio_din_16[17:9]; 66: mdio_pkt_data <= mdio_din_16[26:18]; 67: mdio_pkt_data <= mdio_din_16[35:27];
+                68: mdio_pkt_data <= mdio_din_17[8:0]; 69: mdio_pkt_data <= mdio_din_17[17:9]; 70: mdio_pkt_data <= mdio_din_17[26:18]; 71: mdio_pkt_data <= mdio_din_17[35:27];
+                72: mdio_pkt_data <= mdio_din_18[8:0]; 73: mdio_pkt_data <= mdio_din_18[17:9]; 74: mdio_pkt_data <= mdio_din_18[26:18]; 75: mdio_pkt_data <= mdio_din_18[35:27];
+                76: mdio_pkt_data <= mdio_din_19[8:0]; 77: mdio_pkt_data <= mdio_din_19[17:9]; 78: mdio_pkt_data <= mdio_din_19[26:18]; 79: mdio_pkt_data <= mdio_din_19[35:27];
+                80: mdio_pkt_data <= mdio_din_20[8:0]; 81: mdio_pkt_data <= mdio_din_20[17:9]; 82: mdio_pkt_data <= mdio_din_20[26:18]; 83: mdio_pkt_data <= mdio_din_20[35:27];
+                84: mdio_pkt_data <= mdio_din_21[8:0]; 85: mdio_pkt_data <= mdio_din_21[17:9]; 86: mdio_pkt_data <= mdio_din_21[26:18]; 87: mdio_pkt_data <= mdio_din_21[35:27];
+                88: mdio_pkt_data <= mdio_din_22[8:0]; 89: mdio_pkt_data <= mdio_din_22[17:9]; 90: mdio_pkt_data <= mdio_din_22[26:18]; 91: mdio_pkt_data <= mdio_din_22[35:27];
+                92: mdio_pkt_data <= mdio_din_23[8:0]; 93: mdio_pkt_data <= mdio_din_23[17:9]; 94: mdio_pkt_data <= mdio_din_23[26:18]; 95: mdio_pkt_data <= mdio_din_23[35:27];
+                default: mdio_pkt_data <= 9'h0;
+            endcase
+        end
     end
 
     always @(posedge clk or negedge rstn) begin
