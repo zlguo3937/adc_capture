@@ -50,4 +50,4 @@
 ./ctrl_sys/mdio/cdc_200m_100m.v
 ./ctrl_sys/mdio/mdio_slave_22_45_backend.v
 
-../../dv/tb/tb_ASIC.sv
+../../design_dv/tb/tb_ASIC.sv
