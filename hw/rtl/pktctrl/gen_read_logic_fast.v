@@ -548,7 +548,7 @@ module gen_read_logic_fast
                 end
             end
 
-            default:next_sta = PKT_IDLE;
+            default:pkt_next_sta = PKT_IDLE;
         endcase
     end
 

@@ -35,7 +35,7 @@ module pulse_handshake
     reg     r_pulse_dst;
 
     // Source clock domain
-    always @(posedge src_clk or src_rstn) begin
+    always @(posedge src_clk or negedge src_rstn) begin
         if (!src_rstn)
             r_pulse_src <= 1'b0;
         else
@@ -67,7 +67,7 @@ module pulse_handshake
     .dout   (w_pulse_sync   )
     );
 
-    always @(posedge dst_clk or dst_rstn) begin
+    always @(posedge dst_clk or negedge dst_rstn) begin
         if (!dst_rstn)
             r_pulse_dst <= 1'b0;
         else
