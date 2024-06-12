@@ -9,7 +9,7 @@ script_dir := $(base_dir)/script
 # ********************************************************************************************
 # prepare - generate all files for project
 # ********************************************************************************************
-prepare: clean yaml verilog filelist 
+prepare: clean yaml verilog filelist
 
 # ********************************************************************************************
 # Generate filelist for synthesis and simulation
@@ -45,6 +45,7 @@ yaml:
 # ********************************************************************************************
 verilog:
 	@mkdir -p $(base_dir)/builds/verilog
+	@python3 $(script_dir)/yml2hdl/tmp_register_cell.py $(base_dir)/builds/verilog/register_cells.v
 	@python3 $(script_dir)/yml2hdl/yml2verilog.py $(base_dir)/builds/yaml/top_regfile.yml $(base_dir)/builds/verilog/top_regfile.v top_regfile
 	@echo "Conversion top_regfile.v completed."
 
