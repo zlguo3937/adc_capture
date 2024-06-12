@@ -225,17 +225,17 @@ class RegfileParser:
                             addr_sel_bus_rdata.append("{}'h0".format(continuous_empty_count))
                         continuous_empty_count = 1
                     else:
-                        addr_sel_bus_rdata.append(last_name)
+                        addr_sel_bus_rdata.append(f"{last_name}_bus_rdata")
                 last_name = curr_name
             if last_name == '':
                 assert continuous_empty_count
                 addr_sel_bus_rdata.append("{}'h0".format(continuous_empty_count))
             else:
-                addr_sel_bus_rdata.append(last_name)
+                addr_sel_bus_rdata.append(f"{last_name}_bus_rdata")
 
             addr_selects_bus_rdata = "addr_" + group['address'] + "_sel_bus_rdata"
             addr_selects_bus_rdata_assigns.append(
-                "    assign  {} = {{{}}}".format(
+                "    assign  {} = {{{}}};".format(
                     addr_selects_bus_rdata,
                     ', '.join(addr_sel_bus_rdata)
                 )
@@ -265,10 +265,15 @@ class RegfileParser:
         reset = reg['reset']
         width_str = f"[{width - 1}:0]" if width > 1 else ""
 
-        block = f"    Cell_{reg_type}#(\n"
-        block += f"        .DATA_WIDTH ({width}),\n"
-        block += f"        .INIT       ({int(reset, 16)})\n"
-        block += f"    ) u_{reg_name}\n    (\n"
+        if reg_type in ["SC", "ROLH", "ROLL", "LHRC"]:
+            block = f"    Cell_{reg_type}\n"
+            block += f"    u_{reg_name}\n    (\n"
+        else:
+            block = f"    Cell_{reg_type}#(\n"
+            block += f"        .DATA_WIDTH ({width}),\n"
+            block += f"        .INIT       ({int(reset, 16)})\n"
+            block += f"    ) u_{reg_name}\n    (\n"
+
         block += f"    .clk            ({reg_name}_clk),\n"
         block += f"    .rstn           ({reg_name}_rstn),\n"
 
@@ -377,17 +382,20 @@ module {module_name}
         verilog_content += "    // Reset Wires\n"
         verilog_content += "\n".join(rstn_wires) + "\n\n"
 
-        verilog_content += "    // Bus is_mdio Wires\n"
-        verilog_content += "\n".join(is_mdio_wires) + "\n\n"
+        for group in yaml_data:
+            for reg in group['register']:
+                if reg['type'] in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
+                    verilog_content += "    // Bus is_mdio Wires\n"
+                    verilog_content += "\n".join(is_mdio_wires) + "\n\n"
+                elif reg['type'] in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC"]:
+                    verilog_content += "    // Bus re Wires\n"
+                    verilog_content += "\n".join(bus_re_wires) + "\n\n"
 
         verilog_content += "    // Bus we Wires\n"
         verilog_content += "\n".join(bus_we_wires) + "\n\n"
 
         verilog_content += "    // Bus wdata Wires\n"
         verilog_content += "\n".join(bus_wdata_wires) + "\n\n"
-
-        verilog_content += "    // Bus re Wires\n"
-        verilog_content += "\n".join(bus_re_wires) + "\n\n"
 
         verilog_content += "    // Bus rdata Wires\n"
         verilog_content += "\n".join(bus_rdata_wires) + "\n\n"
@@ -401,48 +409,33 @@ module {module_name}
         verilog_content += "    // Select Bus rdata whitch Address Selected Wires\n"
         verilog_content += "\n".join(sel_addr_bus_rdata_wires) + "\n\n"
 
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "    // register clock and rstn\n"
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "\n".join(clk_assigns) + "\n\n"
 
         verilog_content += "\n".join(rstn_assigns) + "\n\n"
+
+        verilog_content += "    // whitch address be selected: req_psel & req_penable + req_paddr\n"
+        verilog_content += "\n".join(addr_selects_assigns) + "\n\n"
+
         for group in yaml_data:
             for reg in group['register']:
                 if reg['type'] in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
-                    verilog_content += "    // ********************************************************************\n"
                     verilog_content += "    // bus_we: addr_{address}_sel & req_pwrite\n"
-                    verilog_content += "    // ********************************************************************\n"
                     verilog_content += "\n".join(bus_is_mdio_assigns) + "\n\n"
                 elif reg['type'] in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC"]:
-                    verilog_content += "    // ********************************************************************\n"
                     verilog_content += "    // bus_re: addr_{address}_sel & ~req_pwrite\n"
-                    verilog_content += "    // ********************************************************************\n"
                     verilog_content += "\n".join(bus_re_assigns) + "\n\n"
 
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "    // bus_we: addr_{address}_sel & req_pwrite\n"
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "\n".join(bus_we_assigns) + "\n\n"
 
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "    // req_pwdata: bus_wdata\n"
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "\n".join(bus_wdata_assigns) + "\n\n"
 
-        verilog_content += "    // ********************************************************************\n"
-        verilog_content += "    // whitch address be selected: req_psel & req_penable + req_paddr\n"
-        verilog_content += "    // ********************************************************************\n"
-        verilog_content += "\n".join(addr_selects_assigns) + "\n\n"
-
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "    // addr_{address}_sel_bus_rdata = {registers bus_rdata}\n"
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "\n".join(addr_selects_bus_rdata_assigns) + "\n\n"
 
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "    // req_prdata: bus_rdata\n"
-        verilog_content += "    // ********************************************************************\n"
         verilog_content += "\n".join(bus_rdata_assigns) + "\n"
         verilog_content += "".join(sel_addr_bus_rdata_assigns) + "\n"
 
