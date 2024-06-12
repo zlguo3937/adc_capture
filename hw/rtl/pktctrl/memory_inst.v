@@ -28,6 +28,7 @@ module memory_inst
     output  wire    [DATA_WIDTH-1:0]    Q
 );
 
+`ifndef FPGA
     TS1N28HPCPSVTB32768X36M16SWSO
     u_memory_32768x36
     (
@@ -41,5 +42,16 @@ module memory_inst
     .D      (D          ),
     .Q      (Q          )
     );
+`else
+    blk_mem_gen_0
+    u_memory_32768x36 (
+    .clka(CLK),    // input wire clka
+    .ena(CEB),      // input wire ena
+    .wea(WEB),      // input wire [0 : 0] wea
+    .addra(A),  // input wire [14 : 0] addra
+    .dina(D),    // input wire [35 : 0] dina
+    .douta(Q)  // output wire [35 : 0] douta
+    );
+`endif
 
 endmodule
