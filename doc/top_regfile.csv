@@ -51,12 +51,12 @@
 ,,,,,,,,,,
 #,CRG_CFG_0,CRG_CFG,,,,,,,,
 ,# addr=0x8,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[8:0],0x0,RWR,rf_pktctrl_clk_div,,,,,,
+,[8:0],0x0,RWR,rf_pktctrl_gap,,,,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
 #,CRG_CFG_1,CRG_CFG,,,,,,,,
 ,# addr=0x9,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[8:0],0x0,RWR,rf_pktctrl_clk_phase,,,,,,
+,[8:0],0x0,RWR,rf_pktctrl_phase,,,,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
 #,CRG_CFG_2,CRG_CFG,,,,,,,,

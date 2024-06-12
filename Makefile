@@ -9,7 +9,7 @@ script_dir := $(base_dir)/script
 # ********************************************************************************************
 # prepare - generate all files for project
 # ********************************************************************************************
-prepare: clean filelist yaml verilog
+prepare: clean yaml verilog filelist 
 
 # ********************************************************************************************
 # Generate filelist for synthesis and simulation

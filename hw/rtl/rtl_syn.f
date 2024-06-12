@@ -33,7 +33,7 @@
 ./pktctrl/memory_inst.v
 ./ctrl_sys/ctrl_sys.v
 ./ctrl_sys/register_cells.v
-./ctrl_sys/top_regfile.v
+../../builds/verilog/top_regfile.v
 ./ctrl_sys/cdc_500_200.v
 ./ctrl_sys/mdio/mdio_top.v
 ./ctrl_sys/mdio/mdio_slave_45_backend.v
