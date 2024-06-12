@@ -46,9 +46,14 @@ class RegisterParser:
         return reg_name
 
     def read_csv_to_yaml(self, csv_file):
-        blocks = []
-        current_block = {}
-        registers = []
+        address: str = ""
+        reg_group_name: str = ""
+        desc: str = ""
+
+        addresses = set()
+        reg_group_names = set()
+
+        regs_info = []
 
         with open(csv_file, 'r') as file:
             reader = csv.reader(file)
@@ -56,20 +61,35 @@ class RegisterParser:
             for row in reader:
                 if not any(row):  # Skip empty lines
                     continue
-                if row[0].startswith("") and "addr=" in row[1]:
-                    current_block['address'] = row[1].split('=')[1]
-                elif row[0].startswith("#"):
-                    if current_block:
-                        current_block['register'] = registers
-                        blocks.append(current_block)
-                        current_block = {}
-                        registers = []
-                    current_block['reg_group_name'] = row[1].strip()
-                    current_block['desc'] = row[2].strip()
+
+                if row[0].startswith("#"):
+                    reg_group_name = row[1]
+                    if reg_group_name in reg_group_names:
+                        print("ERROR: Your Register reg_group_name must be exclusive in all regs!")
+                        print(reg_group_name)
+                        sys.exit(-1)
+                    else:
+                        reg_group_names.add(reg_group_name)
+                    desc = row[2]
+                elif row[0].startswith("") and "addr=" in row[1]:
+                    address = row[1].split('=')[1]
+                    if address in addresses:
+                        print("ERROR: Your Register address must be exclusive in all regs!")
+                        print(address)
+                        sys.exit(-1)
+                    else:
+                        addresses.add(address)
+                    reg_info = {
+                        'address': address,
+                        'reg_group_name': reg_group_name,
+                        'desc': desc,
+                        'register': []
+                    }
+                    regs_info.append(reg_info)
                 elif row[1].startswith("["):
                     msb, lsb = self.parse_bit_range(row[1])
                     width = msb - lsb + 1
-                    registers.append({
+                    field_info = {
                         'name': self.parse_reg_name(row[4].strip(), all_regs),
                         'type': self.parse_reg_type(row[3].strip()),
                         'range': width,
@@ -77,14 +97,11 @@ class RegisterParser:
                         'lsb': lsb,
                         'width': width,
                         'reset': hex(self.parse_reg_init(row[2], msb, lsb)),
-                    })
+                    }
+                    reg_info['register'].append(field_info)
                     all_regs.append(row[4].strip())
 
-        if current_block:
-            current_block['register'] = registers
-            blocks.append(current_block)
-
-        return blocks
+        return regs_info
 
 
 class CSVToYAMLConverter:
