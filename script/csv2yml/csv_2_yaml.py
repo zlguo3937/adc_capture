@@ -13,11 +13,12 @@ class RegisterParser:
                                'INC_CNT', 'RCSYNC']
 
     def parse_bit_range(self, bit_range):
-        reg_range = bit_range.strip("[]")
+        reg_range = bit_range.strip()
+        int_range = reg_range.strip("[]")
         if ':' in reg_range:
-            msb, lsb = map(int, reg_range.split(":"))
+            msb, lsb = map(int, int_range.split(":"))
         else:
-            msb = lsb = int(reg_range)
+            msb = lsb = int(int_range)
         return msb, lsb
 
     def parse_reg_init(self, reset, msb, lsb):

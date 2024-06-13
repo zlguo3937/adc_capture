@@ -16,7 +16,7 @@ class RegfileParser:
                 width_str = f"[{reg['width'] - 1}:0]" if reg['width'] > 1 else ""
 
                 if reg_type in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
-                    port_declarations.add(f"    input   wire            is_mdio)\n")
+                    port_declarations.add(f"    input   wire             is_mdio")
 
                 if reg_type in ["RODEVSYNC", "RWRSYNC", "RWDSYNC", "RWDEVSYNC"]:
                     port_declarations.add(f"    input   wire            {reg['name']}_dev_clk")
