@@ -273,14 +273,12 @@ class RegfileParser:
         reset = reg['reset']
         width_str = f"[{width - 1}:0]" if width > 1 else ""
 
-        if reg_type in ["SC", "ROLH", "ROLL", "LHRC"]:
-            block = f"    Cell_{reg_type}\n"
-            block += f"    u_{reg_name}\n    (\n"
+        if width == 1:
+            block = f"    {reg_name}_{reg_type}\n"
+            block += f"    {reg_name}\n    (\n"
         else:
-            block = f"    Cell_{reg_type}#(\n"
-            block += f"        .DATA_WIDTH ({width}),\n"
-            block += f"        .INIT       ({int(reset, 16)})\n"
-            block += f"    ) u_{reg_name}\n    (\n"
+            block = f"    {reg_name}_{reg_type}_{width}\n"
+            block += f"    u_{reg_name}\n    (\n"
 
         block += f"    .clk            ({reg_name}_clk),\n"
         block += f"    .rstn           ({reg_name}_rstn),\n"
