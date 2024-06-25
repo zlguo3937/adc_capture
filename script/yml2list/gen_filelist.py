@@ -9,16 +9,22 @@ class FileListGenerator:
         self.output_dir = output_dir
 
     def generate_filelist(self):
-        # 读取YAML文件
         with open(self.yml_path, 'r') as file:
             data = yaml.safe_load(file)
 
-        # 获取YAML文件的目录
         yml_dir = os.path.dirname(os.path.abspath(self.yml_path))
 
-        # 生成绝对路径列表并写入对应的文件
+        file_dict = {}
+        for item in data:
+            if 'filelist' in item:
+                for fileset in item['filelist']:
+                    for key, paths in fileset.items():
+                        file_dict[key] = [os.path.abspath(os.path.join(yml_dir, path)) for path in paths]
+
         for section in data:
             for key, items in section.items():
+                if key == 'filelist':
+                    continue
                 define_list = []
                 incdir_list = []
                 filelist = []
@@ -29,10 +35,9 @@ class FileListGenerator:
                         for path in item['incdir']:
                             absolute_path = os.path.abspath(os.path.join(yml_dir, path))
                             incdir_list.append(f"+incdir+{absolute_path}")
-                    elif 'filelist' in item:
-                        for path in item['filelist']:
-                            absolute_path = os.path.abspath(os.path.join(yml_dir, path))
-                            filelist.append(absolute_path)
+                    elif 'fileset' in item:
+                        for fs in item['fileset']:
+                            filelist.extend(file_dict[fs])
 
                 output_file_path = os.path.join(self.output_dir, f"{key}.f")
                 with open(output_file_path, 'w') as output_file:

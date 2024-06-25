@@ -1,0 +1,1 @@
+./connect_verilog.pl -file_list ./file_list -output ./top_design.v

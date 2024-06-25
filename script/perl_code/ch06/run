@@ -1,0 +1,1 @@
+./run_drc.pl -lib library_name -cell cell_name

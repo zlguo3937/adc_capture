@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+
+my $to_check = "./check_e";
+if ( -e $to_check ) {
+    print "file or directory $to_check.\n";
+}
+else {
+    print "file or directory $to_check does not exist.\n"
+}

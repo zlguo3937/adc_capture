@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+use lib "../perl_module";
+use My_perl_module_v2;
+
+my %rule_of_opt = (
+    '-s' => {
+                'perl_type' => 'scalar',
+            },
+    '-a' => {
+                'perl_type' => 'array',
+            },
+);
+my (%value_of_opt);
+Handle_argv( \@ARGV, \%rule_of_opt, \%value_of_opt );
+print_array( \%value_of_opt );
+
+exit 0;
+### sub
+sub print_array {
+    my ($hv) = @_;
+    for my $opt ( keys %$hv ) {
+        print "$opt =>";
+        for my $pv ( @{ $hv->{$opt} } ) {
+            print " $pv";
+        }
+        print "\n";
+    }
+} # print_array

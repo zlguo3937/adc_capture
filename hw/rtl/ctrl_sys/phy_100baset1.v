@@ -1,0 +1,42 @@
+module phy_100baset1(
+    // ----------------- regfile wdata & rdata -----------------
+    input [7:0]     top_rf_REG1_15_8_rdata,
+    input [3:0]     top_rf_REG1_7_4_rdata,
+    input [7:0]     top_rf_REG2_15_8_rdata,
+    input [3:0]     top_rf_REG2_7_4_rdata,
+    input [7:0]     top_rf_REG3_15_8_rdata,
+    input [3:0]     top_rf_REG3_7_4_rdata,
+    input [7:0]     top_rf_REG4_15_8_rdata,
+    input [3:0]     top_rf_REG4_7_4_rdata,
+    input [7:0]     top_rf_REG5_15_8_rdata,
+    input [3:0]     top_rf_REG5_7_4_rdata,
+    input [7:0]     top_rf_REG6_15_8_rdata,
+    input [3:0]     top_rf_REG6_7_4_rdata,
+    input           top_rf_REG1_1_rdata,
+    input           top_rf_REG2_1_rdata,
+    input           top_rf_REG3_1_rdata,
+    input           top_rf_REG4_1_rdata,
+    input           top_rf_REG5_1_rdata,
+    input           top_rf_REG6_1_rdata,
+
+    input [7:0]     pcs_rf_REG1_15_8_rdata,
+    input [3:0]     pcs_rf_REG1_7_4_rdata,
+    input [7:0]     pcs_rf_REG2_15_8_rdata,
+    input [3:0]     pcs_rf_REG2_7_4_rdata,
+    input [7:0]     pcs_rf_REG3_15_8_rdata,
+    input [3:0]     pcs_rf_REG3_7_4_rdata,
+    input [7:0]     pcs_rf_REG4_15_8_rdata,
+    input [3:0]     pcs_rf_REG4_7_4_rdata,
+    input [7:0]     pcs_rf_REG5_15_8_rdata,
+    input [3:0]     pcs_rf_REG5_7_4_rdata,
+    input [7:0]     pcs_rf_REG6_15_8_rdata,
+    input [3:0]     pcs_rf_REG6_7_4_rdata,
+    input           pcs_rf_REG1_1_rdata,
+    input           pcs_rf_REG2_1_rdata,
+    input           pcs_rf_REG3_1_rdata,
+    input           pcs_rf_REG4_1_rdata,
+    input           pcs_rf_REG5_1_rdata,
+    input           pcs_rf_REG6_1_rdata
+);
+
+endmodule

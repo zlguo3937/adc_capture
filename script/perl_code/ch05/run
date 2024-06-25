@@ -1,0 +1,1 @@
+./run_pvt.pl -netlist ./input_netlist/input_netlist.txt -run_dir ./run_dir -volt_name val_vdda -net_name tocheck -report ./run_dir/output.csv

@@ -142,7 +142,7 @@ class RegfileParser:
             address = group['address']
             addr_address_sel = "addr_" + group['address'] + "_sel"
             addr_selects_assigns.append(
-                f"    assign  {addr_address_sel:15} = (req_paddr == {int(address,16)}) & req_psel & req_penable;")
+                f"    assign  {addr_address_sel:15} = (req_addr == {int(address,16)}) & req_sel;")
         return addr_selects_assigns
 
     def get_bus_is_mdio_assigns(self, yaml_data):
@@ -162,7 +162,7 @@ class RegfileParser:
                 if reg['type'] in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "SC", "CMRW", "CMRO",
                                    "CMRC", "MCRO", "MCRC", "LHRC"]:
                     reg_name_bus_we = reg['name'] + "_bus_we"
-                    bus_we_assigns.append(f"    assign  {reg_name_bus_we:30} = addr_{address}_sel & req_pwrite;")
+                    bus_we_assigns.append(f"    assign  {reg_name_bus_we:30} = addr_{address}_sel & req_write;")
         return bus_we_assigns
 
     def get_bus_wdata_assigns(self, yaml_data):
@@ -174,10 +174,10 @@ class RegfileParser:
                     reg_name_bus_wdata = reg['name'] + "_bus_wdata"
                     if reg['msb'] == reg['lsb']:
                         bus_wdata_assigns.append(
-                            f"    assign  {reg_name_bus_wdata:30} = req_pwdata[{reg['msb']}];")
+                            f"    assign  {reg_name_bus_wdata:30} = req_wdata[{reg['msb']}];")
                     else:
                         bus_wdata_assigns.append(
-                            f"    assign  {reg_name_bus_wdata:30} = req_pwdata[{reg['msb']}:{reg['lsb']}];")
+                            f"    assign  {reg_name_bus_wdata:30} = req_wdata[{reg['msb']}:{reg['lsb']}];")
         return bus_wdata_assigns
 
     def get_bus_re_assigns(self, yaml_data):
@@ -187,12 +187,20 @@ class RegfileParser:
             for reg in group['register']:
                 if reg['type'] in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC"]:
                     reg_name_bus_re = reg['name'] + "_bus_re"
-                    bus_re_assigns.append(f"    assign  {reg_name_bus_re:30} = addr_{address}_sel & ~pwrite;")
+                    bus_re_assigns.append(f"    assign  {reg_name_bus_re:30} = addr_{address}_sel & ~req_write;")
         return bus_re_assigns
 
-    def get_bus_rdata_assigns(self):
-        bus_rdata_assigns = [f"    assign  {'req_prdata':20} = sel_0x0_bus_rdata;"]
+    def get_bus_rdata_logic(self):
+        # bus_rdata_assigns = [f"    assign  {'req_rdata':20} = sel_0x0_bus_rdata;"]
+        bus_rdata_assigns = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n            "
+                             f"req_rdata <= 16'h0;\n        else\n            req_rdata <= sel_0x0_bus_rdata;\n    end"]
         return bus_rdata_assigns
+
+    def get_bus_ready_logic(self):
+        # bus_ready_assigns = [f"    assign  {'req_ready':20} = req_psel;"]
+        bus_ready_logic = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n"
+                           f"            req_ready <= 1'b0;\n        else\n            req_ready <= req_sel;\n    end"]
+        return bus_ready_logic
 
     def get_addr_selects_bus_rdata_assigns(self, yaml_data):
         addr_selects_bus_rdata_assigns = []
@@ -252,10 +260,10 @@ class RegfileParser:
             if i < len(yaml_data) - 1:
                 next_address = yaml_data[i + 1]['address']
                 sel_addr_bus_rdata_assigns.append(
-                    f"    assign  {sel_address_bus_rdata:20} = (addr_{address}_sel & ~req_pwrite) ? addr_{address}_sel_bus_rdata : sel_{next_address}_bus_rdata;\n")
+                    f"    assign  {sel_address_bus_rdata:20} = (addr_{address}_sel & ~req_write) ? addr_{address}_sel_bus_rdata : sel_{next_address}_bus_rdata;\n")
             else:
                 sel_addr_bus_rdata_assigns.append(
-                    f"    assign  {sel_address_bus_rdata:20} = (addr_{address}_sel & ~req_pwrite) ? addr_{address}_sel_bus_rdata : 16'h0;\n")
+                    f"    assign  {sel_address_bus_rdata:20} = (addr_{address}_sel & ~req_write) ? addr_{address}_sel_bus_rdata : 16'h0;\n")
         return sel_addr_bus_rdata_assigns
 
     def create_register_block(self, reg):
@@ -332,14 +340,13 @@ module {module_name}
     input   wire             clk,
     input   wire             rstn,
  
-    input   wire    [20:0]   req_paddr,
-    input   wire             req_pwrite,
-    input   wire             req_psel,
-    input   wire             req_penable,
-    input   wire    [15:0]   req_pwdata,
+    input   wire    [20:0]   req_addr,
+    input   wire             req_write,
+    input   wire             req_sel,
+    input   wire    [15:0]   req_wdata,
  
-    output  wire             req_pready,
-    output  wire    [15:0]   req_prdata,
+    output  reg              req_ready,
+    output  reg     [15:0]   req_rdata,
 
 ''').format(module_name=module_name)
 
@@ -368,7 +375,8 @@ module {module_name}
         bus_we_assigns = self.get_bus_we_assigns(yaml_data)
         bus_wdata_assigns = self.get_bus_wdata_assigns(yaml_data)
         bus_re_assigns = self.get_bus_re_assigns(yaml_data)
-        bus_rdata_assigns = self.get_bus_rdata_assigns()
+        bus_rdata_logic = self.get_bus_rdata_logic()
+        bus_ready_logic = self.get_bus_ready_logic()
 
         addr_selects_assigns = self.get_addr_selects_assigns(yaml_data)
         addr_selects_bus_rdata_assigns = self.get_addr_selects_bus_rdata_assigns(yaml_data)
@@ -410,25 +418,27 @@ module {module_name}
 
         verilog_content += "\n".join(rstn_assigns) + "\n\n"
 
-        verilog_content += "    // whitch address be selected: req_psel & req_penable + req_paddr\n"
+        verilog_content += "    // whitch address be selected: req_sel + req_addr\n"
         verilog_content += "\n".join(addr_selects_assigns) + "\n\n"
 
-        verilog_content += "    // bus_we: addr_{address}_sel & req_pwrite\n"
+        verilog_content += "    // bus_we: addr_{address}_sel & req_write\n"
         verilog_content += "\n".join(bus_is_mdio_assigns) + "\n\n"
-        verilog_content += "    // bus_re: addr_{address}_sel & ~req_pwrite\n"
+        verilog_content += "    // bus_re: addr_{address}_sel & ~req_write\n"
         verilog_content += "\n".join(bus_re_assigns) + "\n\n"
 
-        verilog_content += "    // bus_we: addr_{address}_sel & req_pwrite\n"
+        verilog_content += "    // bus_we: addr_{address}_sel & req_write\n"
         verilog_content += "\n".join(bus_we_assigns) + "\n\n"
 
-        verilog_content += "    // req_pwdata: bus_wdata\n"
+        verilog_content += "    // req_wdata: bus_wdata\n"
         verilog_content += "\n".join(bus_wdata_assigns) + "\n\n"
 
         verilog_content += "    // addr_{address}_sel_bus_rdata = {registers bus_rdata}\n"
         verilog_content += "\n".join(addr_selects_bus_rdata_assigns) + "\n\n"
 
-        verilog_content += "    // req_prdata: bus_rdata\n"
-        verilog_content += "\n".join(bus_rdata_assigns) + "\n"
+        verilog_content += "    // req_rdata: bus_rdata\n"
+        verilog_content += "\n".join(bus_rdata_logic) + "\n"
+        verilog_content += "\n    // req_ready: bus_ready\n"
+        verilog_content += "\n".join(bus_ready_logic) + "\n"
         verilog_content += "".join(sel_addr_bus_rdata_assigns) + "\n"
 
         verilog_content += "\n".join(register_inst) + "\n"

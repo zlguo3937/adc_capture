@@ -5,22 +5,20 @@
 #     - +define+UNIT_DELY
 #   - incdir:
 #     - hw/rtl/common_ip
-#   - filelist:
-#     - hw/rtl/common_ip/pulse_handshake.v
-#     - hw/rtl/common_ip/multi_handshake.v
-#     - hw/rtl/common_ip/synchronizer.v
+#   - fileset: []
 # Example 2:
 # - rtl_syn:
-#   - filelist:
-#     - hw/rtl/common_ip/pulse_handshake.v
-#     - hw/rtl/common_ip/multi_handshake.v
-#     - hw/rtl/common_ip/synchronizer.v
+#   - fileset:[]
 #
 # Note: If there is no 'define' or 'incdir' information,
 # make sure no define or incdir line !
 # **************************************************************************
-- rtl_syn:
-  - filelist:
+- filelist:
+  - crg:
+    - hw/rtl/clk_rst_gen/clk_gen.v
+    - hw/rtl/clk_rst_gen/rst_gen.v
+    - hw/rtl/clk_rst_gen/crg.v
+  - common_ip:
     - hw/rtl/common_ip/pulse_handshake.v
     - hw/rtl/common_ip/multi_handshake.v
     - hw/rtl/common_ip/synchronizer.v
@@ -33,29 +31,21 @@
     - hw/rtl/common_ip/jlsemi_util_clkbuf.v
     - hw/rtl/common_ip/jlsemi_util_and_cell.v
     - hw/rtl/common_ip/jlsemi_util_mux_cell.v
-    - hw/rtl/clk_rst_gen/clk_gen.v
-    - hw/rtl/clk_rst_gen/rst_gen.v
-    - hw/rtl/clk_rst_gen/crg.v
-    - hw/rtl/top/DIGITAL_WRAPPER.v
-    - hw/rtl/top/ASIC.v
-    - hw/rtl/top/analog_signal_mux.v
-    - hw/rtl/top/iopad_top.v
-    - hw/rtl/top/iopad_pdd_inst.v
-    - hw/rtl/top/iopad_pdu_inst.v
-    - hw/rtl/analog/ANALOG_WRAPPER.sv
-    - hw/rtl/pktctrl/pktctrl_top.v
-    - hw/rtl/pktctrl/package_ctrl.v
-    - hw/rtl/pktctrl/gen_write_logic.v
-    - hw/rtl/pktctrl/gen_read_logic_mdio.v
-    - hw/rtl/pktctrl/gen_read_logic_fast.v
-    - hw/rtl/pktctrl/package_gen.v
-    - hw/rtl/pktctrl/package_data_sel.v
-    - hw/rtl/pktctrl/memory_ctrl.v
-    - hw/rtl/pktctrl/memory_inst.v
+  - ctrl_sys:
+    - hw/rtl/ctrl_sys/arbiter.v
+    - hw/rtl/ctrl_sys/bus_sel.v
+    - hw/rtl/ctrl_sys/reg_mapper.v
+    - hw/rtl/ctrl_sys/handshake.v
+    - hw/rtl/ctrl_sys/arbiter_handshake.v
+    - hw/rtl/ctrl_sys/mdio_converter.v
+    - hw/rtl/ctrl_sys/mdio_converter_timer.v
     - hw/rtl/ctrl_sys/ctrl_sys.v
-    - builds/verilog/register_cells.v
-    - builds/verilog/top_regfile.v
+    - hw/rtl/ctrl_sys/ctrl_sys1.v
     - hw/rtl/ctrl_sys/cdc_500_200.v
+    - hw/rtl/ctrl_sys/cpu_top.v
+    - hw/rtl/ctrl_sys/rom.v
+    - hw/rtl/ctrl_sys/ram.v
+  - mdio:
     - hw/rtl/ctrl_sys/mdio/mdio_top.v
     - hw/rtl/ctrl_sys/mdio/mdio_slave_45_backend.v
     - hw/rtl/ctrl_sys/mdio/watchdog_mdio.v
@@ -65,53 +55,39 @@
     - hw/rtl/ctrl_sys/mdio/cdc_1clk_signal.v
     - hw/rtl/ctrl_sys/mdio/cdc_200m_100m.v
     - hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_backend.v
-
-- rtl_sim:
-  - filelist:
+  - io_pad:
+    - hw/rtl/top/iopad_top.v
+    - hw/rtl/top/iopad_pdu_inst.v
+    - hw/rtl/top/iopad_pdd_inst.v
+  - pktctrl:
+    - hw/rtl/pktctrl/pktctrl_top.v
+    - hw/rtl/pktctrl/package_ctrl.v
+    - hw/rtl/pktctrl/gen_write_logic.v
+    - hw/rtl/pktctrl/gen_read_logic_mdio.v
+    - hw/rtl/pktctrl/gen_read_logic_fast.v
+    - hw/rtl/pktctrl/package_gen.v
+    - hw/rtl/pktctrl/package_data_sel.v
+    - hw/rtl/pktctrl/memory_ctrl.v
+    - hw/rtl/pktctrl/memory_inst.v
+  - top:
+    - hw/rtl/analog/ANALOG_WRAPPER.sv
+    - hw/rtl/top/analog_signal_mux.v
+    - hw/rtl/top/DIGITAL_WRAPPER.v
+    - hw/rtl/top/ASIC.v
+  - regfile:
+    - builds/verilog/top_regfile.v
+    - builds/verilog/register_cells.v
+  - ip_model:
     - hw/library/tphn28hpcpgv18.v
     - hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/VERILOG/ts1n28hpcpsvtb32768x36m16swso_180a_ffg0p99v125c.v
-    - hw/rtl/common_ip/pulse_handshake.v
-    - hw/rtl/common_ip/multi_handshake.v
-    - hw/rtl/common_ip/synchronizer.v
-    - hw/rtl/common_ip/jlsemi_util_async_reset_low_sync.v
-    - hw/rtl/common_ip/jlsemi_util_sync_pos_with_rst_low.v
-    - hw/rtl/common_ip/jlsemi_util_clkdiv_even_with_cfg.v
-    - hw/rtl/common_ip/jlsemi_util_clkdiv_even_with_phase.v
-    - hw/rtl/common_ip/jlsemi_util_clkgate.v
-    - hw/rtl/common_ip/jlsemi_util_clkmux_sel1.v
-    - hw/rtl/common_ip/jlsemi_util_clkbuf.v
-    - hw/rtl/common_ip/jlsemi_util_and_cell.v
-    - hw/rtl/common_ip/jlsemi_util_mux_cell.v
-    - hw/rtl/clk_rst_gen/clk_gen.v
-    - hw/rtl/clk_rst_gen/rst_gen.v
-    - hw/rtl/clk_rst_gen/crg.v
-    - hw/rtl/top/DIGITAL_WRAPPER.v
-    - hw/rtl/top/ASIC.v
-    - hw/rtl/top/analog_signal_mux.v
-    - hw/rtl/top/iopad_top.v
-    - hw/rtl/top/iopad_pdd_inst.v
-    - hw/rtl/top/iopad_pdu_inst.v
-    - hw/rtl/analog/ANALOG_WRAPPER.sv
-    - hw/rtl/pktctrl/pktctrl_top.v
-    - hw/rtl/pktctrl/package_ctrl.v
-    - hw/rtl/pktctrl/gen_write_logic.v
-    - hw/rtl/pktctrl/gen_read_logic_mdio.v
-    - hw/rtl/pktctrl/gen_read_logic_fast.v
-    - hw/rtl/pktctrl/package_gen.v
-    - hw/rtl/pktctrl/package_data_sel.v
-    - hw/rtl/pktctrl/memory_ctrl.v
-    - hw/rtl/pktctrl/memory_inst.v
-    - hw/rtl/ctrl_sys/ctrl_sys.v
-    - builds/verilog/register_cells.v
-    - builds/verilog/top_regfile.v
-    - hw/rtl/ctrl_sys/cdc_500_200.v
-    - hw/rtl/ctrl_sys/mdio/mdio_top.v
-    - hw/rtl/ctrl_sys/mdio/mdio_slave_45_backend.v
-    - hw/rtl/ctrl_sys/mdio/watchdog_mdio.v
-    - hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_frontend_async.v
-    - hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_frontend_sync.v
-    - hw/rtl/ctrl_sys/mdio/mdio_slave_22_backend.v
-    - hw/rtl/ctrl_sys/mdio/cdc_1clk_signal.v
-    - hw/rtl/ctrl_sys/mdio/cdc_200m_100m.v
-    - hw/rtl/ctrl_sys/mdio/mdio_slave_22_45_backend.v
+  - simulation:
     - design_dv/tb/tb_ASIC.sv
+- rtl_syn:
+  - define:
+    - +define+UNIT_DELY
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile, ip_model]
+
+- rtl_sim:
+  - define:
+    - +define+UNIT_DELY
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile, ip_model, simulation]

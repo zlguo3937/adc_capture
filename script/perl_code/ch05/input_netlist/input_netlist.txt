@@ -1,0 +1,15 @@
+// set voltage
+parameters val_vdda=2.3 other=100
+
+// set temperature
+temp=-40
+
+include "./model" section=tt
+
+subckt ...
+...
+ends ...
+
+output tocheck
+
+...

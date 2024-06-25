@@ -1,0 +1,1 @@
+Maybe you need update the first line(path of Perl) in ./eda_command/*.pl
