@@ -66,5 +66,4 @@
 ,,,,,,,,,,
 #,CRG_CFG_3,CRG_CFG,,,,,,,,
 ,# addr=0xb,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[1],0x1,RWR,rf_pktctrl_sw_rstn,,,,,,
-,[0],0x1,RWR,rf_regfile_sw_rstn,,,,,,
+,[0],0x1,RWR,rf_pktctrl_sw_rstn,,,,,,
