@@ -40,7 +40,6 @@
     - hw/rtl/ctrl_sys/mdio_converter.v
     - hw/rtl/ctrl_sys/mdio_converter_timer.v
     - hw/rtl/ctrl_sys/ctrl_sys.v
-    - hw/rtl/ctrl_sys/ctrl_sys1.v
     - hw/rtl/ctrl_sys/cdc_500_200.v
     - hw/rtl/ctrl_sys/cpu_top.v
     - hw/rtl/ctrl_sys/rom.v
