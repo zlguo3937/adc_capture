@@ -142,7 +142,7 @@ class RegfileParser:
             address = group['address']
             addr_address_sel = "addr_" + group['address'] + "_sel"
             addr_selects_assigns.append(
-                f"    assign  {addr_address_sel:15} = (req_paddr == 21'h{address}) & req_psel & req_penable;")
+                f"    assign  {addr_address_sel:15} = (req_paddr == {int(address,16)}) & req_psel & req_penable;")
         return addr_selects_assigns
 
     def get_bus_is_mdio_assigns(self, yaml_data):
@@ -382,14 +382,10 @@ module {module_name}
         verilog_content += "    // Reset Wires\n"
         verilog_content += "\n".join(rstn_wires) + "\n\n"
 
-        for group in yaml_data:
-            for reg in group['register']:
-                if reg['type'] in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
-                    verilog_content += "    // Bus is_mdio Wires\n"
-                    verilog_content += "\n".join(is_mdio_wires) + "\n\n"
-                elif reg['type'] in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC"]:
-                    verilog_content += "    // Bus re Wires\n"
-                    verilog_content += "\n".join(bus_re_wires) + "\n\n"
+        verilog_content += "    // Bus is_mdio Wires\n"
+        verilog_content += "\n".join(is_mdio_wires) + "\n\n"
+        verilog_content += "    // Bus re Wires\n"
+        verilog_content += "\n".join(bus_re_wires) + "\n\n"
 
         verilog_content += "    // Bus we Wires\n"
         verilog_content += "\n".join(bus_we_wires) + "\n\n"
@@ -417,14 +413,10 @@ module {module_name}
         verilog_content += "    // whitch address be selected: req_psel & req_penable + req_paddr\n"
         verilog_content += "\n".join(addr_selects_assigns) + "\n\n"
 
-        for group in yaml_data:
-            for reg in group['register']:
-                if reg['type'] in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
-                    verilog_content += "    // bus_we: addr_{address}_sel & req_pwrite\n"
-                    verilog_content += "\n".join(bus_is_mdio_assigns) + "\n\n"
-                elif reg['type'] in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC"]:
-                    verilog_content += "    // bus_re: addr_{address}_sel & ~req_pwrite\n"
-                    verilog_content += "\n".join(bus_re_assigns) + "\n\n"
+        verilog_content += "    // bus_we: addr_{address}_sel & req_pwrite\n"
+        verilog_content += "\n".join(bus_is_mdio_assigns) + "\n\n"
+        verilog_content += "    // bus_re: addr_{address}_sel & ~req_pwrite\n"
+        verilog_content += "\n".join(bus_re_assigns) + "\n\n"
 
         verilog_content += "    // bus_we: addr_{address}_sel & req_pwrite\n"
         verilog_content += "\n".join(bus_we_assigns) + "\n\n"
