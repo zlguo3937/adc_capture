@@ -10,7 +10,7 @@ class RegisterParser:
                                'RWDSYNC', 'RWDEVSYNC', 'CONST', 'SC', 'RC',
                                'ROLH', 'ROLL', 'CMRW', 'CMRO', 'CMRC',
                                'MCRO', 'MCRC', 'LHRC', 'CPUROLH', 'CPUROLL',
-                               'INC_CNT', 'RCSYNC']
+                               'INC_CNT', 'RCSYNC', 'RAW']
 
     def parse_bit_range(self, bit_range):
         reg_range = bit_range.strip()
