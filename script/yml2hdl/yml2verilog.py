@@ -37,30 +37,6 @@ class RegfileParser:
 
         return port_declarations
 
-    def get_clk_wires(self, yaml_data):
-        clk_wires = []
-        for group in yaml_data:
-            for reg in group['register']:
-                if reg['type'] not in ["CONST"]:
-                    clk_wires.append(f"    {'wire' :<16}{reg['name']}_clk;")
-        return clk_wires
-
-    def get_rstn_wires(self, yaml_data):
-        rstn_wires = []
-        for group in yaml_data:
-            for reg in group['register']:
-                if reg['type'] not in ["CONST"]:
-                    rstn_wires.append(f"    {'wire' :<16}{reg['name']}_rstn;")
-        return rstn_wires
-
-    def get_is_mdio_wires(self, yaml_data):
-        is_mdio_wires = []
-        for group in yaml_data:
-            for reg in group['register']:
-                if reg['type'] in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
-                    is_mdio_wires.append(f"    {'wire' :<16}{reg['name']}_is_mdio;")
-        return is_mdio_wires
-
     def get_bus_we_wires(self, yaml_data):
         bus_we_wires = []
         for group in yaml_data:
@@ -124,20 +100,11 @@ class RegfileParser:
     def get_addr_selects_assigns(self, yaml_data):
         addr_selects_assigns = []
         for group in yaml_data:
-            address = group['address']
+            address = group['address'][2:]
             addr_address_sel = "addr_" + group['address'] + "_sel"
             addr_selects_assigns.append(
-                f"    assign  {addr_address_sel:15} = (req_addr == {int(address, 16)}) & req_sel;")
+                f"    assign  {addr_address_sel:15} = (req_addr == 21'h{address}) & req_sel;")
         return addr_selects_assigns
-
-    def get_bus_is_mdio_assigns(self, yaml_data):
-        bus_is_mdio_assigns = []
-        for group in yaml_data:
-            for reg in group['register']:
-                if reg['type'] in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
-                    reg_name_is_mdio = reg['name'] + "_is_mdio"
-                    bus_is_mdio_assigns.append(f"    assign  {reg_name_is_mdio:30} = rstn;")
-        return bus_is_mdio_assigns
 
     def get_bus_we_assigns(self, yaml_data):
         bus_we_assigns = []
@@ -232,7 +199,6 @@ class RegfileParser:
                     addr_selects_bus_rdata,
                     ', '.join(addr_sel_bus_rdata)
                 )
-                # f"    assign {addr_selects_bus_rdata:25} = {{{', '.join(addr_sel_bus_rdata)}}};"
             )
 
         return addr_selects_bus_rdata_assigns
@@ -274,8 +240,8 @@ class RegfileParser:
         if reg_type in ["CPUROLH", "CPUROLL", "RODSYNC", "RWDSYNC", "ROD", "RWD"]:
             block += f"    .sw_rstn        ({reg['name']}_sw_rstn),\n"
 
-        if reg_type in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
-            block += f"    .is_mdio        ({reg_name}_is_mdio),\n"
+        if reg_type in ["CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
+            block += f"    .is_mdio        (is_mdio),\n"
 
         if reg_type in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "SC", "CMRW", "CMRO", "CMRC", "MCRO",
                         "MCRC", "LHRC", "INC_CNT", "RAW", "CPUROLH", "CPUROLL"]:
@@ -286,12 +252,12 @@ class RegfileParser:
             block += f"    .bus_re         ({reg_name}_bus_re),\n"
 
         if reg_type in ["INC_CNT"]:
-            block += f"    .bus_clr         ({reg_name}_bus_clr),\n"
+            block += f"    .bus_clr        ({reg_name}_bus_clr),\n"
 
         if reg_type in ["RAW"]:
-            block += f"    .raw_dev_we      ({reg_name}_raw_dev_we),\n"
-            block += f"    .raw_dev_wdata   ({reg_name}_raw_dev_wdata),\n"
-            block += f"    .raw_dev_rdata   ({reg_name}_raw_dev_rdata),\n"
+            block += f"    .raw_dev_we     ({reg_name}_raw_dev_we),\n"
+            block += f"    .raw_dev_wdata  ({reg_name}_raw_dev_wdata),\n"
+            block += f"    .raw_dev_rdata  ({reg_name}_raw_dev_rdata),\n"
 
         if reg_type in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RODEVSYNC", "RWRSYNC",
                         "RWDSYNC", "RWDEVSYNC", "RC", "ROLH", "ROLL", "CMRW", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC",
@@ -333,7 +299,7 @@ class RegfileParser:
         reg_name = reg['name']
         reg_type = reg['type']
         WIDTH = reg['width']
-        INIT = int(reg['reset'], 16)
+        INIT = hex(int(reg['reset'],16))[2:]
         if WIDTH == 1:
             module_name = f"{reg_name}_{reg_type}"
         else:
@@ -368,7 +334,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else
             cell_data   <=  dev_wdata;
     end
@@ -846,7 +812,7 @@ module {module_name}
             cell_data   <=  1'b0;
         else if (_T_6)
             cell_data   <=  bus_wdata;
-        else if (bus_rd)
+        else if (bus_re)
             cell_data   <=  1'h0;
     end
 
@@ -856,7 +822,7 @@ module {module_name}
         else if (_T_3)
             lock_state   <=  _GEN_1;
         else if (lock_state) begin
-            if (bus_rd)
+            if (bus_re)
                 lock_state   <=  1'b0;
         end
     end
@@ -947,7 +913,7 @@ module {module_name}
             cell_data   <=  1'b0;
         else if (_T_6)
             cell_data   <=  bus_wdata;
-        else if (bus_rd)
+        else if (bus_re)
             cell_data   <=  1'h0;
     end
 
@@ -957,7 +923,7 @@ module {module_name}
         else if (_T_3)
             lock_state   <=  _GEN_1;
         else if (lock_state) begin
-            if (bus_rd)
+            if (bus_re)
                 lock_state   <=  1'b0;
         end
     end
@@ -1466,7 +1432,7 @@ module {module_name}
     wire    [6:0]   _GEN_1;
     wire    [6:0]   _GEN_2;
 
-    assign _GEN_0 = bus_rd ? 6'h0 : cell_data;
+    assign _GEN_0 = bus_re ? 6'h0 : cell_data;
     assign IncResult = cell_data + bus_wdata;
     assign _T_1 = IncResult > 7'h3f;
     assign _T_2 = _T_1 ? 7'h3f : IncResult;
@@ -1517,11 +1483,6 @@ module {module_name}
         ports = self.get_port_declarations(yaml_data)
         verilog_content += ",\n".join(sorted(ports)) + "\n);\n\n"
 
-        # Generate internal wires
-        clk_wires = self.get_clk_wires(yaml_data)
-        rstn_wires = self.get_rstn_wires(yaml_data)
-
-        is_mdio_wires = self.get_is_mdio_wires(yaml_data)
         bus_we_wires = self.get_bus_we_wires(yaml_data)
         bus_wdata_wires = self.get_bus_wdata_wires(yaml_data)
         bus_re_wires = self.get_bus_re_wires(yaml_data)
@@ -1534,7 +1495,6 @@ module {module_name}
         # clk_assigns = self.get_clk_assigns(yaml_data)
         # rstn_assigns = self.get_rstn_assigns(yaml_data)
 
-        bus_is_mdio_assigns = self.get_bus_is_mdio_assigns(yaml_data)
         bus_we_assigns = self.get_bus_we_assigns(yaml_data)
         bus_wdata_assigns = self.get_bus_wdata_assigns(yaml_data)
         bus_re_assigns = self.get_bus_re_assigns(yaml_data)
@@ -1548,14 +1508,6 @@ module {module_name}
         register_inst = self.get_register_instance(yaml_data)
         module_inst = self.get_module_instance(yaml_data)
 
-        verilog_content += "    // Clock Wires\n"
-        verilog_content += "\n".join(clk_wires) + "\n\n"
-
-        verilog_content += "    // Reset Wires\n"
-        verilog_content += "\n".join(rstn_wires) + "\n\n"
-
-        verilog_content += "    // Bus is_mdio Wires\n"
-        verilog_content += "\n".join(is_mdio_wires) + "\n\n"
         verilog_content += "    // Bus re Wires\n"
         verilog_content += "\n".join(bus_re_wires) + "\n\n"
 
@@ -1577,16 +1529,9 @@ module {module_name}
         verilog_content += "    // Select Bus rdata whitch Address Selected Wires\n"
         verilog_content += "\n".join(sel_addr_bus_rdata_wires) + "\n\n"
 
-        # verilog_content += "    // register clock and rstn\n"
-        # verilog_content += "\n".join(clk_assigns) + "\n\n"
-        #
-        # verilog_content += "\n".join(rstn_assigns) + "\n\n"
-
         verilog_content += "    // whitch address be selected: req_sel + req_addr\n"
         verilog_content += "\n".join(addr_selects_assigns) + "\n\n"
 
-        verilog_content += "    // bus_we: addr_{address}_sel & req_write\n"
-        verilog_content += "\n".join(bus_is_mdio_assigns) + "\n\n"
         verilog_content += "    // bus_re: addr_{address}_sel & ~req_write\n"
         verilog_content += "\n".join(bus_re_assigns) + "\n\n"
 
@@ -1607,7 +1552,7 @@ module {module_name}
 
         verilog_content += "\n".join(register_inst) + "\n"
 
-        verilog_content += "endmodule\n"
+        verilog_content += "endmodule\n\n"
 
         verilog_content += "\n".join(module_inst) + "\n"
 
