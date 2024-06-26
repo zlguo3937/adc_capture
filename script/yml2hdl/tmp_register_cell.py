@@ -391,6 +391,66 @@ endmodule
 //----------------------------------------------------------------------
 //  Type          MDIO            CPU           DEVice           sw_rstn
 //----------------------------------------------------------------------
+//  RCSYNC        read clear      read clear    write/we         False
+// ---------------------------------------------------------------------
+module Cell_RCSYNC
+#(
+    parameter   DATA_WIDTH = 16,
+    parameter   INIT = 16'h0
+)
+(
+    input                       clk,
+    input                       rstn,
+
+    input                       bus_re,
+    output  [DATA_WIDTH-1:0]    bus_rdata,
+
+    input                       dev_we,
+    input   [DATA_WIDTH-1:0]    dev_wdata
+);
+
+    reg     [1:0]               dev_we_dly;
+    reg     [DATA_WIDTH-1:0]    cell_data;
+    reg     [DATA_WIDTH-1:0]    cell_data_sync0;
+    reg     [DATA_WIDTH-1:0]    cell_data_sync1;
+    
+    assign bus_rdata = cell_data_sync1;
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            dev_we_dly   <=  2'b00;
+        else
+            dev_we_dly   <=  {dev_we_dly[0], dev_we,};
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            cell_data   <=  INIT;
+        else if (bus_re & (dev_we_dly == 2'b00))
+            cell_data   <=  INIT;
+        else if (dev_we)
+            cell_data   <=  dev_wdata;
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            cell_data_sync0   <=  INIT;
+        else
+            cell_data_sync0   <=  cell_data;
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            cell_data_sync1   <=  INIT;
+        else
+            cell_data_sync1   <=  cell_data_sync0;
+    end
+
+endmodule
+
+//----------------------------------------------------------------------
+//  Type          MDIO            CPU           DEVice           sw_rstn
+//----------------------------------------------------------------------
 //  ROLH          Latch high      Latch high    write            False
 // ---------------------------------------------------------------------
 module Cell_ROLH
@@ -426,6 +486,65 @@ module Cell_ROLH
             cell_data   <=  1'b0;
         else if (~cell_lock)
             cell_data   <=  dev_wdata;
+    end
+
+endmodule
+
+//----------------------------------------------------------------------
+//  Type          MDIO            CPU           DEVice           sw_rstn
+//----------------------------------------------------------------------
+//  CPUROLH       Latch high      Latch high    write            False
+// ---------------------------------------------------------------------
+module Cell_CPUROLH
+(
+    input                       clk,
+    input                       rstn,
+    input                       sw_rstn,
+
+    input                       bus_re,
+    output                      bus_rdata,
+    input                       bus_we,
+    input                       bus_wdata
+);
+
+    reg     cell_data;
+    wire    _T_1;
+    wire    _T_2;
+    reg     lock_state;
+    wire    _T_3;
+    wire    _GEN_1;
+    wire    _T_5;
+    wire    _T_6;
+    wire    _T_7;
+    assign  _T_1 = bus_wdata & bus_we;
+    assign  _T_2 = bus_we & _T_1;
+    assign  _T_3 = 1'h0 == lock_state;
+    assign  _GEN_1 = _T_2 | lock_state;
+    assign  _T_5 = 1'h0 == lock_state;
+    assign  _T_6 = bus_we & _T_5;
+    assign  _T_7 = ~sw_rstn;
+    assign  bus_rdata   =   cell_data;
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            cell_data   <=  1'b0;
+        else if (_T_7)
+            cell_data   <=  1'b0;
+        else if (_T_6)
+            cell_data   <=  bus_wdata;
+        else if (bus_rd)
+            cell_data   <=  1'h0;
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            lock_state   <=  1'b0;
+        else if (_T_3)
+            lock_state   <=  _GEN_1;
+        else if (lock_state) begin
+            if (bus_rd)
+                lock_state   <=  1'b0;
+        end
     end
 
 endmodule
@@ -469,6 +588,67 @@ module Cell_ROLL
             cell_data   <=  1'b0;
         else if (~cell_lock)
             cell_data   <=  dev_wdata;
+    end
+
+endmodule
+
+//----------------------------------------------------------------------
+//  Type          MDIO            CPU           DEVice           sw_rstn
+//----------------------------------------------------------------------
+//  CPUROLL       Latch low       Latch low     write            False
+// ---------------------------------------------------------------------
+module Cell_CPUROLL
+(
+    input                       clk,
+    input                       rstn,
+    input                       sw_rstn,
+
+    input                       bus_re,
+    output                      bus_rdata,
+    input                       bus_we,
+    input                       bus_wdata
+);
+
+    reg     cell_data;
+    wire    _T;
+    wire    _T_1;
+    wire    _T_2;
+    reg     lock_state;
+    wire    _T_3;
+    wire    _GEN_1;
+    wire    _T_5;
+    wire    _T_6;
+    wire    _T_7;
+    assign  _T = bus_wdata == 1'b0;
+    assign  _T_1 = _T & bus_we;
+    assign  _T_2 = bus_we & _T_1;
+    assign  _T_3 = 1'h0 == lock_state;
+    assign  _GEN_1 = _T_2 | lock_state;
+    assign  _T_5 = 1'h0 == lock_state;
+    assign  _T_6 = bus_we & _T_5;
+    assign  _T_7 = ~sw_rstn;
+    assign  bus_rdata   =   cell_data;
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            cell_data   <=  1'b0;
+        else if (_T_7)
+            cell_data   <=  1'b0;
+        else if (_T_6)
+            cell_data   <=  bus_wdata;
+        else if (bus_rd)
+            cell_data   <=  1'h0;
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            lock_state   <=  1'b0;
+        else if (_T_3)
+            lock_state   <=  _GEN_1;
+        else if (lock_state) begin
+            if (bus_rd)
+                lock_state   <=  1'b0;
+        end
     end
 
 endmodule
@@ -946,6 +1126,75 @@ module Cell_MCRC
             cell_data   <=  INIT;
         else if (cell_wen)
             cell_data   <=  bus_wdata;
+    end
+
+endmodule
+
+//----------------------------------------------------------------------
+//  Type          MDIO            CPU           DEVice           sw_rstn
+//----------------------------------------------------------------------
+//  RAW           read/write      read clear    ------           False
+// ---------------------------------------------------------------------
+module Cell_MCRC
+#(
+    parameter   DATA_WIDTH = 16,
+    parameter   INIT = 16'h0
+)
+(
+    input                       bus_we,
+    input   [DATA_WIDTH-1:0]    bus_wdata,
+    output  [DATA_WIDTH-1:0]    bus_rdata,
+
+    output                       raw_dev_we,
+    output   [DATA_WIDTH-1:0]    raw_dev_wdata,
+    input    [DATA_WIDTH-1:0]    raw_dev_rdata
+);
+
+    assign  raw_dev_we     =   bus_we;
+    assign  raw_dev_wdata  =   bus_wdata;
+    assign  bus_rdata      =   raw_dev_rdata;
+
+endmodule
+
+//----------------------------------------------------------------------
+//  Type          MDIO            CPU           DEVice           sw_rstn
+//----------------------------------------------------------------------
+//  INC_CNT       read/write      read clear    ------           False
+// ---------------------------------------------------------------------
+module Cell_INC_CNT
+(
+    input            clk,
+    input            rstn,
+
+    input            bus_we,
+    input   [5:0]    bus_wdata,
+    input            bus_re,
+    input            bus_clr,
+    output  [5:0]    bus_rdata
+
+);
+
+    reg     [5:0]   cell_data;
+    wire    [5:0]   _GEN_0;
+    wire    [6:0]   IncResult;
+    wire            _T_1;
+    wire    [6:0]   _T_2;
+    wire    [6:0]   _GEN_1;
+    wire    [6:0]   _GEN_2;
+
+    assign _GEN_0 = bus_rd ? 6'h0 : cell_data;
+    assign IncResult = cell_data + bus_wdata;
+    assign _T_1 = IncResult > 7'h3f;
+    assign _T_2 = _T_1 ? 7'h3f; : IncResult;
+    assign _GEN_1 = bus_we ? _T_2 : {{1'd0}, _GEN_0};
+    assign _GEN_2 = bus_clr ? 7'h0 : _GEN_1;
+    assign bus_rdata = cell_data;
+
+    always @(posedge clk or negedge rstn) begin
+        if (~rstn)
+            cell_data   <=  6'h0;
+        else
+            cell_data   <=  _GEN_2[5:0];
     end
 
 endmodule

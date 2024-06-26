@@ -75,7 +75,7 @@
     - hw/rtl/top/ASIC.v
   - regfile:
     - builds/verilog/top_regfile.v
-    - builds/verilog/register_cells.v
+    - builds/verilog/frontend_regfile.v
   - ip_model:
     - hw/library/tphn28hpcpgv18.v
     - hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/VERILOG/ts1n28hpcpsvtb32768x36m16swso_180a_ffg0p99v125c.v
