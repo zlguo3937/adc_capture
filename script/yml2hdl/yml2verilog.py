@@ -364,9 +364,9 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (~sw_rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else
             cell_data   <=  dev_wdata;
     end
@@ -396,7 +396,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (dev_we)
             cell_data   <=  dev_wdata;
     end
@@ -428,7 +428,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_we)
             cell_data   <=  bus_wdata;
     end
@@ -461,9 +461,9 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (~sw_rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_we)
             cell_data   <=  bus_wdata;
     end
@@ -497,7 +497,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_we)
             cell_data   <=  bus_wdata;
         else if (dev_we)
@@ -530,14 +530,14 @@ module {module_name}
     
     always @(posedge clk or negedge rstn) begin
       if (~rstn)
-        cell_data <= {INIT};
+        cell_data <= {WIDTH}'h{INIT};
       else
         cell_data <= sync_cell_1;
     end
 
     always @(posedge clk or negedge rstn) begin
       if (~rstn)
-        sync_cell_1 <= {INIT};
+        sync_cell_1 <= {WIDTH}'h{INIT};
       else
         sync_cell_1 <= sync_cell_0;
     end
@@ -545,7 +545,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
       if (~rstn)
-        sync_cell_0 <= {INIT};
+        sync_cell_0 <= {WIDTH}'h{INIT};
       else
         sync_cell_0 <= dev_wdata;
     end
@@ -577,16 +577,16 @@ module {module_name}
     
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data <= {INIT};
+            cell_data <= {WIDTH}'h{INIT};
         else if (~sw_rstn)
-            cell_data <= {INIT};
+            cell_data <= {WIDTH}'h{INIT};
         else
             cell_data <= sync_cell_1;
     end
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            sync_cell_1 <= {INIT};
+            sync_cell_1 <= {WIDTH}'h{INIT};
         else
             sync_cell_1 <= sync_cell_0;
     end
@@ -594,7 +594,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            sync_cell_0 <= {INIT};
+            sync_cell_0 <= {WIDTH}'h{INIT};
         else
             sync_cell_0 <= dev_wdata;
     end
@@ -660,9 +660,9 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_re)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (dev_we)
             cell_data   <=  dev_wdata;
     end
@@ -703,23 +703,23 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_re & (dev_we_dly == 2'b00))
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (dev_we)
             cell_data   <=  dev_wdata;
     end
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data_sync0   <=  {INIT};
+            cell_data_sync0   <=  {WIDTH}'h{INIT};
         else
             cell_data_sync0   <=  cell_data;
     end
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data_sync1   <=  {INIT};
+            cell_data_sync1   <=  {WIDTH}'h{INIT};
         else
             cell_data_sync1   <=  cell_data_sync0;
     end
@@ -952,7 +952,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_we)
             cell_data   <=  bus_wdata;
     end
@@ -984,7 +984,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (cell_wen)
             cell_data   <=  bus_wdata;
     end
@@ -1019,9 +1019,9 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (mdio_rc)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (cell_wen)
             cell_data   <=  bus_wdata;
     end
@@ -1106,21 +1106,21 @@ module {module_name}
 
     always @(posedge clk or negedge dev_rstn) begin
         if (~dev_rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_we)
             cell_data   <=  bus_wdata;
     end
 
     always @(posedge dev_clk or negedge dev_rstn) begin
         if (~dev_rstn)
-            sync_cell_data_0    <=  {INIT};
+            sync_cell_data_0    <=  {WIDTH}'h{INIT};
         else
             sync_cell_data_0    <=  cell_data;
     end
 
     always @(posedge dev_clk or negedge dev_rstn) begin
         if (~dev_rstn)
-            sync_cell_data_1    <=  {INIT};
+            sync_cell_data_1    <=  {WIDTH}'h{INIT};
         else
             sync_cell_data_1    <=  sync_cell_data_0;
     end
@@ -1157,23 +1157,23 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (~sw_rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_we)
             cell_data   <=  bus_wdata;
     end
 
     always @(posedge dev_clk or negedge dev_rstn) begin
         if (~dev_rstn)
-            sync_cell_data_0    <=  {INIT};
+            sync_cell_data_0    <=  {WIDTH}'h{INIT};
         else
             sync_cell_data_0    <=  cell_data;
     end
 
     always @(posedge dev_clk or negedge dev_rstn) begin
         if (~dev_rstn)
-            sync_cell_data_1    <=  {INIT};
+            sync_cell_data_1    <=  {WIDTH}'h{INIT};
         else
             sync_cell_data_1    <=  sync_cell_data_0;
     end
@@ -1209,7 +1209,7 @@ module {module_name}
 
     always @(posedge dev_clk or negedge dev_rstn) begin
         if (~dev_rstn)
-            sync_dev_wdata <= {INIT};
+            sync_dev_wdata <= {WIDTH}'h{INIT};
         else if (dev_we)
             sync_dev_wdata <= dev_wdata;
     end
@@ -1237,7 +1237,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data <= {INIT};
+            cell_data <= {WIDTH}'h{INIT};
         else if (sync_dev_we_1)
             cell_data <= sync_dev_wdata;
     end
@@ -1275,7 +1275,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (bus_we)
             cell_data   <=  bus_wdata;
         else if (sync_dev_we_1)
@@ -1284,7 +1284,7 @@ module {module_name}
 
     always @(posedge dev_clk or negedge dev_rstn) begin
         if (~dev_rstn)
-            sync_dev_wdata <= {INIT};
+            sync_dev_wdata <= {WIDTH}'h{INIT};
         else if (dev_we)
             sync_dev_wdata <= dev_wdata;
     end
@@ -1337,7 +1337,7 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (cell_wen)
             cell_data   <=  bus_wdata;
     end
@@ -1372,9 +1372,9 @@ module {module_name}
 
     always @(posedge clk or negedge rstn) begin
         if (~rstn)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (cell_ren)
-            cell_data   <=  {INIT};
+            cell_data   <=  {WIDTH}'h{INIT};
         else if (cell_wen)
             cell_data   <=  bus_wdata;
     end
