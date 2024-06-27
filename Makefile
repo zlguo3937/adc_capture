@@ -22,6 +22,7 @@ filelist:
 # ********************************************************************************************
 yaml:
 	@mkdir -p $(base_dir)/builds/yaml
+	@python3 $(script_dir)/csv2yml/ana_csv2yaml.py $(csv_dir)/analog_regfile.csv $(base_dir)/builds/yaml/analog_regfile.yml
 	@python3 $(script_dir)/csv2yml/csv_2_yaml.py $(csv_dir)/top_regfile.csv $(base_dir)/builds/yaml/top_regfile.yml
 	@python3 $(script_dir)/csv2yml/csv_2_yaml.py $(csv_dir)/frontend_regfile.csv $(base_dir)/builds/yaml/frontend_regfile.yml
 	@echo "Conversion top_regfile.yml successfully!"
@@ -32,6 +33,7 @@ yaml:
 # ********************************************************************************************
 verilog:
 	@mkdir -p $(base_dir)/builds/verilog
+	@python3 $(script_dir)/yml2hdl/yml2verilog.py $(base_dir)/builds/yaml/analog_regfile.yml $(base_dir)/builds/verilog/analog_regfile.v analog_regfile
 	@python3 $(script_dir)/yml2hdl/yml2verilog.py $(base_dir)/builds/yaml/top_regfile.yml $(base_dir)/builds/verilog/top_regfile.v top_regfile
 	@python3 $(script_dir)/yml2hdl/yml2verilog.py $(base_dir)/builds/yaml/frontend_regfile.yml $(base_dir)/builds/verilog/frontend_regfile.v frontend_regfile
 	@echo "Conversion top_regfile.v successfully!"
