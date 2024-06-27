@@ -73,7 +73,7 @@ class RegisterParser:
                         reg_group_names.add(reg_group_name)
                     desc = row[2]
                 elif row[0].startswith("") and "addr=" in row[1]:
-                    address = row[1].split('=')[1]
+                    address = hex(int(row[1].strip()[7:], 16))
                     if address in addresses:
                         print("ERROR: Your Register address must be exclusive in all regs!")
                         print(address)

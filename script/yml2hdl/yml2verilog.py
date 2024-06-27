@@ -151,10 +151,18 @@ class RegfileParser:
                     bus_re_assigns.append(f"    assign  {reg_name_bus_re:30} = addr_{address}_sel & ~req_write;")
         return bus_re_assigns
 
-    def get_bus_rdata_logic(self):
+    def get_min_address(self, yaml_data):
+        min_address = None
+        for group in yaml_data:
+            address = hex(int(group['address'], 16))
+            if min_address is None or address < min_address:
+                min_address = address
+        return min_address
+    def get_bus_rdata_logic(self, yaml_data):
         # bus_rdata_assigns = [f"    assign  {'req_rdata':20} = sel_0x0_bus_rdata;"]
+        min_address = self.get_min_address(yaml_data)
         bus_rdata_assigns = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n            "
-                             f"req_rdata <= 16'h0;\n        else\n            req_rdata <= sel_0x0_bus_rdata;\n    end"]
+                             f"req_rdata <= 16'h0;\n        else\n            req_rdata <= sel_{min_address}_bus_rdata;\n    end"]
         return bus_rdata_assigns
 
     def get_bus_ready_logic(self):
@@ -1505,7 +1513,7 @@ module {module_name}
         bus_we_assigns = self.get_bus_we_assigns(yaml_data)
         bus_wdata_assigns = self.get_bus_wdata_assigns(yaml_data)
         bus_re_assigns = self.get_bus_re_assigns(yaml_data)
-        bus_rdata_logic = self.get_bus_rdata_logic()
+        bus_rdata_logic = self.get_bus_rdata_logic(yaml_data)
         bus_ready_logic = self.get_bus_ready_logic()
 
         addr_selects_assigns = self.get_addr_selects_assigns(yaml_data)
