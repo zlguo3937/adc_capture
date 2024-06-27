@@ -15,33 +15,33 @@ class RegfileParser:
                 reg_type = reg['type']
                 width_str = f"[{reg['width'] - 1}:0]" if reg['width'] > 1 else ""
 
-                if reg_type in ["CPUROLH", "CPUROLL", "RODSYNC", "RWDSYNC", "ROD", "RWD"]:
+                if reg_type in ["ROD", "RWD", "RODSYNC", "RWDSYNC", "CPUROLH", "CPUROLL"]:
                     port_declarations.add(f"    input   wire             {reg['name']}_sw_rstn")
 
-                if reg_type in ["RC", "ROLH", "ROLL", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
+                if reg_type in ["CMRO", "CMRC", "LHRC", "MCRO", "MCRC"]:
                     port_declarations.add(f"    input   wire             is_mdio")
 
-                if reg_type in ["RODEVSYNC", "RWRSYNC", "RWDSYNC", "RWDEVSYNC"]:
+                if reg_type in ["RWRSYNC", "RWDSYNC", "RODEVSYNC", "RWDEVSYNC"]:
                     port_declarations.add(f"    input   wire             {reg['name']}_dev_clk")
                     port_declarations.add(f"    input   wire             {reg['name']}_dev_rstn")
 
                 if reg_type in ["INC_CNT"]:
                     port_declarations.add(f"    input   wire             {reg['name']}_bus_clr")
 
-                if reg_type in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "SC"]:
+                if reg_type in ["RWR", "RWD", "RWDEV", "SC", "RWRSYNC", "RWDSYNC"]:
                     port_declarations.add(f"    output  wire    {width_str:8} {reg['name']}_rdata")
 
                 if reg_type in ["ROR", "ROD", "RODEV", "RWDEV", "RORSYNC", "RODSYNC", "RODEVSYNC", "RWDEVSYNC", "RC",
-                                "ROLH", "ROLL"]:
+                                "RCSYNC", "ROLH", "ROLL"]:
                     port_declarations.add(f"    input   wire    {width_str:8} {reg['name']}_wdata")
 
-                if reg_type in ["RODEV", "RWDEV", "RODEVSYNC", "RWDEVSYNC", "RC"]:
+                if reg_type in ["RODEV", "RWDEV", "RC", "RCSYNC", "RODEVSYNC", "RWDEVSYNC"]:
                     port_declarations.add(f"    input   wire             {reg['name']}_we")
 
                 if reg_type in ["RAW"]:
-                    port_declarations.add(f"    output  wire             {reg['name']}_raw_dev_we")
-                    port_declarations.add(f"    output  wire    {width_str:8} {reg['name']}_raw_dev_wdata")
-                    port_declarations.add(f"    input   wire    {width_str:8} {reg['name']}_raw_dev_rdata")
+                    port_declarations.add(f"    output  wire             {reg['name']}_raw_we")
+                    port_declarations.add(f"    output  wire    {width_str:8} {reg['name']}_raw_wdata")
+                    port_declarations.add(f"    input   wire    {width_str:8} {reg['name']}_raw_rdata")
 
         return port_declarations
 
@@ -49,8 +49,8 @@ class RegfileParser:
         bus_we_wires = []
         for group in yaml_data:
             for reg in group['register']:
-                if reg['type'] in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "SC", "CMRW", "CMRO",
-                                   "CMRC", "MCRO", "MCRC", "LHRC", "INC_CNT", "CPUROLH", "CPUROLL", "RAW"]:
+                if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
+                                   "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     bus_we_wires.append(f"    {'wire' :<16}{reg['name']}_bus_we;")
         return bus_we_wires
 
@@ -58,8 +58,8 @@ class RegfileParser:
         bus_wdata_wires = []
         for group in yaml_data:
             for reg in group['register']:
-                if reg['type'] in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "SC", "CMRW", "CMRO",
-                                   "CMRC", "MCRO", "MCRC", "LHRC", "INC_CNT", "CPUROLH", "CPUROLL", "RAW"]:
+                if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
+                                   "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     width_str = f"[{reg['width'] - 1}:0]" if reg['width'] > 1 else ""
                     bus_wdata_wires.append(f"    {'wire' :<8}{width_str:8}{reg['name']}_bus_wdata;")
         return bus_wdata_wires
@@ -68,7 +68,8 @@ class RegfileParser:
         bus_re_wires = []
         for group in yaml_data:
             for reg in group['register']:
-                if reg['type'] in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC", "INC_CNT", "CPUROLH", "CPUROLL"]:
+                if reg['type'] in ["RC", "RCSYNC", "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRC", "MCRC", "LHRC",
+                                   "INC_CNT"]:
                     bus_re_wires.append(f"    {'wire' :<16}{reg['name']}_bus_re;")
         return bus_re_wires
 
@@ -76,9 +77,9 @@ class RegfileParser:
         bus_rdata_wires = []
         for group in yaml_data:
             for reg in group['register']:
-                if reg['type'] in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RODEVSYNC",
-                                   "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "RC", "ROLH", "ROLL", "CMRW", "CMRO", "CMRC",
-                                   "MCRO", "INC_CNT", "MCRC", "LHRC", "CPUROLH", "CPUROLL", "RAW"]:
+                if reg['type'] in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RC", "RCSYNC",
+                                   "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC", "RWRSYNC",
+                                   "RWDSYNC", "RWDEVSYNC", "RODEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     width_str = f"[{reg['width'] - 1}:0]" if reg['width'] > 1 else ""
                     bus_rdata_wires.append(f"    {'wire' :<8}{width_str:8}{reg['name']}_bus_rdata;")
         return bus_rdata_wires
@@ -118,8 +119,8 @@ class RegfileParser:
         for group in yaml_data:
             address = group['address']
             for reg in group['register']:
-                if reg['type'] in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "SC", "CMRW", "CMRO",
-                                   "CMRC", "MCRO", "MCRC", "LHRC", "INC_CNT", "RAW", "CPUROLH", "CPUROLL"]:
+                if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
+                                   "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     reg_name_bus_we = reg['name'] + "_bus_we"
                     bus_we_assigns.append(f"    assign  {reg_name_bus_we:30} = addr_{address}_sel & req_write;")
         return bus_we_assigns
@@ -128,8 +129,8 @@ class RegfileParser:
         bus_wdata_assigns = []
         for group in yaml_data:
             for reg in group['register']:
-                if reg['type'] in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "SC", "CMRW", "CMRO",
-                                   "CMRC", "MCRO", "MCRC", "LHRC", "INC_CNT", "RAW", "CPUROLH", "CPUROLL"]:
+                if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
+                                   "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     reg_name_bus_wdata = reg['name'] + "_bus_wdata"
                     if reg['msb'] == reg['lsb']:
                         bus_wdata_assigns.append(
@@ -144,7 +145,8 @@ class RegfileParser:
         for group in yaml_data:
             address = group['address']
             for reg in group['register']:
-                if reg['type'] in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC", "INC_CNT", "CPUROLH", "CPUROLL"]:
+                if reg['type'] in ["RC", "RCSYNC", "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRC", "MCRC", "LHRC",
+                                   "INC_CNT"]:
                     reg_name_bus_re = reg['name'] + "_bus_re"
                     bus_re_assigns.append(f"    assign  {reg_name_bus_re:30} = addr_{address}_sel & ~req_write;")
         return bus_re_assigns
@@ -166,11 +168,9 @@ class RegfileParser:
         for group in yaml_data:
             bit_2_field = {}
             for reg in group['register']:
-                if reg['type'] in [
-                    "ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RODEVSYNC",
-                    "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "RC", "ROLH", "ROLL", "CMRW", "CMRO", "CMRC",
-                    "MCRO", "MCRC", "LHRC", "INC_CNT", "RAW", "CPUROLH", "CPUROLL"
-                ]:
+                if reg['type'] in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RC", "RCSYNC",
+                                   "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC", "RWRSYNC",
+                                   "RWDSYNC", "RWDEVSYNC", "RODEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     for bit in range(reg['lsb'], reg['msb'] + 1):
                         bit_2_field[bit] = reg['name']
 
@@ -238,51 +238,51 @@ class RegfileParser:
             block = f"    {reg_name}_{reg_type}_{width}\n"
             block += f"    u_{reg_name}\n    (\n"
 
-        if reg_type in ["RAW"]:
+        if reg_type == "RAW":
             pass
         else:
             block += f"    .clk            (clk),\n"
             block += f"    .rstn           (rstn),\n"
 
-        if reg_type in ["CPUROLH", "CPUROLL", "RODSYNC", "RWDSYNC", "ROD", "RWD"]:
+        if reg_type in ["ROD", "RWD", "RODSYNC", "RWDSYNC", "CPUROLH", "CPUROLL"]:
             block += f"    .sw_rstn        ({reg['name']}_sw_rstn),\n"
 
         if reg_type in ["CMRO", "CMRC", "MCRO", "MCRC", "LHRC"]:
             block += f"    .is_mdio        (is_mdio),\n"
 
-        if reg_type in ["RWR", "RWD", "RWDEV", "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "SC", "CMRW", "CMRO", "CMRC", "MCRO",
-                        "MCRC", "LHRC", "INC_CNT", "RAW", "CPUROLH", "CPUROLL"]:
+        if reg_type in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
+                        "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
             block += f"    .bus_we         ({reg_name}_bus_we),\n"
             block += f"    .bus_wdata      ({reg_name}_bus_wdata),\n"
 
-        if reg_type in ["RC", "ROLH", "ROLL", "CMRC", "MCRC", "LHRC", "INC_CNT", "CPUROLH", "CPUROLL"]:
+        if reg_type in ["RC", "RCSYNC", "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRC", "MCRC", "LHRC", "INC_CNT"]:
             block += f"    .bus_re         ({reg_name}_bus_re),\n"
 
-        if reg_type in ["INC_CNT"]:
+        if reg_type == "INC_CNT":
             block += f"    .bus_clr        ({reg_name}_bus_clr),\n"
 
-        if reg_type in ["RAW"]:
-            block += f"    .raw_dev_we     ({reg_name}_raw_dev_we),\n"
-            block += f"    .raw_dev_wdata  ({reg_name}_raw_dev_wdata),\n"
-            block += f"    .raw_dev_rdata  ({reg_name}_raw_dev_rdata),\n"
+        if reg_type == "RAW":
+            block += f"    .raw_dev_we     ({reg_name}_raw_we),\n"
+            block += f"    .raw_dev_wdata  ({reg_name}_raw_wdata),\n"
+            block += f"    .raw_dev_rdata  ({reg_name}_raw_rdata),\n"
 
-        if reg_type in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RODEVSYNC", "RWRSYNC",
-                        "RWDSYNC", "RWDEVSYNC", "RC", "ROLH", "ROLL", "CMRW", "CMRO", "CMRC", "MCRO", "MCRC", "LHRC",
-                        "INC_CNT", "RAW", "CPUROLH", "CPUROLL"]:
+        if reg_type in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RC", "RCSYNC",
+                        "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC", "RWRSYNC",
+                        "RWDSYNC", "RWDEVSYNC", "RODEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
             block += f"    .bus_rdata      ({reg_name}_bus_rdata),\n"
 
-        if reg_type in ["RODEVSYNC", "RWRSYNC", "RWDSYNC", "RWDEVSYNC"]:
-            block += f"    .dev_clk      ({reg_name}_clk),\n"
-            block += f"    .dev_rstn     ({reg_name}_rstn),\n"
+        if reg_type in ["RWRSYNC", "RWDSYNC", "RODEVSYNC", "RWDEVSYNC"]:
+            block += f"    .dev_clk        ({reg_name}_clk),\n"
+            block += f"    .dev_rstn       ({reg_name}_rstn),\n"
 
-        if reg_type in ["RODEV", "RWDEV", "RODEVSYNC", "RWDEVSYNC", "RC"]:
+        if reg_type in ["RODEV", "RWDEV", "RC", "RCSYNC", "RODEVSYNC", "RWDEVSYNC"]:
             block += f"    .dev_we         ({reg_name}_we),\n"
 
-        if reg_type in ["ROR", "ROD", "RODEV", "RWDEV", "RORSYNC", "RODSYNC", "RODEVSYNC", "RWDEVSYNC", "RC", "ROLH",
-                        "ROLL"]:
+        if reg_type in ["ROR", "ROD", "RODEV", "RWDEV", "RORSYNC", "RODSYNC", "RODEVSYNC", "RWDEVSYNC", "RC",
+                        "RCSYNC", "ROLH", "ROLL"]:
             block += f"    .dev_wdata      ({reg_name}_wdata),\n"
 
-        if reg_type in ["RWR", "RWD", "RWRSYNC", "RWDSYNC", "SC"]:
+        if reg_type in ["RWR", "RWD", "RWDEV", "SC", "RWRSYNC", "RWDSYNC"]:
             block += f"    .dev_rdata      ({reg_name}_rdata),\n"
 
         block = block.rstrip(",\n") + "\n"
@@ -306,7 +306,7 @@ class RegfileParser:
         reg_name = reg['name']
         reg_type = reg['type']
         WIDTH = reg['width']
-        INIT = hex(int(reg['reset'],16))[2:]
+        INIT = hex(int(reg['reset'], 16))[2:]
         if WIDTH == 1:
             module_name = f"{reg_name}_{reg_type}"
         else:

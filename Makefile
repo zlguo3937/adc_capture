@@ -40,5 +40,11 @@ verilog:
 # ********************************************************************************************
 # Delete builds/* and any other files not be used
 # ********************************************************************************************
-clean:
-	rm -rf $(base_dir)/builds
+clean: clean_yaml clean_filelist clean_verilog
+
+clean_yaml:
+	rm -rf $(base_dir)/builds/yaml/*
+clean_filelist:
+	rm -rf $(base_dir)/builds/filelist/*
+clean_verilog:
+	rm -rf $(base_dir)/builds/verilog/*

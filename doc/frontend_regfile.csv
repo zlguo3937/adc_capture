@@ -298,15 +298,13 @@
 ,,,,,,,,,,
 #,REG2f,REG,,,,,,,,
 ,# addr=0x2f,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[14:10],0x2,INC_CNT,Reg24_0,,,,,,
-,[9],0x1,INC_CNT,Reg24_1,,,,,,
-,[7:1],0x2,INC_CNT,Reg24_2,,,,,,
-,[0],0x1,INC_CNT,Reg24_3,,,,,,
+,[14:9],0x2,INC_CNT,Reg24_0,,,,,,
+,[6:1],0x2,INC_CNT,Reg24_1,,,,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
 #,REG30,REG,,,,,,,,
 ,# addr=0x30,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[15:0],0x2,INC_CNT,Reg24_4,,,,,,
+,[5:0],0x2,INC_CNT,Reg24_2,,,,,,
 ,,,,,,,,,,
 ,,,,,,,,,,
 #,REG31,REG,,,,,,,,
