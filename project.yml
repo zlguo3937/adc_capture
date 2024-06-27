@@ -74,6 +74,7 @@
     - hw/rtl/top/DIGITAL_WRAPPER.v
     - hw/rtl/top/ASIC.v
   - regfile:
+    - builds/verilog/analog_regfile.v
     - builds/verilog/top_regfile.v
     - builds/verilog/frontend_regfile.v
   - ip_model:

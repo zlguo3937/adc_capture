@@ -160,7 +160,7 @@ class RegfileParser:
     def get_bus_ready_logic(self):
         # bus_ready_assigns = [f"    assign  {'req_ready':20} = req_psel;"]
         bus_ready_logic = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n"
-                           f"            req_ready <= 1'b0;\n        else\n            req_ready <= req_sel;\n    end"]
+                           f"            req_ready <= 1'b0;\n        else\n            req_ready <= req_sel;\n    end\n"]
         return bus_ready_logic
 
     def get_addr_selects_bus_rdata_assigns(self, yaml_data):

@@ -77,7 +77,7 @@ class RegisterParser:
                     else:
                         reg_group_names.add(reg_group_name)
                     desc = row[0][2:]
-                    address = address + 1
+
                     if address in addresses:
                         print("ERROR: Your Register address must be exclusive in all regs!")
                         print(address)
@@ -91,6 +91,7 @@ class RegisterParser:
                         'register': [],
                         'ana_io': []
                     }
+                    address = address + 1
                     regs_info.append(reg_info)
                 elif row[0].startswith("["):
                     msb, lsb = self.parse_bit_range(row[0])

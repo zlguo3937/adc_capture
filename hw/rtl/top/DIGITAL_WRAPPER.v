@@ -630,4 +630,8 @@ module DIGITAL_WRAPPER
     u_frontend_regfile
     ();
 
+    analog_regfile
+    u_analog_regfile
+    ();
+
 endmodule
