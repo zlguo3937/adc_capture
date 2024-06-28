@@ -93,7 +93,7 @@ module mdio_slave_22_45_frontend_sync
     /* ---------------------------
      backend interaction 
     ---------------------------- */
-    always @(posedge mdc or negedge rst_n)
+    always @(negedge mdc or negedge rst_n)
     begin
         if (!rst_n)
             count <= 6'd0;

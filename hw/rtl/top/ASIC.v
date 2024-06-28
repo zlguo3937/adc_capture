@@ -40,11 +40,52 @@ module ASIC
     inout   wire    PAD21_CLK_RD,
     inout   wire    PAD22_MDC,
     inout   wire    PAD23_MDIO
+`ifdef FPGA
+    ,
+    input   wire    CLK100M
+`endif
 );
 
     wire            CLK200M;
     wire            ADC_CLK500M;
     wire            ADC48_CLK500M;
+
+`ifdef FPGA
+    wire    locked;
+    wire    RSTN;
+    wire    CLK_100M_BUFG;
+
+    clk_wiz_0
+    u_clk_wiz_0
+    (
+    // Clock out ports
+    .CLK200M        (CLK200M        ),
+    .ADC_CLK500M    (ADC_CLK500M    ),
+    .ADC48_CLK500M  (ADC48_CLK500M  ),
+    // Status and control signals
+    .resetn         (RSTN           ),
+    .locked         (locked         ),
+    // Clock in ports
+    .CLK_100M       (CLK_100M       )
+    );
+
+    BUFG
+    u_CLK_100M_BUFG
+    (
+    .I              (CLK_100M       ),
+    .O              (CLK_100M_BUFG  )
+    );
+
+    reset_debouncer
+    u_reset_debouncer
+    (
+    .clk            (CLK_100M_BUFG  ),
+    .rstn_in        (PAD20_RSTN     ),
+    .rstn_out       (RSTN           )
+    );
+
+`else
+`endif
 
     wire    [8:0]   ADC_DATA_0;
     wire    [8:0]   ADC_DATA_1;
@@ -362,12 +403,17 @@ module ASIC
     .PAD17_ADC_DATA_17          (PAD17_ADC_DATA_17          ),
     .PAD18_ADC_DATA_18          (PAD18_ADC_DATA_18          ),
     .PAD19_ADC_DATA_VALID       (PAD19_ADC_DATA_VALID       ),
+`ifndef FPGA
     .PAD20_RSTN                 (PAD20_RSTN                 ),
+`else
+    .PAD20_RSTN                 (RSTN                       ),
+`endif
     .PAD21_CLK_RD               (PAD21_CLK_RD               ),
     .PAD22_MDC                  (PAD22_MDC                  ),
     .PAD23_MDIO                 (PAD23_MDIO                 )
     );
 
+`ifndef FPGA
     ANALOG_WRAPPER
     u_analog_top
     (
@@ -520,5 +566,7 @@ module ASIC
     .ADC48_DATA_46              (ADC48_DATA_46              ),
     .ADC48_DATA_47              (ADC48_DATA_47              )
     );
+`else
+`endif
 
 endmodule

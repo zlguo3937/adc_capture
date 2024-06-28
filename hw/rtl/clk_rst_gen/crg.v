@@ -57,6 +57,14 @@ module crg
 
     wire rstn;
 
+`ifdef FPGA
+    assign pktctrl_clk  = ANA_ADC_CLK500M;
+    assign clk_200m     = ANA_CLK200M;
+    assign pktctrl_rstn = RSTN;
+    assign rstn_200m    = RSTN;
+    assign adc96_rstn   = RSTN;
+    assign adc48_rstn   = RSTN;
+`else
     clk_gen
     u_clk_gen
     (
@@ -96,5 +104,6 @@ module crg
     .adc96_rstn                 (adc96_rstn                 ),
     .adc48_rstn                 (adc48_rstn                 )
     );
+`endif
 
 endmodule

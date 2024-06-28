@@ -114,7 +114,7 @@ module ctrl_sys
     .req_paddr                  (req_paddr                  ),
     .req_pwrite                 (req_pwrite                 ),
     .req_psel                   (req_psel                   ),
-    .req_penable                (req_penable                ),
+    .req_penable                (                           ),
     .req_pwdata                 (req_pwdata                 ),
     .req_pready                 (req_pready                 ),
     .req_prdata                 (req_prdata                 )
@@ -125,13 +125,12 @@ module ctrl_sys
     (
     .clk                        (clk_200m                   ),
     .rstn                       (rstn_200m                  ),
-    .req_paddr                  (req_paddr                  ),
-    .req_pwrite                 (req_pwrite                 ),
-    .req_psel                   (req_psel                   ),
-    .req_penable                (req_penable                ),
-    .req_pwdata                 (req_pwdata                 ),
-    .req_pready                 (req_pready                 ),
-    .req_prdata                 (req_prdata                 ),
+    .req_addr                   (req_paddr                  ),
+    .req_write                  (req_pwrite                 ),
+    .req_sel                    (req_psel                   ),
+    .req_wdata                  (req_pwdata                 ),
+    .req_ready                  (req_pready                 ),
+    .req_rdata                  (req_prdata                 ),
 
     .legal_phy_addr_rdata       (legal_phy_addr             ),
     .legal_phy_addr_mask_rdata  (legal_phy_addr_mask        ),
