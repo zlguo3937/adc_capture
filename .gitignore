@@ -2,3 +2,7 @@ builds/
 design_dv/sim/*
 !dv/sim/Makefile
 !dv/sim/filelist.f
+spyglass/reports/
+spyglass/work/*
+!spyglass/work/Makefile
+!spyglass/work/Config.tcl
