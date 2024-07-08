@@ -13,7 +13,7 @@ module jlsemi_util_mux_cell
         (
         .I0 (a0_i ),
         .I1 (a1_i ),
-        .S  (sel_i)
+        .S  (sel_i),
         .Z  (z_o  )
         );
     `else

@@ -22,7 +22,7 @@ module jlsemi_util_sync_pos_with_rst_low
                     .SE     (1'b0   ),
                     .SO     (       ),
                     .din    (din    ),
-                    .dout   (dout   ),
+                    .dout   (dout   )
                     );
                 end else if (SYNC_STEP == 3) begin
                     jlsemi_cell_mbff3_w_rst_low_cell
@@ -34,7 +34,7 @@ module jlsemi_util_sync_pos_with_rst_low
                     .SE     (1'b0   ),
                     .SO     (       ),
                     .din    (din    ),
-                    .dout   (dout   ),
+                    .dout   (dout   )
                     );
                 end else begin
 
@@ -55,7 +55,7 @@ module jlsemi_util_sync_pos_with_rst_low
                     .SE     (1'b0           ),
                     .SO     (               ),
                     .din    (data_temp[i]   ),
-                    .dout   (data_temp[i+1] ),
+                    .dout   (data_temp[i+1] )
                     );
                 end
             endgenerate

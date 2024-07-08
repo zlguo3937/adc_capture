@@ -20,6 +20,9 @@ waveform:
 filelist:
 	verdi -f ../../builds/filelist/rtl_syn.f -sv -top ASIC &
 
+filelist_syn:
+	verdi -f ../../builds/filelist/rtl_syn.f +define+JL_SYNTHESIS -sv -top ASIC &
+
 waveform_fpga:
 	verdi -f ../../builds/filelist/rtl_sim.f +define+FPGA -sv -top tb_ASIC &
 

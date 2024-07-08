@@ -31,6 +31,7 @@
     - hw/rtl/common_ip/jlsemi_util_clkbuf.v
     - hw/rtl/common_ip/jlsemi_util_and_cell.v
     - hw/rtl/common_ip/jlsemi_util_mux_cell.v
+    - hw/rtl/common_ip/jlsemi_logic_cell.v
   - ctrl_sys:
     - hw/rtl/ctrl_sys/ctrl_sys.v
     - hw/rtl/ctrl_sys/cdc_500_200.v
@@ -66,10 +67,12 @@
   - regfile:
     - builds/verilog/top_regfile.v
   - ip_model:
-    - hw/library/tphn28hpcpgv18.v
+    - /library/tsmc/cln28hpcp/IO/tphn28hpcpgv18_170a/Front_End/verilog/tphn28hpcpgv18_110a/tphn28hpcpgv18.v
+    - /library/tsmc/cln28hpcp/STD/tcbn28hpcplusbwp40p140_180b/Front_End/verilog/tcbn28hpcplusbwp40p140_110a/tcbn28hpcplusbwp40p140.v
     - hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/VERILOG/ts1n28hpcpsvtb32768x36m16swso_180a_ffg0p99v125c.v
   - simulation:
     - design_dv/tb/tb_ASIC.sv
+
 - rtl_syn:
   - define:
     - +define+UNIT_DELY
@@ -79,3 +82,8 @@
   - define:
     - +define+UNIT_DELY
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile, ip_model, simulation]
+
+- rtl_spyglass:
+  - define:
+    - +define+JL_SYNTHESIS
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]

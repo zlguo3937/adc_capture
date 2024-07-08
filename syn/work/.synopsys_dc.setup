@@ -1,0 +1,14 @@
+echo "=================================================================================="
+echo " Start load .synopsys_dc.setup"
+echo "=================================================================================="
+
+source common_setup.tcl
+define_design_lib work -path $WORK_PATH
+source dc_setup.tcl
+
+#suppress_message "LINT-99 DCT-035 CMD-041 TFCHK-014 TFCHK-049 TFCHK-050 TFCHK-055 TFCHK-084 MWLIBP-300 MWLIBP-301 MWLIBP-324"  ; # Messages irrelevant to lab
+#suppress_message {LINT-1 LINT-28 LINT-32 LINT-33 DCT-228}
+
+echo "=================================================================================="
+echo " End of load .synopsys_dc.setup"
+echo "=================================================================================="

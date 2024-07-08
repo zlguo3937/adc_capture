@@ -43,7 +43,7 @@ module jlsemi_util_clkgate
         (
         .TE (dft_rtl_icg_en ),
         .E  (en_sync        ),
-        .CP (clk_i          )
+        .CP (clk_i          ),
         .Q  (clk_o          )
         );
     `else

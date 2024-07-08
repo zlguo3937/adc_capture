@@ -22,7 +22,7 @@ module jlsemi_util_clkmux_sel1
 
     `ifdef JL_SYNTHESIS
         jlsemi_cell_clk_mux_cell
-        u_dont_touch_clkmux_tie1_mux
+        u_dont_touch_clkmux_mux
         (
         .I0             (clk0_i         ),
         .I1             (clk1_i         ),
