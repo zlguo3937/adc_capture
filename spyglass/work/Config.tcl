@@ -9,7 +9,7 @@ set STD_PATH                    ${LIBRARY_PATH}/STD/tcbn28hpcplusbwp40p140_180b/
 set MEM_PATH                    ${WORK_ROOT_HOME}/hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/NLDM
 
 # 2. source filelist
-set filelist                    ${WORK_ROOT_HOME}/builds/filelist/rtl_syglass.f
+set filelist                    ${WORK_ROOT_HOME}/builds/filelist/rtl_spyglass.f
 
 # 3. source sdc file
 set sdc_file                    ${WORK_ROOT_HOME}/syn/script/adc_capture.sdc

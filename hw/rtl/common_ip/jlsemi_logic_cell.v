@@ -65,6 +65,10 @@ endmodule
 module jlsemi_util_ff_cell_rst (
     input   wire    clk,
     input   wire    rst_n,
+    input   wire    SI,
+    input   wire    SE,
+    output  wire    SO,
+
     input   wire    din,
     output  wire    dout
 );
@@ -76,6 +80,11 @@ SDFCNQARD2BWP40P140 U_DONT_TOUCH_SYNC_REG (
     .SE (1'b0  ),
     .D  (din   ),
     .Q  (dout  )
+);
+
+BUFFD20BWP40P140 U_DONT_TOUCH_BUF (
+    .I  (1'b0  ),
+    .Z  (SO    )
 );
 
 endmodule

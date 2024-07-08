@@ -154,7 +154,8 @@ module ANALOG_WRAPPER
     output  wire    [8:0]   ADC48_DATA_46,
     output  wire    [8:0]   ADC48_DATA_47
 );
-
+`ifdef JL_SYNTHESIS
+`else
     localparam SIZE = 1 << WIDTH;
     localparam real PI = 3.14159265358979323846;
     localparam channel = 8'h60; // ADC_TI96
@@ -433,5 +434,5 @@ module ANALOG_WRAPPER
     assign ADC48_DATA_45 = vd_ti48[45];
     assign ADC48_DATA_46 = vd_ti48[46];
     assign ADC48_DATA_47 = vd_ti48[47];
-
+`endif
 endmodule
