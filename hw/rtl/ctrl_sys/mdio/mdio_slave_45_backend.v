@@ -66,15 +66,15 @@ module mdio_slave_45_backend
     always @(posedge clk_25m or negedge rst_n)
     begin
         if (!rst_n) begin
-            info    <= 14'b0;
+            info    <= 16'b0;
             info_en <= 1'b0;
         end
         else if (!enable) begin
-            info    <= 14'b0;
-            info_en <= 'b0;
+            info    <= 16'b0;
+            info_en <= 1'b0;
         end
         else if (in_info_en) begin
-            info    <= in_info;
+            info    <= {2'b0, in_info};
             info_en <= 1'b1;
         end
         else begin

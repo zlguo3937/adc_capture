@@ -88,7 +88,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD1_ADC_DATA_1        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -98,7 +98,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD2_ADC_DATA_2        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -108,7 +108,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD3_ADC_DATA_3        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -118,7 +118,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD4_ADC_DATA_4        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -128,7 +128,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD5_ADC_DATA_5        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -138,7 +138,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD6_ADC_DATA_6        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -148,7 +148,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD7_ADC_DATA_7        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -158,7 +158,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD8_ADC_DATA_8        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -168,7 +168,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD9_ADC_DATA_9        ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -178,7 +178,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD10_ADC_DATA_10      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -188,7 +188,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD11_ADC_DATA_11      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -198,7 +198,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD12_ADC_DATA_12      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -208,7 +208,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD13_ADC_DATA_13      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -218,7 +218,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD14_ADC_DATA_14      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -228,7 +228,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD15_ADC_DATA_15      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -238,7 +238,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD16_ADC_DATA_16      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -248,7 +248,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD17_ADC_DATA_17      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -258,7 +258,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD18_ADC_DATA_18      ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdd_inst
@@ -268,7 +268,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD19_ADC_DATA_VALID   ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdu_inst
@@ -288,7 +288,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD21_CLK_RD           ),
-    .C              (                       )
+    .C              (                       ) //spyglass disable W287b
     );
 
     iopad_pdu_inst

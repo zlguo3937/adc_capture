@@ -65,8 +65,8 @@ endmodule
 module jlsemi_util_ff_cell_rst (
     input   wire    clk,
     input   wire    rst_n,
-    input   wire    SI,
-    input   wire    SE,
+    input   wire    SI, //spyglass disable W240
+    input   wire    SE, //spyglass disable W240
     output  wire    SO,
 
     input   wire    din,

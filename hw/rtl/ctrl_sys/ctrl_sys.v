@@ -111,7 +111,6 @@ module ctrl_sys
     .req_paddr                  (req_paddr                  ),
     .req_pwrite                 (req_pwrite                 ),
     .req_psel                   (req_psel                   ),
-    .req_penable                (                           ),
     .req_pwdata                 (req_pwdata                 ),
     .req_pready                 (req_pready                 ),
     .req_prdata                 (req_prdata                 )

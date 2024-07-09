@@ -20,7 +20,7 @@ module jlsemi_util_sync_pos_with_rst_low
                     .rst_n  (rst_n  ),
                     .SI     (1'b0   ),
                     .SE     (1'b0   ),
-                    .SO     (       ),
+                    .SO     (       ), //spyglass disable W287b
                     .din    (din    ),
                     .dout   (dout   )
                     );
@@ -32,7 +32,7 @@ module jlsemi_util_sync_pos_with_rst_low
                     .rst_n  (rst_n  ),
                     .SI     (1'b0   ),
                     .SE     (1'b0   ),
-                    .SO     (       ),
+                    .SO     (       ), //spyglass disable W287b
                     .din    (din    ),
                     .dout   (dout   )
                     );
@@ -53,7 +53,7 @@ module jlsemi_util_sync_pos_with_rst_low
                     .rst_n  (rst_n          ),
                     .SI     (1'b0           ),
                     .SE     (1'b0           ),
-                    .SO     (               ),
+                    .SO     (               ), //spyglass disable W287b
                     .din    (data_temp[i]   ),
                     .dout   (data_temp[i+1] )
                     );

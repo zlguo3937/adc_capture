@@ -22,11 +22,11 @@ module clk_gen
     input   wire            dft_rstnsync_scan_rstn_ctrl,
     input   wire            dft_rstnsync_scan_rstn,
     input   wire            dft_rtl_icg_en,
-    input   wire            dft_stuck_at_mode,
-    input   wire            dft_tpi_clk,
-    input   wire            dft_clkdiv_rstn_ctrl,
-    input   wire            dft_clkdiv_scan_rstn,
-    input   wire            dft_scan_en,
+    input   wire            dft_stuck_at_mode,      //spyglass disable W240
+    input   wire            dft_tpi_clk,            //spyglass disable W240
+    input   wire            dft_clkdiv_rstn_ctrl,   //spyglass disable W240
+    input   wire            dft_clkdiv_scan_rstn,   //spyglass disable W240
+    input   wire            dft_scan_en,            //spyglass disable W240
     input   wire            dft_test_clk_en,
 
     // Clock input from analog, Reset input from digital rst_gen

@@ -36,7 +36,6 @@ module mdio_top
     output  wire    [20:0]  req_paddr,
     output  wire            req_pwrite,
     output  wire            req_psel,
-    output  wire            req_penable,
     output  wire    [15:0]  req_pwdata,
 
     input   wire            req_pready,
@@ -59,8 +58,6 @@ module mdio_top
     assign mdio_oen     = ~mdio_oe;
 
     assign enable_async = ~sync_select;
-
-    assign req_penable  = req_psel;
 
     mdio_slave_22_45_frontend_async
     u_async_frontend_unit(

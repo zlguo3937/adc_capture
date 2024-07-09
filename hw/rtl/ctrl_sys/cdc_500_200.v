@@ -81,7 +81,8 @@ module cdc_500_200
     .src_pulse                  (rf_capture_start           ),
     .dst_clk                    (pktctrl_clk                ),
     .dst_rstn                   (pktctrl_rstn               ),
-    .dst_pulse                  (rf_capture_start_sync      )
+    .dst_pulse                  (rf_capture_start_sync      ),
+    .sync_busy                  (                           ) //spyglass disable W287b
     );
 
     pulse_handshake
@@ -92,7 +93,8 @@ module cdc_500_200
     .src_pulse                  (rf_capture_again           ),
     .dst_clk                    (pktctrl_clk                ),
     .dst_rstn                   (pktctrl_rstn               ),
-    .dst_pulse                  (rf_capture_again_sync      )
+    .dst_pulse                  (rf_capture_again_sync      ),
+    .sync_busy                  (                           ) //spyglass disable W287b
     );
 
     //jlsemi_util_sync_pos_with_rst_low
@@ -179,6 +181,7 @@ module cdc_500_200
     .src_rstn                   (pktctrl_rstn               ),
     .vld_in                     (1'b1                       ),
     .din                        (rf_mdio_pkt_data           ),
+    .rdy_out                    (                           ), //spyglass disable W287b
 
     .dst_clk                    (clk_200m                   ),
     .dst_rstn                   (rstn_200m                  ),

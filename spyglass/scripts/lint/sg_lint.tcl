@@ -141,3 +141,4 @@ puts " make lint_gui\n"
 puts " Before open the gui results, you must be at $WORK_PATH/work !"
 puts "---------------------------------------------------------------------------------------------------"
 
+exit

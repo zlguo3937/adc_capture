@@ -92,7 +92,7 @@ module mdio_slave_22_45_backend
                             cl22 ? cl22_reg_if_we : 1'b0;
 
     assign reg_if_addr  =   cl45 ? cl45_reg_if_addr :
-                            cl22 ? cl22_reg_if_addr : 16'h0;
+                            cl22 ? cl22_reg_if_addr : 21'h0;
 
     /* -----------------------------
       seperated backend
