@@ -88,35 +88,35 @@ set sg_log              $WORK_PATH/work/${TOP_MODULE}_sg_lint/${TOP_MODULE}/Grou
 
 if {[file exists $file_goal_summary]} {
     puts "$file_goal_summary"
-    exec gvim $file_goal_summary &
+#    exec gvim $file_goal_summary &
 } else {
     puts "Warning: There's no $file_goal_summary."
 }
 
 if {[file exists $file_goal_setup]} {
     puts "$file_goal_setup"
-    exec gvim $file_goal_setup &
+#    exec gvim $file_goal_setup &
 } else {
     puts "Warning: There's no $file_goal_setup."
 }
 
 if {[file exists $file_moresimple]} {
     puts "$file_moresimple"
-    exec gvim $file_moresimple &
+#    exec gvim $file_moresimple &
 } else {
     puts "Warning: There's no $file_moresimple."
 }
 
 if {[file exists $file_summary]} {
     puts "$file_summary"
-    exec gvim $file_summary &
+#    exec gvim $file_summary &
 } else {
     puts "Warning: There's no $file_summary."
 }
 
 if {[file exists $file_waiver]} {
     puts "$file_waiver"
-    exec gvim $file_waiver &
+#    exec gvim $file_waiver &
 } else {
     puts "Warning: There's no $file_waiver."
 }

@@ -4,7 +4,8 @@
 # ---------------------------------------------------------------------------------------------------
 #Use this design-read option to specify macro definitions in your Verilog analysis run.
 #set_option define {FPGA=1}
-set_option define {width=5}
+#set_option define {JL_SYNTHESIS=1}
+#set_option define {width=5}
 
 #Use this design-read option to specify a top-level module so that all design units instantiated directly 
 #or indirectly under this module are included in the scope of SpyGlass analysis.
@@ -35,6 +36,9 @@ set_option designread_disable_flatten yes
 #run that were reported during the save run.
 set_option enable_save_restore yes
 
+# DesignWare components are also reported if set_option dw yes project file command is not specified, as these remain black boxes without this switch.
+set_option dw yes
+
 #Use this design-read option to translate design attributes from SDC format
 #to SGDC format. These attributes are then used during SpyGlass analysis.
 current_design $TOP_MODULE
@@ -60,7 +64,7 @@ set_option force_gateslib_autocompile no
 #Specifies whether the related rules check the bit_width as per LRM.
 #By default, the nocheckoverflow rule parameter is set to no, and the affected rules do not check the bit-width as per LRM.
 #Lint: W116, W164a, W164b, W164c, W486, W110, W263, W362
-set_parameter nocheckoverflow no
+set_parameter nocheckoverflow yes
 
 #(Optional) Causes the CombLoop rule to proceed from enable pin to Q (output) pin of a latch, while detecting the combinational loop.
 #By default, the enableE2Q rule parameter is unset and the CombLoop rule does not traverse through latches for locating combination loops.
