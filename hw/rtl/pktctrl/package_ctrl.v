@@ -458,7 +458,6 @@ module package_ctrl
     (
     .clk                        (pktctrl_clk                ),
     .rstn                       (pktctrl_rstn               ),
-    .rf_96path_en               (rf_96path_en               ),
     .rf_mdio_data_sel           (rf_mdio_data_sel           ),
     .rf_mdio_memory_addr        (rf_mdio_memory_addr        ),
     .mdio_read_en               (mdio_read_en               ),

@@ -20,7 +20,6 @@ module gen_read_logic_mdio
     // Mdio read
     input   wire            clk,
     input   wire            rstn,
-    input   wire            rf_96path_en,
     input   wire    [6:0]   rf_mdio_data_sel,
     input   wire    [14:0]  rf_mdio_memory_addr,
 

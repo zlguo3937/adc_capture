@@ -44,11 +44,6 @@
 ,[8:0],0x0,RODEV,rf_mdio_pkt_data,,,,,,adc data from memory
 ,,,,,,,,,,
 ,,,,,,,,,,
-#,MDIO_RD_CTRL_3,MDIO_RD_CTRL,,,,,,,,
-,# addr=0x7,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
-,[0],0x0,SC,rf_mdio_read_pulse,,,,,,Mdio read pulse
-,,,,,,,,,,
-,,,,,,,,,,
 #,CRG_CFG_0,CRG_CFG,,,,,,,,
 ,# addr=0x8,Reset,Access,Name,Device Port,Event,Group,Clock Domain,Soft Reset,Description
 ,[8:0],0x0,RWR,rf_pktctrl_gap,,,,,,

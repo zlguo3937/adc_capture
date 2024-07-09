@@ -57,7 +57,7 @@
     - hw/rtl/pktctrl/gen_read_logic_fast.v
     - hw/rtl/pktctrl/package_gen.v
     - hw/rtl/pktctrl/package_data_sel.v
-    - hw/rtl/pktctrl/memory_ctrl.v
+    - hw/rtl/pktctrl/memory_wrapper.v
     - hw/rtl/pktctrl/memory_inst.v
   - top:
     - hw/rtl/analog/ANALOG_WRAPPER.sv
@@ -74,8 +74,6 @@
     - design_dv/tb/tb_ASIC.sv
 
 - rtl_syn:
-  - define:
-    - +define+UNIT_DELY
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile, ip_model]
 
 - rtl_sim:

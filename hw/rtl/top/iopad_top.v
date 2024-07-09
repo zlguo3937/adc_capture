@@ -81,30 +81,6 @@ module iopad_top
 
 `ifndef FPGA
 
-    wire PAD1_C;
-    wire PAD2_C;
-    wire PAD3_C;
-    wire PAD4_C;
-    wire PAD5_C;
-    wire PAD6_C;
-    wire PAD7_C;
-    wire PAD8_C;
-    wire PAD9_C;
-    wire PAD10_C;
-    wire PAD11_C;
-    wire PAD12_C;
-    wire PAD13_C;
-    wire PAD14_C;
-    wire PAD15_C;
-    wire PAD16_C;
-    wire PAD17_C;
-    wire PAD18_C;
-    wire PAD19_C;
-    wire PAD21_C;
-
-    wire PAD20_I;
-    wire PAD22_I;
-
     iopad_pdd_inst
     u_PAD1_ADC_DATA_1
     (
@@ -112,7 +88,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD1_ADC_DATA_1        ),
-    .C              (PAD1_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -122,7 +98,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD2_ADC_DATA_2        ),
-    .C              (PAD2_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -132,7 +108,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD3_ADC_DATA_3        ),
-    .C              (PAD3_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -142,7 +118,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD4_ADC_DATA_4        ),
-    .C              (PAD4_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -152,7 +128,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD5_ADC_DATA_5        ),
-    .C              (PAD5_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -162,7 +138,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD6_ADC_DATA_6        ),
-    .C              (PAD6_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -172,7 +148,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD7_ADC_DATA_7        ),
-    .C              (PAD7_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -182,7 +158,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD8_ADC_DATA_8        ),
-    .C              (PAD8_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -192,7 +168,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD9_ADC_DATA_9        ),
-    .C              (PAD9_C                 )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -202,7 +178,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD10_ADC_DATA_10      ),
-    .C              (PAD10_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -212,7 +188,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD11_ADC_DATA_11      ),
-    .C              (PAD11_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -222,7 +198,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD12_ADC_DATA_12      ),
-    .C              (PAD12_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -232,7 +208,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD13_ADC_DATA_13      ),
-    .C              (PAD13_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -242,7 +218,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD14_ADC_DATA_14      ),
-    .C              (PAD14_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -252,7 +228,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD15_ADC_DATA_15      ),
-    .C              (PAD15_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -262,7 +238,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD16_ADC_DATA_16      ),
-    .C              (PAD16_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -272,7 +248,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD17_ADC_DATA_17      ),
-    .C              (PAD17_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -282,7 +258,7 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD18_ADC_DATA_18      ),
-    .C              (PAD18_C                )
+    .C              (                       )
     );
 
     iopad_pdd_inst
@@ -292,13 +268,13 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD19_ADC_DATA_VALID   ),
-    .C              (PAD19_C                )
+    .C              (                       )
     );
 
     iopad_pdu_inst
     u_PAD20_RSTN
     (
-    .I              (PAD20_I                ),
+    .I              (1'b0                   ),
     .OEN            (1'b1                   ),
     .REN            (1'b0                   ),
     .PAD            (PAD20_RSTN             ),
@@ -312,13 +288,13 @@ module iopad_top
     .OEN            (1'b0                   ),
     .REN            (1'b1                   ),
     .PAD            (PAD21_CLK_RD           ),
-    .C              (PAD21_C                )
+    .C              (                       )
     );
 
     iopad_pdu_inst
     u_PAD22_MDC
     (
-    .I              (PAD22_I                ),
+    .I              (1'b0                   ),
     .OEN            (1'b1                   ),
     .REN            (1'b0                   ),
     .PAD            (PAD22_MDC              ),

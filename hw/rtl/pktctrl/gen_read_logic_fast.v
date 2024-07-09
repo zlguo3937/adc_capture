@@ -534,7 +534,7 @@ module gen_read_logic_fast
                         end
                     end
                 end
-                else if (READ_1728BYTE) begin
+                else if (curr_sta == READ_1728BYTE) begin
                     if (addr%16 == 15) begin
                         if (rf_96path_en) begin
                             if ((RD_CNT_r == 9'd47) & RD)
