@@ -6,3 +6,5 @@ spyglass/reports/
 spyglass/work/*
 !spyglass/work/Makefile
 !spyglass/work/Config.tcl
+.idea
+fpga/*
