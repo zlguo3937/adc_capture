@@ -1,8 +1,0 @@
-cpu
-tc_cpu_domain_matrix_0.csv+u_ac:1,0,
-tc_cpu_domain_matrix_0.csv+u_alu:1,
-tc_cpu_domain_matrix_0.csv+u_control:1,0,
-tc_cpu_domain_matrix_0.csv+u_ir:1,0,
-tc_cpu_domain_matrix_0.csv+u_mem:1,
-tc_cpu_domain_matrix_0.csv+u_pc:1,
-tc_cpu_domain_matrix_0.csv+u_smx:1,

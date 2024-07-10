@@ -96,7 +96,7 @@ if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell"
 # 4---> MDC
 create_clock -name mdc -period ${clk_period_25} -waveform [list 0 [expr 0.5 * ${clk_period_25}]] [get_ports PAD22_MDC] -add
 if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell" } {
-    set_clock_jitter -clock mdc -duty_cycle [expr ${clk_period_500} * 0.05]
+    set_clock_jitter -clock mdc -duty_cycle [expr ${clk_period_25} * 0.05]
     set_clock_uncertainty [expr 0.01 + $PLL_jitter] -fall_from mdc -rise_to mdc -hold
     set_clock_uncertainty [expr 0.01 + $PLL_jitter] -rise_from mdc -fall_to mdc -hold
 } else {
@@ -197,13 +197,9 @@ set_max_delay $mdio_max_delay_fm_phy -from [get_pins u_digital_top/u_ctrl_sys/u_
 # ADC_DATA + CLK_RD
 set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_96 [get_ports *_ADC_DATA*] -add
 set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_96 [get_ports *_ADC_DATA*] -add
-set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_96 [get_ports PAD21_CLK_RD] -add
-set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_96 [get_ports PAD21_CLK_RD] -add
 
 set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
 set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
-set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_48 [get_ports PAD21_CLK_RD] -add
-set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_48 [get_ports PAD21_CLK_RD] -add
 
 
 
@@ -228,8 +224,9 @@ set_clock_uncertainty -hold 0.01 [all_clocks]
 
 # 12---> input transition & load
 # data port
-set_input_transition -max 0.25 [remove_from_collection [all_inputs] [list PAD22_MDC]]
-set_input_transition -min 0    [remove_from_collection [all_inputs] [list PAD22_MDC]]
+# {5.0 * 0.3 = 1.5} """io.lib: input_transition_time/input_net_transition = 5.0"""
+set_input_transition -max 1.5 [remove_from_collection [all_inputs] [list PAD22_MDC]]
+set_input_transition -min 0   [remove_from_collection [all_inputs] [list PAD22_MDC]]
 
 
 

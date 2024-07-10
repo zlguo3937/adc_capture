@@ -1,17 +1,25 @@
 # step 1 Read&elaborate the RTL file list & check
 # =====================================================================================
-set TOP_MODULE cpu
-analyze -format verilog  [list cpu.v alu.v control.v counter.v ld_dff.v mem.v scale_mux.v]
-elaborate $TOP_MODULE  -architecture verilog
+set TOP_MODULE ASIC
+
+analyze -format sverilog -vcs "-f $file_list" -define JL_SYNTHESIS
+#elaborate $TOP_MODULE  -architecture sverilog
+elaborate $TOP_MODULE
+
 current_design $TOP_MODULE
+
+
 if {[link] == 0} {
      echo link with error!;
       exit;
 }
+
+
 if {[check_design] == 0} {
      echo check design with error! ;
       exit;
 }
+
 
 # step 2 reset the design first
 # =====================================================================================
@@ -26,7 +34,7 @@ write -f ddc -hierarchy -output ${UNMAPPED_PATH}/${TOP_MODULE}.ddc
 
 # step 12 compile flow
 # =====================================================================================
-source $SCRIPT_PATH/ip_8b_riscv_cpu.con
+source $SCRIPT_PATH/adc_capture.sdc
 compile -map_effort high -area_effort high -boundary_optimization
 
 # step 11 wirte post_process files
