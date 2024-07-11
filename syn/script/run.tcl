@@ -53,12 +53,12 @@ redirect -tee -file $REPORT_PATH/${TOP_MODULE}.echo_sdc.rpt {source -echo -ver $
 redirect -tee -file $REPORT_PATH/${TOP_MODULE}.port.rpt {report_port -verbose}
 redirect -tee -file $REPORT_PATH/${TOP_MODULE}.clocks.rpt {report_clock *}
 redirect -tee -file $REPORT_PATH/${TOP_MODULE}.clock_groups.rpt {report_clock -groups}
-redirect -tee -file $REPORT_PATH/${TOP_MODULE}.clock_skew.rpt {report_clock skew}
+#redirect -tee -file $REPORT_PATH/${TOP_MODULE}.clock_skew.rpt {report_clock skew}
 redirect -tee -file $REPORT_PATH/${TOP_MODULE}.check_timing.rpt {check_timing}
-report_timing -from [all_inputs]                to [all_outputs]              -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.IN2OUT.rpt
-report_timing -from [all_inputs]                to [all_registers -data_pins] -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.IN2REG.rpt
-report_timing -from [all_registers -clock_pins] to [all_registers -data_pins] -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.REG2REG.rpt
-report_timing -from [all_registers -clock_pins] to [all_outputs]              -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.REG2OUT.rpt
+report_timing -from [all_inputs]                -to [all_outputs]              -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.IN2OUT.rpt
+report_timing -from [all_inputs]                -to [all_registers -data_pins] -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.IN2REG.rpt
+report_timing -from [all_registers -clock_pins] -to [all_registers -data_pins] -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.REG2REG.rpt
+report_timing -from [all_registers -clock_pins] -to [all_outputs]              -max 100 -cap -transition -net -input_pins -nosplit > ${REPORT_PATH}/${TOP_MODULE}.REG2OUT.rpt
 
 
 redirect -tee -file ${REPORT_PATH}/${TOP_MODULE}.constraint.rpt {report_constraint -verbose}

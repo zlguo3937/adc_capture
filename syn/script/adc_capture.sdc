@@ -123,11 +123,11 @@ set_clock_groups -name all_clock_group -asynchronous          \
 
 
 # 5---> analog io constraints
-set_output_delay -max [expr 1.235 * $over] -clock adc_96_clk500 [get_pins u_analog_top/ADC_DATA*] -add
-set_output_delay -min [expr 0.836 * $over] -clock adc_96_clk500 [get_pins u_analog_top/ADC_DATA*] -add
+set_input_delay -max [expr 1.235 * $over] -clock adc_96_clk500 [get_pins u_analog_top/ADC_DATA*] -add
+set_input_delay -min [expr 0.836 * $over] -clock adc_96_clk500 [get_pins u_analog_top/ADC_DATA*] -add
 
-set_output_delay -max [expr 1.235 * $over] -clock adc_48_clk500 [get_pins u_analog_top/ADC48_DATA*] -add
-set_output_delay -min [expr 0.836 * $over] -clock adc_48_clk500 [get_pins u_analog_top/ADC48_DATA*] -add
+set_input_delay -max [expr 1.235 * $over] -clock adc_48_clk500 [get_pins u_analog_top/ADC48_DATA*] -add
+set_input_delay -min [expr 0.836 * $over] -clock adc_48_clk500 [get_pins u_analog_top/ADC48_DATA*] -add
 
 
 
@@ -171,11 +171,11 @@ set_annotated_transition -min 0.00 [get_pins u_analog_top/CLK200M]
 
 # MDC + MDIO #######TODO
 # sync mode ????????? TODO
-set_input_delay -max [expr 10 * $over] -clock mdc [get_ports PAD23_MDIO] -add
-set_input_delay -min [expr 1  * $over] -clock mdc [get_ports PAD23_MDIO] -add
-
-set_output_delay -max [expr 10 * $over] -clock mdc [get_ports PAD23_MDIO] -add
-set_output_delay -min [expr 0  * $over] -clock mdc [get_ports PAD23_MDIO] -add
+#set_input_delay -max [expr 10 * $over] -clock mdc [get_ports PAD23_MDIO] -add
+#set_input_delay -min [expr 1  * $over] -clock mdc [get_ports PAD23_MDIO] -add
+#
+#set_output_delay -max [expr 10 * $over] -clock mdc [get_ports PAD23_MDIO] -add
+#set_output_delay -min [expr 0  * $over] -clock mdc [get_ports PAD23_MDIO] -add
 
 ###########################TODO
 
@@ -187,11 +187,11 @@ set_input_delay  0 -clock mdc_v_clk [get_ports PAD22_MDC] -add
 set_input_delay  0 -clock mdc_v_clk [get_ports PAD23_MDIO] -add
 set_output_delay 0 -clock mdc_v_clk [get_ports PAD23_MDIO] -add
 
-set_max_delay $mdio_mdc_max_delay_fm_sta -from mdc_v_clk -th [get_ports PAD22_MDC]  -to [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdc_cdc_out_0_reg/D]
-set_max_delay $mdio_mdc_max_delay_fm_sta -from mdc_v_clk -th [get_ports PAD23_MDIO] -to [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_cdc_out_0_reg/D]
+#set_max_delay $mdio_mdc_max_delay_fm_sta -from mdc_v_clk -th [get_ports PAD22_MDC]  -to [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdc_cdc_out_0_reg/D]
+#set_max_delay $mdio_mdc_max_delay_fm_sta -from mdc_v_clk -th [get_ports PAD23_MDIO] -to [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_cdc_out_0_reg/D]
 
-set_max_delay $mdio_max_delay_fm_phy -from [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_out_reg/CP] -th [get_ports PAD23_MDIO] -to mdc_v_clk
-set_max_delay $mdio_max_delay_fm_phy -from [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_oe_reg/CP]  -th [get_ports PAD23_MDIO] -to mdc_v_clk
+#set_max_delay $mdio_max_delay_fm_phy -from [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_out_reg/CP] -th [get_ports PAD23_MDIO] -to mdc_v_clk
+#set_max_delay $mdio_max_delay_fm_phy -from [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_oe_reg/CP]  -th [get_ports PAD23_MDIO] -to mdc_v_clk
 
 
 # ADC_DATA + CLK_RD
@@ -201,6 +201,10 @@ set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_96 [get_ports
 set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
 set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
 
+set_multicycle_path -setup 2 -start -from adc_96_clk500_mux1 -to clk_rd_96
+set_multicycle_path -hold  1 -start -from adc_96_clk500_mux1 -to clk_rd_96
+set_multicycle_path -setup 2 -start -from adc_48_clk500_mux0 -to clk_rd_48
+set_multicycle_path -hold  1 -start -from adc_48_clk500_mux0 -to clk_rd_48
 
 
 # 10---> set reset constraints for ASIC pad

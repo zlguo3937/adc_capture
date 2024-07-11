@@ -1,6 +1,9 @@
 # ===============================================================================
 # Logical Library Settings
 # ===============================================================================
+set cache_write syn_work
+set cache_read syn_work
+
 set_app_var search_path "$search_path $ADDITIONAL_SEARCH_PATH"
 puts "11. set search_path"
 
