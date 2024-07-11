@@ -32,10 +32,19 @@ uniquify
 set uniquify_naming_style %s_%d
 write -f ddc -hierarchy -output ${UNMAPPED_PATH}/${TOP_MODULE}.ddc
 
+change_names -rules verilog -hier
+
 # step 12 compile flow
 # =====================================================================================
 source $SCRIPT_PATH/adc_capture.sdc
-compile -map_effort high -area_effort high -boundary_optimization
+
+#compile -map_effort high -area_effort high -boundary_optimization
+compile_ultra -incr -scan -no_autoungroup -no_seq_output_inversion -no_boundary_optimization
+
+optimize_netlist -area
+
+change_names -rules verilog -hier
+
 
 # step 11 wirte post_process files
 # =====================================================================================
@@ -43,6 +52,12 @@ write -format verilog -hierarchy -output $MAPPED_PATH/${TOP_MODULE}.v
 write -format ddc -hier -out $MAPPED_PATH/${TOP_MODULE}.ddc
 write_sdc $MAPPED_PATH/${TOP_MODULE}.sdc
 write_sdf $MAPPED_PATH/${TOP_MODULE}.sdf
+
+saif_map -type ptpx -write_map $REPORT_PATH/${TOP_MODULE}.mapped.SAIF.namemap
+
+set_svf -off
+set_vsdc -off
+
 
 # step 12 generate report files
 # =====================================================================================

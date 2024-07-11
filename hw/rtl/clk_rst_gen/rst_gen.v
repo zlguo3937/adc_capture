@@ -43,8 +43,7 @@ module rst_gen
     output  wire            adc48_rstn
 );
 
-    wire    pktctrl_wrstn_in;
-    wire    pktctrl_rrstn_in;
+    wire    pktctrl_rstn_in;
     wire    pktctrl_mdio_rrstn_in;
     wire    mdio_rstn_in;
 
