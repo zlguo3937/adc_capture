@@ -8,6 +8,9 @@ spyglass/work/*
 !spyglass/work/Config.tcl
 .idea
 fpga/*
+syn/report/*
+syn/mapped/*
+syn/unmapped/*
 syn/work/*.syn
 syn/work/*.pvl
 syn/work/*.log

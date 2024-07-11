@@ -44,7 +44,7 @@ puts "    set MEM Library PATH: $MEM_PATH"
 puts "    set DC  Library PATH: $DC_LIB_PATH"
 
 # Directories containing logical libraries, logical design and script files.
-set ADDITIONAL_SEARCH_PATH "$LIB_PATH $DC_LIB_PATH $SYMBOL_PATH $RTL_PATH $SCRIPT_PATH $CONFIG_PATH"
+set ADDITIONAL_SEARCH_PATH "$LIB_PATH $IO_PATH $MEM_PATH $DC_LIB_PATH $SYMBOL_PATH $RTL_PATH $SCRIPT_PATH $CONFIG_PATH"
 
 # Logical technology library file.
 set TARGET_LIBRARY_FILES tcbn28hpcplusbwp40p140ssg0p9vm40c.db
