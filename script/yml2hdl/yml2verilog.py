@@ -161,14 +161,16 @@ class RegfileParser:
     def get_bus_rdata_logic(self, yaml_data):
         # bus_rdata_assigns = [f"    assign  {'req_rdata':20} = sel_0x0_bus_rdata;"]
         min_address = self.get_min_address(yaml_data)
-        bus_rdata_assigns = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n            "
-                             f"req_rdata <= 16'h0;\n        else\n            req_rdata <= sel_{min_address}_bus_rdata;\n    end"]
+        # bus_rdata_assigns = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n            "
+        #                      f"req_rdata <= 16'h0;\n        else\n            req_rdata <= sel_{min_address}_bus_rdata;\n    end"]
+        bus_rdata_assigns = [f"    assign  req_rdata = sel_{min_address}_bus_rdata;"]
         return bus_rdata_assigns
 
     def get_bus_ready_logic(self):
         # bus_ready_assigns = [f"    assign  {'req_ready':20} = req_psel;"]
-        bus_ready_logic = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n"
-                           f"            req_ready <= 1'b0;\n        else\n            req_ready <= req_sel;\n    end\n"]
+        # bus_ready_logic = [f"    always @(posedge clk or negedge rstn) begin\n        if (!rstn)\n"
+        #                    f"            req_ready <= 1'b0;\n        else\n            req_ready <= req_sel;\n    end\n"]
+        bus_ready_logic = [f"    assign  req_ready = req_sel;\n"]
         return bus_ready_logic
 
     def get_addr_selects_bus_rdata_assigns(self, yaml_data):

@@ -626,4 +626,10 @@ module DIGITAL_WRAPPER
 
     );
 
+    debug
+    u_dbg
+    (
+    
+    );
+
 endmodule
