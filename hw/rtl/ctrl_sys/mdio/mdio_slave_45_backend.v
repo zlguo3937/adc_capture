@@ -74,7 +74,7 @@ module mdio_slave_45_backend
             info_en <= 1'b0;
         end
         else if (in_info_en) begin
-            info    <= {2'b0, in_info};
+            info    <= {info[15:14], in_info};
             info_en <= 1'b1;
         end
         else begin
@@ -211,7 +211,7 @@ module mdio_slave_45_backend
         end
     end
 
-    always @(negedge clk_25m or negedge rst_n)
+    always @(posedge clk_25m or negedge rst_n)
     begin
         if (!rst_n) begin
             resp_rdata <= 16'b0;

@@ -43,9 +43,9 @@ module mdio_slave_22_45_frontend_async
 );
 
     localparam  IDLE = 4'b0001,
-                ST   = 4'b0001,
-                RX   = 4'b0001,
-                TX   = 4'b0001;
+                ST   = 4'b0010,
+                RX   = 4'b0100,
+                TX   = 4'b1000;
 
     reg [3:0]   state;
     reg [3:0]   next_state;
