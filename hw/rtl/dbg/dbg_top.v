@@ -52,15 +52,12 @@ module dbg_top
     // ****************************************************************
     // config interface
     // ****************************************************************
-    input   wire                        ram0_slp_rdata          ,
-    input   wire                        ram1_slp_rdata          ,
+    input   wire                        capture_enable_rdata    ,
+    input   wire                        capture_start_rdata     ,
 
-    input   wire                        capture_enable_rdada    ,
-    input   wire                        capture_start_rdada     ,
-
-    input   wire    [MODE_WIDTH-1:0]    capture_mode_rdada      ,
-    input   wire    [ADDR_WIDTH-1:0]    capture_max_addr_rdada  ,
-    input   wire    [ADDR_WIDTH-1:0]    pre_trigger_num_rdada   ,
+    input   wire    [MODE_WIDTH-1:0]    capture_mode_rdata      ,
+    input   wire    [ADDR_WIDTH-1:0]    capture_max_addr_rdata  ,
+    input   wire    [ADDR_WIDTH-1:0]    pre_trigger_num_rdata   ,
 
     input   wire    [15:0]              trigger_pattern0_rdata  ,
     input   wire    [15:0]              trigger_pattern1_rdata  ,
@@ -81,7 +78,7 @@ module dbg_top
 
     input   wire                        tri_succeed_cnt_overflow_mode_rdata,
     input   wire                        tri_succeed_cnt_clr_rdata,
-    output  wire                        tri_succeed_cnt_wdata   ,
+    output  wire    [CNT_WIDTH-1:0]     tri_succeed_cnt_wdata   ,
 
 
     input   wire                        capture_rd_en_rdata     ,
@@ -110,18 +107,19 @@ module dbg_top
     );
 
 
-    wire                    slp;
-    wire                    clka;
-    wire                    csa;
-    wire                    wra;
-    wire    [ADDR_WIDTH:0]  addra;
-    wire    [DATA_WIDTH:0]  dina;
-    wire                    clkb;
-    wire                    csb;
-    wire                    wrb;
-    wire    [ADDR_WIDTH:0]  addrb;
-    wire    [DATA_WIDTH:0]  dinb;
-    wire    [DATA_WIDTH:0]  doutb;
+    wire                    dbg_ram0_wr_en ;
+    wire    [ADDR_WIDTH:0]  dbg_ram0_waddr ;
+    wire    [DATA_WIDTH:0]  dbg_ram0_wdata ;
+    wire                    dbg_ram0_rd_en ;
+    wire    [ADDR_WIDTH:0]  dbg_ram0_raddr ;
+    wire    [DATA_WIDTH:0]  dbg_ram0_rdata ;
+
+    wire                    dbg_ram1_wr_en ;
+    wire    [ADDR_WIDTH:0]  dbg_ram1_waddr ;
+    wire    [DATA_WIDTH:0]  dbg_ram1_wdata ;
+    wire                    dbg_ram1_rd_en ;
+    wire    [ADDR_WIDTH:0]  dbg_ram1_raddr ;
+    wire    [DATA_WIDTH:0]  dbg_ram1_rdata ;
 
     dbg_ram_1r1w_4096_wrapper #(
         .RAM_DEPTH      (4096           ),
@@ -129,17 +127,16 @@ module dbg_top
         .DATA_WIDTH     (DATA_WIDTH/2   )
     ) u_dbg_ram0
     (
-    slp                 (ram0_slp       ),
-    clka                (wr_clk         ),
-    csa                 (dbg_ram0_wr_en ),
-    wra                 (dbg_ram0_wr_en ),
-    addra               (dbg_ram0_waddr ),
-    dina                (dbg_ram0_wdata ),
-    clkb                (rd_clk),
-    csb                 (dbg_ram0_rd_en ),
-    wrb                 (dbg_ram0_rd_en ),
-    addrb               (dbg_ram0_raddr ),
-    doutb               (dbg_ram0_rdata )
+    .clka               (wr_clk         ),  // write clock
+    .csa                (dbg_ram0_wr_en ),  // port a : chip select, active high
+    .wra                (dbg_ram0_wr_en ),  // port a : read enable, active high
+    .addra              (dbg_ram0_waddr ),  // port a : write address
+    .dina               (dbg_ram0_wdata ),  // port a : write data
+    .clkb               (rd_clk         ),  // read clock
+    .csb                (dbg_ram0_rd_en ),  // port b : chip select, active high
+    .rdb                (dbg_ram0_rd_en ),  // port b : read enable, active high
+    .addrb              (dbg_ram0_raddr ),  // port b : read address
+    .doutb              (dbg_ram0_rdata )   // port b : read data
     );
 
     dbg_ram_1r1w_4096_wrapper #(
@@ -148,6 +145,16 @@ module dbg_top
         .DATA_WIDTH     (DATA_WIDTH/2   )
     ) u_dbg_ram1
     (
+    .clka               (wr_clk         ),  // write clock
+    .csa                (dbg_ram1_wr_en ),  // port a : chip select, active high
+    .wra                (dbg_ram1_wr_en ),  // port a : read enable, active high
+    .addra              (dbg_ram1_waddr ),  // port a : write address
+    .dina               (dbg_ram1_wdata ),  // port a : write data
+    .clkb               (rd_clk         ),  // read clock
+    .csb                (dbg_ram1_rd_en ),  // port b : chip select, active high
+    .rdb                (dbg_ram1_rd_en ),  // port b : read enable, active high
+    .addrb              (dbg_ram1_raddr ),  // port b : read address
+    .doutb              (dbg_ram1_rdata )   // port b : read data
     );
 
 endmodule

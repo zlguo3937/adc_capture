@@ -66,6 +66,8 @@
     - hw/rtl/top/ASIC.v
   - dbg:
     - hw/rtl/dbg/dbg_top.v
+    - hw/rtl/dbg/dbg_ram_1r1w_4096_wrapper.v
+    - hw/rtl/dbg/dbg_core.v
   - regfile:
     - builds/verilog/top_regfile.v
   - ip_model:
