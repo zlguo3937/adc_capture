@@ -64,6 +64,8 @@
     - hw/rtl/top/analog_signal_mux.v
     - hw/rtl/top/DIGITAL_WRAPPER.v
     - hw/rtl/top/ASIC.v
+  - dbg:
+    - hw/rtl/dbg/dbg_top.v
   - regfile:
     - builds/verilog/top_regfile.v
   - ip_model:
@@ -76,19 +78,19 @@
 - rtl_syn:
   - define:
     - +define+JL_SYNTHESIS
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, dbg, regfile]
 
 - rtl_sim:
   - define:
     - +define+UNIT_DELY
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile, ip_model, simulation]
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, dbg, regfile, ip_model, simulation]
 
 - rtl_spyglass:
   - define:
     - +define+JL_SYNTHESIS
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, dbg, regfile]
 
 - rtl_fpga:
   - define:
     - +define+FPGA
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, dbg, regfile]

@@ -626,10 +626,9 @@ module DIGITAL_WRAPPER
 
     );
 
-    debug
+    dbg_top
     u_dbg
     (
-    
     );
 
 endmodule
