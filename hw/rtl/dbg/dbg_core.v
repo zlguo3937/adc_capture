@@ -3,8 +3,8 @@
 //
 //                     JLSemi
 //                     Shanghai, China
-//                     Name : Zhiling Guo
-//                     Email: zlguo@jlsemi.com
+//                     Name :
+//                     Email:
 //
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
@@ -24,7 +24,6 @@ module dbg_core
     parameter MODE_WIDTH     = 4
 )
 (
-
     input   wire                        rd_clk                  ,
     input   wire                        rd_rst_n                ,
     input   wire                        wr_clk                  ,
@@ -151,6 +150,18 @@ module dbg_core
     .ram1_wr_en                     (dbg_ram1_wr_en                 )
     );
 
+    wire                        capture_rd_vld  ;
+    wire                        dbg_in_rd_vld   ;
+    wire    [DATA_WIDTH-2:0]    dbg_in_rd_data  ;
+
+    wire    [ADDR_WIDTH-2:0]    ram0_raddr      ;
+    wire    [DATA_WIDTH/2-1:0]  ram0_rdata      ;
+    wire                        ram0_rd_en      ;
+
+    wire    [ADDR_WIDTH-2:0]    ram1_raddr      ;
+    wire    [DATA_WIDTH/2-1:0]  ram1_rdata      ;
+    wire                        ram1_rd_en      ;
+
     ram_rd_ctrl #(
         .DATA_WIDTH     (DATA_WIDTH     ),
         .ADDR_WIDTH     (ADDR_WIDTH     ),
@@ -168,7 +179,12 @@ module dbg_core
     .capture_rd_en                  (capture_rd_en                  ),
     .capture_rd_addr                (capture_rd_addr                ),
     .capture_rd_data                (capture_rd_data                ),
-    .capture_rd_vld                 (capture_rd_vld                 ),
+    .capture_rd_vld                 (capture_rd_vld                 ), //spyglass disable W528
+
+    // ge TODO TODO
+    .cap_dbg_mode                   (cap_dbg_mode                   ),
+    .dbg_in_rd_vld                  (dbg_in_rd_vld                  ),
+    .dbg_in_rd_data                 (dbg_in_rd_data                 ),
 
     .ram0_raddr                     (dbg_ram0_waddr                 ),
     .ram0_rdata                     (dbg_ram0_wdata                 ),
