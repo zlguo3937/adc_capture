@@ -30,7 +30,7 @@ module ram_wr_ctrl
     // input capture data
     // ****************************************************************
     input   wire    [MODE_WIDTH-1:0]    cap_dbg_mode        ,
-    input   wire    [ADDR_WIDTH-1:0]    cap_dada            ,
+    input   wire    [ADDR_WIDTH-1:0]    cap_data            ,
     input   wire                        cap_data_vld        ,
     input   wire                        cap_mode_vld        ,
 
@@ -99,6 +99,81 @@ module ram_wr_ctrl
     reg     [DATA_WIDTH-1:0]    ram_wr_data;
     reg                         ram_wr_vld;
 
+    always @(posedge clk or posedge rst_n) begin
+        if (~rst_n)
+            capture_done <= 1'b0;
+        else if (capture_mode == cap_dbg_mode) begin
+            if (dbg_in_wr_vld && (dbg_in_wr_addr == capture_max_addr))
+                capture_done <= 1'b1;
+            else if (dbg_in_wr_vld && (dbg_in_wr_addr == {(ADDR_WIDTH){1'b0}}))
+                capture_done <= 1'b0;
+        end
+        else
+            capture_done <= 1'b0;
+    end
+
+    always @(posedge clk or posedge rst_n) begin
+        if (~rst_n) begin
+            ram_wr_addr <= {(ADDR_WIDTH){1'b0}};
+            ram_wr_data <= {(DATA_WIDTH){1'b0}};
+            ram_wr_vld  <= 1'b0;
+        end
+        else if (capture_mode == cap_dbg_mode) begin
+            ram_wr_addr <= dbg_in_wr_addr;
+            ram_wr_data <= dbg_in_wr_data;
+            ram_wr_vld  <= dbg_in_wr_vld;
+        end
+        else begin
+            ram_wr_addr <= tri_wr_addr;
+            ram_wr_data <= tri_wr_data;
+            ram_wr_vld  <= tri_wr_vld;
+        end
+    end
+
+    always @(posedge clk or posedge rst_n) begin
+        if (~rst_n) begin
+            ram0_waddr <= {(ADDR_WIDTH-1){1'b0}};
+            ram0_wdata <= {(DATA_WIDTH/2){1'b0}};
+        end
+        else if (ram_wr_vld) begin // 8K
+            ram0_waddr <= ram_wr_addr[ADDR_WIDTH-2:0];
+            ram0_wdata <= ram_wr_data[DATA_WIDTH/2-1:0];
+        end
+    end
+
+    always @(posedge clk or posedge rst_n) begin
+        if (~rst_n)
+            ram0_wr_en <= 1'b0;
+        else if (store_mode) // 8K
+            ram0_wr_en <= ram_wr_vld;
+        else // 16K
+            ram0_wr_en <= ram_wr_vld & (~ram_wr_addr[ADDR_WIDTH-1]);
+    end
+
+    always @(posedge clk or posedge rst_n) begin
+        if (~rst_n) begin
+            ram1_waddr <= {(ADDR_WIDTH-1){1'b0}};
+            ram1_wdata <= {(DATA_WIDTH/2){1'b0}};
+        end
+        else if(ram_wr_vld) begin // 8K
+            ram1_waddr <= ram_wr_addr[ADDR_WIDTH-2:0];
+            if (store_mode) begin
+                ram1_wdata <= ram_wr_data[DATA_WIDTH-1:DATA_WIDTH/2];
+            end
+            else begin
+                ram1_wdata <= ram_wr_data[DATA_WIDTH/2-1:0];
+            end
+        end
+    end
+
+    always @(posedge clk or posedge rst_n) begin
+        if (~rst_n)
+            ram1_wr_en <= 1'b0;
+        else if (store_mode) // 8K
+            ram1_wr_en <= ram_wr_vld;
+        else // 16K
+            ram1_wr_en <= ram_wr_vld & ram_wr_addr[ADDR_WIDTH-1];
+    end
 
     trigger #(
         .DATA_WIDTH         (DATA_WIDTH         ),
@@ -108,7 +183,7 @@ module ram_wr_ctrl
     (
     .clk                            (clk                            ),
     .rst_n                          (rst_n                          ),
-
+// cpu interface
     .capture_enable                 (capture_enable                 ),
     .capture_start                  (capture_start                  ),
     .capture_max_addr               (capture_max_addr               ),
@@ -122,22 +197,22 @@ module ram_wr_ctrl
     .tri_succeed_cnt_overflow_mode  (tri_succeed_cnt_overflow_mode  ),
     .tri_succeed_cnt_clr            (tri_succeed_cnt_clr            ),
     .tri_succeed_cnt                (tri_succeed_cnt                ),
-
+// test data
     .cap_data                       (cap_data                       ),
     .cap_data_vld                   (cap_data_vld                   ),
     .cap_mode_vld                   (cap_mode_vld                   ),
-
+// trigger result
     .tri_succeed                    (tri_succeed                    ),
     .tri_data                       (tri_data                       ),
     .tri_data_vld                   (tri_data_vld                   ),
-
-    .ram0_waddr                     (dbg_ram0_waddr                 ),
-    .ram0_wdata                     (dbg_ram0_wdata                 ),
-    .ram0_wr_en                     (dbg_ram0_wr_en                 ),
-
-    .ram1_waddr                     (dbg_ram1_waddr                 ),
-    .ram1_wdata                     (dbg_ram1_wdata                 ),
-    .ram1_wr_en                     (dbg_ram1_wr_en                 )
+    .tri_addr                       (tri_addr                       ),
+// ram_wr
+    .tri_wr_vld                     (tri_wr_vld                     ),
+    .tri_wr_addr                    (tri_wr_addr                    ),
+    .tri_wr_data                    (tri_wr_data                    ),
+// dbg
+    .tri_done_rd                    (capture_done_rd                ),
+    .tri_done                       (tri_done                       )
     );
 
 endmodule

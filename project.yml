@@ -66,11 +66,17 @@
     - hw/rtl/top/ASIC.v
   - dbg:
     - hw/rtl/dbg/dbg_top.v
+    - hw/rtl/dbg/cap_src_gen.v
     - hw/rtl/dbg/dbg_core.v
     - hw/rtl/dbg/dbg_ram_1r1w_4096_wrapper.v
     - hw/rtl/dbg/ram_rd_ctrl.v
     - hw/rtl/dbg/bus_delay.v
     - hw/rtl/dbg/ram_wr_ctrl.v
+    - hw/rtl/dbg/trigger.v
+    - hw/rtl/dbg/stat_cnt.v
+    - hw/rtl/dbg/match.v
+    - hw/rtl/dbg/trigger_bit.v
+    - hw/rtl/dbg/wr_addr_ctrl.v
   - regfile:
     - builds/verilog/top_regfile.v
   - ip_model:

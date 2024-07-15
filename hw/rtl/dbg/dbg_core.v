@@ -33,7 +33,7 @@ module dbg_core
     // input capture data
     // ****************************************************************
     input   wire    [MODE_WIDTH-1:0]    cap_dbg_mode            ,
-    input   wire    [ADDR_WIDTH-1:0]    cap_dada                ,
+    input   wire    [ADDR_WIDTH-1:0]    cap_data                ,
     input   wire                        cap_data_vld            ,
     input   wire                        cap_mode_vld            ,
 

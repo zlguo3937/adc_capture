@@ -272,6 +272,55 @@ module DIGITAL_WRAPPER
     wire    [14:0]  rf_mdio_memory_addr;
     wire    [8:0]   rf_mdio_pkt_data;
 
+    wire            tri_succeed     ;
+    wire    [31:0]  tri_data        ;
+    wire            tri_data_vld    ;
+
+    wire            capture_enable  ;
+    wire            capture_start   ;
+
+    wire    [3:0]   capture_mode    ;
+    wire    [12:0]  capture_max_addr;
+    wire    [12:0]  pre_trigger_num ;
+
+    wire    [15:0]  trigger_pattern0;
+    wire    [15:0]  trigger_pattern1;
+    wire    [15:0]  trigger_mode0   ;
+    wire    [15:0]  trigger_mode1   ;
+    wire    [15:0]  trigger_mode2   ;
+    wire    [15:0]  trigger_mode3   ;
+    wire    [15:0]  trigger_mode4   ;
+    wire    [15:0]  trigger_mode5   ;
+    wire    [15:0]  trigger_logic0  ;
+    wire    [15:0]  trigger_logic1  ;
+    wire            store_mode      ;
+
+    wire    [12:0]  read_start_addr ;
+    wire    [12:0]  tri_addr        ;
+    wire            capture_done_rd ;
+    wire            capture_done    ;
+
+    wire            tri_succeed_cnt_overflow_mode;
+    wire            tri_succeed_cnt_clr;
+    wire    [7:0]   tri_succeed_cnt ;
+
+    wire            capture_rd_en   ;
+    wire    [12:0]  capture_rd_addr ;
+    wire    [15:0]  capture_rd_data0;
+    wire    [15:0]  capture_rd_data1;
+
+    wire    [15:0]  write_info      ; // write_en + waddr --> 1bit + 15bit
+    wire            write_done      ; // write_done
+
+    wire    [12:0]  pkt_ctrl_info   ; // main_fsm: 1bit-write_en + 1bit-wr_done + 1bit-fast_read_en + 5bit-curr_sta + 5bit-next_sta
+    wire    [15:0]  fast_info       ; // fast_read_en + fast_raddr --> 1bit + 15bit
+    wire            fast_rd_done    ; // fast_rd_done
+
+    wire    [13:0]  fast_main_fsm   ; // 7bit-curr_sta + 7bit-next_sta
+    wire    [5:0]   fast_pkt_fsm    ; // pkt_en + read_en + 2bit-curr_sta + 2bit-next_sta
+    wire    [15:0]  idle_cnt        ; // idle_cnt
+    wire    [9:0]   RD_info         ; // RD + RD_CNT
+
     // analog_signal_mux instantiation
     analog_signal_mux
     u_analog_signal_mux
@@ -591,7 +640,20 @@ module DIGITAL_WRAPPER
     .ANA_ADC48_DATA_11          (ANA_ADC48_DATA_11          ),
     .CLK_RD                     (CLK_RD                     ),
     .ADC_DATA                   (ADC_DATA                   ),
-    .ADC_DATA_VALID             (ADC_DATA_VALID             )
+    .ADC_DATA_VALID             (ADC_DATA_VALID             ),
+
+    //dbg
+    .write_info                 (write_info                 ),
+    .write_done                 (write_done                 ),
+                                                            
+    .pkt_ctrl_info              (pkt_ctrl_info              ), 
+    .fast_info                  (fast_info                  ), 
+    .fast_rd_done               (fast_rd_done               ), 
+                                                            
+    .fast_main_fsm              (fast_main_fsm              ), 
+    .fast_pkt_fsm               (fast_pkt_fsm               ), 
+    .idle_cnt                   (idle_cnt                   ), 
+    .RD_info                    (RD_info                    )
     );
 
     // ctrl_sys instantiation
@@ -622,13 +684,98 @@ module DIGITAL_WRAPPER
     .rf_mdio_pkt_data           (rf_mdio_pkt_data           ),
 
     .rf_pktctrl_clk_en          (rf_pktctrl_clk_en          ),
-    .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         )
+    .rf_pktctrl_sw_rstn         (rf_pktctrl_sw_rstn         ),
 
+    .capture_enable             (capture_enable             ),
+    .capture_start              (capture_start              ),
+
+    .capture_mode               (capture_mode               ),
+    .capture_max_addr           (capture_max_addr           ),
+    .pre_trigger_num            (pre_trigger_num            ),
+
+    .trigger_pattern0           (trigger_pattern0           ),
+    .trigger_pattern1           (trigger_pattern1           ),
+    .trigger_mode0              (trigger_mode0              ),
+    .trigger_mode1              (trigger_mode1              ),
+    .trigger_mode2              (trigger_mode2              ),
+    .trigger_mode3              (trigger_mode3              ),
+    .trigger_mode4              (trigger_mode4              ),
+    .trigger_mode5              (trigger_mode5              ),
+    .trigger_logic0             (trigger_logic0             ),
+    .trigger_logic1             (trigger_logic1             ),
+    .store_mode                 (store_mode                 ),
+
+    .read_start_addr            (read_start_addr            ),
+    .tri_addr                   (tri_addr                   ),
+    .capture_done_rd            (capture_done_rd            ),
+    .capture_done               (capture_done               ),
+
+    .tri_succeed_cnt_overflow_mode(tri_succeed_cnt_overflow_mode),
+    .tri_succeed_cnt_clr        (tri_succeed_cnt_clr        ),
+    .tri_succeed_cnt            (tri_succeed_cnt            ),
+
+    .capture_rd_en              (capture_rd_en              ),
+    .capture_rd_addr            (capture_rd_addr            ),
+    .capture_rd_data0           (capture_rd_data0           ),
+    .capture_rd_data1           (capture_rd_data1           )
     );
 
     dbg_top
-    u_dbg
+    u_dbg_top
     (
+    .wr_clk                     (pktctrl_clk                ),
+    .wr_rst_n                   (pktctrl_rstn               ),
+    .rd_clk                     (clk_200m                   ),
+    .rd_rst_n                   (rstn_200m                  ),
+                                                            
+    .write_info                 (write_info                 ), 
+    .write_done                 (write_done                 ), 
+                                                            
+    .pkt_ctrl_info              (pkt_ctrl_info              ), 
+    .fast_info                  (fast_info                  ), 
+    .fast_rd_done               (fast_rd_done               ), 
+                                                            
+    .fast_main_fsm              (fast_main_fsm              ), 
+    .fast_pkt_fsm               (fast_pkt_fsm               ), 
+    .idle_cnt                   (idle_cnt                   ), 
+    .RD_info                    (RD_info                    ), 
+                                                            
+    .tri_succeed                (tri_succeed                ), //TODO TODO
+    .tri_data                   (tri_data                   ),
+    .tri_data_vld               (tri_data_vld               ),
+                                                            
+    .capture_enable             (capture_enable             ),
+    .capture_start              (capture_start              ),
+
+    .capture_mode               (capture_mode               ),
+    .capture_max_addr           (capture_max_addr           ),
+    .pre_trigger_num            (pre_trigger_num            ),
+
+    .trigger_pattern0           (trigger_pattern0           ),
+    .trigger_pattern1           (trigger_pattern1           ),
+    .trigger_mode0              (trigger_mode0              ),
+    .trigger_mode1              (trigger_mode1              ),
+    .trigger_mode2              (trigger_mode2              ),
+    .trigger_mode3              (trigger_mode3              ),
+    .trigger_mode4              (trigger_mode4              ),
+    .trigger_mode5              (trigger_mode5              ),
+    .trigger_logic0             (trigger_logic0             ),
+    .trigger_logic1             (trigger_logic1             ),
+    .store_mode                 (store_mode                 ),
+
+    .read_start_addr            (read_start_addr            ),
+    .tri_addr                   (tri_addr                   ),
+    .capture_done_rd            (capture_done_rd            ),
+    .capture_done               (capture_done               ),
+
+    .tri_succeed_cnt_overflow_mode(tri_succeed_cnt_overflow_mode),
+    .tri_succeed_cnt_clr        (tri_succeed_cnt_clr        ),
+    .tri_succeed_cnt            (tri_succeed_cnt            ),
+
+    .capture_rd_en              (capture_rd_en              ),
+    .capture_rd_addr            (capture_rd_addr            ),
+    .capture_rd_data0           (capture_rd_data0           ),
+    .capture_rd_data1           (capture_rd_data1           )
     );
 
 endmodule
