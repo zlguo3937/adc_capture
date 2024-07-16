@@ -6,6 +6,10 @@ spyglass/reports/
 spyglass/work/*
 !spyglass/work/Makefile
 !spyglass/work/Config.tcl
+vc_spyglass/report/
+vc_spyglass/work/*
+!vc_spyglass/work/Makefile
+!vc_spyglass/work/config.tcl
 .idea
 fpga/*
 syn/report/*
