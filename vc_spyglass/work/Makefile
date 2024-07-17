@@ -58,4 +58,4 @@ check_power:
 
 
 clean:
-	rm -rf *.log *.rpt *.conf *.rc *.bak WORK *_cpdb *_rtdb *_libs *.json ../report/report_lint/*
+	rm -rf *.log *.rpt *.conf *.rc *.bak WORK *_cpdb *_rtdb *_libs *.json ../report/report_lint/* ../waiver/*

@@ -12,8 +12,8 @@ set check_path [sh dirname [pwd]]
 # use absolute path so that wherever the session is oppend, the waiver file can be written
 set_app_var default_waiver_file ${WAIVER_PATH}/lint_all_waiver.tcl
 
-source -echo -verbose ${WORK_PATH}/script/check_lint/config_lint.tcl
-
+#source -echo -verbose ${WORK_PATH}/script/check_lint/config_lint.tcl
+source -echo -verbose ${WORK_PATH}/script/check_lint_all/config_lint_all.tcl
 # 4. Design read
 
 # black-box the module
@@ -30,7 +30,7 @@ elaborate $TOP_MODULE -verbose -vcs "+lint=TFIPC-L"
 # 5. Check LINT & Generates a verbose report
 report_link
 
-source -echo -verbose ${WORK_PATH}/script/check_lint_hdl/config_lint_hdl.tcl
+
 
 # Stage available in report_hdl cmd: Builtin_Check, Custom, Debug_Cause, Debug_Cluster, Language_Check, \
 # Lint_Formal_Check, Netlist, Quick_Lint, Sg_Builtin_Check, Spyglass_Check, Structural_Check
@@ -50,27 +50,30 @@ source -echo -verbose ${WAIVER_PATH}/lint_all_waiver.tcl
 
 check_lint
 
-check_hdl -structure
-
-check_hdl -lang
-
 while {![file exists ${REPORT_PATH}/report_lint_all]} {
     exec mkdir -p ${REPORT_PATH}/report_lint_all
 }
-report_violations -app lint -app hdl -verbose -file ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_violations.rpt -limit 0
+report_violations -app lint -verbose -file ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_violations.rpt -limit 0
 report_lint -list -limit 0 -severity $severity_rpt -stage $stage_rpt -family $family_rpt -file ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_vio_sum.rpt
 report_lint -verbose -limit 0 -severity $severity_rpt -stage $stage_rpt -family $family_rpt -file ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_vio_detail.rpt
 report_lint -verbose -limit 0 -severity "info" -stage $stage_rpt -family $family_rpt -file ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_info_detail.rpt
 
-report_violations -html
+check_hdl -structure
 
-checkpoint_session -session ${TOP_MODULE}.lint_all_session
+check_hdl -lang
+
+report_hdl -list -limit 0 -severity $severity_rpt -stage $stage_rpt -family $family_rpt >> ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_vio_sum.rpt
+report_hdl -verbose -limit 0 -severity $severity_rpt -stage $stage_rpt -family $family_rpt >> ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_vio_detail.rpt
+report_hdl -verbose -limit 0 -severity "info" -stage $stage_rpt -family $family_rpt >> ${REPORT_PATH}/report_lint_all/$TOP_MODULE.lint_info_detail.rpt
+
+#report_violations -html
+
 
 # 6. Save the session setup and run data
 #save_session -session lint_session
 
 # To restore a saved session
-# restore_session [-session lint_session]
-
+#restore_session -session ${TOP_MODULE}.lint_all_session
+checkpoint_session -session ${TOP_MODULE}.lint_all_session
 # 6. Show results in GUI
 view_activity

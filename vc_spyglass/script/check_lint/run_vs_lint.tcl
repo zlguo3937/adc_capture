@@ -55,7 +55,7 @@ report_lint -list -limit 0 -severity $severity_rpt -stage $stage_rpt -family $fa
 report_lint -verbose -limit 0 -severity $severity_rpt -stage $stage_rpt -family $family_rpt -file ${REPORT_PATH}/report_lint/$TOP_MODULE.lint_vio_detail.rpt
 report_lint -verbose -limit 0 -severity "info" -stage $stage_rpt -family $family_rpt -file ${REPORT_PATH}/report_lint/$TOP_MODULE.lint_info_detail.rpt
 
-report_violations -html
+#report_violations -html
 
 checkpoint_session -session ${TOP_MODULE}.lint_session
 

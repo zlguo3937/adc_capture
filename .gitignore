@@ -8,6 +8,7 @@ spyglass/work/*
 !spyglass/work/Config.tcl
 vc_spyglass/report/
 vc_spyglass/work/*
+vc_spyglass/waiver/*
 !vc_spyglass/work/Makefile
 !vc_spyglass/work/config.tcl
 .idea

@@ -4,8 +4,8 @@
 configure_lint_tag -enable -tag "RegInputOutput-ML" -goal custom_rtl_handoff -severity Info
 configure_lint_tag_parameter -tag "RegInputOutput-ML" -parameter CHKTOPMODULE -value {yes} -goal custom_rtl_handoff
 
-configure_lint_tag -enable -tag "FlopEconst" -goal custom_rtl_handoff
-configure_lint_tag_parameter -tag "FlopEconst" -parameter REPORT_INFERRED_CELL -value {yes} -goal custom_rtl_handoff
+configure_lint_tag -enable -tag "FlopEConst" -goal custom_rtl_handoff
+configure_lint_tag_parameter -tag "FlopEConst" -parameter REPORT_INFERRED_CELL -value {yes} -goal custom_rtl_handoff
 
 configure_lint_tag -enable -tag "STARC05-2.3.3.1" -goal custom_rtl_handoff
 configure_lint_tag -enable -tag "W415a" -goal custom_rtl_handoff
@@ -41,7 +41,7 @@ configure_lint_tag -enable -tag "InferLatch" -goal custom_rtl_handoff -severity 
 configure_lint_tag -enable -tag "infiniteloop" -goal custom_rtl_handoff -severity Error
 configure_lint_tag -enable -tag "InstPortConnType-ML" -goal custom_rtl_handoff -severity Error
 configure_lint_tag -enable -tag "LatchFeedback" -goal custom_rtl_handoff -severity Error
-configure_lint_tag -enable -tag "Mixedsenselist" -goal custom_rtl_handoff -severity Error
+configure_lint_tag -enable -tag "mixedsenselist" -goal custom_rtl_handoff -severity Error
 configure_lint_tag -enable -tag "NoAssignX-ML" -goal custom_rtl_handoff -severity Error
 configure_lint_tag -enable -tag "NoFeedThrus-ML" -goal custom_rtl_handoff -severity Warning
 configure_lint_tag_parameter -tag "NoFeedThrus-ML" -parameter CHECKTOPDU -value {yes} -goal custom_rtl_handoff
@@ -220,7 +220,7 @@ configure_lint_tag -enable -tag "BothPhase" -goal custom_rtl_handoff
 configure_lint_tag -enable -tag "ClockStyle" -goal custom_rtl_handoff
 configure_lint_tag -enable -tag "DiffTimescaleUsed-ML" -goal custom_rtl_handoff
 configure_lint_tag -enable -tag "MultipleWait" -goal custom_rtl_handoff
-configure_lint_tag -enable -tag "NosigCaseX-ML" -goal custom_rtl_handoff
+configure_lint_tag -enable -tag "NoSigCaseX-ML" -goal custom_rtl_handoff
 configure_lint_tag -enable -tag "SigVarInit" -goal custom_rtl_handoff
 configure_lint_tag -enable -tag "STARC05-2.1.2.5v" -goal custom_rtl_handoff
 configure_lint_tag -enable -tag "STARC05-2.1.8.6" -goal custom_rtl_handoff
