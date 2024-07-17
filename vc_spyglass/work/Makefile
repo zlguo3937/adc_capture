@@ -3,6 +3,8 @@ base_dir		=	$(abspath .)
 parent_dir		=	$(dir $(base_dir))
 script_dir		=	$(parent_dir)/script
 lint_script_dir =	$(script_dir)/check_lint
+lint_hdl_script_dir =	$(script_dir)/check_lint_hdl
+lint_all_script_dir =	$(script_dir)/check_lint_all
 cdc_script_dir 	= 	$(script_dir)/cdc
 rdc_script_dir 	= 	$(script_dir)/rdc
 
@@ -18,11 +20,11 @@ check_lint:
 
 # Lint-Hdl
 check_lint_hdl:
-	vc_static_shell -f $(lint_script_dir)/run_vs_lint_hdl.tcl -output_log_file ./run_vs_lint_hdl.log
+	vc_static_shell -f $(lint_hdl_script_dir)/run_vs_lint_hdl.tcl -output_log_file ./run_vs_lint_hdl.log
 
 # All Lint
 check_lint_all:
-	vc_static_shell -f $(lint_script_dir)/run_vs_lint_hdl.tcl -f $(lint_script_dir)/run_vs_lint.tcl -output_log_file ./run_vs_lint_all.log
+	vc_static_shell -f $(lint_all_script_dir)/run_vs_lint_all.tcl -output_log_file ./run_vs_lint_all.log
 
 # ---------------------------------------------------------------------------------------------------
 # SDC Constraints Check
@@ -56,4 +58,4 @@ check_power:
 
 
 clean:
-	rm -rf *.log *.conf *.rc vcst_rtdb *.bak WORK
+	rm -rf *.log *.rpt *.conf *.rc *.bak WORK *_cpdb *_rtdb *_libs *.json ../report/report_lint/*

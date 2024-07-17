@@ -223,7 +223,7 @@ module package_ctrl
     wire    [14:0]      mdio_addr;
 
     reg                 DATA_RD_EN;
-    reg     [7:0]       cnt;
+    reg     [8:0]       cnt;
     
     always @(posedge pktctrl_clk or negedge pktctrl_rstn)
     begin
