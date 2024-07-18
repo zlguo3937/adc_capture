@@ -93,18 +93,18 @@ if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell"
 
 
 
-# 4---> MDC
-create_clock -name mdc -period ${clk_period_25} -waveform [list 0 [expr 0.5 * ${clk_period_25}]] [get_ports PAD22_MDC] -add
-if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell" } {
-    set_clock_jitter -clock mdc -duty_cycle [expr ${clk_period_25} * 0.05]
-    set_clock_uncertainty [expr 0.01 + $PLL_jitter] -fall_from mdc -rise_to mdc -hold
-    set_clock_uncertainty [expr 0.01 + $PLL_jitter] -rise_from mdc -fall_to mdc -hold
-} else {
-    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.03 + $PLL_jitter] -fall_from mdc -rise_to mdc -setup
-    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.03 + $PLL_jitter] -rise_from mdc -fall_to mdc -setup
-    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.01 + $PLL_jitter] -fall_from mdc -rise_to mdc -hold
-    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.01 + $PLL_jitter] -rise_from mdc -fall_to mdc -hold
-}
+## 4---> MDC
+#create_clock -name mdc -period ${clk_period_25} -waveform [list 0 [expr 0.5 * ${clk_period_25}]] [get_ports PAD22_MDC] -add
+#if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell" } {
+#    set_clock_jitter -clock mdc -duty_cycle [expr ${clk_period_25} * 0.05]
+#    set_clock_uncertainty [expr 0.01 + $PLL_jitter] -fall_from mdc -rise_to mdc -hold
+#    set_clock_uncertainty [expr 0.01 + $PLL_jitter] -rise_from mdc -fall_to mdc -hold
+#} else {
+#    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.03 + $PLL_jitter] -fall_from mdc -rise_to mdc -setup
+#    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.03 + $PLL_jitter] -rise_from mdc -fall_to mdc -setup
+#    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.01 + $PLL_jitter] -fall_from mdc -rise_to mdc -hold
+#    set_clock_uncertainty [expr $clk_period_25 * 0.05 + 0.01 + $PLL_jitter] -rise_from mdc -fall_to mdc -hold
+#}
 
 # virtual clock
 create_clock -name mdc_v_clk       -period $v_clk_period_200 -waveform [list 0 [expr 0.5 * ${v_clk_period_200}]]
@@ -117,8 +117,8 @@ create_clock -name clk_v_200m      -period $v_clk_period_200 -waveform [list 0 [
 set_clock_groups -name all_clock_group -asynchronous          \
         -group { adc_96_clk500 adc_96_clk500_mux1 clk_rd_96 adc_96_v_clk500 } \
         -group { adc_48_clk500 adc_48_clk500_mux0 clk_rd_48 adc_48_v_clk500 } \
-        -group { clk_200m mdc_v_clk clk_v_200m } \
-        -group { mdc }
+        -group { clk_200m mdc_v_clk clk_v_200m }
+#        -group { mdc }
 
 
 

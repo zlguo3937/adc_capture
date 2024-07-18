@@ -57,6 +57,9 @@ set DW_FOUNDATION_FILES "dw_foundation.sldb standard.sldb"
 set SYMBOL_LIBRARY_FILES generic.sdb
 
 set file_list $SYN_ROOT_PATH/builds/filelist/rtl_syn.f
+
+set mb_en 1
+
 ## ===============================================================================
 ## User defined variables for physical library setup in dc_setup.tcl
 ## ===============================================================================

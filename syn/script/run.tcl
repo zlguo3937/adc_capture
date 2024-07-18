@@ -31,12 +31,21 @@ reset_design
 uniquify
 set uniquify_naming_style %s_%d
 write -f ddc -hierarchy -output ${UNMAPPED_PATH}/${TOP_MODULE}.ddc
+write -format verilog -hierarchy -output ${UNMAPPED_PATH}/${TOP_MODULE}.v
 
-change_names -rules verilog -hier
+define_name_rules verilog -preserve_struct_ports
+change_names -rules verilog -hier -log_changes ${REPORT_PATH}/${TOP_MODULE}.precompile.change_name.rpt
 
 # step 12 compile flow
 # =====================================================================================
 source $SCRIPT_PATH/adc_capture.sdc
+#---> dont_touch
+set_dont_touch          [get_cells -hier *dont_touch*] true
+set_dont_touch          [get_cells -hier *DONT_TOUCH*] true
+set_dont_touch_network  [remove_from_collection [all_clocks] [list mdc_v_clk adc_96_v_clk500 adc_48_v_clk500 clk_v_200m]]
+#set_dont_touch_network  [all_clocks]
+
+check_design > $REPORT_PATH/${TOP_MODULE}.check_design_precompile.rpt
 
 #compile -map_effort high -area_effort high -boundary_optimization
 compile_ultra -incr -scan -no_autoungroup -no_seq_output_inversion -no_boundary_optimization
@@ -63,7 +72,7 @@ set_vsdc -off
 # =====================================================================================
 redirect -tee -file $REPORT_PATH/precompile.rpt {link}
 #redirect -append -tee -file $REPORT_PATH/precompile.rpt {check_timing}
-redirect -tee -file $REPORT_PATH/${TOP_MODULE}.check_design.rpt {check_design}
+redirect -tee -file $REPORT_PATH/${TOP_MODULE}.check_design_compiled.rpt {check_design}
 redirect -tee -file $REPORT_PATH/${TOP_MODULE}.echo_sdc.rpt {source -echo -ver $SCRIPT_PATH/adc_capture.sdc}
 redirect -tee -file $REPORT_PATH/${TOP_MODULE}.port.rpt {report_port -verbose}
 redirect -tee -file $REPORT_PATH/${TOP_MODULE}.clocks.rpt {report_clock *}

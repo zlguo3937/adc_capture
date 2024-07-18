@@ -74,12 +74,18 @@
     - design_dv/tb/tb_ASIC.sv
 
 - rtl_syn:
+  - define:
+    - +define+JL_SYNTHESIS
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
 
 - rtl_sim:
+  - define:
+    - +define+JL_SYNTHESIS
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile, ip_model, simulation]
 
 - rtl_spyglass:
+  - define:
+    - +define+JL_SYNTHESIS
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
 
 - rtl_fpga:

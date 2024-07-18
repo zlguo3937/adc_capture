@@ -18,12 +18,44 @@ puts "12. set synthetic_library"
 set_app_var target_library $TARGET_LIBRARY_FILES
 puts "13. set target_library"
 
-set_app_var link_library "* $target_library $IO_LIBRARY_FILES $MEM_LIBRARY_FILES"
+set_app_var link_library "* $target_library $synthetic_library $IO_LIBRARY_FILES $MEM_LIBRARY_FILES"
 puts "14. set link_library"
 
 set_app_var symbol_library $SYMBOL_LIBRARY_FILES
 puts "15. set symbol_library"
 
+if {$mb_en == 1} {
+        set_dont_use { \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/CK* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/DC* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/TIE* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/DEL* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/*OPT* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/*D0* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/*SDFSYN* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/SDFCS* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/SDFNCS* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/FA1D* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/MAO* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/MOA* \
+            }
+} else {
+        set_dont_use { \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/MB8SRLSDF* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/CK* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/DC* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/TIE* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/DEL* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/*OPT* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/*D0* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/*SDFSYN* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/SDFCS* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/SDFNCS* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/FA1D* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/MAO* \
+            tcbn28hpcplusbwp40p140ssg0p9vm40c/MOA* \
+            }
+}
 
 ## ===============================================================================
 ## Physical Library Settings
