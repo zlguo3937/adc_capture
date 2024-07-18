@@ -22,10 +22,6 @@ check_lint:
 check_lint_hdl:
 	vc_static_shell -f $(lint_hdl_script_dir)/run_vs_lint_hdl.tcl -output_log_file ./run_vs_lint_hdl.log
 
-# All Lint
-check_lint_all:
-	vc_static_shell -f $(lint_all_script_dir)/run_vs_lint_all.tcl -output_log_file ./run_vs_lint_all.log
-
 # ---------------------------------------------------------------------------------------------------
 # SDC Constraints Check
 # ---------------------------------------------------------------------------------------------------
@@ -58,4 +54,4 @@ check_power:
 
 
 clean:
-	rm -rf *.log *.rpt *.conf *.rc *.bak WORK *_cpdb *_rtdb *_libs *.json ../report/report_lint/* ../waiver/*
+	rm -rf *.log *.rpt *.conf *.rc *.bak WORK *_cpdb *_rtdb *_libs *.json ../report/report_lint/* ../waiver/* verdiLog

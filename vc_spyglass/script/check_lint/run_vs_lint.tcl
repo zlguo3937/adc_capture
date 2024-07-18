@@ -1,5 +1,12 @@
 # 1. Source the env variables
 set current_path [pwd]
+
+###############################
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+setenv VCS_ENABLE_ASLR_SUPPORT 1
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+###############################
+
 source ${current_path}/config.tcl
 
 # 2. Setting to enable VC SpyGlass LINT flow
@@ -11,7 +18,6 @@ set check_path [sh dirname [pwd]]
 set_app_var default_waiver_file ${WAIVER_PATH}/lint_waiver.tcl
 
 source -echo -verbose ${WORK_PATH}/script/check_lint/config_lint.tcl
-
 
 # 4. Design read
 
@@ -65,5 +71,5 @@ checkpoint_session -session ${TOP_MODULE}.lint_session
 # To restore a saved session
 # restore_session [-session lint_session]
 
-# 6. Show results in GUI
+# 7. Show results in GUI
 view_activity
