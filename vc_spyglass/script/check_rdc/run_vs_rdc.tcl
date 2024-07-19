@@ -28,7 +28,7 @@ set_app_var default_waiver_file ${WAIVER_PATH}/rdc_waiver.tcl
 #    Each inout port of a black box has both characteristics above as an input and an output port.
 set_blackbox -designs {ANALOG_WRAPPER}
 
-define_design_lib WORK -path ${work}/${currentTime}/VCS
+define_design_lib WORK -path $rdc_path/VCS
 analyze -format sverilog -vcs "+define+JL_SYNTHESIS -f $filelist"
 elaborate $TOP_MODULE -verbose
 
@@ -90,9 +90,6 @@ report_rdc -verbose -limit 0 -severity "info" -stage "glitch" -file ${REPORT_PAT
 
 report_violations -html
 
-while {![file exists ${REPORT_PATH}/report_rdc]} {
-    exec mkdir -p ${REPORT_PATH}/report_rdc
-}
 checkpoint_session -session ${rdc_path}/${TOP_MODULE}.rdc_session
 
 # 6. Save the session setup and run data

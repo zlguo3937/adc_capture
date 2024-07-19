@@ -1,13 +1,13 @@
 # 1. Source the env variables
 set current_path [pwd]
-
-###############################
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-setenv VCS_ENABLE_ASLR_SUPPORT 1
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-###############################
-
 source ${current_path}/config.tcl
+
+setenv VCS_ENABLE_ASLR_SUPPORT 1
+
+set currentTime [clock format [clock seconds] -format "%Y%m%d_%H%M"]
+exec mkdir -p ${work}/${currentTime}_cdc
+
+set cdc_path ${work}/${currentTime}_cdc
 
 # 2. Setting to enable VC SpyGlass LINT flow
 set_app_var enable_cdc true
@@ -31,7 +31,7 @@ set_app_var default_waiver_file ${WAIVER_PATH}/cdc_waiver.tcl
 #    Each inout port of a black box has both characteristics above as an input and an output port.
 set_blackbox -designs {ANALOG_WRAPPER}
 
-define_design_lib WORK -path ./WORK/VCS
+define_design_lib WORK -path $cdc_path/VCS
 analyze -format sverilog -vcs "+define+JL_SYNTHESIS -f $filelist"
 elaborate $TOP_MODULE -verbose
 
@@ -88,10 +88,8 @@ report_cdc -verbose -limit 0 -severity "info" -stage "CONV GLITCH" -file ${REPOR
 
 report_violations -html
 
-set currentTime [clock format [clock seconds] -format "%Y%m%d_%H%M"] 
-exec mkdir -p ${work}/${currentTime}
 
-checkpoint_session -session ${work}/${currentTime}/${TOP_MODULE}.cdc_session
+checkpoint_session -session ${cdc_path}/${TOP_MODULE}.cdc_session
 
 # 6. Save the session setup and run data
 #save_session -session lint_session

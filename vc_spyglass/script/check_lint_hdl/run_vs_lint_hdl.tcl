@@ -2,6 +2,13 @@
 set current_path [pwd]
 source ${current_path}/config.tcl
 
+setenv VCS_ENABLE_ASLR_SUPPORT 1
+
+set currentTime [clock format [clock seconds] -format "%Y%m%d_%H%M"]
+exec mkdir -p ${work}/${currentTime}_lint_hdl
+
+set lint_hdl_path ${work}/${currentTime}_lint_hdl
+
 # 2. Setting to enable VC SpyGlass LINT flow
 set enable_lang_checker true
 set check_path [sh dirname [pwd]]
@@ -20,7 +27,7 @@ set_app_var default_waiver_file ${WAIVER_PATH}/lint_hdl_waiver.tcl
 #    Each inout port of a black box has both characteristics above as an input and an output port.
 set_blackbox -designs {ANALOG_WRAPPER}
 
-define_design_lib WORK -path ./WORK/VCS
+define_design_lib WORK -path lint_hdl_path/VCS
 analyze -format sverilog -vcs "+define+JL_SYNTHESIS -f $filelist"
 elaborate $TOP_MODULE -verbose
 
@@ -59,7 +66,7 @@ report_lint -verbose -limit 0 -severity "info" -stage $stage_rpt -family $family
 
 report_violations -html
 
-checkpoint_session -session ${TOP_MODULE}.lint_hdl_session
+checkpoint_session -session ${lint_hdl_path}/${TOP_MODULE}.lint_hdl_session
 
 # 6. Save the session setup and run data
 #save_session -session lint_session
