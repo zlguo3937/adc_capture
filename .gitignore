@@ -23,6 +23,7 @@ syn/work/*.mr
 syn/work/*.svf
 syn/work/cksum_dir
 syn/work/alib-52
+syn/work/syn_work
 spyglass/work/.clockMatrixData.txt
 spyglass/waiver/ASIC_lint.awl
 hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/*.log
