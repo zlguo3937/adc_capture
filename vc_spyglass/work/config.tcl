@@ -51,3 +51,4 @@ set WORK_PATH                   ${WORK_ROOT_HOME}/vc_spyglass
 set REPORT_PATH                 ${WORK_PATH}/report
 set SCRIPT_PATH                 ${WORK_PATH}/script
 set WAIVER_PATH                 ${WORK_PATH}/waiver
+set work                        ${WORK_PATH}/work
