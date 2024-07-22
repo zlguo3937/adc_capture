@@ -1,0 +1,5 @@
+set FLOW HIER
+set LEC_TYPE R2G
+set LEC_VERSION 19.10100
+
+set extra_define SYNTHESIS
