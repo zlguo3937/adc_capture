@@ -1,0 +1,252 @@
+#Set Synopsys Directory
+export Synopsys_Dir=/synopsys
+
+#Set Cadence Directory
+export Cadence_Dir=/cadence
+
+###########################################################################################
+###############################    TSMC 28nm MC2    #######################################
+export MC2_INSTALL_DIR=/MC2/MC2_2012.02.00.d
+export PATH=$PATH:/MC2/MC2_2012.02.00.d/bin/Linux-64
+
+
+###########################################################################################
+###############################   Cadence license   #######################################
+export CDS_LIC_FILE=/cadence/license/cadence_all_ecc_lic.dat
+
+## CONFRML191
+#export CONFRML_HOME="$Cadence_Dir/CONFRML191"
+#export PATH="$PATH:$CONFRML_HOME/bin:$CONFRML_HOME/tools/bin"
+
+## CONFRML222
+export CONFRML_HOME="$Cadence_Dir/CONFRML222"
+export PATH="$PATH:$CONFRML_HOME/bin:$CONFRML_HOME/tools/bin"
+
+## INDAGOA2109
+#export INDAGO_ROOT="$Cadence_Dir/INDAGO2109"
+#export PATH="$PATH:$INDAGO_ROOT/bin:$INDAGO_ROOT/tools/bin"
+
+## INDAGOA2209
+#export INDAGO_ROOT=$Cadence_Dir/INDAGO2209
+#export PATH=$INDAGO_ROOT/tools.lnx86/bin/64bit:$PATH
+#export PATH=$INDAGO_ROOT/tools.lnx86/bin:$PATH
+
+## VERISIUMDEBUG2309
+export INDAGO_ROOT=$Cadence_Dir/VERISIUMDEBUG2309
+export PATH=$INDAGO_ROOT/tools.lnx86/bin/64bit:$PATH
+export PATH=$INDAGO_ROOT/tools.lnx86/bin:$PATH
+
+## XCELIUM2209
+#export XCELIUM_HOME=$Cadence_Dir/XCELIUMML2209
+#export PATH=$XCELIUM_HOME/tools.lnx86/bin/64bit:$PATH
+#export PATH=$XCELIUM_HOME/tools.lnx86/bin:$PATH
+#export LD_LIBRARY_PATH=$XCELIUM_HOME/tools.lnx86/lib/64bit:$LD_LIBRARY_PATH
+
+## XCELIUM2309
+export XCELIUM_HOME=$Cadence_Dir/XCELIUM2309
+export PATH=$XCELIUM_HOME/tools.lnx86/bin/64bit:$PATH
+export PATH=$XCELIUM_HOME/tools.lnx86/bin:$PATH
+#export LD_LIBRARY_PATH=$XCELIUM_HOME/tools.lnx86/lib/64bit:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/bin/python3
+
+## XCELIUM2403
+#export XCELIUM_HOME=$Cadence_Dir/XCELIUM2403
+#export PATH=$XCELIUM_HOME/tools.lnx86/bin/64bit:$PATH
+#export PATH=$XCELIUM_HOME/tools.lnx86/bin:$PATH
+#export LD_LIBRARY_PATH=$XCELIUM_HOME/tools.lnx86/lib/64bit:$LD_LIBRARY_PATH
+
+## GENUS211
+export CDN_SYNTH_ROOT=$Cadence_Dir/GENUS211
+export PATH=$CDN_SYNTH_ROOT/tools/bin:$PATH
+
+
+###########################################################################################
+###############################   Synopsys license   ######################################
+export Synopsys_Dir=/synopsys
+
+#SCL
+export SCL_HOME=$Synopsys_Dir/scl/2021.03
+export PATH=$SCL_HOME/linux64/bin:$PATH
+
+#license .dat
+export SNPSLMD_LICENSE_FILE="/synopsys/scl/2021.03/admin/license/Synopsys.dat"
+export SNPSLMD_LICENSE_FILE=27000@localhost.localdomain
+export LM_LICENSE_FILE="/synopsys/scl/2021.03/admin/license/Synopsys.dat"
+
+#lmgrd & lmdown
+alias lmopen="$Synopsys_Dir/scl/2021.03/linux64/bin/lmgrd -c /synopsys/scl/2021.03/admin/license/Synopsys.dat"
+alias lmclose="$Synopsys_Dir/scl/2021.03/linux64/bin/lmdown -c /synopsys/scl/2021.03/admin/license/Synopsys.dat"
+############################### Synopsys license ##########################################
+###########################################################################################
+
+# ============================= Design Compiler ===========================================
+#Syn R-2020.09-SP4
+#export SYN_HOME=/synopsys/syn/R-2020.09-SP4
+#export PATH=$SYN_HOME/bin:$PATH
+
+#Syn V-2023.12-SP3
+export SYN_HOME=/synopsys/syn/V-2023.12-SP3
+export PATH=$SYN_HOME/bin:$PATH
+
+# ============================= PrimeTime =================================================
+#PrimeTime
+export PrimeTime_HOME=$Synopsys_Dir/prime/R-2020.09-SP3
+export PATH=$PrimeTime_HOME/bin:$PATH
+
+# ============================= Formality =================================================
+#Formality
+export Formality_HOME=$Synopsys_Dir/fm/R-2020.09-SP3
+export PATH=$Formality_HOME/bin:$PATH
+
+# ============================= Starrc ====================================================
+#Starrc
+#export Starrc_HOME=$Synopsys_Dir/starrc/O-2018.06-SP1
+#export PATH=$Starrc_HOME/bin:$PATH
+
+# ============================= Library Compiler ==========================================
+#LC R-2020.09-SP3
+#export LC_HOME=$Synopsys_Dir/lc/R-2020.09-SP3
+#export PATH=$LC_HOME/bin:$PATH
+
+#LC V-2023.12-SP3
+export LC_HOME=$Synopsys_Dir/lc/V-2023.12-SP3
+export PATH=$LC_HOME/bin:$PATH
+
+# ============================= IC Compiler ===============================================
+#ICC
+#export ICC_HOME=$Synopsys_Dir/icc/O-2018.06-SP1
+#export PATH=$ICC_HOME/bin:$PATH
+
+# ============================= IC Compiler II ============================================
+#ICC2
+export ICC2_HOME=$Synopsys_Dir/icc2/R-2020.09-SP3
+export PATH=$ICC2_HOME/bin:$PATH
+
+# ============================= SpyGlass ==================================================
+# SpyGlass Q-2020.03-SP2
+#export SPYGLASS_HOME=$Synopsys_Dir/spyglass/Q-2020.03-SP2/SPYGLASS_HOME
+#export PATH=$SPYGLASS_HOME/bin:$PATH
+#export current_methodology_initial_rtl=$SPYGLASS_HOME/GuideWare/2020.03/block/initial_rtl
+#export current_methodology_rtl_handoff=$SPYGLASS_HOME/GuideWare/2020.03/block/rtl_handoff
+
+# ufe-SpyGlass Q-2020.03-SP2
+#export SPYGLASS_HOME=$Synopsys_Dir/ufe_optional_spyglass-vcs/Q-2020.03-SP2/SPYGLASS_HOME
+#export PATH=$SPYGLASS_HOME/bin:$PATH
+#export current_methodology_initial_rtl=$SPYGLASS_HOME/GuideWare/2020.03/block/initial_rtl
+#export current_methodology_rtl_handoff=$SPYGLASS_HOME/GuideWare/2020.03/block/rtl_handoff
+
+# SpyGlass V-2023.12-SP1
+#export SPYGLASS_HOME=$Synopsys_Dir/spyglass/V-2023.12-SP1/SPYGLASS_HOME
+#export PATH=$SPYGLASS_HOME/bin:$PATH
+#export current_methodology_initial_rtl=$SPYGLASS_HOME/GuideWare/2023.12/block/initial_rtl
+#export current_methodology_rtl_handoff=$SPYGLASS_HOME/GuideWare/2023.12/block/rtl_handoff
+
+# ufe-SpyGlass V-2023.12-SP1
+export SPYGLASS_HOME=$Synopsys_Dir/ufe_optional_spyglass-vcs/V-2023.12-SP1/SPYGLASS_HOME
+export PATH=$SPYGLASS_HOME/bin:$PATH
+export current_methodology_initial_rtl=$SPYGLASS_HOME/GuideWare/2023.12/block/initial_rtl
+export current_methodology_rtl_handoff=$SPYGLASS_HOME/GuideWare/2023.12/block/rtl_handoff
+
+# ============================= VC_STATIC =================================================
+#VC_STATIC T-2022.06-SP2
+#export VC_STATIC_HOME=/synopsys/vc_static/T-2022.06-SP2
+#export PATH=$VC_STATIC_HOME/bin:$PATH
+
+#VC_STATIC V-2023.12-SP1
+export VC_STATIC_HOME=/synopsys/vc_static/V-2023.12-SP1
+export PATH=$VC_STATIC_HOME/bin:$PATH
+
+# ============================= VCS =======================================================
+# VCS Q-2020.03-SP2-7
+#export VCS_HOME=$Synopsys_Dir/vcs/Q-2020.03-SP2-7
+#export PATH=$VCS_HOME/bin:$PATH
+#export DVE_HOME=$Synopsys_Dir/vcs/Q-2020.03-SP2-7/gui/dve
+#export PATH=$DVE_HOME/bin:$PATH
+#export VCS_TARGET_ARCH=amd64
+
+# VCS T-2022.06
+export VCS_HOME=$Synopsys_Dir/vcs/T-2022.06
+export PATH=$VCS_HOME/bin:$PATH
+export DVE_HOME=$Synopsys_Dir/vcs/T-2022.06/gui/dve
+export PATH=$DVE_HOME/bin:$PATH
+export VCS_TARGET_ARCH=amd64
+
+# VCS V-2023.12-SP1
+#export VCS_HOME=$Synopsys_Dir/vcs/V-2023.12-SP1
+#export PATH=$VCS_HOME/bin:$PATH
+#export DVE_HOME=$Synopsys_Dir/vcs/V-2023.12-SP1/gui/dve
+#export PATH=$DVE_HOME/bin:$PATH
+#export VCS_TARGET_ARCH=amd64
+
+# ============================= Verdi =====================================================
+# Verdi R-2020.12-SP1
+#export VERDI_HOME=$Synopsys_Dir/verdi/R-2020.12-SP1
+#export PATH=$VERDI_HOME/bin:$PATH
+#export LD_LIBRARY_PATH=$VERDI_HOME/share/PLI/lib/LINUX64:$LD_LIBRARY_PATH
+#export VERDI_DIR=$Synopsys_Dir/verdi/R-2020.12-SP1
+#export NOVAS_INST_DIR=$Synopsys_Dir/verdi/R-2020.12-SP1
+#export NPI_PLATFORM=LINUX64_GNU_472
+#export LD_LIBRARY_PATH=$NOVAS_INST_DIR/share/NPI/lib/LINUX64_GNU_520:$LD_LIBRARY_PATH
+#export NOVAS_HOME=$Synopsys_Dir/verdi/R-2020.12-SP1
+
+# Verdi T-2022.06
+export VERDI_HOME=$Synopsys_Dir/verdi/T-2022.06
+export PATH=$VERDI_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$VERDI_HOME/share/PLI/lib/LINUX64:$LD_LIBRARY_PATH
+export VERDI_DIR=$Synopsys_Dir/verdi/T-2022.06
+export NOVAS_INST_DIR=$Synopsys_Dir/verdi/T-2022.06
+export NPI_PLATFORM=LINUX64_GNU_472
+export LD_LIBRARY_PATH=$NOVAS_INST_DIR/share/NPI/lib/LINUX64_GNU_520:$LD_LIBRARY_PATH
+export NOVAS_HOME=$Synopsys_Dir/verdi/T-2022.06
+
+# Verdi V-2023.12-SP1
+#export VERDI_HOME=$Synopsys_Dir/verdi/V-2023.12-SP1
+#export PATH=$VERDI_HOME/bin:$PATH
+#export LD_LIBRARY_PATH=$VERDI_HOME/share/PLI/lib/LINUX64:$LD_LIBRARY_PATH
+#export VERDI_DIR=$Synopsys_Dir/verdi/V-2023.12-SP1
+#export NOVAS_INST_DIR=$Synopsys_Dir/verdi/V-2023.12-SP1
+#export NPI_PLATFORM=LINUX64_GNU_472
+#export LD_LIBRARY_PATH=$NOVAS_INST_DIR/share/NPI/lib/LINUX64_GNU_520:$LD_LIBRARY_PATH
+#export NOVAS_HOME=$Synopsys_Dir/verdi/V-2023.12-SP1
+
+###########################################################################################
+###############################    Pycharm   ##############################################
+###########################################################################################
+export PYCHARM_HOME=/tools/pycharm-community-2024.1.3
+export PATH=$PYCHARM_HOME/bin:$PATH
+alias pycharm='pycharm.sh'
+
+###########################################################################################
+###############################    Xilinx    ##############################################
+###########################################################################################
+# 2023.2
+#source /tools/Xilinx/Vivado/2023.2/settings64.sh
+#source /tools/Xilinx/Vitis/2023.2/settings64.sh
+#source /tools/Xilinx/Vitis_HLS/2023.2/settings64.sh
+#source /tools/Xilinx/Model_Composer/2023.2/settings64.sh
+
+#2020.2
+source /tools/Xilinx/Vivado/2020.2/settings64.sh
+source /tools/Xilinx/Vitis/2020.2/settings64.sh
+source /tools/Xilinx/Vitis_HLS/2020.2/settings64.sh
+source /tools/Xilinx/Model_Composer/2020.2/settings64.sh
+
+###########################################################################################
+###############################   Mentor license    #######################################
+###########################################################################################
+#MGLS_LICENSE_FILE
+export MGLS_LICENSE_FILE=/mentor/license/license.dat
+#tessent_2021
+export TESSENT_HOME=/mentor/tessent_2021.4
+export PATH=$TESSENT_HOME/bin:$PATH
+
+# alias
+alias dve="dve -full64"
+alias vcs="vcs -full64"
+alias verdi="verdi"
+alias sg=spyglass
+alias dc=dc_shell
+alias dv=design_vision
+alias pt=primetime
+alias fm=formality
+alias starrc=StarXtract
