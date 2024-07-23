@@ -1,6 +1,6 @@
 test:
 	@echo "Start to compile"
-	vcs -full64 +v2k -sverilog \
+	vcs +v2k -sverilog \
 	-timescale=1ns/1ns \
 	-f ../../builds/filelist/rtl_sim.f \
 	-debug_access+all -debug_region=cell+lib \

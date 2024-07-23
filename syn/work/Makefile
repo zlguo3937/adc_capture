@@ -8,7 +8,7 @@ compile:
 
 check_lec:
 	@mkdir -p ../report/lec
-	../script/run_lec.tcl | tee run_lec.log
+	lec -tclmode -lp -nogui -do ../script/check_lec.do -log run_lec.log
 
 dc_gui:
 	design_vision &
