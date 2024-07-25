@@ -11,7 +11,7 @@ class RegfileParser:
     def get_port_declarations(self, yaml_data):
         port_declarations = set()
         for group in yaml_data:
-            for reg in group['register']:
+            for reg in group['fields']:
                 reg_type = reg['type']
                 width_str = f"[{reg['width'] - 1}:0]" if reg['width'] > 1 else ""
 
@@ -48,7 +48,7 @@ class RegfileParser:
     def get_bus_we_wires(self, yaml_data):
         bus_we_wires = []
         for group in yaml_data:
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
                                    "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     bus_we_wires.append(f"    {'wire' :<16}{reg['name']}_bus_we;")
@@ -57,7 +57,7 @@ class RegfileParser:
     def get_bus_wdata_wires(self, yaml_data):
         bus_wdata_wires = []
         for group in yaml_data:
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
                                    "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     width_str = f"[{reg['width'] - 1}:0]" if reg['width'] > 1 else ""
@@ -67,7 +67,7 @@ class RegfileParser:
     def get_bus_re_wires(self, yaml_data):
         bus_re_wires = []
         for group in yaml_data:
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["RC", "RCSYNC", "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRC", "MCRC", "LHRC",
                                    "INC_CNT"]:
                     bus_re_wires.append(f"    {'wire' :<16}{reg['name']}_bus_re;")
@@ -76,7 +76,7 @@ class RegfileParser:
     def get_bus_rdata_wires(self, yaml_data):
         bus_rdata_wires = []
         for group in yaml_data:
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RC", "RCSYNC",
                                    "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC", "RWRSYNC",
                                    "RWDSYNC", "RWDEVSYNC", "RODEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
@@ -118,7 +118,7 @@ class RegfileParser:
         bus_we_assigns = []
         for group in yaml_data:
             address = group['address']
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
                                    "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     reg_name_bus_we = reg['name'] + "_bus_we"
@@ -128,7 +128,7 @@ class RegfileParser:
     def get_bus_wdata_assigns(self, yaml_data):
         bus_wdata_assigns = []
         for group in yaml_data:
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["RWR", "RWD", "RWDEV", "SC", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC",
                                    "RWRSYNC", "RWDSYNC", "RWDEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
                     reg_name_bus_wdata = reg['name'] + "_bus_wdata"
@@ -144,7 +144,7 @@ class RegfileParser:
         bus_re_assigns = []
         for group in yaml_data:
             address = group['address']
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["RC", "RCSYNC", "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRC", "MCRC", "LHRC",
                                    "INC_CNT"]:
                     reg_name_bus_re = reg['name'] + "_bus_re"
@@ -177,7 +177,7 @@ class RegfileParser:
         addr_selects_bus_rdata_assigns = []
         for group in yaml_data:
             bit_2_field = {}
-            for reg in group['register']:
+            for reg in group['fields']:
                 if reg['type'] in ["ROR", "ROD", "RODEV", "RWR", "RWD", "RWDEV", "RORSYNC", "RODSYNC", "RC", "RCSYNC",
                                    "ROLH", "ROLL", "CPUROLH", "CPUROLL", "CMRW", "CMRO", "CMRC", "LHRC", "RWRSYNC",
                                    "RWDSYNC", "RWDEVSYNC", "RODEVSYNC", "MCRO", "MCRC", "RAW", "INC_CNT"]:
@@ -238,7 +238,7 @@ class RegfileParser:
         reg_name = reg['name']
         reg_type = reg['type']
         width = reg['width']
-        reset = reg['reset']
+        init = reg['init']
         width_str = f"[{width - 1}:0]" if width > 1 else ""
 
         if width == 1:
@@ -302,13 +302,13 @@ class RegfileParser:
     def get_register_instance(self, yaml_data):
         register_instance = []
         for group in yaml_data:
-            reg_group_name = group['reg_group_name']
+            group_name = group['group_name']
             desc = group['desc']
             address = group['address']
             register_instance.append(f"    // ********************************************************************")
-            register_instance.append(f"    // desc:{desc} reg_group_name:{reg_group_name} address:{address}")
+            register_instance.append(f"    // desc:{desc} group_name:{group_name} address:{address}")
             register_instance.append(f"    // ********************************************************************")
-            for reg in group['register']:
+            for reg in group['fields']:
                 register_instance.append(self.create_register_block(reg))
         return register_instance
 
@@ -316,7 +316,7 @@ class RegfileParser:
         reg_name = reg['name']
         reg_type = reg['type']
         WIDTH = reg['width']
-        INIT = hex(int(reg['reset'], 16))[2:]
+        INIT = hex(int(reg['init'], 16))[2:]
         if WIDTH == 1:
             module_name = f"{reg_name}_{reg_type}"
         else:
@@ -1473,7 +1473,7 @@ endmodule\n''')
     def get_module_instance(self, yaml_data):
         module_instance = []
         for group in yaml_data:
-            for reg in group['register']:
+            for reg in group['fields']:
                 module_instance.append(self.get_register_module(reg))
         return module_instance
 
@@ -1601,8 +1601,8 @@ def main():
 
     converter = YMLToHDLConverter(yml_path, hdl_path, module_name)
     converter.convert()
+    print(f"Conversion {module_name}.v successfully!")
 
 
 if __name__ == "__main__":
     main()
-    print("Conversion completed successfully!")

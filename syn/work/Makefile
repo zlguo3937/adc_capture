@@ -14,4 +14,4 @@ dc_gui:
 	design_vision &
 
 clean:
-	rm -rf cksum_dir *.log *.svf *.mr *.pvl *.syn ../unmapped/* ../mapped/* ../report/* alib-52 syn_work
+	rm -rf cksum_dir *.log *.svf *.mr *.pvl *.syn ../unmapped/* ../mapped/* ../report/* alib-52 syn_work run_lec.log~

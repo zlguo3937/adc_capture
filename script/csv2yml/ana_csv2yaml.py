@@ -33,10 +33,10 @@ class RegisterParser:
 
     def parse_apb_tpe(self, regs_type):
         apb_type = self.parse_reg_type(regs_type)
-        if apb_type in ['ROR', 'ROD', 'RODEV', 'RORSYNC', 'RODSYNC', 'RODEVSYNC', 'CMRO']:
-            apb_type = 'ro'
-        elif apb_type in ['RWR', 'RWD', 'RWDEV', 'RWRSYNC', 'RWDSYNC', 'RWDEVSYNC', 'CMRW', 'MCRO', 'MCRC', 'INC_CNT', 'RAW']:
+        if apb_type == 'RWR':
             apb_type = 'rw'
+        elif apb_type == 'RORSYNC':
+            apb_type = 'ro'
         if apb_type not in self.apb_type_list:
             print("ERROR: Your Register type must be in apb_type_list!")
             print(apb_type)
@@ -45,20 +45,10 @@ class RegisterParser:
 
     def parse_cpu_tpe(self, regs_type):
         cpu_type = self.parse_reg_type(regs_type)
-        if cpu_type in ['ROR', 'ROD', 'RODEV', 'RORSYNC', 'RODSYNC', 'RODEVSYNC', 'MCRO']:
-            cpu_type = 'ro'
-        elif cpu_type in ['RWR', 'RWD', 'RWDEV', 'RWRSYNC', 'RWDSYNC', 'RWDEVSYNC', 'CMRW', 'CMRO', 'LHRC', 'INC_CNT', 'RAW']:
+        if cpu_type == 'RWR':
             cpu_type = 'rw'
-        elif cpu_type in ['MCRC']:
-            cpu_type = 'rc'
-        elif cpu_type in ['SC', 'CMRC']:
-            cpu_type = 'sc'
-        elif cpu_type in ['RC', 'RCSYNC']:
-            cpu_type = 'rc'
-        elif cpu_type in ['ROLH', 'CPUROLH']:
-            cpu_type = 'lh'
-        elif cpu_type in ['ROLL', 'CPUROLL']:
-            cpu_type = 'll'
+        elif cpu_type == 'RORSYNC':
+            cpu_type = 'ro'
         if cpu_type not in self.cpu_type_list:
             print("ERROR: Your Register type must be in cpu_type_list!")
             print(cpu_type)
@@ -67,20 +57,10 @@ class RegisterParser:
 
     def parse_mdio_tpe(self, regs_type):
         mdio_type = self.parse_reg_type(regs_type)
-        if mdio_type in ['ROR', 'ROD', 'RODEV', 'RORSYNC', 'RODSYNC', 'RODEVSYNC', 'MCRO']:
-            mdio_type = 'ro'
-        elif mdio_type in ['RWR', 'RWD', 'RWDEV', 'RWRSYNC', 'RWDSYNC', 'RWDEVSYNC', 'CMRW', 'CMRO', 'LHRC', 'INC_CNT', 'RAW']:
+        if mdio_type == 'RWR':
             mdio_type = 'rw'
-        elif mdio_type in ['MCRC']:
-            mdio_type = 'rc'
-        elif mdio_type in ['SC', 'CMRC']:
-            mdio_type = 'sc'
-        elif mdio_type in ['RC', 'RCSYNC']:
-            mdio_type = 'rc'
-        elif mdio_type in ['ROLH', 'CPUROLH']:
-            mdio_type = 'lh'
-        elif mdio_type in ['ROLL', 'CPUROLL']:
-            mdio_type = 'll'
+        elif mdio_type == 'RORSYNC':
+            mdio_type = 'ro'
         if mdio_type not in self.mdio_type_list:
             print("ERROR: Your Register type must be in mdio_type_list!")
             print(mdio_type)
@@ -89,11 +69,9 @@ class RegisterParser:
 
     def parse_dev_tpe(self, regs_type):
         dev_type = self.parse_reg_type(regs_type)
-        if dev_type in ['ROR', 'ROD', 'RORSYNC', 'RODSYNC', 'ROLH', 'ROLL']:
+        if dev_type == 'RORSYNC':
             dev_type = 'wo'
-        elif dev_type in ['RODEV', 'RWDEV', 'RODEVSYNC', 'RWDEVSYNC', 'RC', 'RCSYNC']:
-            dev_type = 'we'
-        elif dev_type in ['RWR', 'RWD', 'RWRSYNC', 'RWDSYNC', 'SC']:
+        elif dev_type == 'RWR':
             dev_type = 'ro'
         else:
             dev_type = 'none'
