@@ -47,6 +47,7 @@ class FileListGenerator:
                         output_file.write(incdir + '\n')
                     for filepath in filelist:
                         output_file.write(filepath + '\n')
+                print(f"Conversion {output_file_path} successfully!")
 
 
 def main():
@@ -63,4 +64,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    print("Conversion completed successfully!")

@@ -1601,7 +1601,7 @@ def main():
 
     converter = YMLToHDLConverter(yml_path, hdl_path, module_name)
     converter.convert()
-    print(f"Conversion {module_name}.v successfully!")
+    print(f"Conversion {hdl_path} successfully!")
 
 
 if __name__ == "__main__":
