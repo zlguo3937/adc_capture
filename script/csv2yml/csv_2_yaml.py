@@ -219,7 +219,7 @@ def main():
 
     converter = CSVToYAMLConverter(csv_path, yml_path)
     converter.convert()
-    print(f"Conversion {yml_path}.v successfully!")
+    print(f"Conversion {yml_path} successfully!")
 
 
 if __name__ == "__main__":

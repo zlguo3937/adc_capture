@@ -91,11 +91,11 @@ class RegisterParser:
             return 'RWR'
         elif regs_type == 'OD':
             return 'RORSYNC'
-        elif regs_type == 'IDH' or 'IA':
+        elif regs_type in ['IDH', 'IA']:
             return 'output'
-        elif regs_type == 'ODH' or 'OCK' or 'OA':
+        elif regs_type in ['ODH', 'OCK', 'OA']:
             return 'input'
-        elif regs_type == 'PIOA' or 'PIA' or 'POA':
+        elif regs_type in ['PIOA', 'PIA', 'POA']:
             return 'PIN'
 
     def parse_reg_name(self, reg_name, all_regs):
@@ -207,6 +207,7 @@ def main():
 
     converter = CSVToYAMLConverter(csv_path, yml_path)
     converter.convert()
+    print(f"Conversion {yml_path} successfully!")
 
 
 if __name__ == "__main__":
