@@ -302,11 +302,11 @@ class RegfileParser:
     def get_register_instance(self, yaml_data):
         register_instance = []
         for group in yaml_data:
-            group_name = group['group_name']
+            reg_name = group['reg_name']
             desc = group['desc']
             address = group['address']
             register_instance.append(f"    // ********************************************************************")
-            register_instance.append(f"    // desc:{desc} group_name:{group_name} address:{address}")
+            register_instance.append(f"    // desc:{desc} reg_name:{reg_name} address:{address}")
             register_instance.append(f"    // ********************************************************************")
             for reg in group['fields']:
                 register_instance.append(self.create_register_block(reg))

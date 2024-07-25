@@ -107,7 +107,7 @@ class RegisterParser:
 
     def read_csv_to_yaml(self, csv_file):
         address = 0
-        group_name: str = ""
+        reg_name: str = ""
         desc: str = ""
 
         addresses = set()
@@ -123,13 +123,13 @@ class RegisterParser:
                     continue
 
                 if row[0].startswith("##"):
-                    group_name = row[0][2:]
-                    if group_name != '' and group_name in reg_group_names:
-                        print("ERROR: Your Register group_name must be exclusive in all regs!")
-                        print(group_name)
+                    reg_name = row[0][2:]
+                    if reg_name != '' and reg_name in reg_group_names:
+                        print("ERROR: Your Register reg_name must be exclusive in all regs!")
+                        print(reg_name)
                         sys.exit(-1)
                     else:
-                        reg_group_names.add(group_name)
+                        reg_group_names.add(reg_name)
                     desc = row[0][2:]
 
                     if address in addresses:
@@ -140,7 +140,7 @@ class RegisterParser:
                         addresses.add(address)
                     reg_info = {
                         'address': hex(address),
-                        'group_name': group_name,
+                        'reg_name': reg_name,
                         'desc': desc,
                         'fields': [],
                         'ana_io': []
