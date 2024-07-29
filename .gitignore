@@ -13,6 +13,9 @@ vc_spyglass/waiver/*
 !vc_spyglass/work/config.tcl
 .idea
 fpga/*
+!fpga/adc_capture_prj.tcl
+!fpga/Makefile
+!fpga/README
 syn/report/*
 syn/mapped/*
 syn/unmapped/*
