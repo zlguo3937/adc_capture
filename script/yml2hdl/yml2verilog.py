@@ -1491,8 +1491,8 @@ module {module_name}
     input   wire             req_sel,
     input   wire    [15:0]   req_wdata,
  
-    output  reg              req_ready,
-    output  reg     [15:0]   req_rdata,
+    output  wire             req_ready,
+    output  wire    [15:0]   req_rdata,
 
 ''').format(module_name=module_name)
 
