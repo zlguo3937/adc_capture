@@ -11,7 +11,22 @@ class RegfileParser:
     def get_dft_self_define_ports(self, yaml_data):
         dft_self_define_ports = set()
         dft_self_define_ports.add(
-            f"    output  wire             cpu_testmode,\n"
+            f"    input   wire             test_mode,\n"
+            )
+        dft_self_define_ports.add(
+            f"    input   wire             scan_en_i,\n"
+            )
+        dft_self_define_ports.add(
+            f"    input   wire             scan_rstn_i,\n"
+            )
+        dft_self_define_ports.add(
+            f"    input   wire             edt_update_i,\n"
+            )
+        dft_self_define_ports.add(
+            f"    input   wire             test_clk_i,\n"
+            )
+        dft_self_define_ports.add(
+            f"    output  wire             cpu_test_mode,\n"
             )
         dft_self_define_ports.add(
             f"    output  wire             scan_enable,\n"
@@ -61,77 +76,77 @@ class RegfileParser:
     def get_self_define_logic(self, yaml_data):
         self_define_instance = set()
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_cpu_testmode\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_cpu_testmode\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (cpu_testmode)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_scan_enable\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_scan_enable\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (scan_enable)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_scan_mode\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_scan_mode\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (scan_mode)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_rtl_icg_en\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_rtl_icg_en\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_rtl_icg_en)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_icg_scan_rstn\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_icg_scan_rstn\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_icg_scan_rstn)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_icg_rstn_ctrl\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_icg_rstn_ctrl\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_icg_rstn_ctrl)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_icg_scan_rstn_ctrl\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_icg_scan_rstn_ctrl\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_icg_scan_rstn_ctrl)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_test_clk_en\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_test_clk_en\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_test_clk_en)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_stuck_at_mode\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_stuck_at_mode\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_stuck_at_mode)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_tpi_clk\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_tpi_clk\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_tpi_clk)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_clkdiv_rstn_ctrl\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_clkdiv_rstn_ctrl\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_clkdiv_rstn_ctrl)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_clkdiv_scan_rstn\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_clkdiv_scan_rstn\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_clkdiv_scan_rstn)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_rstnsync_scan_rstn\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_rstnsync_scan_rstn\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_rstnsync_scan_rstn)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_rstnsync_scan_rstn_ctrl\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_rstnsync_scan_rstn_ctrl\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_rstnsync_scan_rstn_ctrl)\n    );\n"
             )
         self_define_instance.add(
-            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_scan_en\n"
+            f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_dft_scan_en\n    (\n"
             f"    .clk_in     (1'b0),\n"
             f"    .clk_out    (dft_scan_en)\n    );\n"
             )
@@ -216,14 +231,14 @@ class RegfileParser:
                         for i in range(5):
                             if width == 1:
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}\n    (\n"
                                     f"    .clk_in    (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_BWPHYID_name[i]})\n    );\n"
                                     )
                             else:
                                 for j in range(width):
                                     dft_dummy_ctrl_ana_buf_instance.add(
-                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}_{j}\n    (\n"
                                         f"    .clk_in     (1'b0),\n"
                                         f"    .clk_out    (DFT_{new_BWPHYID_name[i]}[{j}])\n    );\n"
                                         )
@@ -232,14 +247,14 @@ class RegfileParser:
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
                         if width == 1:
                             dft_dummy_ctrl_ana_buf_instance.add(
-                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}\n"
+                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}\n    (\n"
                                 f"    .clk_in     (1'b0),\n"
                                 f"    .clk_out    (DFT_{new_BWPLLID_name[0]})\n    );\n"
                             )
                         else:
                             for j in range(width):
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}_{j}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}_{j}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_BWPLLID_name[0]}[{j}])\n    );\n"
                                 )
@@ -249,14 +264,14 @@ class RegfileParser:
                         for i in range(3):
                             if width == 1:
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_SDSPHYID_name[i]})\n    );\n"
                                 )
                             else:
                                 for j in range(width):
                                     dft_dummy_ctrl_ana_buf_instance.add(
-                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}_{j}\n    (\n"
                                         f"    .clk_in     (1'b0),\n"
                                         f"    .clk_out    (DFT_{new_SDSPHYID_name[i]}[{j}])\n    );\n"
                                     )
@@ -266,28 +281,28 @@ class RegfileParser:
                         for i in range(2):
                             if width == 1:
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_SDSPLLID_name[i]})\n    );\n"
                                 )
                             else:
                                 for j in range(width):
                                     dft_dummy_ctrl_ana_buf_instance.add(
-                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}_{j}\n    (\n"
                                         f"    .clk_in     (1'b0),\n"
                                         f"    .clk_out    (DFT_{new_SDSPLLID_name[i]}[{j}])\n    );\n"
                                     )
                     else:
                         if width == 1:
                             dft_dummy_ctrl_ana_buf_instance.add(
-                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}\n"
+                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}\n    (\n"
                                 f"    .clk_in     (1'b0),\n"
                                 f"    .clk_out    (DFT_{field_name})\n    );\n"
                             )
                         else:
                             for j in range(width):
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}_{j}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}_{j}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{field_name}[{j}])\n    );\n"
                                 )
@@ -303,14 +318,14 @@ class RegfileParser:
                         for i in range(5):
                             if width == 1:
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_BWPHYID_name[i]})\n    );\n"
                                 )
                             else:
                                 for j in range(width):
                                     dft_dummy_ctrl_ana_buf_instance.add(
-                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPHYID_name[i]}_{j}\n    (\n"
                                         f"    .clk_in     (1'b0),\n"
                                         f"    .clk_out    (DFT_{new_BWPHYID_name[i]}[{j}])\n    );\n"
                                     )
@@ -319,14 +334,14 @@ class RegfileParser:
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
                         if width == 1:
                             dft_dummy_ctrl_ana_buf_instance.add(
-                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}\n"
+                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}\n    (\n"
                                 f"    .clk_in     (1'b0),\n"
                                 f"    .clk_out    (DFT_{new_BWPLLID_name[0]})\n    );\n"
                             )
                         else:
                             for j in range(width):
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}_{j}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_BWPLLID_name[0]}_{j}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_BWPLLID_name[0]}[{j}])\n    );\n"
                                 )
@@ -336,14 +351,14 @@ class RegfileParser:
                         for i in range(3):
                             if width == 1:
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_SDSPHYID_name[i]})\n    );\n"
                                 )
                             else:
                                 for j in range(width):
                                     dft_dummy_ctrl_ana_buf_instance.add(
-                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPHYID_name[i]}_{j}\n    (\n"
                                         f"    .clk_in     (1'b0),\n"
                                         f"    .clk_out    (DFT_{new_SDSPHYID_name[i]}[{j}])\n    );\n"
                                     )
@@ -353,28 +368,28 @@ class RegfileParser:
                         for i in range(2):
                             if width == 1:
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{new_SDSPLLID_name[i]})\n    );\n"
                                 )
                             else:
                                 for j in range(width):
                                     dft_dummy_ctrl_ana_buf_instance.add(
-                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{new_SDSPLLID_name[i]}_{j}\n    (\n"
                                         f"    .clk_in     (1'b0),\n"
                                         f"    .clk_out    (DFT_{new_SDSPLLID_name[i]}[{j}])\n    );\n"
                                     )
                     else:
                         if width == 1:
                             dft_dummy_ctrl_ana_buf_instance.add(
-                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}\n"
+                                f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}\n    (\n"
                                 f"    .clk_in     (1'b0),\n"
                                 f"    .clk_out    (DFT_{field_name})\n    );\n"
                             )
                         else:
                             for j in range(width):
                                 dft_dummy_ctrl_ana_buf_instance.add(
-                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}_{j}\n"
+                                    f"    jlsemi_util_dft_buf_wrap\n    u_dft_dont_touch_buf_{field_name}_{j}\n    (\n"
                                     f"    .clk_in     (1'b0),\n"
                                     f"    .clk_out    (DFT_{field_name}[{j}])\n    );\n"
                                 )

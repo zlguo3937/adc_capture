@@ -18,28 +18,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[0]}")
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[1]}")
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[2]}")
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[3]}")
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[4]}")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[0]},")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[1]},")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[2]},")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[3]},")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPLLID_name[0]}")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPHYID_name[0]}")
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPHYID_name[1]}")
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPHYID_name[2]}")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPHYID_name[0]},")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPHYID_name[1]},")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPLLID_name[0]}")
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPLLID_name[1]}")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPLLID_name[0]},")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{new_SDSPLLID_name[1]},")
                     else:
-                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{reg['name']}")
+                        dft_ana_ports.add(f"    input   wire    {width_str:8} DFT_{reg['name']},")
             for port in group['ana_io']:
                 field_name = port['name']
                 width_str = int(port['width'])
@@ -48,28 +48,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[0]}")
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[1]}")
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[2]}")
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[3]}")
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[4]}")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[0]},")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[1]},")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[2]},")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[3]},")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPLLID_name[0]}")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPHYID_name[0]}")
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPHYID_name[1]}")
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPHYID_name[2]}")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPHYID_name[0]},")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPHYID_name[1]},")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPLLID_name[0]}")
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPLLID_name[1]}")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPLLID_name[0]},")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{new_SDSPLLID_name[1]},")
                     else:
-                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{port['name']}")
+                        dft_ana_ports.add(f"    input   wire    {width:8} DFT_{port['name']},")
         return dft_ana_ports
 
     def get_ana_input_ports_declarations(self, yaml_data):
@@ -82,28 +82,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[0]}")
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[1]}")
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[2]}")
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[3]}")
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[4]}")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[0]},")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[1]},")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[2]},")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[3]},")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPLLID_name[0]}")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPHYID_name[0]}")
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPHYID_name[1]}")
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPHYID_name[2]}")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPHYID_name[0]},")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPHYID_name[1]},")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPLLID_name[0]}")
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPLLID_name[1]}")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPLLID_name[0]},")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {new_SDSPLLID_name[1]},")
                     else:
-                        ana_input_ports.add(f"    input   wire    {width_str:8} {reg['name']}")
+                        ana_input_ports.add(f"    input   wire    {width_str:8} {reg['name']},")
 
             for port in group['ana_io']:
                 width_str = int(port['width'])
@@ -113,28 +113,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[0]}")
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[1]}")
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[2]}")
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[3]}")
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[4]}")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[0]},")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[1]},")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[2]},")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[3]},")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPLLID_name[0]}")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPHYID_name[0]}")
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPHYID_name[1]}")
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPHYID_name[2]}")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPHYID_name[0]},")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPHYID_name[1]},")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPLLID_name[0]}")
-                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPLLID_name[1]}")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPLLID_name[0]},")
+                        ana_input_ports.add(f"    input   wire    {width:8} {new_SDSPLLID_name[1]},")
                     else:
-                        ana_input_ports.add(f"    input   wire    {width:8} {port['name']}")
+                        ana_input_ports.add(f"    input   wire    {width:8} {port['name']},")
 
         return ana_input_ports
 
@@ -148,28 +148,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[0]}")
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[1]}")
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[2]}")
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[3]}")
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[4]}")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[0]},")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[1]},")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[2]},")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[3]},")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPLLID_name[0]}")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPHYID_name[0]}")
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPHYID_name[1]}")
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPHYID_name[2]}")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPHYID_name[0]},")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPHYID_name[1]},")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPLLID_name[0]}")
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPLLID_name[1]}")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPLLID_name[0]},")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {new_SDSPLLID_name[1]},")
                     else:
-                        ana_output_ports.add(f"    output  wire    {width_str:8} {reg['name']}")
+                        ana_output_ports.add(f"    output  wire    {width_str:8} {reg['name']},")
 
             for port in group['ana_io']:
                 width_str = int(port['width'])
@@ -179,28 +179,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[0]}")
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[1]}")
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[2]}")
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[3]}")
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[4]}")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[0]},")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[1]},")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[2]},")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[3]},")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPLLID_name[0]}")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPHYID_name[0]}")
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPHYID_name[1]}")
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPHYID_name[2]}")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPHYID_name[0]},")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPHYID_name[1]},")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPLLID_name[0]}")
-                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPLLID_name[1]}")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPLLID_name[0]},")
+                        ana_output_ports.add(f"    output  wire    {width:8} {new_SDSPLLID_name[1]},")
                     else:
-                        ana_output_ports.add(f"    output  wire    {width:8} {port['name']}")
+                        ana_output_ports.add(f"    output  wire    {width:8} {port['name']},")
 
         return ana_output_ports
 
@@ -214,28 +214,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[0]}")
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[1]}")
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[2]}")
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[3]}")
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[4]}")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[0]},")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[1]},")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[2]},")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[3]},")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPLLID_name[0]}")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPHYID_name[0]}")
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPHYID_name[1]}")
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPHYID_name[2]}")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPHYID_name[0]},")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPHYID_name[1]},")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPLLID_name[0]}")
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPLLID_name[1]}")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPLLID_name[0]},")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{new_SDSPLLID_name[1]},")
                     else:
-                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{reg['name']}")
+                        ANA_output_ports.add(f"    output  wire    {width_str:8} ANA_{reg['name']},")
 
             for port in group['ana_io']:
                 field_name = port['name']
@@ -245,28 +245,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[0]}")
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[1]}")
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[2]}")
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[3]}")
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[4]}")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[0]},")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[1]},")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[2]},")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[3]},")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPLLID_name[0]}")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPHYID_name[0]}")
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPHYID_name[1]}")
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPHYID_name[2]}")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPHYID_name[0]},")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPHYID_name[1]},")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPLLID_name[0]}")
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPLLID_name[1]}")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPLLID_name[0]},")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{new_SDSPLLID_name[1]},")
                     else:
-                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{port['name']}")
+                        ANA_output_ports.add(f"    output  wire    {width:8} ANA_{port['name']},")
 
         return ANA_output_ports
 
@@ -280,28 +280,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[0]}")
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[1]}")
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[2]}")
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[3]}")
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[4]}")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[0]},")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[1]},")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[2]},")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[3]},")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPLLID_name[0]}")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPHYID_name[0]}")
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPHYID_name[1]}")
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPHYID_name[2]}")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPHYID_name[0]},")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPHYID_name[1]},")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPLLID_name[0]}")
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPLLID_name[1]}")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPLLID_name[0]},")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{new_SDSPLLID_name[1]},")
                     else:
-                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{reg['name']}")
+                        ANA_input_ports.add(f"    input   wire    {width_str:8} ANA_{reg['name']},")
 
             for port in group['ana_io']:
                 field_name = port['name']
@@ -311,28 +311,28 @@ class RegfileParser:
                     if field_name.startswith("BWPHYID"):
                         base_BWPHYID = field_name[:7]
                         new_BWPHYID_name = [f"{base_BWPHYID[:5]}{i}{field_name[7:]}" for i in range(5)]
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[0]}")
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[1]}")
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[2]}")
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[3]}")
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[4]}")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[0]},")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[1]},")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[2]},")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[3]},")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPHYID_name[4]},")
                     elif field_name.startswith("BWPLLID"):
                         base_BWPLLID = field_name[:7]
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPLLID_name[0]}")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_BWPLLID_name[0]},")
                     elif field_name.startswith("SDSPHYID"):
                         base_SDSPHYID = field_name[:8]
                         new_SDSPHYID_name = [f"{base_SDSPHYID[:6]}{i}{field_name[8:]}" for i in range(3)]
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPHYID_name[0]}")
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPHYID_name[1]}")
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPHYID_name[2]}")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPHYID_name[0]},")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPHYID_name[1]},")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPHYID_name[2]},")
                     elif field_name.startswith("SDSPLLID"):
                         base_SDSPLLID = field_name[:8]
                         new_SDSPLLID_name = [f"{base_SDSPLLID[:6]}{i}{field_name[8:]}" for i in range(2)]
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPLLID_name[0]}")
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPLLID_name[1]}")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPLLID_name[0]},")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{new_SDSPLLID_name[1]},")
                     else:
-                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{port['name']}")
+                        ANA_input_ports.add(f"    input   wire    {width:8} ANA_{port['name']},")
 
         return ANA_input_ports
 
@@ -476,7 +476,7 @@ class RegfileParser:
                         for i in range(5):
                             if width == 1:
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_BWPHYID_name[i]}),\n"
                                     f"    .a1_i       (DFT_{new_BWPHYID_name[i]}),\n"
@@ -485,7 +485,7 @@ class RegfileParser:
                             else:
                                 for j in range(width):
                                     dft_ctrl_mux_instance.add(
-                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}_{j}\n    (\n"
                                         f"    .sel_i      (ana_dft_ctrl),\n"
                                         f"    .a0_i       ({new_BWPHYID_name[i]}[{j}]),\n"
                                         f"    .a1_i       (DFT_{new_BWPHYID_name[i]}[{j}]),\n"
@@ -496,7 +496,7 @@ class RegfileParser:
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
                         if width == 1:
                             dft_ctrl_mux_instance.add(
-                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}\n"
+                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}\n    (\n"
                                 f"    .sel_i      (ana_dft_ctrl),\n"
                                 f"    .a0_i       ({new_BWPLLID_name[0]}),\n"
                                 f"    .a1_i       (DFT_{new_BWPLLID_name[0]}),\n"
@@ -505,7 +505,7 @@ class RegfileParser:
                         else:
                             for j in range(width):
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}_{j}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}_{j}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_BWPLLID_name[0]}[{j}]),\n"
                                     f"    .a1_i       (DFT_{new_BWPLLID_name[0]}[{j}]),\n"
@@ -517,7 +517,7 @@ class RegfileParser:
                         for i in range(3):
                             if width == 1:
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_SDSPHYID_name[i]}),\n"
                                     f"    .a1_i       (DFT_{new_SDSPHYID_name[i]}),\n"
@@ -526,7 +526,7 @@ class RegfileParser:
                             else:
                                 for j in range(width):
                                     dft_ctrl_mux_instance.add(
-                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}_{j}\n    (\n"
                                         f"    .sel_i      (ana_dft_ctrl),\n"
                                         f"    .a0_i       ({new_SDSPHYID_name[i]}[{j}]),\n"
                                         f"    .a1_i       (DFT_{new_SDSPHYID_name[i]}[{j}]),\n"
@@ -538,7 +538,7 @@ class RegfileParser:
                         for i in range(2):
                             if width == 1:
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_SDSPLLID_name[i]}),\n"
                                     f"    .a1_i       (DFT_{new_SDSPLLID_name[i]}),\n"
@@ -547,7 +547,7 @@ class RegfileParser:
                             else:
                                 for j in range(width):
                                     dft_ctrl_mux_instance.add(
-                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}_{j}\n    (\n"
                                         f"    .sel_i      (ana_dft_ctrl),\n"
                                         f"    .a0_i       ({new_SDSPLLID_name[i]}[{j}]),\n"
                                         f"    .a1_i       (DFT_{new_SDSPLLID_name[i]}[{j}]),\n"
@@ -556,7 +556,7 @@ class RegfileParser:
                     else:
                         if width == 1:
                             dft_ctrl_mux_instance.add(
-                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}\n"
+                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}\n    (\n"
                                 f"    .sel_i      (ana_dft_ctrl),\n"
                                 f"    .a0_i       ({field_name}),\n"
                                 f"    .a1_i       (DFT_{field_name}),\n"
@@ -565,7 +565,7 @@ class RegfileParser:
                         else:
                             for j in range(width):
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}_{j}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}_{j}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({field_name}[{j}]),\n"
                                     f"    .a1_i       (DFT_{field_name}[{j}]),\n"
@@ -583,7 +583,7 @@ class RegfileParser:
                         for i in range(5):
                             if width == 1:
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_BWPHYID_name[i]}),\n"
                                     f"    .a1_i       (DFT_{new_BWPHYID_name[i]}),\n"
@@ -592,7 +592,7 @@ class RegfileParser:
                             else:
                                 for j in range(width):
                                     dft_ctrl_mux_instance.add(
-                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPHYID_name[i]}_{j}\n    (\n"
                                         f"    .sel_i      (ana_dft_ctrl),\n"
                                         f"    .a0_i       ({new_BWPHYID_name[i]}[{j}]),\n"
                                         f"    .a1_i       (DFT_{new_BWPHYID_name[i]}[{j}]),\n"
@@ -603,7 +603,7 @@ class RegfileParser:
                         new_BWPLLID_name = [f"{base_BWPLLID[:5]}0{field_name[7:]}"]
                         if width == 1:
                             dft_ctrl_mux_instance.add(
-                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}\n"
+                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}\n    (\n"
                                 f"    .sel_i      (ana_dft_ctrl),\n"
                                 f"    .a0_i       ({new_BWPLLID_name[0]}),\n"
                                 f"    .a1_i       (DFT_{new_BWPLLID_name[0]}),\n"
@@ -612,7 +612,7 @@ class RegfileParser:
                         else:
                             for j in range(width):
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}_{j}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_BWPLLID_name[0]}_{j}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_BWPLLID_name[0]}[{j}]),\n"
                                     f"    .a1_i       (DFT_{new_BWPLLID_name[0]}[{j}]),\n"
@@ -624,7 +624,7 @@ class RegfileParser:
                         for i in range(3):
                             if width == 1:
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_SDSPHYID_name[i]}),\n"
                                     f"    .a1_i       (DFT_{new_SDSPHYID_name[i]}),\n"
@@ -633,7 +633,7 @@ class RegfileParser:
                             else:
                                 for j in range(width):
                                     dft_ctrl_mux_instance.add(
-                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPHYID_name[i]}_{j}\n    (\n"
                                         f"    .sel_i      (ana_dft_ctrl),\n"
                                         f"    .a0_i       ({new_SDSPHYID_name[i]}[{j}]),\n"
                                         f"    .a1_i       (DFT_{new_SDSPHYID_name[i]}[{j}]),\n"
@@ -645,7 +645,7 @@ class RegfileParser:
                         for i in range(2):
                             if width == 1:
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({new_SDSPLLID_name[i]}),\n"
                                     f"    .a1_i       (DFT_{new_SDSPLLID_name[i]}),\n"
@@ -654,7 +654,7 @@ class RegfileParser:
                             else:
                                 for j in range(width):
                                     dft_ctrl_mux_instance.add(
-                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}_{j}\n"
+                                        f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{new_SDSPLLID_name[i]}_{j}\n    (\n"
                                         f"    .sel_i      (ana_dft_ctrl),\n"
                                         f"    .a0_i       ({new_SDSPLLID_name[i]}[{j}]),\n"
                                         f"    .a1_i       (DFT_{new_SDSPLLID_name[i]}[{j}]),\n"
@@ -663,7 +663,7 @@ class RegfileParser:
                     else:
                         if width == 1:
                             dft_ctrl_mux_instance.add(
-                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}\n"
+                                f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}\n    (\n"
                                 f"    .sel_i      (ana_dft_ctrl),\n"
                                 f"    .a0_i       ({field_name}),\n"
                                 f"    .a1_i       (DFT_{field_name}),\n"
@@ -672,7 +672,7 @@ class RegfileParser:
                         else:
                             for j in range(width):
                                 dft_ctrl_mux_instance.add(
-                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}_{j}\n"
+                                    f"    jlsemi_util_mux_cell\n    u_dft_dont_touch_ana_mux_{field_name}_{j}\n    (\n"
                                     f"    .sel_i      (ana_dft_ctrl),\n"
                                     f"    .a0_i       ({field_name}[{j}]),\n"
                                     f"    .a1_i       (DFT_{field_name}[{j}]),\n"
@@ -698,23 +698,23 @@ module {module_name}
         ana_to_dig_logic_without_dft = self.get_ana_to_dig_logic_without_dft(yaml_data)
         dft_ctrl_mux_logic = self.get_dft_ctrl_mux_logic(yaml_data)
 
-        verilog_content += "    // ana_dft_ctrl"
-        verilog_content += "\n    input                    ana_dft_ctrl," + "\n\n"
-
         verilog_content += "    // dft ana signal\n"
-        verilog_content += ",\n".join(sorted(dft_ana_ports)) + "\n\n"
+        verilog_content += "\n".join(sorted(dft_ana_ports)) + "\n\n"
 
         verilog_content += "    // input_ports_from_dig\n"
-        verilog_content += ",\n".join(sorted(ana_input_ports)) + "\n\n"
+        verilog_content += "\n".join(sorted(ana_input_ports)) + "\n\n"
 
         verilog_content += "    // output_ports_to_dig\n"
-        verilog_content += ",\n".join(sorted(ana_output_ports)) + "\n\n"
+        verilog_content += "\n".join(sorted(ana_output_ports)) + "\n\n"
 
         verilog_content += "    // input_ports_from_ana\n"
-        verilog_content += ",\n".join(sorted(ANA_input_ports)) + "\n\n"
+        verilog_content += "\n".join(sorted(ANA_input_ports)) + "\n\n"
 
         verilog_content += "    // output_ports_to_ana\n"
-        verilog_content += ",\n".join(sorted(ANA_output_ports)) + "\n);\n"
+        verilog_content += "\n".join(sorted(ANA_output_ports))
+
+        verilog_content += "    // ana_dft_ctrl"
+        verilog_content += "\n    input   wire             ana_dft_ctrl\n);\n"
 
         # assigns
         verilog_content += "    // dig_to_ana_logic_without_dft\n"

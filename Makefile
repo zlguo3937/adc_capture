@@ -33,7 +33,7 @@ verilog:
 	@rm -rf $(base_dir)/builds/verilog/*
 	@mkdir -p $(base_dir)/builds/verilog
 	@python3.11 $(script_dir)/yml2hdl/yml2verilog.py $(base_dir)/builds/yaml/top_regfile.yml $(base_dir)/builds/verilog/top_regfile.v top_regfile
-	@python3.11 $(script_dir)/yml2hdl/gen_ana_dft_ctrl.py $(base_dir)/builds/yaml/Dongting_Analog_Register_Map_R0P0.yml $(base_dir)/builds/verilog/Dongting_Analog_Register_Map_R0P0.v Dongting_Analog_Register_Map_R0P0
+	@python3.11 $(script_dir)/yml2hdl/gen_ana_dft_ctrl.py $(base_dir)/builds/yaml/Dongting_Analog_Register_Map_R0P0.yml $(base_dir)/builds/verilog/ana_dft_ctrl.v ana_dft_ctrl
 	@python3.11 $(script_dir)/yml2hdl/gen_dft_dummy_ctrl.py $(base_dir)/builds/yaml/Dongting_Analog_Register_Map_R0P0.yml $(base_dir)/builds/verilog/dft_dummy_ctrl.v dft_dummy_ctrl
 
 # ********************************************************************************************
