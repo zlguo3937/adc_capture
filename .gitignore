@@ -16,6 +16,10 @@ fpga/*
 !fpga/adc_capture_prj.tcl
 !fpga/Makefile
 !fpga/README
+!fpga/prj/adc_capture_prj.tcl
+!fpga/prj/Makefile
+!fpga/rtl
+!fpga/constraint
 syn/report/*
 syn/mapped/*
 syn/unmapped/*

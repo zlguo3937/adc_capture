@@ -60,10 +60,42 @@ module crg
 `ifdef FPGA
     assign pktctrl_clk  = ANA_ADC_CLK500M;
     assign clk_200m     = ANA_CLK200M;
-    assign pktctrl_rstn = RSTN;
-    assign rstn_200m    = RSTN;
-    assign adc96_rstn   = RSTN;
-    assign adc48_rstn   = RSTN;
+
+	// Reset sync for pktctrl_rstn
+    async_reset_low_sync
+    u_asyncrstn_sync_to_pktctrl_rstn
+    (
+    .rst_n_i                    (RSTN            			),
+    .clk_i                      (pktctrl_clk                ),
+    .rst_n_o                    (pktctrl_rstn               )
+    );
+
+	// Reset sync for rstn_200m
+    async_reset_low_sync
+    u_asyncrstn_sync_to_rstn_200m
+    (
+    .rst_n_i                    (RSTN            			),
+    .clk_i                      (clk_200m                	),
+    .rst_n_o                    (rstn_200m               	)
+    );
+
+	// Reset sync for adc96_rstn
+    async_reset_low_sync
+    u_asyncrstn_sync_to_adc96_rstn
+    (
+    .rst_n_i                    (RSTN            			),
+    .clk_i                      (pktctrl_clk                ),
+    .rst_n_o                    (adc96_rstn               	)
+    );
+
+	// Reset sync for adc48_rstn
+    async_reset_low_sync
+    u_asyncrstn_sync_to_adc48_rstn
+    (
+    .rst_n_i                    (RSTN            			),
+    .clk_i                      (pktctrl_clk                ),
+    .rst_n_o                    (adc48_rstn               	)
+    );
 `else
     clk_gen
     u_clk_gen

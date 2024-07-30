@@ -154,7 +154,7 @@ module ANALOG_WRAPPER
     output  wire    [8:0]   ADC48_DATA_46,
     output  wire    [8:0]   ADC48_DATA_47
 );
-`ifdef JL_SYNTHESIS
+`ifdef SYNTHESIS
 `else
     localparam SIZE = 1 << WIDTH;
     localparam real PI = 3.14159265358979323846;
@@ -205,7 +205,7 @@ module ANALOG_WRAPPER
 
     initial begin
         integer i;
-        for (i=0;i<SIZE;i=i+1) begin
+        for (i=0;i<SIZE;i=i+1) begin: GEN_SINE_LUT
             sine_lut[i] = 0.5 * $sin(2 * PI * i / SIZE);
         end
         phase <= 0;

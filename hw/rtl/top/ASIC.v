@@ -17,75 +17,34 @@
 `timescale 1ns/1ns
 module ASIC
 (
-    inout   wire    PAD1_ADC_DATA_1,
-    inout   wire    PAD2_ADC_DATA_2,
-    inout   wire    PAD3_ADC_DATA_3,
-    inout   wire    PAD4_ADC_DATA_4,
-    inout   wire    PAD5_ADC_DATA_5,
-    inout   wire    PAD6_ADC_DATA_6,
-    inout   wire    PAD7_ADC_DATA_7,
-    inout   wire    PAD8_ADC_DATA_8,
-    inout   wire    PAD9_ADC_DATA_9,
-    inout   wire    PAD10_ADC_DATA_10,
-    inout   wire    PAD11_ADC_DATA_11,
-    inout   wire    PAD12_ADC_DATA_12,
-    inout   wire    PAD13_ADC_DATA_13,
-    inout   wire    PAD14_ADC_DATA_14,
-    inout   wire    PAD15_ADC_DATA_15,
-    inout   wire    PAD16_ADC_DATA_16,
-    inout   wire    PAD17_ADC_DATA_17,
-    inout   wire    PAD18_ADC_DATA_18,
-    inout   wire    PAD19_ADC_DATA_VALID,
-    inout   wire    PAD20_RSTN,
-    inout   wire    PAD21_CLK_RD,
-    inout   wire    PAD22_MDC,
+    output	wire    PAD1_ADC_DATA_1,
+    output  wire    PAD2_ADC_DATA_2,
+    output  wire    PAD3_ADC_DATA_3,
+    output  wire    PAD4_ADC_DATA_4,
+    output  wire    PAD5_ADC_DATA_5,
+    output  wire    PAD6_ADC_DATA_6,
+    output  wire    PAD7_ADC_DATA_7,
+    output  wire    PAD8_ADC_DATA_8,
+    output  wire    PAD9_ADC_DATA_9,
+    output  wire    PAD10_ADC_DATA_10,
+    output  wire    PAD11_ADC_DATA_11,
+    output  wire    PAD12_ADC_DATA_12,
+    output  wire    PAD13_ADC_DATA_13,
+    output  wire    PAD14_ADC_DATA_14,
+    output  wire    PAD15_ADC_DATA_15,
+    output  wire    PAD16_ADC_DATA_16,
+    output  wire    PAD17_ADC_DATA_17,
+    output  wire    PAD18_ADC_DATA_18,
+    output  wire    PAD19_ADC_DATA_VALID,
+    input   wire    PAD20_RSTN,
+    output  wire    PAD21_CLK_RD,
+    input   wire    PAD22_MDC,
     inout   wire    PAD23_MDIO
-`ifdef FPGA
-    ,
-    input   wire    CLK100M
-`endif
 );
 
     wire            CLK200M;
     wire            ADC_CLK500M;
     wire            ADC48_CLK500M;
-
-`ifdef FPGA
-    wire    locked;
-    wire    RSTN;
-    wire    CLK_100M_BUFG;
-
-    clk_wiz_0
-    u_clk_wiz_0
-    (
-    // Clock out ports
-    .CLK200M        (CLK200M        ),
-    .ADC_CLK500M    (ADC_CLK500M    ),
-    .ADC48_CLK500M  (ADC48_CLK500M  ),
-    // Status and control signals
-    .resetn         (RSTN           ),
-    .locked         (locked         ),
-    // Clock in ports
-    .CLK_100M       (CLK_100M       )
-    );
-
-    BUFG
-    u_CLK_100M_BUFG
-    (
-    .I              (CLK_100M       ),
-    .O              (CLK_100M_BUFG  )
-    );
-
-    reset_debouncer
-    u_reset_debouncer
-    (
-    .clk            (CLK_100M_BUFG  ),
-    .rstn_in        (PAD20_RSTN     ),
-    .rstn_out       (RSTN           )
-    );
-
-`else
-`endif
 
     wire    [8:0]   ADC_DATA_0;
     wire    [8:0]   ADC_DATA_1;
@@ -403,17 +362,12 @@ module ASIC
     .PAD17_ADC_DATA_17          (PAD17_ADC_DATA_17          ),
     .PAD18_ADC_DATA_18          (PAD18_ADC_DATA_18          ),
     .PAD19_ADC_DATA_VALID       (PAD19_ADC_DATA_VALID       ),
-`ifndef FPGA
     .PAD20_RSTN                 (PAD20_RSTN                 ),
-`else
-    .PAD20_RSTN                 (RSTN                       ),
-`endif
     .PAD21_CLK_RD               (PAD21_CLK_RD               ),
     .PAD22_MDC                  (PAD22_MDC                  ),
     .PAD23_MDIO                 (PAD23_MDIO                 )
     );
 
-`ifndef FPGA
     ANALOG_WRAPPER
     u_analog_top
     (
@@ -566,7 +520,5 @@ module ASIC
     .ADC48_DATA_46              (ADC48_DATA_46              ),
     .ADC48_DATA_47              (ADC48_DATA_47              )
     );
-`else
-`endif
 
 endmodule

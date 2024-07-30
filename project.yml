@@ -63,6 +63,7 @@
     - hw/rtl/analog/ANALOG_WRAPPER.sv
     - hw/rtl/top/analog_signal_mux.v
     - hw/rtl/top/DIGITAL_WRAPPER.v
+  - asic_top:
     - hw/rtl/top/ASIC.v
   - regfile:
     - builds/verilog/top_regfile.v
@@ -72,23 +73,29 @@
     - hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/VERILOG/ts1n28hpcpsvtb32768x36m16swso_180a_ffg0p99v125c.v
   - simulation:
     - design_dv/tb/tb_ASIC.sv
+  - fpga:
+    - fpga/rtl/FPGA_TOP.v
+    - fpga/rtl/reset_debondence.v
+    - fpga/rtl/async_reset_low_sync.v
 
 - rtl_syn:
   - define:
     - +define+JL_SYNTHESIS
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
+    - +define+SYNTHESIS
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, asic_top, regfile]
 
 - rtl_sim:
   - define:
     - +define+JL_SYNTHESIS
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile, ip_model, simulation]
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, asic_top, regfile, ip_model, simulation]
 
 - rtl_spyglass:
   - define:
     - +define+JL_SYNTHESIS
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
+    - +define+SYNTHESIS
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, asic_top, regfile]
 
 - rtl_fpga:
   - define:
     - +define+FPGA
-  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, regfile]
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, fpga, regfile]
