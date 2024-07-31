@@ -19,41 +19,12 @@ export CDS_LIC_FILE=/cadence/license/cadence_all_ecc_lic.dat
 #export PATH="$PATH:$CONFRML_HOME/bin:$CONFRML_HOME/tools/bin"
 
 ## CONFRML222
-export CONFRML_HOME="$Cadence_Dir/CONFRML222"
-export PATH="$PATH:$CONFRML_HOME/bin:$CONFRML_HOME/tools/bin"
+#export CONFRML_HOME="$Cadence_Dir/CONFRML222"
+#export PATH="$PATH:$CONFRML_HOME/bin:$CONFRML_HOME/tools/bin"
 
-## INDAGOA2109
-#export INDAGO_ROOT="$Cadence_Dir/INDAGO2109"
-#export PATH="$PATH:$INDAGO_ROOT/bin:$INDAGO_ROOT/tools/bin"
-
-## INDAGOA2209
-#export INDAGO_ROOT=$Cadence_Dir/INDAGO2209
-#export PATH=$INDAGO_ROOT/tools.lnx86/bin/64bit:$PATH
-#export PATH=$INDAGO_ROOT/tools.lnx86/bin:$PATH
-
-## VERISIUMDEBUG2309
-export INDAGO_ROOT=$Cadence_Dir/VERISIUMDEBUG2309
-export PATH=$INDAGO_ROOT/tools.lnx86/bin/64bit:$PATH
-export PATH=$INDAGO_ROOT/tools.lnx86/bin:$PATH
-
-## XCELIUM2209
-#export XCELIUM_HOME=$Cadence_Dir/XCELIUMML2209
-#export PATH=$XCELIUM_HOME/tools.lnx86/bin/64bit:$PATH
-#export PATH=$XCELIUM_HOME/tools.lnx86/bin:$PATH
-#export LD_LIBRARY_PATH=$XCELIUM_HOME/tools.lnx86/lib/64bit:$LD_LIBRARY_PATH
-
-## XCELIUM2309
-export XCELIUM_HOME=$Cadence_Dir/XCELIUM2309
-export PATH=$XCELIUM_HOME/tools.lnx86/bin/64bit:$PATH
-export PATH=$XCELIUM_HOME/tools.lnx86/bin:$PATH
-#export LD_LIBRARY_PATH=$XCELIUM_HOME/tools.lnx86/lib/64bit:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/usr/bin/python3
-
-## XCELIUM2403
-#export XCELIUM_HOME=$Cadence_Dir/XCELIUM2403
-#export PATH=$XCELIUM_HOME/tools.lnx86/bin/64bit:$PATH
-#export PATH=$XCELIUM_HOME/tools.lnx86/bin:$PATH
-#export LD_LIBRARY_PATH=$XCELIUM_HOME/tools.lnx86/lib/64bit:$LD_LIBRARY_PATH
+## CONFRML232
+export CONFRML_HOME="$Cadence_Dir/CONFRML232"
+export PATH="$PATH:$CONFRML_HOME/bin:$CONFRML_HOME/tools.lnx86/bin"
 
 ## GENUS211
 export CDN_SYNTH_ROOT=$Cadence_Dir/GENUS211
@@ -62,7 +33,6 @@ export PATH=$CDN_SYNTH_ROOT/tools/bin:$PATH
 
 ###########################################################################################
 ###############################   Synopsys license   ######################################
-export Synopsys_Dir=/synopsys
 
 #SCL
 export SCL_HOME=$Synopsys_Dir/scl/2021.03
@@ -157,6 +127,13 @@ export VC_STATIC_HOME=/synopsys/vc_static/V-2023.12-SP1
 export PATH=$VC_STATIC_HOME/bin:$PATH
 
 # ============================= VCS =======================================================
+# VCS O-2018.09-SP2
+export VCS_HOME=$Synopsys_Dir/vcs-mx/O-2018.09-SP2
+export PATH=$VCS_HOME/bin:$PATH
+export DVE_HOME=$Synopsys_Dir/vcs-mx/O-2018.09-SP2/gui/dve
+export PATH=$DVE_HOME/bin:$PATH
+export VCS_TARGET_ARCH=amd64
+
 # VCS Q-2020.03-SP2-7
 #export VCS_HOME=$Synopsys_Dir/vcs/Q-2020.03-SP2-7
 #export PATH=$VCS_HOME/bin:$PATH
@@ -164,12 +141,19 @@ export PATH=$VC_STATIC_HOME/bin:$PATH
 #export PATH=$DVE_HOME/bin:$PATH
 #export VCS_TARGET_ARCH=amd64
 
-# VCS T-2022.06
-export VCS_HOME=$Synopsys_Dir/vcs/T-2022.06
-export PATH=$VCS_HOME/bin:$PATH
-export DVE_HOME=$Synopsys_Dir/vcs/T-2022.06/gui/dve
-export PATH=$DVE_HOME/bin:$PATH
-export VCS_TARGET_ARCH=amd64
+# VCS R-2020.12-SP1
+#export VCS_HOME=$Synopsys_Dir/vcs/R-2020.12-SP1
+#export PATH=$VCS_HOME/bin:$PATH
+#export DVE_HOME=$Synopsys_Dir/vcs/R-2020.12-SP1/gui/dve
+#export PATH=$DVE_HOME/bin:$PATH
+#export VCS_TARGET_ARCH=amd64
+
+# VCS T-2022.06-SP2
+#export VCS_HOME=$Synopsys_Dir/vcs/T-2022.06-SP2
+#export PATH=$VCS_HOME/bin:$PATH
+#export DVE_HOME=$Synopsys_Dir/vcs/T-2022.06-SP2/gui/dve
+#export PATH=$DVE_HOME/bin:$PATH
+#export VCS_TARGET_ARCH=amd64
 
 # VCS V-2023.12-SP1
 #export VCS_HOME=$Synopsys_Dir/vcs/V-2023.12-SP1
@@ -180,24 +164,24 @@ export VCS_TARGET_ARCH=amd64
 
 # ============================= Verdi =====================================================
 # Verdi R-2020.12-SP1
-#export VERDI_HOME=$Synopsys_Dir/verdi/R-2020.12-SP1
-#export PATH=$VERDI_HOME/bin:$PATH
-#export LD_LIBRARY_PATH=$VERDI_HOME/share/PLI/lib/LINUX64:$LD_LIBRARY_PATH
-#export VERDI_DIR=$Synopsys_Dir/verdi/R-2020.12-SP1
-#export NOVAS_INST_DIR=$Synopsys_Dir/verdi/R-2020.12-SP1
-#export NPI_PLATFORM=LINUX64_GNU_472
-#export LD_LIBRARY_PATH=$NOVAS_INST_DIR/share/NPI/lib/LINUX64_GNU_520:$LD_LIBRARY_PATH
-#export NOVAS_HOME=$Synopsys_Dir/verdi/R-2020.12-SP1
-
-# Verdi T-2022.06
-export VERDI_HOME=$Synopsys_Dir/verdi/T-2022.06
+export VERDI_HOME=$Synopsys_Dir/verdi/R-2020.12-SP1
 export PATH=$VERDI_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$VERDI_HOME/share/PLI/lib/LINUX64:$LD_LIBRARY_PATH
-export VERDI_DIR=$Synopsys_Dir/verdi/T-2022.06
-export NOVAS_INST_DIR=$Synopsys_Dir/verdi/T-2022.06
+export VERDI_DIR=$Synopsys_Dir/verdi/R-2020.12-SP1
+export NOVAS_INST_DIR=$Synopsys_Dir/verdi/R-2020.12-SP1
 export NPI_PLATFORM=LINUX64_GNU_472
 export LD_LIBRARY_PATH=$NOVAS_INST_DIR/share/NPI/lib/LINUX64_GNU_520:$LD_LIBRARY_PATH
-export NOVAS_HOME=$Synopsys_Dir/verdi/T-2022.06
+export NOVAS_HOME=$Synopsys_Dir/verdi/R-2020.12-SP1
+
+# Verdi T-2022.06
+#export VERDI_HOME=$Synopsys_Dir/verdi/T-2022.06
+#export PATH=$VERDI_HOME/bin:$PATH
+#export LD_LIBRARY_PATH=$VERDI_HOME/share/PLI/lib/LINUX64:$LD_LIBRARY_PATH
+#export VERDI_DIR=$Synopsys_Dir/verdi/T-2022.06
+#export NOVAS_INST_DIR=$Synopsys_Dir/verdi/T-2022.06
+#export NPI_PLATFORM=LINUX64_GNU_472
+#export LD_LIBRARY_PATH=$NOVAS_INST_DIR/share/NPI/lib/LINUX64_GNU_520:$LD_LIBRARY_PATH
+#export NOVAS_HOME=$Synopsys_Dir/verdi/T-2022.06
 
 # Verdi V-2023.12-SP1
 #export VERDI_HOME=$Synopsys_Dir/verdi/V-2023.12-SP1
@@ -208,6 +192,13 @@ export NOVAS_HOME=$Synopsys_Dir/verdi/T-2022.06
 #export NPI_PLATFORM=LINUX64_GNU_472
 #export LD_LIBRARY_PATH=$NOVAS_INST_DIR/share/NPI/lib/LINUX64_GNU_520:$LD_LIBRARY_PATH
 #export NOVAS_HOME=$Synopsys_Dir/verdi/V-2023.12-SP1
+
+
+# ============================= Euclide =====================================================
+# Euclide-2022.06-SP2
+#export Euclide_HOME=$Synopsys_Dir/Euclide-2022.06-SP2/linux.gtk.x86_64/eclipse
+alias euclide='$Synopsys_Dir/Euclide-2022.06-SP2/linux.gtk.x86_64/eclipse/euclide_exec'
+
 
 ###########################################################################################
 ###############################    Pycharm   ##############################################
