@@ -23,7 +23,10 @@ filelist_syn:
 	verdi -f ../../builds/filelist/rtl_syn.f -sv -top ASIC &
 
 filelist_fpga:
-	verdi -f ../../builds/filelist/rtl_fpga.f -sv -top ASIC &
+	verdi -f ../../builds/filelist/rtl_fpga.f -sv -top FPGA_TOP &
+
+filelist_fpga_sim:
+	verdi -f ../../builds/filelist/rtl_fpga_sim.f -sv -top tb_FPGA_TOP &
 
 clean:
 	rm -rf *.log *.conf verdiLog ucli.key simv.daidir simv csrc *.fsdb *.fsdb.* *.conf *.txt *.rc *.vf

@@ -12,14 +12,6 @@ vc_spyglass/waiver/*
 !vc_spyglass/work/Makefile
 !vc_spyglass/work/config.tcl
 .idea
-fpga/*
-!fpga/adc_capture_prj.tcl
-!fpga/Makefile
-!fpga/README
-!fpga/prj/adc_capture_prj.tcl
-!fpga/prj/Makefile
-!fpga/rtl
-!fpga/constraint
 syn/report/*
 syn/mapped/*
 syn/unmapped/*
@@ -37,3 +29,12 @@ hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/*.log
 hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/*.txt
 hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/NLDM/*.log
 hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/NLDM/*.txt
+fpga/prj/adc_capture
+fpga/prj/*.log
+fpga/prj/*.jou
+fpga/prj/*.str
+fpga/prj/*.prj
+fpga/prj/.Xil
+fpga/prj/*cxl*
+fpga/prj/*.setup
+fpga/prj/local

@@ -77,6 +77,8 @@
     - fpga/rtl/FPGA_TOP.v
     - fpga/rtl/reset_debondence.v
     - fpga/rtl/async_reset_low_sync.v
+  - fpga_sim:
+    - fpga/rtl/tb_FPGA_TOP.sv
 
 - rtl_syn:
   - define:
@@ -99,3 +101,8 @@
   - define:
     - +define+FPGA
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, fpga, regfile]
+
+- rtl_fpga_sim:
+  - define:
+    - +define+FPGA
+  - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, fpga, fpga_sim, regfile]
