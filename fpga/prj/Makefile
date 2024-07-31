@@ -7,4 +7,7 @@ adc_prj_gui:
 	vivado -mode gui -source ./adc_capture_prj.tcl -log ./adc_capture/vivado.log -jou ./adc_capture/vivado.jou &
 
 clean:
-	rm -rf *.log *.jou *.str adc_capture .Xil compile.prj local synopsys_sim.setup xar.prj .cxl* *.bak
+	rm -rf *.log *.jou *.str adc_capture .Xil compile.prj local xar.prj .cxl* *.bak *.vf *.fsdb *.key
+
+clean_compile_simlib:
+	rm -rf compile_simlib

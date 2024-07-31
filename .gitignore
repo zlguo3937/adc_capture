@@ -38,3 +38,6 @@ fpga/prj/.Xil
 fpga/prj/*cxl*
 fpga/prj/*.setup
 fpga/prj/local
+fpga/prj/compile_simlib
+fpga/prj/tb_ASIC*
+fpga/prj/*.key

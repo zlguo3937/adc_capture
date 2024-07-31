@@ -1,4 +1,4 @@
-set vcs_path /synopsys/vcs/R-2020.12-SP1/bin
+set vcs_path /synopsys/vcs/T-2022.06-SP2/bin
 set proj_name "adc_capture"
 set work_dir [pwd]
 set bitfile_path $work_dir/bitfile
@@ -149,20 +149,36 @@ set_property verilog_define FPGA [get_filesets sim_1]
 
 # 7. **********************************************************************************************************
 #* compile_simlib
-compile_simlib -simulator vcs -simulator_exec_path {/synopsys/vcs/R-2020.12-SP1/bin} -gcc_exec_path {/tools/Xilinx/Vivado/2020.2/tps/lnx64/gcc-6.2.0/bin} -family all -language all -library all -dir {/local/zlguo/prj/adc_capture/fpga/prj/adc_capture/adc_capture.cache/compile_simlib/vcs} -32bit  -force -verbose
+if { [file exists /local/zlguo/prj/adc_capture/fpga/prj/compile_simlib] && [file exists /local/zlguo/prj/adc_capture/fpga/prj/synopsys_sim.setup] } {
+
+} else {
+    catch { compile_simlib -simulator vcs -simulator_exec_path {/synopsys/vcs/T-2022.06-SP2/bin} -gcc_exec_path {/tools/Xilinx/Vivado/2020.2/tps/lnx64/gcc-6.2.0/bin} -family all -language all -library all -dir {/local/zlguo/prj/adc_capture/fpga/prj/compile_simlib/vcs} -force -verbose } result
+    puts "compile_simlib result: $result"
+}
 
 
 # 8. **********************************************************************************************************
 #* run simulation
 set_property target_simulator VCS [current_project]
 set_property -name {vcs.compile.vlogan.more_options} -value {-sverilog -timescale=1ns/1ps} -objects [get_filesets sim_1]
-set_property -name {vcs.simulate.runtime} -value {10000000ns} -objects [get_filesets sim_1]
+set_property -name {vcs.simulate.runtime} -value {10ns} -objects [get_filesets sim_1]
 set_property -name {vcs.simulate.log_all_signals} -value {true} -objects [get_filesets sim_1]
 
-#launch_simulation
+#* launch_simulation
 launch_simulation -install_path $vcs_path
 
+#* generate fsdb file for Verdi
+cd /local/zlguo/prj/adc_capture/fpga/prj/adc_capture/adc_capture.sim/sim_1/behav/vcs
 
+exec /local/zlguo/prj/adc_capture/fpga/prj/adc_capture/adc_capture.sim/sim_1/behav/vcs/tb_FPGA_TOP_simv
+
+if { [file exists /local/zlguo/prj/adc_capture/fpga/prj/adc_capture/adc_capture.sim/sim_1/behav/vcs/tb_ASIC_000.fsdb] } {
+    exec verdi -f /local/zlguo/prj/adc_capture/builds/filelist/rtl_fpga_sim.f -sv -top tb_FPGA_TOP &
+} else {
+    puts "========================================================================"
+    puts "Failed to generate fsdb file ..."
+    puts "========================================================================"
+}
 
 ## 9. **********************************************************************************************************
 ##* run synthesis
