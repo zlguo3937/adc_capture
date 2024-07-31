@@ -65,7 +65,7 @@ module crg
     async_reset_low_sync
     u_asyncrstn_sync_to_pktctrl_rstn
     (
-    .rst_n_i                    (RSTN            			),
+    .rst_n_i                    (RSTN                       ),
     .clk_i                      (pktctrl_clk                ),
     .rst_n_o                    (pktctrl_rstn               )
     );
@@ -74,27 +74,27 @@ module crg
     async_reset_low_sync
     u_asyncrstn_sync_to_rstn_200m
     (
-    .rst_n_i                    (RSTN            			),
-    .clk_i                      (clk_200m                	),
-    .rst_n_o                    (rstn_200m               	)
+    .rst_n_i                    (RSTN                       ),
+    .clk_i                      (clk_200m                   ),
+    .rst_n_o                    (rstn_200m                  )
     );
 
 	// Reset sync for adc96_rstn
     async_reset_low_sync
     u_asyncrstn_sync_to_adc96_rstn
     (
-    .rst_n_i                    (RSTN            			),
+    .rst_n_i                    (RSTN                       ),
     .clk_i                      (pktctrl_clk                ),
-    .rst_n_o                    (adc96_rstn               	)
+    .rst_n_o                    (adc96_rstn                 )
     );
 
 	// Reset sync for adc48_rstn
     async_reset_low_sync
     u_asyncrstn_sync_to_adc48_rstn
     (
-    .rst_n_i                    (RSTN            			),
+    .rst_n_i                    (RSTN                       ),
     .clk_i                      (pktctrl_clk                ),
-    .rst_n_o                    (adc48_rstn               	)
+    .rst_n_o                    (adc48_rstn                 )
     );
 `else
     clk_gen

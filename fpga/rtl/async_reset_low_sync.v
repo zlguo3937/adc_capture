@@ -36,4 +36,6 @@ module async_reset_low_sync
         end
     end
 
+    assign rst_n_o = rst_n_sync1;
+
 endmodule

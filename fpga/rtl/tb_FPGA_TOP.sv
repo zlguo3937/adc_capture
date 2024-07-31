@@ -40,12 +40,22 @@ module tb_FPGA_TOP;
     wire            PAD21_CLK_RD;
     reg             PAD22_MDC;
     wire            PAD23_MDIO;
-    wire            CLK100M;
+    wire            CLK_100M;
 
     reg         clk_100m;
     reg         rstn;
     reg         start;
     reg         again;
+
+    initial
+    begin
+        `ifdef VPD_ON
+            $vcdpluson();
+        `endif
+        //$fsdbDumpfile("tb_ASIC.fsdb");
+        $fsdbAutoSwitchDumpfile(1000, "tb_ASIC.fsdb", 20, "fsdb_dump.log"); // auto spit waveform file
+        $fsdbDumpvars("+all");
+    end
 
     initial begin
         clk_100m = 0;
@@ -54,7 +64,7 @@ module tb_FPGA_TOP;
         end
     end
 
-    assign CLK100M = clk_100m;
+    assign CLK_100M = clk_100m;
 
     initial
     begin
@@ -77,7 +87,7 @@ module tb_FPGA_TOP;
     initial begin
         start = 0;
         again = 0;
-        #60;
+        #500;
         start = 1;
         #6;
         start = 0;
@@ -136,7 +146,7 @@ module tb_FPGA_TOP;
     .PAD21_CLK_RD           (PAD21_CLK_RD           ),
     .PAD22_MDC              (PAD22_MDC              ),
     .PAD23_MDIO             (PAD23_MDIO             ),
-    .CLK100M                (CLK100M                )
+    .CLK_100M               (CLK_100M               )
     );
 
 endmodule

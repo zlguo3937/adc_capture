@@ -40,7 +40,7 @@ module FPGA_TOP
     output  wire    PAD21_CLK_RD,
     input   wire    PAD22_MDC,
     inout   wire    PAD23_MDIO,
-    input   wire    CLK100M
+    input   wire    CLK_100M
 );
 
     wire            CLK200M;
