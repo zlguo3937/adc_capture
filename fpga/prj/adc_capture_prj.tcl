@@ -185,29 +185,32 @@ if { [file exists $work_dir/adc_capture/adc_capture.sim/sim_1/behav/vcs/tb_ASIC_
 ##* run synthesis
 #launch_runs synth_1 -jobs 8
 #wait_on_run synth_1
-#
-##* Setting top-level file attributes
-##set_property top_auto_detect true [current_project]
-#set_property top_file "/local/zlguo/prj/adc_capture/fpga/rtl/FPGA_TOP.v" [current_fileset]
-#
+
+#* Setting top-level file attributes
+#set_property top_auto_detect true [current_project]
+
+add_files -fileset constrs_1 -norecurse /local/zlguo/prj/adc_capture/fpga/constraint/timing_constraints.xdc
+
+set_property top_file "/local/zlguo/prj/adc_capture/fpga/rtl/FPGA_TOP.v" [current_fileset]
+
 ##synth_design -to_current_top
-#synth_design -top FPGA_TOP -part xc7a75tfgg484-2
+synth_design -top FPGA_TOP -part xc7a75tfgg484-2
 
 
 
 ## 10. **********************************************************************************************************
 ##* Perform comprehensive logic optimization, mainly to optimize the logic circuit area, clock frequency, power consumption and other indicators
-#opt_design
-#
+opt_design
+
 ##* Perform layout, mapping logical elements to physical locations and considering timing constraints
-#place_design
-#
+place_design
+
 ##* Performs wiring to connect logical elements of physical circuits together via signal lines
-#route_design
+route_design
 
 ##**********************************************************************************************************
 ##* run inmplementation
-#launch_runs impl_1 -jobs 8
+launch_runs impl_1 -jobs 8
 
 
 
