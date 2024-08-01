@@ -98,8 +98,6 @@
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, asic_top, regfile]
 
 - rtl_fpga:
-  - define:
-    - +define+FPGA
   - fileset: [crg, common_ip, ctrl_sys, mdio, io_pad, pktctrl, top, fpga, regfile]
 
 - rtl_fpga_sim:
