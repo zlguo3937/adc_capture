@@ -234,7 +234,7 @@ class RegfileParser:
                     f"    assign  {sel_address_bus_rdata:20} = (addr_{address}_sel & ~req_write) ? addr_{address}_sel_bus_rdata : 16'h0;\n")
         return sel_addr_bus_rdata_assigns
 
-    def create_register_block(self, reg):
+    def create_register_block(self, reg, regfile_name):
         reg_name = reg['name']
         reg_type = reg['type']
         width = reg['width']
@@ -242,10 +242,10 @@ class RegfileParser:
         width_str = f"[{width - 1}:0]" if width > 1 else ""
 
         if width == 1:
-            block = f"    {reg_name}_{reg_type}\n"
+            block = f"    {regfile_name}_{reg_name}_{reg_type}\n"
             block += f"    u_{reg_name}\n    (\n"
         else:
-            block = f"    {reg_name}_{reg_type}_{width}\n"
+            block = f"    {regfile_name}_{reg_name}_{reg_type}_{width}\n"
             block += f"    u_{reg_name}\n    (\n"
 
         if reg_type == "RAW":
@@ -299,7 +299,7 @@ class RegfileParser:
         block += f"    );\n"
         return block
 
-    def get_register_instance(self, yaml_data):
+    def get_register_instance(self, yaml_data, regfile_name):
         register_instance = []
         for group in yaml_data:
             reg_name = group['reg_name']
@@ -309,18 +309,18 @@ class RegfileParser:
             register_instance.append(f"    // desc:{desc} reg_name:{reg_name} address:{address}")
             register_instance.append(f"    // ********************************************************************")
             for reg in group['fields']:
-                register_instance.append(self.create_register_block(reg))
+                register_instance.append(self.create_register_block(reg, regfile_name))
         return register_instance
 
-    def get_register_module(self, reg):
+    def get_register_module(self, reg, regfile_name):
         reg_name = reg['name']
         reg_type = reg['type']
         WIDTH = reg['width']
         INIT = hex(int(reg['init'], 16))[2:]
         if WIDTH == 1:
-            module_name = f"{reg_name}_{reg_type}"
+            module_name = f"{regfile_name}_{reg_name}_{reg_type}"
         else:
-            module_name = f"{reg_name}_{reg_type}_{WIDTH}"
+            module_name = f"{regfile_name}_{reg_name}_{reg_type}_{WIDTH}"
 
         aaa = f"[{WIDTH - 1}:0]"
         if WIDTH == 1:
@@ -1470,11 +1470,11 @@ endmodule\n''')
 
         return register_module
 
-    def get_module_instance(self, yaml_data):
+    def get_module_instance(self, yaml_data, regfile_name):
         module_instance = []
         for group in yaml_data:
             for reg in group['fields']:
-                module_instance.append(self.get_register_module(reg))
+                module_instance.append(self.get_register_module(reg, regfile_name))
         return module_instance
 
     def generate_verilog_code(self, yaml_data, module_name):
@@ -1522,8 +1522,8 @@ module {module_name}
         addr_selects_bus_rdata_assigns = self.get_addr_selects_bus_rdata_assigns(yaml_data)
         sel_addr_bus_rdata_assigns = self.get_sel_addr_bus_rdata_assigns(yaml_data)
 
-        register_inst = self.get_register_instance(yaml_data)
-        module_inst = self.get_module_instance(yaml_data)
+        register_inst = self.get_register_instance(yaml_data, module_name)
+        module_inst = self.get_module_instance(yaml_data, module_name)
 
         verilog_content += "    // Bus re Wires\n"
         verilog_content += "\n".join(bus_re_wires) + "\n\n"
