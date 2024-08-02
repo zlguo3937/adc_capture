@@ -25,7 +25,7 @@ set clk_period_25       [expr ${period_25}    * $over]
 # 1---> create adc_96_clk500
 
 # create adc_96_clk500
-create_clock -name adc_96_clk500 -period ${clk_period_500} -waveform [list 0 [expr 0.5 * ${clk_period_500}]] [get_pins u_analog_top/ADC_CLK500M] -add
+create_clock -name adc_96_clk500 -period ${clk_period_500} -waveform [list 0 [expr 0.5 * ${clk_period_500}]] [get_pins u_analog_top/HSAR_CLK_ASSO] -add
 if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell" } {
     set_clock_jitter -clock adc_96_clk500 -duty_cycle [expr ${clk_period_500} * 0.05]
     set_clock_uncertainty [expr 0.01 + $PLL_jitter] -fall_from adc_96_clk500 -rise_to adc_96_clk500 -hold
@@ -40,7 +40,7 @@ if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell"
 
 
 # create adc_48_clk500
-create_clock -name adc_48_clk500 -period ${clk_period_500} -waveform [list 0 [expr 0.5 * ${clk_period_500}]] [get_pins u_analog_top/ADC48_CLK500M] -add
+create_clock -name adc_48_clk500 -period ${clk_period_500} -waveform [list 0 [expr 0.5 * ${clk_period_500}]] [get_pins u_analog_top/SAR_CLK_ASSO] -add
 if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell" } {
     set_clock_jitter -clock adc_48_clk500 -duty_cycle [expr ${clk_period_500} * 0.05]
     set_clock_uncertainty [expr 0.01 + $PLL_jitter] -fall_from adc_48_clk500 -rise_to adc_48_clk500 -hold
@@ -57,7 +57,7 @@ if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell"
 # 2---> generate_clock clk_rd_96, clk_rd_48
 
 # generate clk_rd_96
-create_generated_clock -name adc_96_clk500_mux1 -master_clock adc_96_clk500 -source [get_pins u_analog_top/ADC_CLK500M] -add \
+create_generated_clock -name adc_96_clk500_mux1 -master_clock adc_96_clk500 -source [get_pins u_analog_top/HSAR_CLK_ASSO] -add \
         [get_pins u_digital_top/u_crg/u_clk_gen/u_clkmux_to_CLK500M/u_dont_touch_clkmux_mux/Z] -divide_by 1 -combinational
 
 create_generated_clock -name clk_rd_96 -master_clock adc_96_clk500_mux1 -source [get_pins u_digital_top/u_crg/u_clk_gen/u_clkmux_to_CLK500M/u_dont_touch_clkmux_mux/Z] -add \
@@ -65,7 +65,7 @@ create_generated_clock -name clk_rd_96 -master_clock adc_96_clk500_mux1 -source 
 
 
 # generate clk_rd_48
-create_generated_clock -name adc_48_clk500_mux0 -master_clock adc_48_clk500 -source [get_pins u_analog_top/ADC48_CLK500M] -add \
+create_generated_clock -name adc_48_clk500_mux0 -master_clock adc_48_clk500 -source [get_pins u_analog_top/SAR_CLK_ASSO] -add \
         [get_pins u_digital_top/u_crg/u_clk_gen/u_clkmux_to_CLK500M/u_dont_touch_clkmux_mux/Z] -divide_by 1 -combinational
 
 create_generated_clock -name clk_rd_48 -master_clock adc_48_clk500_mux0 -source [get_pins u_digital_top/u_crg/u_clk_gen/u_clkmux_to_CLK500M/u_dont_touch_clkmux_mux/Z] -add \
@@ -79,7 +79,7 @@ set_clock_groups -physically_exclusive \
 
 
 # 3---> clk_200m
-create_clock -name clk_200m -period ${clk_period_200} -waveform [list 0 [expr 0.5 * ${clk_period_200}]] [get_pins u_analog_top/CLK200M] -add
+create_clock -name clk_200m -period ${clk_period_200} -waveform [list 0 [expr 0.5 * ${clk_period_200}]] [get_pins u_analog_top/SAR_200M_REG_CLK] -add
 if { [info exists synopsys_program_name] && $synopsys_program_name == "pt_shell" } {
     set_clock_jitter -clock clk_200m -duty_cycle [expr ${clk_period_500} * 0.05]
     set_clock_uncertainty [expr 0.01 + $PLL_jitter] -fall_from clk_200m -rise_to clk_200m -hold
@@ -123,11 +123,11 @@ set_clock_groups -name all_clock_group -asynchronous          \
 
 
 # 5---> analog io constraints
-set_input_delay -max [expr 1.235 * $over] -clock adc_96_clk500 [get_pins u_analog_top/ADC_DATA*] -add
-set_input_delay -min [expr 0.836 * $over] -clock adc_96_clk500 [get_pins u_analog_top/ADC_DATA*] -add
+set_input_delay -max [expr 1.235 * $over] -clock adc_96_clk500 [get_pins u_analog_top/HSAR_DATA*] -add
+set_input_delay -min [expr 0.836 * $over] -clock adc_96_clk500 [get_pins u_analog_top/HSAR_DATA*] -add
 
-set_input_delay -max [expr 1.235 * $over] -clock adc_48_clk500 [get_pins u_analog_top/ADC48_DATA*] -add
-set_input_delay -min [expr 0.836 * $over] -clock adc_48_clk500 [get_pins u_analog_top/ADC48_DATA*] -add
+set_input_delay -max [expr 1.235 * $over] -clock adc_48_clk500 [get_pins u_analog_top/SAR_DATA*] -add
+set_input_delay -min [expr 0.836 * $over] -clock adc_48_clk500 [get_pins u_analog_top/SAR_DATA*] -add
 
 
 
@@ -135,10 +135,10 @@ set_input_delay -min [expr 0.836 * $over] -clock adc_48_clk500 [get_pins u_analo
 #if { [info exists synopsys_program_name] && $synopsys_program_name == "dc_shell" } {
 #
 #} else {
-#set_max_capacitance 0.005 [list [get_pins u_analog_top/ADC_DATA*] [get_pins u_analog_top/ADC48_DATA*]]
-#set_max_capacitance 0.005 [get_pins u_analog_top/ADC_CLK500M]
-#set_max_capacitance 0.005 [get_pins u_analog_top/ADC48_CLK500M]
-#set_max_capacitance 0.005 [get_pins u_analog_top/CLK200M]
+#set_max_capacitance 0.005 [list [get_pins u_analog_top/HSAR_DATA*] [get_pins u_analog_top/SAR_DATA*]]
+#set_max_capacitance 0.005 [get_pins u_analog_top/HSAR_CLK_ASSO]
+#set_max_capacitance 0.005 [get_pins u_analog_top/SAR_CLK_ASSO]
+#set_max_capacitance 0.005 [get_pins u_analog_top/SAR_200M_REG_CLK]
 #}
 
 
@@ -147,23 +147,23 @@ set_input_delay -min [expr 0.836 * $over] -clock adc_48_clk500 [get_pins u_analo
 if { [info exists synopsys_program_name] && $synopsys_program_name == "dc_shell" } {
 
 } else {
-set_max_capacitance 0.005 [list [get_pins u_analog_top/ADC_DATA*] [get_pins u_analog_top/ADC48_DATA*]]
-set_max_capacitance 0.005 [get_pins u_analog_top/ADC_CLK500M]
-set_max_capacitance 0.005 [get_pins u_analog_top/ADC48_CLK500M]
-set_max_capacitance 0.005 [get_pins u_analog_top/CLK200M]
+set_max_capacitance 0.005 [list [get_pins u_analog_top/HSAR_DATA*] [get_pins u_analog_top/SAR_DATA*]]
+set_max_capacitance 0.005 [get_pins u_analog_top/HSAR_CLK_ASSO]
+set_max_capacitance 0.005 [get_pins u_analog_top/SAR_CLK_ASSO]
+set_max_capacitance 0.005 [get_pins u_analog_top/SAR_200M_REG_CLK]
 }
 
 
 
 # 8---> set transition for analog output port
-set_annotated_transition -max 0.04 [list [get_pins u_analog_top/ADC_DATA*] [get_pins u_analog_top/ADC48_DATA*]]
-set_annotated_transition -min 0.00 [list [get_pins u_analog_top/ADC_DATA*] [get_pins u_analog_top/ADC48_DATA*]]
-set_annotated_transition -max 0.04 [get_pins u_analog_top/ADC_CLK500M]
-set_annotated_transition -min 0.00 [get_pins u_analog_top/ADC_CLK500M]
-set_annotated_transition -max 0.04 [get_pins u_analog_top/ADC48_CLK500M]
-set_annotated_transition -min 0.00 [get_pins u_analog_top/ADC48_CLK500M]
-set_annotated_transition -max 0.04 [get_pins u_analog_top/CLK200M]
-set_annotated_transition -min 0.00 [get_pins u_analog_top/CLK200M]
+set_annotated_transition -max 0.04 [list [get_pins u_analog_top/HSAR_DATA*] [get_pins u_analog_top/SAR_DATA*]]
+set_annotated_transition -min 0.00 [list [get_pins u_analog_top/HSAR_DATA*] [get_pins u_analog_top/SAR_DATA*]]
+set_annotated_transition -max 0.04 [get_pins u_analog_top/HSAR_CLK_ASSO]
+set_annotated_transition -min 0.00 [get_pins u_analog_top/HSAR_CLK_ASSO]
+set_annotated_transition -max 0.04 [get_pins u_analog_top/SAR_CLK_ASSO]
+set_annotated_transition -min 0.00 [get_pins u_analog_top/SAR_CLK_ASSO]
+set_annotated_transition -max 0.04 [get_pins u_analog_top/SAR_200M_REG_CLK]
+set_annotated_transition -min 0.00 [get_pins u_analog_top/SAR_200M_REG_CLK]
 
 
 
@@ -194,12 +194,12 @@ set_output_delay 0 -clock mdc_v_clk [get_ports PAD23_MDIO] -add
 #set_max_delay $mdio_max_delay_fm_phy -from [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_oe_reg/CP]  -th [get_ports PAD23_MDIO] -to mdc_v_clk
 
 
-# ADC_DATA + CLK_RD
-set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_96 [get_ports *_ADC_DATA*] -add
-set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_96 [get_ports *_ADC_DATA*] -add
+# HSAR_DATA + CLK_RD
+set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_96 [get_ports *_HSAR_DATA*] -add
+set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_96 [get_ports *_HSAR_DATA*] -add
 
-set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
-set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
+set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_48 [get_ports *_HSAR_DATA*] -add
+set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_48 [get_ports *_HSAR_DATA*] -add
 
 set_multicycle_path -setup 2 -start -from adc_96_clk500_mux1 -to clk_rd_96
 set_multicycle_path -hold  1 -start -from adc_96_clk500_mux1 -to clk_rd_96
