@@ -51,6 +51,50 @@ module FPGA_TOP
     wire    		RSTN;
     wire    		CLK_100M_BUFG;
 
+    wire    [14:0]  SAR_PVSENSOR_CNT;
+    wire            BG25M_TEST_EN;
+    wire            SAR_BUFFER_PD;
+    wire            SAR_CKBUF_PD;
+    wire            SAR_CLK_EN;
+    wire            SAR_DELAY;
+    wire            SAR_PU_LDOADC;
+    wire            SAR_PU_SENSOR;
+    wire            SAR_PVSENSOR_CNT_EN;
+    wire            SAR_REVERSE;
+    wire            SAR_RSTN;
+    wire            SAR_SF_ST1_PD;
+    wire            SAR_SKEWGEN_EN;
+    wire            SAR_TEST_EN;
+    wire            SAR_VREF_PD;
+    wire    [15:0]  SAR_RESVD1;
+    wire    [1:0]   SAR_CKBUF_ISEL;
+    wire    [1:0]   SAR_ISEL;
+    wire    [1:0]   SAR_REFSEL;
+    wire    [1:0]   SAR_SF_ST1_ISEL;
+    wire    [2:0]   BG25M_TEST_SEL;
+    wire    [2:0]   SAR_CMSEL;
+    wire    [2:0]   SAR_LDO_ADCSEL;
+    wire    [2:0]   SAR_LDO_BUFFERSEL;
+    wire    [2:0]   SAR_LDO_CKSEL;
+    wire    [2:0]   SAR_TEST_SEL;
+    wire    [5:0]   SAR_CKCALBUF_DELAY;
+    wire    [5:0]   SAR_DAC0_COARSE;
+    wire    [5:0]   SAR_DAC0_FINE;
+    wire    [5:0]   SAR_DAC1_COARSE;
+    wire    [5:0]   SAR_DAC1_FINE;
+    wire    [5:0]   SAR_DAC2_COARSE;
+    wire    [5:0]   SAR_DAC2_FINE;
+    wire    [5:0]   SAR_DAC3_COARSE;
+    wire    [5:0]   SAR_DAC3_FINE;
+    wire    [5:0]   SAR_DAC4_COARSE;
+    wire    [5:0]   SAR_DAC4_FINE;
+    wire    [5:0]   SAR_DAC5_COARSE;
+    wire    [5:0]   SAR_DAC5_FINE;
+    wire    [5:0]   SAR_DAC6_COARSE;
+    wire    [5:0]   SAR_DAC6_FINE;
+    wire    [5:0]   SAR_DAC7_COARSE;
+    wire    [5:0]   SAR_DAC7_FINE;
+
     clk_wiz_0
     u_clk_wiz_0
     (
@@ -231,6 +275,50 @@ module FPGA_TOP
     .ADC48_DATA_46              (9'b0		                ),
     .ADC48_DATA_47              (9'b0		                ),
 
+    .SAR_PVSENSOR_CNT           (SAR_PVSENSOR_CNT           ),
+    .BG25M_TEST_EN              (BG25M_TEST_EN              ),
+    .SAR_BUFFER_PD              (SAR_BUFFER_PD              ),
+    .SAR_CKBUF_PD               (SAR_CKBUF_PD               ),
+    .SAR_CLK_EN                 (SAR_CLK_EN                 ),
+    .SAR_DELAY                  (SAR_DELAY                  ),
+    .SAR_PU_LDOADC              (SAR_PU_LDOADC              ),
+    .SAR_PU_SENSOR              (SAR_PU_SENSOR              ),
+    .SAR_PVSENSOR_CNT_EN        (SAR_PVSENSOR_CNT_EN        ),
+    .SAR_REVERSE                (SAR_REVERSE                ),
+    .SAR_RSTN                   (SAR_RSTN                   ),
+    .SAR_SF_ST1_PD              (SAR_SF_ST1_PD              ),
+    .SAR_SKEWGEN_EN             (SAR_SKEWGEN_EN             ),
+    .SAR_TEST_EN                (SAR_TEST_EN                ),
+    .SAR_VREF_PD                (SAR_VREF_PD                ),
+    .SAR_RESVD1                 (SAR_RESVD1                 ),
+    .SAR_CKBUF_ISEL             (SAR_CKBUF_ISEL             ),
+    .SAR_ISEL                   (SAR_ISEL                   ),
+    .SAR_REFSEL                 (SAR_REFSEL                 ),
+    .SAR_SF_ST1_ISEL            (SAR_SF_ST1_ISEL            ),
+    .BG25M_TEST_SEL             (BG25M_TEST_SEL             ),
+    .SAR_CMSEL                  (SAR_CMSEL                  ),
+    .SAR_LDO_ADCSEL             (SAR_LDO_ADCSEL             ),
+    .SAR_LDO_BUFFERSEL          (SAR_LDO_BUFFERSEL          ),
+    .SAR_LDO_CKSEL              (SAR_LDO_CKSEL              ),
+    .SAR_TEST_SEL               (SAR_TEST_SEL               ),
+    .SAR_CKCALBUF_DELAY         (SAR_CKCALBUF_DELAY         ),
+    .SAR_DAC0_COARSE            (SAR_DAC0_COARSE            ),
+    .SAR_DAC0_FINE              (SAR_DAC0_FINE              ),
+    .SAR_DAC1_COARSE            (SAR_DAC1_COARSE            ),
+    .SAR_DAC1_FINE              (SAR_DAC1_FINE              ),
+    .SAR_DAC2_COARSE            (SAR_DAC2_COARSE            ),
+    .SAR_DAC2_FINE              (SAR_DAC2_FINE              ),
+    .SAR_DAC3_COARSE            (SAR_DAC3_COARSE            ),
+    .SAR_DAC3_FINE              (SAR_DAC3_FINE              ),
+    .SAR_DAC4_COARSE            (SAR_DAC4_COARSE            ),
+    .SAR_DAC4_FINE              (SAR_DAC4_FINE              ),
+    .SAR_DAC5_COARSE            (SAR_DAC5_COARSE            ),
+    .SAR_DAC5_FINE              (SAR_DAC5_FINE              ),
+    .SAR_DAC6_COARSE            (SAR_DAC6_COARSE            ),
+    .SAR_DAC6_FINE              (SAR_DAC6_FINE              ),
+    .SAR_DAC7_COARSE            (SAR_DAC7_COARSE            ),
+    .SAR_DAC7_FINE              (SAR_DAC7_FINE              ),
+
     .PAD1_ADC_DATA_1            (PAD1_ADC_DATA_1            ),
     .PAD2_ADC_DATA_2            (PAD2_ADC_DATA_2            ),
     .PAD3_ADC_DATA_3            (PAD3_ADC_DATA_3            ),
@@ -257,6 +345,54 @@ module FPGA_TOP
     .PAD21_CLK_RD               (PAD21_CLK_RD               ),
     .PAD22_MDC                  (PAD22_MDC                  ),
     .PAD23_MDIO                 (PAD23_MDIO                 )
+    );
+
+    ANALOG_REG
+    u_ANALOG_REG
+    (
+    .SAR_PVSENSOR_CNT           (SAR_PVSENSOR_CNT           ),
+    .BG25M_TEST_EN              (BG25M_TEST_EN              ),
+    .SAR_BUFFER_PD              (SAR_BUFFER_PD              ),
+    .SAR_CKBUF_PD               (SAR_CKBUF_PD               ),
+    .SAR_CLK_EN                 (SAR_CLK_EN                 ),
+    .SAR_DELAY                  (SAR_DELAY                  ),
+    .SAR_PU_LDOADC              (SAR_PU_LDOADC              ),
+    .SAR_PU_SENSOR              (SAR_PU_SENSOR              ),
+    .SAR_PVSENSOR_CNT_EN        (SAR_PVSENSOR_CNT_EN        ),
+    .SAR_REVERSE                (SAR_REVERSE                ),
+    .SAR_RSTN                   (SAR_RSTN                   ),
+    .SAR_SF_ST1_PD              (SAR_SF_ST1_PD              ),
+    .SAR_SKEWGEN_EN             (SAR_SKEWGEN_EN             ),
+    .SAR_TEST_EN                (SAR_TEST_EN                ),
+    .SAR_VREF_PD                (SAR_VREF_PD                ),
+    .SAR_RESVD1                 (SAR_RESVD1                 ),
+    .SAR_CKBUF_ISEL             (SAR_CKBUF_ISEL             ),
+    .SAR_ISEL                   (SAR_ISEL                   ),
+    .SAR_REFSEL                 (SAR_REFSEL                 ),
+    .SAR_SF_ST1_ISEL            (SAR_SF_ST1_ISEL            ),
+    .BG25M_TEST_SEL             (BG25M_TEST_SEL             ),
+    .SAR_CMSEL                  (SAR_CMSEL                  ),
+    .SAR_LDO_ADCSEL             (SAR_LDO_ADCSEL             ),
+    .SAR_LDO_BUFFERSEL          (SAR_LDO_BUFFERSEL          ),
+    .SAR_LDO_CKSEL              (SAR_LDO_CKSEL              ),
+    .SAR_TEST_SEL               (SAR_TEST_SEL               ),
+    .SAR_CKCALBUF_DELAY         (SAR_CKCALBUF_DELAY         ),
+    .SAR_DAC0_COARSE            (SAR_DAC0_COARSE            ),
+    .SAR_DAC0_FINE              (SAR_DAC0_FINE              ),
+    .SAR_DAC1_COARSE            (SAR_DAC1_COARSE            ),
+    .SAR_DAC1_FINE              (SAR_DAC1_FINE              ),
+    .SAR_DAC2_COARSE            (SAR_DAC2_COARSE            ),
+    .SAR_DAC2_FINE              (SAR_DAC2_FINE              ),
+    .SAR_DAC3_COARSE            (SAR_DAC3_COARSE            ),
+    .SAR_DAC3_FINE              (SAR_DAC3_FINE              ),
+    .SAR_DAC4_COARSE            (SAR_DAC4_COARSE            ),
+    .SAR_DAC4_FINE              (SAR_DAC4_FINE              ),
+    .SAR_DAC5_COARSE            (SAR_DAC5_COARSE            ),
+    .SAR_DAC5_FINE              (SAR_DAC5_FINE              ),
+    .SAR_DAC6_COARSE            (SAR_DAC6_COARSE            ),
+    .SAR_DAC6_FINE              (SAR_DAC6_FINE              ),
+    .SAR_DAC7_COARSE            (SAR_DAC7_COARSE            ),
+    .SAR_DAC7_FINE              (SAR_DAC7_FINE              )
     );
 
 endmodule

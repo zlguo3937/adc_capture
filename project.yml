@@ -75,6 +75,7 @@
     - design_dv/tb/tb_ASIC.sv
   - fpga:
     - fpga/rtl/FPGA_TOP.v
+    - fpga/rtl/ANALOG_REG.v
     - fpga/rtl/reset_debondence.v
     - fpga/rtl/async_reset_low_sync.v
   - fpga_sim:
