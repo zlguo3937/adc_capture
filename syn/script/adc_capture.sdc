@@ -194,12 +194,12 @@ set_output_delay 0 -clock mdc_v_clk [get_ports PAD23_MDIO] -add
 #set_max_delay $mdio_max_delay_fm_phy -from [get_pins u_digital_top/u_ctrl_sys/u_mdio/u_async_frontend_unit/mdio_oe_reg/CP]  -th [get_ports PAD23_MDIO] -to mdc_v_clk
 
 
-# HSAR_DATA + CLK_RD
-set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_96 [get_ports *_HSAR_DATA*] -add
-set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_96 [get_ports *_HSAR_DATA*] -add
+# ADC_DATA + CLK_RD
+set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_96 [get_ports *_ADC_DATA*] -add
+set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_96 [get_ports *_ADC_DATA*] -add
 
-set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_48 [get_ports *_HSAR_DATA*] -add
-set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_48 [get_ports *_HSAR_DATA*] -add
+set_output_delay -max [expr ${clk_period_250} * 0.7] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
+set_output_delay -min [expr ${clk_period_250} * 0.1] -clock clk_rd_48 [get_ports *_ADC_DATA*] -add
 
 set_multicycle_path -setup 2 -start -from adc_96_clk500_mux1 -to clk_rd_96
 set_multicycle_path -hold  1 -start -from adc_96_clk500_mux1 -to clk_rd_96

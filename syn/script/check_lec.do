@@ -1,19 +1,16 @@
 tclmode
 
+// Input Files
+source -verbose ./common_setup.tcl
+
 set currentTime [clock format [clock seconds] -format "%Y%m%d_%H%M"]
 exec mkdir -p ${REPORT_PATH}/${currentTime}_lec
-set REPORTS_PATH ${REPORT_PATH}/${currentTime}_lec
+set report_lec ${REPORT_PATH}/${currentTime}_lec
 
-set TOP_MODULE ASIC
 
 reset
 
 usage -auto -elapse
-
-
-// Input Files
-source -verbose ../script/common_lec_setting.tcl
-source -verbose ./common_setup.tcl
 
 
 // Configuration
@@ -25,7 +22,7 @@ set_compare_options -threads 0
 
 set_dofile_abort on
 
-set_verification_information ${REPORTS_PATH}/${TOP_MODULE}.verification.info
+set_verification_information ${report_lec}/${design}.verification.info
 set_hdl_options -use_library_first on
 
 set_mapping_method -name first
@@ -115,7 +112,7 @@ report_black_box -detail -inst > ${report_lec}/${design}.bbox
 set lec_version [regsub {(-)[A-Za-z]} $LEC_VERSION ""]
 set wlec_analyze_dp_flowgraph true
 set share_dp_analysis true
-set lec_version_required "19.10100"
+set lec_version_required "23.20"
 if {$lec_version >= $lec_version_required && $wlec_analyze_dp_flowgraph} {
 	set DATAPATH_SOLVER_OPTION "-flowgraph"
 } elseif {$share_dp_analysis} {

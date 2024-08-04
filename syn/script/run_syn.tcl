@@ -21,6 +21,8 @@ if {[link] == 0} {
       exit;
 }
 
+set_svf  $MAPPED_PATH/${TOP_MODULE}.svf
+set_vsdc $MAPPED_PATH/${TOP_MODULE}.vsdc
 
 if {[check_design] == 0} {
      echo check design with error! ;
@@ -61,6 +63,8 @@ optimize_netlist -area
 
 change_names -rules verilog -hier
 
+set_svf -off
+set_vsdc -off
 
 # step 11 wirte post_process files
 # =====================================================================================
@@ -71,10 +75,13 @@ write_sdf $MAPPED_PATH/${TOP_MODULE}.sdf
 
 saif_map -type ptpx -write_map $REPS_PATH/${TOP_MODULE}.mapped.SAIF.namemap
 
+#set_svf -off
+#set_vsdc -off
+set_svf  -append $MAPPED_PATH/${TOP_MODULE}.svf
+set_vsdc -append $MAPPED_PATH/${TOP_MODULE}.vsdc
+
 set_svf -off
 set_vsdc -off
-
-
 # step 12 generate report files
 # =====================================================================================
 redirect -tee -file $REPS_PATH/precompile.rpt {link}
