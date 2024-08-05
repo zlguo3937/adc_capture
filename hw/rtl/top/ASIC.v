@@ -17,7 +17,7 @@
 `timescale 1ns/1ns
 module ASIC
 (
-    output	wire    PAD1_ADC_DATA_1,
+    output  wire    PAD1_ADC_DATA_1,
     output  wire    PAD2_ADC_DATA_2,
     output  wire    PAD3_ADC_DATA_3,
     output  wire    PAD4_ADC_DATA_4,

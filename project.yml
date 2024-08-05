@@ -73,6 +73,7 @@
     - hw/library/ts1n28hpcpsvtb32768x36m16swso_180a/VERILOG/ts1n28hpcpsvtb32768x36m16swso_180a_ffg0p99v125c.v
   - simulation:
     - design_dv/tb/tb_ASIC.sv
+    - design_dv/tb/mdio_driver.v
   - fpga:
     - fpga/rtl/FPGA_TOP.v
     - fpga/rtl/ANALOG_REG.v

@@ -123,6 +123,8 @@ module FPGA_TOP
     .rstn_out       (RSTN           )
     );
 
+    assign reset = RSTN & locked;
+
     DIGITAL_WRAPPER
     u_digital_top
     (
@@ -340,7 +342,7 @@ module FPGA_TOP
     .PAD19_ADC_DATA_VALID       (PAD19_ADC_DATA_VALID       ),
 
 	// reset
-    .PAD20_RSTN                 (RSTN                       ),
+    .PAD20_RSTN                 (reset                      ),
 
     .PAD21_CLK_RD               (PAD21_CLK_RD               ),
     .PAD22_MDC                  (PAD22_MDC                  ),

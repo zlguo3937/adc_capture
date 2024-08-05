@@ -16,7 +16,7 @@
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
 
-`timescale 1ns/1ns
+`timescale 1ns/100ps
 
 module tb_ASIC;
 
@@ -135,6 +135,94 @@ module tb_ASIC;
     //    end
     //end
 
+    logic clk_100m;
+
+    initial begin
+        clk_100m = 0;
+        forever begin
+            #5 clk_100m = ~clk_100m;
+        end
+    end
+
+    logic           op_ready;
+    logic           op_valid;
+    logic [1:0]     op_wr_rd;
+    logic [25:0]    op_addr;
+    logic [15:0]    op_wdata;
+
+    logic [15:0]    rd_data;
+    logic           rd_vld;
+
+    wire            PAD22_MDC;
+    wire            PAD23_MDIO;
+
+
+    logic [25:0]    op_frame;
+
+    logic [15:0]    read_data;
+    logic           read_vld;
+
+    task automatic op_read(
+        input           valid,
+        input   [1:0]   wr_rd,
+        input   [4:0]   dev_addr,
+        input   [4:0]   reg_addr,
+
+        output          op_valid,
+        output  [1:0]   op_wr_rd,
+        output  [25:0]  op_addr
+
+    );
+
+        op_frame = {dev_addr, reg_addr, 16'h0};
+
+        op_valid = valid;
+        op_wr_rd = wr_rd;
+        op_addr  = op_frame[25:0];
+
+    endtask
+
+    task op_write(
+        input int num,
+        input           valid,
+        input   [1:0]   wr_rd,
+        input   [4:0]   dev_addr,
+        input   [4:0]   reg_addr,
+        input   [15:0]  wdata,
+
+        output          op_valid,
+        output  [1:0]   op_wr_rd,
+        output  [25:0]  op_addr,
+        output  [15:0]  op_wdata
+
+    );
+
+        op_frame = {dev_addr, reg_addr, 16'h0};
+
+        op_valid = valid;
+        op_wr_rd = wr_rd;
+        op_wdata = wdata;
+        op_addr  = op_frame[25:0];
+        #500;
+    endtask
+
+    logic valid;
+
+    initial begin
+        valid = 1'b0;
+        op_valid    = 0;
+        op_wr_rd    = 0;
+        op_addr = 0;
+        #2000;
+        valid = 1'b1;
+        op_write(1, valid, 2'b01, 5'h1f, 5'hd, 16'h0, op_valid, op_wr_rd, op_addr, op_wdata);
+        #500;
+        valid = 1'b0;
+        //op_write(2, valid, 2'b01, 5'h1f, 5'he, 16'h4, op_valid, op_wr_rd, op_addr, op_wdata);
+        //op_write(3, valid, 2'b01, 5'h1f, 5'hd, 16'h4000, op_valid, op_wr_rd, op_addr, op_wdata);
+        //op_write(4, valid, 2'b01, 5'h1f, 5'he, 16'ha, op_valid, op_wr_rd, op_addr, op_wdata);
+    end
+
     ASIC
     ASIC
     (
@@ -157,10 +245,27 @@ module tb_ASIC;
     .PAD17_ADC_DATA_17      (),
     .PAD18_ADC_DATA_18      (),
     .PAD19_ADC_DATA_VALID   (),
-    .PAD20_RSTN             (RSTN),
+    .PAD20_RSTN             (RSTN                   ),
     .PAD21_CLK_RD           (),
-    .PAD22_MDC              (),
-    .PAD23_MDIO             ()
+    .PAD22_MDC              (PAD22_MDC              ),
+    .PAD23_MDIO             (PAD23_MDIO             )
+    );
+
+    mdio_driver
+    u_mdio_driver
+    (
+    .clk_i                  (clk_100m               ),
+    .rstn_i                 (RSTN                   ),
+    .clause_sel_i           (1'b0                   ),
+    .ready_o                (op_ready               ),
+    .valid_i                (op_valid               ),
+    .cmd_i                  (op_wr_rd               ),
+    .addr_i                 (op_addr                ),
+    .wdata_i                (op_wdata               ),
+    .rdata_vld_o            (rd_vld                 ),
+    .rdata_o                (rd_data                ),
+    .MDC                    (PAD22_MDC              ),
+    .MDIO                   (PAD23_MDIO             )
     );
 
 endmodule
