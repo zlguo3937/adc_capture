@@ -148,80 +148,111 @@ module tb_ASIC;
     logic           op_valid;
     logic [1:0]     op_wr_rd;
     logic [25:0]    op_addr;
+    logic [4:0]    dev_addr;
+    logic [4:0]    reg_addr;
     logic [15:0]    op_wdata;
 
+    logic [15:0]    rdata;
     logic [15:0]    rd_data;
     logic           rd_vld;
 
     wire            PAD22_MDC;
     wire            PAD23_MDIO;
 
-
-    logic [25:0]    op_frame;
-
-    logic [15:0]    read_data;
-    logic           read_vld;
-
-    task automatic op_read(
-        input           valid,
-        input   [1:0]   wr_rd,
-        input   [4:0]   dev_addr,
-        input   [4:0]   reg_addr,
-
-        output          op_valid,
-        output  [1:0]   op_wr_rd,
-        output  [25:0]  op_addr
-
-    );
-
-        op_frame = {dev_addr, reg_addr, 16'h0};
-
-        op_valid = valid;
-        op_wr_rd = wr_rd;
-        op_addr  = op_frame[25:0];
-
-    endtask
-
-    task op_write(
-        input int num,
-        input           valid,
-        input   [1:0]   wr_rd,
-        input   [4:0]   dev_addr,
-        input   [4:0]   reg_addr,
-        input   [15:0]  wdata,
-
-        output          op_valid,
-        output  [1:0]   op_wr_rd,
-        output  [25:0]  op_addr,
-        output  [15:0]  op_wdata
-
-    );
-
-        op_frame = {dev_addr, reg_addr, 16'h0};
-
-        op_valid = valid;
-        op_wr_rd = wr_rd;
-        op_wdata = wdata;
-        op_addr  = op_frame[25:0];
-        #500;
-    endtask
-
-    logic valid;
+    assign op_addr  = {dev_addr,reg_addr,16'h0};
 
     initial begin
-        valid = 1'b0;
-        op_valid    = 0;
-        op_wr_rd    = 0;
-        op_addr = 0;
-        #2000;
-        valid = 1'b1;
-        op_write(1, valid, 2'b01, 5'h1f, 5'hd, 16'h0, op_valid, op_wr_rd, op_addr, op_wdata);
-        #500;
-        valid = 1'b0;
-        //op_write(2, valid, 2'b01, 5'h1f, 5'he, 16'h4, op_valid, op_wr_rd, op_addr, op_wdata);
-        //op_write(3, valid, 2'b01, 5'h1f, 5'hd, 16'h4000, op_valid, op_wr_rd, op_addr, op_wdata);
-        //op_write(4, valid, 2'b01, 5'h1f, 5'he, 16'ha, op_valid, op_wr_rd, op_addr, op_wdata);
+        op_valid = 1'b0;
+        op_wr_rd = 2'b00;
+        dev_addr = 5'h0;
+        reg_addr = 5'h0;
+        op_wdata = 16'h0;
+
+        mdio_write(5'h4, 16'h5a5a);
+        mdio_read(5'h4);
     end
+
+
+   task automatic mdio_write(input [15:0] addr,input [15:0] wdata);
+        begin
+            #2000;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b01;
+            dev_addr = 5'h1f;
+            reg_addr = 5'hd;
+            op_wdata = 16'h0;
+            #20;
+            op_valid = 1'b0;
+
+            #34415;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b01;
+            reg_addr = 5'he;
+            op_wdata = addr;
+            #20;
+            op_valid = 1'b0;
+            op_wdata = 16'h0;
+
+            #34415;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b01;
+            reg_addr = 5'hd;
+            op_wdata = 16'h4000;
+            #20;
+            op_valid = 1'b0;
+            op_wdata = 16'h0;
+
+            #34415;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b01;
+            reg_addr = 5'he;
+            op_wdata = wdata;
+            #20;
+            op_valid = 1'b0;
+            op_wdata = 16'h0;
+            #34415;
+        end
+    endtask
+
+    task automatic mdio_read(input [15:0] addr, output [15:0] rdata);
+        begin
+            #2000;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b01;
+            dev_addr = 5'h1f;
+            reg_addr = 5'hd;
+            op_wdata = 16'h0;
+            #20;
+            op_valid = 1'b0;
+
+            #34415;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b01;
+            reg_addr = 5'he;
+            op_wdata = addr;
+            #20;
+            op_valid = 1'b0;
+            op_wdata = 16'h0;
+
+            #34415;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b01;
+            reg_addr = 5'hd;
+            op_wdata = 16'hc000;
+            #20;
+            op_valid = 1'b0;
+
+            #34415;
+            op_valid = 1'b1;
+            op_wr_rd = 2'b11;
+            reg_addr = 5'he;
+            #20;
+            op_valid = 1'b0;
+            @(posedge clk_100m);
+            if (rd_vld)
+                rdata = rd_data;
+        end
+    endtask
 
     ASIC
     ASIC
